@@ -7,9 +7,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Medical_Examiner_API;
-using Medical_Examiner_API_Tests.Persistence;
 using Medical_Examiner_API.Controllers;
 using Medical_Examiner_API.Loggers;
+using Medical_Examiner_API_Tests.Persistence;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
@@ -86,6 +86,7 @@ namespace Medical_Examiner_API_Tests.ControllerTests
         public override ConnectionInfo Connection { get; }
 
         public override WebSocketManager WebSockets => throw new NotImplementedException();
+
         public override AuthenticationManager Authentication { get; }
 
         public override ClaimsPrincipal User
@@ -144,12 +145,11 @@ namespace Medical_Examiner_API_Tests.ControllerTests
             _controller = new UsersController(userPersistence, _mockLogger, _mapper.Object);
         }
 
-
         [Fact]
         public void CheckCallToLogger()
         {
             var controllerActionFilter = new ControllerActionFilter();
-            var actionContext = new ActionContext {HttpContext = new MockHttpContext()};
+            var actionContext = new ActionContext { HttpContext = new MockHttpContext() };
             var identity = new ClaimsIdentity();
             actionContext.HttpContext.User.AddIdentity(identity);
             actionContext.RouteData = new RouteData();

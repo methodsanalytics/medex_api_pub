@@ -26,7 +26,6 @@ namespace Medical_Examiner_API_Tests.ControllerTests
             Controller = new ExaminationsController(examinationPersistence, mockLogger, Mapper);
         }
 
-
         [Fact]
         public void GetExamination_When_Called_With_Invalid_Id_Returns_Expected_Type()
         {

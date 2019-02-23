@@ -7,7 +7,6 @@ using Microsoft.Azure.Documents.Linq;
 
 namespace Medical_Examiner_API.Persistence
 {
-
  /// <summary>
     /// Class responsible for logging actions to database
     /// </summary>

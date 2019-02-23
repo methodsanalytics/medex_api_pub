@@ -57,7 +57,7 @@ namespace Medical_Examiner_API_Tests.Controllers
 
             // Assert
             response.Result.Should().BeAssignableTo<OkObjectResult>();
-            var result = (OkObjectResult) response.Result;
+            var result = (OkObjectResult)response.Result;
             result.Value.Should().BeAssignableTo<GetPermissionsResponse>();
             var model = (GetPermissionsResponse) result.Value;
             model.Errors.Count.Should().Be(0);

@@ -5,6 +5,7 @@ using AutoMapper;
 using Medical_Examiner_API.Extensions.Data;
 using Medical_Examiner_API.Loggers;
 using Medical_Examiner_API.Persistence;
+using Medical_Examiner_API.Seeders;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -12,7 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Medical_Examiner_API.Seeders;
+
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace Medical_Examiner_API
@@ -85,7 +86,7 @@ namespace Medical_Examiner_API
                 new Uri(Configuration["CosmosDB:URL"]),
                 Configuration["CosmosDB:PrimaryKey"],
                 Configuration["CosmosDB:DatabaseId"]));
-            
+
             services.AddScoped<IPermissionPersistence>(s => new PermissionPersistence(
                 new Uri(Configuration["CosmosDB:URL"]),
                 Configuration["CosmosDB:PrimaryKey"],
@@ -131,15 +132,28 @@ namespace Medical_Examiner_API
             }
 
             app.UseMvc();
+            SetUpSeeders();
+        }
 
+        /// <summary>
+        /// Set up and run seeding objects that will import and set up reference data
+        /// </summary>
+        private void SetUpSeeders()
+        {
+            SetUpLocationsSeeder();
+        }
+
+        /// <summary>
+        /// Set up and run LocationsSeeder to import locations reference data
+        /// </summary>
+        private void SetUpLocationsSeeder()
+        {
             var locationSeedersPersistence = new LocationsSeederPersistence(new Uri(Configuration["CosmosDB:URL"]),
-                    Configuration["CosmosDB:PrimaryKey"]);
+                Configuration["CosmosDB:PrimaryKey"]);
             var locationSeeder = new LocationsSeeder(locationSeedersPersistence);
             var jsonFileName = Configuration["SourceData:Locations"];
             locationSeeder.LoadFromFile(jsonFileName);
             locationSeeder.SubmitToDataLayer();
-
-            //var djp = 10;
         }
     }
 }
