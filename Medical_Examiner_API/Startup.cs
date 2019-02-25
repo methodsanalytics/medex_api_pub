@@ -152,7 +152,8 @@ namespace Medical_Examiner_API
                 Configuration["CosmosDB:PrimaryKey"]);
             var locationSeeder = new LocationsSeeder(locationSeedersPersistence);
             var jsonFileName = Configuration["SourceData:Locations"];
-            locationSeeder.LoadFromFile(jsonFileName);
+            var projectDirectory = Directory.GetParent(Directory.GetCurrentDirectory());
+            locationSeeder.LoadFromFile(projectDirectory + jsonFileName);
             locationSeeder.SubmitToDataLayer();
         }
     }
