@@ -5,9 +5,12 @@ namespace Medical_Examiner_API.Models
 {
     public class Location
     {
-        [Required]
-        [JsonProperty(PropertyName = "location_id")]
-        public string LocationId { get; set; }
+        //[Required]
+        //[JsonProperty(PropertyName = "location_id")]
+        //public string LocationId { get; set; }
+
+        [JsonProperty(PropertyName = "id")]
+        public string Id { get; set; }
 
         [Required]
         [JsonProperty(PropertyName = "name")]
