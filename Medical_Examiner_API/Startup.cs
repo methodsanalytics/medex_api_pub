@@ -137,10 +137,18 @@ namespace Medical_Examiner_API
 
         /// <summary>
         /// Set up and run seeding objects that will import and set up reference data
+        /// <remarks>Added try catch to swallow errors whilst this functionality is being developed</remarks>
         /// </summary>
         private void SetUpSeeders()
         {
-            SetUpLocationsSeeder();
+            try
+            {
+                SetUpLocationsSeeder();
+            }
+            catch (Exception ex)
+            {
+                //swallow exception
+            }   
         }
 
         /// <summary>
@@ -153,7 +161,7 @@ namespace Medical_Examiner_API
             var locationSeeder = new LocationsSeeder(locationSeedersPersistence);
             var jsonFileName = Configuration["SourceData:Locations"];
             var projectDirectory = Directory.GetParent(Directory.GetCurrentDirectory());
-            locationSeeder.LoadFromFile(projectDirectory + jsonFileName);
+            locationSeeder.LoadFromFile(projectDirectory + "\\Source_Data\\locations.json");
             locationSeeder.SubmitToDataLayer();
         }
     }
