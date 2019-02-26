@@ -147,6 +147,7 @@ namespace Medical_Examiner_API
             }
             catch (Exception ex)
             {
+                var djp = ex.Message;
                 //swallow exception
             }   
         }
@@ -161,7 +162,7 @@ namespace Medical_Examiner_API
             var locationSeeder = new LocationsSeeder(locationSeedersPersistence);
             var jsonFileName = Configuration["SourceData:Locations"];
             var projectDirectory = Directory.GetParent(Directory.GetCurrentDirectory());
-            locationSeeder.LoadFromFile(projectDirectory + "\\Source_Data\\locations.json");
+            locationSeeder.LoadFromFile(jsonFileName);
             locationSeeder.SubmitToDataLayer();
         }
     }

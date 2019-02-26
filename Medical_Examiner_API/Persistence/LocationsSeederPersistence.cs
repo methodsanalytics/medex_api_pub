@@ -33,6 +33,24 @@ namespace Medical_Examiner_API.Persistence
         }
 
         /// <summary>
+        /// Write list of location objects to database
+        /// </summary>
+        /// <param name="locations">list of location objects</param>
+        /// <returns>bool</returns>
+        public async Task<bool> SaveAllLocationsAsync(IList<Location> locations)
+        {
+            await EnsureSetupAsync();
+            var documentCollectionUri = UriFactory.CreateDocumentCollectionUri(_databaseId, _id);
+
+            foreach (var location in locations)
+            {
+                await _client.UpsertDocumentAsync(documentCollectionUri, location);
+            }
+
+            return true;
+        }
+
+        /// <summary>
         /// Sets up to Cosmsos DB
         /// </summary>
         /// <returns>bool</returns>
@@ -51,8 +69,21 @@ namespace Medical_Examiner_API.Persistence
             await _client.CreateDatabaseIfNotExistsAsync(new Database { Id = _databaseId });
             var databaseUri = UriFactory.CreateDatabaseUri(_databaseId);
 
-            await _client.CreateDocumentCollectionIfNotExistsAsync(databaseUri, _documentCollection);
-            await DeleteExistingRecords();
+            try
+            {
+                var documentCollectionUri = UriFactory.CreateDocumentCollectionUri(_databaseId, _id);
+                //await _client.DeleteDocumentCollectionAsync(documentCollectionUri);
+               // DeleteExistingRecords();
+
+                //if (_documentCollection.SelfLink != null)
+                //await _client.DeleteDocumentCollectionAsync(_documentCollection.SelfLink);
+
+                await _client.CreateDocumentCollectionIfNotExistsAsync(databaseUri, _documentCollection);
+            }
+            catch (Exception ex)
+            {
+                var djp = ex.Message;
+            }
         }
 
         /// <summary>
@@ -68,22 +99,5 @@ namespace Medical_Examiner_API.Persistence
             }
         }
 
-        /// <summary>
-        /// Write list of location objects to database
-        /// </summary>
-        /// <param name="locations">list of location objects</param>
-        /// <returns>bool</returns>
-        public async Task<bool> SaveAllLocationsAsync(IList<Location> locations)
-        {
-            await EnsureSetupAsync();
-            var documentCollectionUri = UriFactory.CreateDocumentCollectionUri(_databaseId, _id);
-
-            foreach (var l in locations)
-            {
-                await _client.UpsertDocumentAsync(documentCollectionUri, l);
-            }
-
-            return true;
-        }
     }
 }

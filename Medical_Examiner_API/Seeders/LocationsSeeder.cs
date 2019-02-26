@@ -38,6 +38,7 @@ namespace Medical_Examiner_API.Seeders
         {
             var json = File.ReadAllText(jsonFileName);
             Locations = JsonConvert.DeserializeObject<List<Location>>(json);
+            InferParent();
         }
 
         /// <summary>
@@ -46,6 +47,23 @@ namespace Medical_Examiner_API.Seeders
         public void SubmitToDataLayer()
         {
             _locationSeederPersistence.SaveAllLocationsAsync(Locations);
+        }
+
+        /// <summary>
+        /// Determine parent org of each location based on format of code
+        /// </summary>
+        private void InferParent()
+        {
+            foreach (var location in Locations)
+            {
+                var code = location.Code;
+
+                //code length of 5 indicates site. Parent will be trust, as determined by first 3 characters of code
+                if (code.Length == 5)
+                {
+                    location.Parent = code.Substring(0, 3);
+                }
+            }
         }
     }
 }
