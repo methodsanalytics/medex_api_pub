@@ -122,7 +122,7 @@ namespace MedicalExaminer.Models
         public string Postcode { get; set; }
 
         /// <summary>
-        /// ID of MEO user who will be working on the scrutiny
+        /// patients gender
         /// </summary>
         [JsonProperty(PropertyName = "gender_details")]
         [DataType(DataType.Text)]
@@ -304,7 +304,7 @@ namespace MedicalExaminer.Models
         public string ImplantDetails { get; set; }
 
         /// <summary>
-        /// ID of MEO user who will be working on the scrutiny
+        /// ID of MEO location
         /// </summary>
         [Required]
         [JsonProperty(PropertyName = "medical_examiner_office_responsible")]
@@ -343,10 +343,7 @@ namespace MedicalExaminer.Models
 
         [JsonProperty(PropertyName = "have_final_case_outstanding_outcomes")]
         public bool HaveFinalCaseOutstandingOutcomes { get; set; }
-
-        [JsonProperty(PropertyName = "case_officer")]
-        public string CaseOfficer { get; set; }
-
+        
         [JsonProperty(PropertyName = "id")]
         public string ExaminationId { get; set; }
 

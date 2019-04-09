@@ -7,6 +7,7 @@ using MedicalExaminer.API.Filters;
 using MedicalExaminer.API.Models.v1.Examinations;
 using MedicalExaminer.Common.Loggers;
 using MedicalExaminer.Common.Queries.Examination;
+using MedicalExaminer.Common.Queries.Location;
 using MedicalExaminer.Common.Services;
 using MedicalExaminer.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -28,7 +29,7 @@ namespace MedicalExaminer.API.Controllers
         private readonly IAsyncQueryHandler<ExaminationsRetrievalQuery, ExaminationsOverview> _examinationsDashboardService;
         private readonly IAsyncQueryHandler<CreateExaminationQuery, Examination> _examinationCreationService;
         private readonly IAsyncQueryHandler<ExaminationsRetrievalQuery, IEnumerable<Examination>> _examinationsRetrievalService;
-
+        private readonly QueryHandler<LocationRetrievalByIdQuery, Location> _locationQueryService;
         /// <summary>
         /// Initializes a new instance of the <see cref="ExaminationsController"/> class.
         /// </summary>
@@ -42,12 +43,14 @@ namespace MedicalExaminer.API.Controllers
             IMapper mapper,
             IAsyncQueryHandler<CreateExaminationQuery, Examination> examinationCreationService,
             IAsyncQueryHandler<ExaminationsRetrievalQuery, IEnumerable<Examination>> examinationsRetrievalService,
-            IAsyncQueryHandler<ExaminationsRetrievalQuery, ExaminationsOverview> examinationsDashboardService)
+            IAsyncQueryHandler<ExaminationsRetrievalQuery, ExaminationsOverview> examinationsDashboardService,
+            QueryHandler<LocationRetrievalByIdQuery, Location> locationQueryService)
             : base(logger, mapper)
         {
             _examinationCreationService = examinationCreationService;
             _examinationsRetrievalService = examinationsRetrievalService;
             _examinationsDashboardService = examinationsDashboardService;
+            _locationQueryService = locationQueryService;
         }
 
         /// <summary>
@@ -110,6 +113,10 @@ namespace MedicalExaminer.API.Controllers
             try
             {
                 var examination = Mapper.Map<Examination>(postExaminationRequest);
+                var location = await _locationQueryService.Handle(new LocationRetrievalByIdQuery(postExaminationRequest.MedicalExaminerOfficeResponsible));
+
+                location.
+
                 var result = await _examinationCreationService.Handle(new CreateExaminationQuery(examination));
                 var res = new PutExaminationResponse
                 {
