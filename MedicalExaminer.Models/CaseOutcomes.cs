@@ -7,15 +7,18 @@ namespace MedicalExaminer.Models
     public class CaseOutcomes
     {
         /// <summary>
-        /// Determine whether MCCD is Issued (Check box)
+        /// Whether MCCD is Issued (Check box)
         /// </summary>
         public bool MccdIssued { get; set; }
 
         /// <summary>
-        /// Determine whether the Cremation Form is Completed (Yes/No Radio Button Set)
+        /// Whether the Cremation Form is Completed (Yes/No Radio Button Set)
         /// </summary>
         public bool CremationFormCompleted { get; set; }
 
-
+        /// <summary>
+        /// Whether the GP Notified or not.(Radio Button Set)
+        /// </summary>
+        public bool GpNotified { get; set; }
     }
 }
