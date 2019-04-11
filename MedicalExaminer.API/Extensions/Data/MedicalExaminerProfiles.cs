@@ -28,6 +28,7 @@ namespace MedicalExaminer.API.Extensions.Data
             config.AddProfile<OtherEventProfile>();
             config.AddProfile<PreScrutinyEventProfile>();
             config.AddProfile<QapDiscussionEventProfile>();
+            config.AddProfile<CaseOutcomesProfile>();
         }
     }
 }
