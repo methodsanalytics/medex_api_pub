@@ -59,13 +59,19 @@ namespace MedicalExaminer.API.Extensions.Data
                 .ForMember(examination => examination.DeletedAt, opt => opt.Ignore())
                 .ForMember(examination => examination.CaseBreakdown, opt => opt.Ignore())
                 .ForMember(examination => examination.MedicalTeam, opt => opt.Ignore())
-                .ForMember(examination => examination.UrgencyScore, opt => opt.Ignore());
+                .ForMember(examination => examination.UrgencyScore, opt => opt.Ignore())
+                .ForMember(examination => examination.CreatedBy, opt => opt.Ignore());
+
+
+
 
             CreateMap<Examination, PatientCardItem>()
                 .ForMember(patientCard => patientCard.AppointmentDate,
                     examination => examination.MapFrom(new AppointmentDateResolver(new AppointmentFinder())))
                 .ForMember(patientCard => patientCard.AppointmentTime,
-                    examination => examination.MapFrom(new AppointmentTimeResolver(new AppointmentFinder())));
+                    examination => examination.MapFrom(new AppointmentTimeResolver(new AppointmentFinder())))
+                .ForMember(patientCard => patientCard.CaseCreatedDate, 
+                    examination => examination.MapFrom(exam => exam.CreatedAt.Date));
 
             CreateMap<Representative, RepresentativeItem>();
         }

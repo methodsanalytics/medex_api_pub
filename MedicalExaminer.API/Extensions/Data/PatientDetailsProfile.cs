@@ -34,7 +34,8 @@ namespace MedicalExaminer.API.Extensions.Data
                 .ForMember(x => x.LastModifiedBy, opt => opt.Ignore())
                 .ForMember(x => x.ModifiedAt, opt => opt.Ignore())
                 .ForMember(x => x.CreatedAt, opt => opt.Ignore())
-                .ForMember(x => x.DeletedAt, opt => opt.Ignore());
+                .ForMember(x => x.DeletedAt, opt => opt.Ignore())
+                .ForMember(x => x.CreatedBy, opt => opt.Ignore());
         }
     }
 }
