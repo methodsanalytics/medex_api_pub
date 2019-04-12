@@ -7,8 +7,18 @@ using System.Threading.Tasks;
 
 namespace MedicalExaminer.API.Models.v1.CaseBreakdown
 {
-    public class PatientDeathEventItem : IEvent
+    public class PatientDeathEventItem : IEventItem
     {
+        /// <summary>
+        /// the users name that created the event
+        /// </summary>
+        public string UsersFullName { get; set; }
+
+        /// <summary>
+        /// the users role that created the event
+        /// </summary>
+        public string UsersRole { get; set; }
+
         /// <summary>
         /// Event Identification.
         /// </summary>

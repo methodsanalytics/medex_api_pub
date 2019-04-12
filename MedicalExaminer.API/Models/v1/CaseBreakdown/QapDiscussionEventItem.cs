@@ -4,8 +4,18 @@ using MedicalExaminer.Models.Enums;
 
 namespace MedicalExaminer.API.Models.v1.CaseBreakdown
 {
-    public class QapDiscussionEventItem : IEvent
+    public class QapDiscussionEventItem : IEventItem
     {
+        /// <summary>
+        /// the users name that created the event
+        /// </summary>
+        public string UsersFullName { get; set; }
+
+        /// <summary>
+        /// the users role that created the event
+        /// </summary>
+        public string UsersRole { get; set; }
+
         /// <summary>
         /// Date event was created
         /// </summary>

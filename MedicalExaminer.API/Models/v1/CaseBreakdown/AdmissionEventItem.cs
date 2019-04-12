@@ -4,7 +4,7 @@ using MedicalExaminer.Models.Enums;
 
 namespace MedicalExaminer.API.Models.v1.CaseBreakdown
 {
-    public class AdmissionEventItem : IEvent
+    public class AdmissionEventItem : IEventItem
     {
         
             /// <summary>
@@ -52,5 +52,14 @@ namespace MedicalExaminer.API.Models.v1.CaseBreakdown
         /// </summary>
         public DateTime? Created { get; set; }
 
+        /// <summary>
+        /// the users name that created the event
+        /// </summary>
+        public string UsersFullName { get; set; }
+
+        /// <summary>
+        /// the users role that created the event
+        /// </summary>
+        public string UsersRole { get; set; }
     }
 }
