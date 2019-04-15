@@ -7,13 +7,14 @@ using MedicalExaminer.Common.Queries;
 using MedicalExaminer.Common.Queries.Examination;
 using MedicalExaminer.Models;
 using MedicalExaminer.Models.Enums;
+using Microsoft.Extensions.Logging;
 
 namespace MedicalExaminer.Common.Services.Examination
 {
     public class ExaminationsDashboardService : QueryHandler<ExaminationsRetrievalQuery, ExaminationsOverview>
     {
-        public ExaminationsDashboardService(IDatabaseAccess databaseAccess, IExaminationConnectionSettings connectionSettings)
-            :base(databaseAccess, connectionSettings)
+        public ExaminationsDashboardService(ILogger<ExaminationsDashboardService> logger, IDatabaseAccess databaseAccess, IExaminationConnectionSettings connectionSettings)
+            : base(logger, databaseAccess, connectionSettings)
         {
         }
 

@@ -6,6 +6,7 @@ using MedicalExaminer.Common.ConnectionSettings;
 using MedicalExaminer.Common.Database;
 using MedicalExaminer.Common.Queries.Location;
 using MedicalExaminer.Common.Services.Location;
+using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
 
@@ -13,6 +14,13 @@ namespace MedicalExaminer.API.Tests.Services.Location
 {
     public class LocationIdServiceTests
     {
+        private Mock<ILogger<LocationIdService>> loggerMock;
+
+        public LocationIdServiceTests()
+        {
+            loggerMock = new Mock<ILogger<LocationIdService>>();
+        }
+
         [Fact]
         public void LocationIdFoundReturnsResult()
         {
@@ -25,7 +33,7 @@ namespace MedicalExaminer.API.Tests.Services.Location
             dbAccess.Setup(db => db.GetItemAsync(connectionSettings.Object,
                     It.IsAny<Expression<Func<MedicalExaminer.Models.Location, bool>>>()))
                 .Returns(Task.FromResult(location.Object)).Verifiable();
-            var sut = new LocationIdService(dbAccess.Object, connectionSettings.Object);
+            var sut = new LocationIdService(loggerMock.Object, dbAccess.Object, connectionSettings.Object);
             var expected = location;
 
             // Act
@@ -44,7 +52,7 @@ namespace MedicalExaminer.API.Tests.Services.Location
             var connectionSettings = new Mock<ILocationConnectionSettings>();
             LocationRetrievalByIdQuery query = null;
             var dbAccess = new Mock<IDatabaseAccess>();
-            var sut = new LocationIdService(dbAccess.Object, connectionSettings.Object);
+            var sut = new LocationIdService(loggerMock.Object, dbAccess.Object, connectionSettings.Object);
 
             // Act
             Action act = () => sut.Handle(query).GetAwaiter().GetResult();
@@ -59,18 +67,23 @@ namespace MedicalExaminer.API.Tests.Services.Location
             var connectionSettings = new Mock<ILocationConnectionSettings>();
             var query = new Mock<LocationRetrievalByIdQuery>(locationId);
             var dbAccess = new Mock<IDatabaseAccess>();
-            dbAccess.Setup(db => db.GetItemAsync(connectionSettings.Object,
+            dbAccess
+                .Setup(db => db.GetItemAsync(
+                    connectionSettings.Object,
                     It.IsAny<Expression<Func<MedicalExaminer.Models.Location, bool>>>()))
                 .Returns(Task.FromResult<MedicalExaminer.Models.Location>(null)).Verifiable();
-            var sut = new LocationIdService(dbAccess.Object, connectionSettings.Object);
+            var sut = new LocationIdService(loggerMock.Object, dbAccess.Object, connectionSettings.Object);
             var expected = default(MedicalExaminer.Models.Location);
 
             // Act
             var result = sut.Handle(query.Object);
 
             // Assert
-            dbAccess.Verify(db => db.GetItemAsync(connectionSettings.Object,
-                It.IsAny<Expression<Func<MedicalExaminer.Models.Location, bool>>>()), Times.Once);
+            dbAccess.Verify(
+                db => db.GetItemAsync(
+                    connectionSettings.Object,
+                    It.IsAny<Expression<Func<MedicalExaminer.Models.Location, bool>>>()),
+                Times.Once);
 
             Assert.Equal(expected, result.Result);
         }

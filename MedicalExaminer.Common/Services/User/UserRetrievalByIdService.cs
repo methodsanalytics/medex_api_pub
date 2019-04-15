@@ -3,21 +3,31 @@ using System.Threading.Tasks;
 using MedicalExaminer.Common.ConnectionSettings;
 using MedicalExaminer.Common.Database;
 using MedicalExaminer.Common.Queries.User;
+using Microsoft.Extensions.Logging;
 
 namespace MedicalExaminer.Common.Services.User
 {
-    public class UserRetrievalByIdService : IAsyncQueryHandler<UserRetrievalByIdQuery, Models.MeUser>
+    /// <summary>
+    /// User Retrieval by Id Service.
+    /// </summary>
+    public class UserRetrievalByIdService : QueryHandler<UserRetrievalByIdQuery, Models.MeUser>
     {
-        private readonly IDatabaseAccess _databaseAccess;
-        private readonly IUserConnectionSettings _connectionSettings;
-
-        public UserRetrievalByIdService(IDatabaseAccess databaseAccess, IUserConnectionSettings connectionSettings)
+        /// <summary>
+        /// Initialise a new instance of <see cref="UserRetrievalByIdService"/>.
+        /// </summary>
+        /// <param name="logger">Logger.</param>
+        /// <param name="databaseAccess">Database Access.</param>
+        /// <param name="connectionSettings">Connection Settings.</param>
+        public UserRetrievalByIdService(
+            ILogger<UserRetrievalByIdService> logger,
+            IDatabaseAccess databaseAccess,
+            IUserConnectionSettings connectionSettings)
+            : base(logger, databaseAccess, connectionSettings)
         {
-            _databaseAccess = databaseAccess;
-            _connectionSettings = connectionSettings;
         }
 
-        public Task<Models.MeUser> Handle(UserRetrievalByIdQuery param)
+        /// <inheritdoc/>
+        public override Task<Models.MeUser> Handle(UserRetrievalByIdQuery param)
         {
             if (param == null)
             {
@@ -26,13 +36,12 @@ namespace MedicalExaminer.Common.Services.User
 
             try
             {
-                var result = _databaseAccess.GetItemAsync<Models.MeUser>(_connectionSettings,
-                    x => x.UserId == param.UserId);
+                var result = GetItemAsync(x => x.UserId == param.UserId);
                 return result;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                //_logger.Log("Failed to retrieve examination data", e);
+                Logger.LogCritical("Failed to retrieve examination data", e);
                 throw;
             }
         }

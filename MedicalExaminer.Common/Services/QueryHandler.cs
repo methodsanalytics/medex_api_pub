@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using MedicalExaminer.Common.ConnectionSettings;
 using MedicalExaminer.Common.Database;
 using MedicalExaminer.Common.Queries;
+using Microsoft.Extensions.Logging;
 
 namespace MedicalExaminer.Common.Services
 {
@@ -20,10 +21,15 @@ namespace MedicalExaminer.Common.Services
         /// <summary>
         /// Initialise a new instance of the Query Handler.
         /// </summary>
+        /// <param name="logger">Logger.</param>
         /// <param name="databaseAccess">Database Access.</param>
         /// <param name="connectionSettings">Connection Settings.</param>
-        protected QueryHandler(IDatabaseAccess databaseAccess, IConnectionSettings connectionSettings)
+        protected QueryHandler(
+            ILogger<QueryHandler<TQuery, TResult>> logger,
+            IDatabaseAccess databaseAccess, 
+            IConnectionSettings connectionSettings)
         {
+            Logger = logger;
             DatabaseAccess = databaseAccess;
             ConnectionSettings = connectionSettings;
         }
@@ -39,10 +45,15 @@ namespace MedicalExaminer.Common.Services
         protected IDatabaseAccess DatabaseAccess { get; }
 
         /// <summary>
+        /// Logger.
+        /// </summary>
+        protected ILogger<QueryHandler<TQuery, TResult>> Logger { get; }
+
+        /// <summary>
         /// Handle the Query.
         /// </summary>
         /// <param name="param">Query Request</param>
-        /// <returns>Task of <see cref="TResult"/>.</returns>
+        /// <returns>Task of <see cref="Task{TResult}"/>.</returns>
         public abstract Task<TResult> Handle(TQuery param);
 
         /// <summary>

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using MedicalExaminer.Common.ConnectionSettings;
 using MedicalExaminer.Common.Database;
 using MedicalExaminer.Common.Queries.Location;
+using Microsoft.Extensions.Logging;
 
 namespace MedicalExaminer.Common.Services.Location
 {
@@ -17,10 +18,14 @@ namespace MedicalExaminer.Common.Services.Location
         /// <summary>
         /// Initialise a new instance of the Location Id Service.
         /// </summary>
+        /// <param name="logger">Logger.</param>
         /// <param name="databaseAccess">Database Access.</param>
         /// <param name="connectionSettings">Connection Settings.</param>
-        public LocationsQueryService(IDatabaseAccess databaseAccess, ILocationConnectionSettings connectionSettings)
-            : base(databaseAccess, connectionSettings)
+        public LocationsQueryService(
+            ILogger<LocationsQueryService> logger,
+            IDatabaseAccess databaseAccess,
+            ILocationConnectionSettings connectionSettings)
+            : base(logger, databaseAccess, connectionSettings)
         {
         }
 

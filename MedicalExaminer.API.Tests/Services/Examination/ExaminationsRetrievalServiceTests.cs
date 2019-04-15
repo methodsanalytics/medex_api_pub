@@ -8,6 +8,7 @@ using MedicalExaminer.Common.Database;
 using MedicalExaminer.Common.Queries.Examination;
 using MedicalExaminer.Common.Services.Examination;
 using MedicalExaminer.Models.Enums;
+using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
 
@@ -23,12 +24,14 @@ namespace MedicalExaminer.API.Tests.Services.Examination
         /// <inheritdoc/>
         /// <remarks>Overrides to pass extra constructor parameter.</remarks>
         protected override ExaminationsRetrievalService GetService(
+            ILogger<ExaminationsRetrievalService> logger,
             IDatabaseAccess databaseAccess,
             ExaminationConnectionSettings connectionSettings)
         {
             var examinationQueryBuilder = new ExaminationsQueryExpressionBuilder();
 
             return new ExaminationsRetrievalService(
+                logger,
                 databaseAccess, 
                 connectionSettings, 
                 examinationQueryBuilder);

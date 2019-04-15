@@ -5,6 +5,7 @@ using MedicalExaminer.Common.ConnectionSettings;
 using MedicalExaminer.Common.Database;
 using MedicalExaminer.Common.Queries.Examination;
 using MedicalExaminer.Models.Enums;
+using Microsoft.Extensions.Logging;
 
 namespace MedicalExaminer.Common.Services.Examination
 {
@@ -18,11 +19,16 @@ namespace MedicalExaminer.Common.Services.Examination
         /// <summary>
         /// Initialise a new instance of <see cref="ExaminationsRetrievalService"/>.
         /// </summary>
+        /// <param name="logger">Logger.</param>
         /// <param name="databaseAccess">Database Access.</param>
         /// <param name="connectionSettings">Connection Settings.</param>
         /// <param name="examinationQueryBuilder">Examination Query Builder.</param>
-        public ExaminationsRetrievalService(IDatabaseAccess databaseAccess, IExaminationConnectionSettings connectionSettings, ExaminationsQueryExpressionBuilder examinationQueryBuilder)
-            : base(databaseAccess, connectionSettings)
+        public ExaminationsRetrievalService(
+            ILogger<ExaminationsRetrievalService> logger,
+            IDatabaseAccess databaseAccess,
+            IExaminationConnectionSettings connectionSettings, 
+            ExaminationsQueryExpressionBuilder examinationQueryBuilder)
+            : base(logger, databaseAccess, connectionSettings)
         {
             _examinationQueryBuilder = examinationQueryBuilder;
         }
@@ -36,7 +42,7 @@ namespace MedicalExaminer.Common.Services.Examination
             }
 
             var predicate = _examinationQueryBuilder.GetPredicate(param);
-            
+
             switch (param.FilterOrderBy)
             {
                 case ExaminationsOrderBy.Urgency:
