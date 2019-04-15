@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
 using MedicalExaminer.Models;
@@ -424,5 +425,163 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
             // Assert
             Assert.Equal(1500, result.UrgencyScore);
         }
+
+        [Fact]
+        public void PendingRepDiscus_MeScrutinyTrue_Returns_False()
+        {
+            var examination = new Examination();
+            examination.ReadyForMEScrutiny = true;
+
+            var result = examination.UpdateCaseStatus();
+
+            Assert.Equal(false, examination.PendingDiscussionWithRepresentative);
+        }
+
+
+        [Fact]
+        public void PendingRepDiscus_MeScrutinyFalse_Returns_False()
+        {
+            var examination = new Examination();
+            examination.ReadyForMEScrutiny = false;
+
+            var result = examination.UpdateCaseStatus();
+
+            Assert.Equal(false, examination.PendingDiscussionWithRepresentative);
+        }
+
+        [Fact]
+        public void PendingRepDiscus_MeScrutinyFalse_AdmissionNotesAdded_ImmediateReferralFalse_Returns_False()
+        {
+            var examination = new Examination();
+            examination.ReadyForMEScrutiny = false;
+            examination.CaseBreakdown.AdmissionNotes = new AdmissionNotesEventContainer()
+            {
+                Latest = new AdmissionEvent()
+                {
+                    ImmediateCoronerReferral = false
+                }
+            };
+
+            var result = examination.UpdateCaseStatus();
+
+            Assert.Equal(false, examination.PendingDiscussionWithRepresentative);
+        }
+
+        [Fact]
+        public void PendingRepDiscus_MeScrutinyFalse_AdmissionNotesAdded_ImmediateReferralTrue_Returns_False()
+        {
+            var examination = new Examination();
+            examination.ReadyForMEScrutiny = false;
+            examination.CaseBreakdown.AdmissionNotes = new AdmissionNotesEventContainer()
+            {
+                Latest = new AdmissionEvent()
+                {
+                    ImmediateCoronerReferral = true
+                }
+            };
+
+            var result = examination.UpdateCaseStatus();
+
+            Assert.Equal(false, examination.PendingDiscussionWithRepresentative);
+        }
+
+        [Fact]
+        public void PendingRepDiscus_MeScrutinyFalse_AdmissionNotesAdded_ImmediateReferralTrue_RepresentativeDraft_Returns_False()
+        {
+            var examination = new Examination();
+            examination.ReadyForMEScrutiny = false;
+            var caseBreakdown = new CaseBreakDown()
+            {
+                AdmissionNotes = new AdmissionNotesEventContainer()
+                {
+                    Latest = new AdmissionEvent()
+                    {
+                        ImmediateCoronerReferral = true
+                    }
+                },
+                BereavedDiscussion = new BereavedDiscussionEventContainer()
+                {
+                    Drafts = new List<BereavedDiscussionEvent>()
+                    {
+                        new BereavedDiscussionEvent()
+                        {
+                            
+                        }
+                    }
+                }
+
+            };
+
+            examination.CaseBreakdown = caseBreakdown;
+
+            var result = examination.UpdateCaseStatus();
+
+            Assert.Equal(false, examination.PendingDiscussionWithRepresentative);
+        }
+
+        [Fact]
+        public void PendingRepDiscus_MeScrutinyFalse_AdmissionNotesAdded_ImmediateReferralTrue_RepresentativeFinal_DiscussionUnableHappen_Returns_False()
+        {
+            var examination = new Examination();
+            examination.ReadyForMEScrutiny = false;
+            var caseBreakdown = new CaseBreakDown()
+            {
+                AdmissionNotes = new AdmissionNotesEventContainer()
+                {
+                    Latest = new AdmissionEvent()
+                    {
+                        ImmediateCoronerReferral = true
+                    }
+                },
+                BereavedDiscussion = new BereavedDiscussionEventContainer()
+                {
+                    Latest = new BereavedDiscussionEvent()
+                    {
+                        DiscussionUnableHappen = false
+                        }
+                    
+                }
+
+            };
+
+            examination.CaseBreakdown = caseBreakdown;
+
+            var result = examination.UpdateCaseStatus();
+
+            Assert.Equal(false, examination.PendingDiscussionWithRepresentative);
+        }
+
+        [Fact]
+        public void PendingRepDiscus_MeScrutinyFalse_AdmissionNotesAdded_ImmediateReferralTrue_RepresentativeFinal_DiscussionAbleHappen_Returns_True()
+        {
+            var examination = new Examination();
+            examination.ReadyForMEScrutiny = false;
+            var caseBreakdown = new CaseBreakDown()
+            {
+                AdmissionNotes = new AdmissionNotesEventContainer()
+                {
+                    Latest = new AdmissionEvent()
+                    {
+                        ImmediateCoronerReferral = true
+                    }
+                },
+                BereavedDiscussion = new BereavedDiscussionEventContainer()
+                {
+                    Latest = new BereavedDiscussionEvent()
+                    {
+                        DiscussionUnableHappen = true
+                    }
+
+                }
+
+            };
+
+            examination.CaseBreakdown = caseBreakdown;
+
+            var result = examination.UpdateCaseStatus();
+
+            Assert.Equal(true, examination.PendingDiscussionWithRepresentative);
+        }
+
     }
 }

@@ -137,10 +137,23 @@ namespace MedicalExaminer.Models
         {
             examination.PendingAdmissionNotes = examination.CaseBreakdown.AdmissionNotes.Latest == null;
             examination.AdmissionNotesHaveBeenAdded = examination.CaseBreakdown.AdmissionNotes.Latest != null;
-
+            examination.PendingDiscussionWithRepresentative = CalculatePendingRepresentativeDiscussion(examination);
             examination.Unassigned = !(examination.MedicalTeam.MedicalExaminerOfficerUserId != null && examination.MedicalTeam.MedicalExaminerUserId != null);
 
             return examination;
+        }
+
+        private static bool CalculatePendingRepresentativeDiscussion(Examination examination)
+        {
+            if (examination.CaseBreakdown.BereavedDiscussion.Latest != null)
+            {
+                if(examination.CaseBreakdown.BereavedDiscussion.Latest.DiscussionUnableHappen == false)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private static bool CalculateReadyForScrutiny(this Examination examination)

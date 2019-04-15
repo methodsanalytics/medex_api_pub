@@ -329,8 +329,11 @@ namespace MedicalExaminer.Models
         [JsonProperty(PropertyName = "pending_discussion_with_qap")]
         public bool PendingDiscussionWithQAP { get; set; }
 
+        /// <summary>
+        /// is the case pending discussion with a representative
+        /// </summary>
         [JsonProperty(PropertyName = "pending_discussion_with_representative")]
-        public bool PendingDiscussionWithRepresentative { get; set; }
+        public bool PendingDiscussionWithRepresentative { get; set; } = true;
 
         [JsonProperty(PropertyName = "have_final_case_outstanding_outcomes")]
         public bool HaveFinalCaseOutstandingOutcomes { get; set; }
