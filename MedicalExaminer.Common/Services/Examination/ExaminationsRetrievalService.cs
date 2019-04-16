@@ -43,16 +43,25 @@ namespace MedicalExaminer.Common.Services.Examination
 
             var predicate = _examinationQueryBuilder.GetPredicate(param);
 
-            switch (param.FilterOrderBy)
+            try
             {
-                case ExaminationsOrderBy.Urgency:
-                    return GetItemsAsync(predicate, x => x.UrgencyScore);
-                case ExaminationsOrderBy.CaseCreated:
-                    return GetItemsAsync(predicate, x => x.CreatedAt);
-                case null:
-                    return GetItemsAsync(predicate);
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(param.FilterOrderBy));
+
+                switch (param.FilterOrderBy)
+                {
+                    case ExaminationsOrderBy.Urgency:
+                        return GetItemsAsync(predicate, x => x.UrgencyScore);
+                    case ExaminationsOrderBy.CaseCreated:
+                        return GetItemsAsync(predicate, x => x.CreatedAt);
+                    case null:
+                        return GetItemsAsync(predicate);
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(param.FilterOrderBy));
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.LogCritical(0, e, "Failed to get examinations");
+                throw;
             }
         }
     }

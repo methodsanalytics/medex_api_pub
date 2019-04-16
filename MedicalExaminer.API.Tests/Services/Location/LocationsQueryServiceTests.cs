@@ -85,5 +85,10 @@ namespace MedicalExaminer.API.Tests.Services.Location
                 ParentId = i > start ? $"Name{(i-1)}" : null
             }).ToArray();
         }
+
+        protected override LocationsRetrievalByQuery GetQuery()
+        {
+            return new LocationsRetrievalByQuery(null, null);
+        }
     }
 }

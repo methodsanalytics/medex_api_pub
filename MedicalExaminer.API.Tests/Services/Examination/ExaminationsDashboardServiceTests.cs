@@ -269,6 +269,9 @@ namespace MedicalExaminer.API.Tests.Services.Examination
                            examination11};
         }
 
-        
+        protected override ExaminationsRetrievalQuery GetQuery()
+        {
+            return new ExaminationsRetrievalQuery(null, null, null, 0, 0, null, false);
+        }
     }
 }

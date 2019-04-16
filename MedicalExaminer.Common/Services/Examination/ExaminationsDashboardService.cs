@@ -25,23 +25,36 @@ namespace MedicalExaminer.Common.Services.Examination
                 throw new ArgumentNullException(nameof(param));
             }
 
-            var baseQuery = GetBaseQuery(param);
-            
-            var overView = new ExaminationsOverview
+            try
             {
-                CountOfAdmissionNotesHaveBeenAdded = GetCount(baseQuery, CaseStatus.AdmissionNotesHaveBeenAdded).Result,
-                CountOfUnassigned = GetCount(baseQuery, CaseStatus.Unassigned).Result,
-                CountOfHaveBeenScrutinisedByME = GetCount(baseQuery, CaseStatus.HaveBeenScrutinisedByME).Result,
-                CountOfHaveFinalCaseOutstandingOutcomes = GetCount(baseQuery, CaseStatus.HaveFinalCaseOutstandingOutcomes).Result,
-                CountOfPendingAdmissionNotes = GetCount(baseQuery, CaseStatus.PendingAdmissionNotes).Result,
-                CountOfPendingDiscussionWithQAP = GetCount(baseQuery, CaseStatus.PendingDiscussionWithQAP).Result,
-                CountOfPendingDiscussionWithRepresentative = GetCount(baseQuery, CaseStatus.PendingDiscussionWithRepresentative).Result,
-                CountOfReadyForMEScrutiny = GetCount(baseQuery, CaseStatus.ReadyForMEScrutiny).Result,
-                TotalCases = GetCount(baseQuery).Result,
-                CountOfUrgentCases = GetCount(baseQuery, x => ((x.UrgencyScore > 0) && (x.Completed == false))).Result
-            };
 
-            return Task.FromResult(overView);
+                var baseQuery = GetBaseQuery(param);
+
+                var overView = new ExaminationsOverview
+                {
+                    CountOfAdmissionNotesHaveBeenAdded =
+                        GetCount(baseQuery, CaseStatus.AdmissionNotesHaveBeenAdded).Result,
+                    CountOfUnassigned = GetCount(baseQuery, CaseStatus.Unassigned).Result,
+                    CountOfHaveBeenScrutinisedByME = GetCount(baseQuery, CaseStatus.HaveBeenScrutinisedByME).Result,
+                    CountOfHaveFinalCaseOutstandingOutcomes =
+                        GetCount(baseQuery, CaseStatus.HaveFinalCaseOutstandingOutcomes).Result,
+                    CountOfPendingAdmissionNotes = GetCount(baseQuery, CaseStatus.PendingAdmissionNotes).Result,
+                    CountOfPendingDiscussionWithQAP = GetCount(baseQuery, CaseStatus.PendingDiscussionWithQAP).Result,
+                    CountOfPendingDiscussionWithRepresentative =
+                        GetCount(baseQuery, CaseStatus.PendingDiscussionWithRepresentative).Result,
+                    CountOfReadyForMEScrutiny = GetCount(baseQuery, CaseStatus.ReadyForMEScrutiny).Result,
+                    TotalCases = GetCount(baseQuery).Result,
+                    CountOfUrgentCases =
+                        GetCount(baseQuery, x => ((x.UrgencyScore > 0) && (x.Completed == false))).Result
+                };
+
+                return Task.FromResult(overView);
+            }
+            catch (Exception e)
+            {
+                Logger.LogCritical(0, e, "Failed to get dashboard");
+                throw;
+            }
         }
 
         private async Task<int> GetCount(Expression<Func<Models.Examination, bool>> baseQuery, CaseStatus caseStatus)

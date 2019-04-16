@@ -37,6 +37,11 @@ namespace MedicalExaminer.API.Tests.Services.Examination
                 examinationQueryBuilder);
         }
 
+        protected override ExaminationsRetrievalQuery GetQuery()
+        {
+            return new ExaminationsRetrievalQuery(null, null, null, 0, 0, null, false);
+        }
+
         [Fact]
         public virtual async Task UnassignedCasesReturnsCorrectCount()
         {

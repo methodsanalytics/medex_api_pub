@@ -36,7 +36,6 @@ namespace MedicalExaminer.Common.Services.Examination
 
             try
             {
-
                 var result = GetItemAsync(x => x.ExaminationId == param.ExaminationId);
 
                 if (result.Result != null)
@@ -48,7 +47,7 @@ namespace MedicalExaminer.Common.Services.Examination
             }
             catch (Exception e)
             {
-                Logger.LogCritical();
+                Logger.LogCritical(0, e, "Failed to retrieve examination data");
                 throw;
             }
         }

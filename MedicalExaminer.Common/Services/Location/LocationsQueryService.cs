@@ -37,9 +37,17 @@ namespace MedicalExaminer.Common.Services.Location
                 throw new ArgumentNullException(nameof(param));
             }
 
-            var predicate = GetPredicate(param);
+            try
+            {
+                var predicate = GetPredicate(param);
 
-            return GetItemsAsync(predicate);
+                return GetItemsAsync(predicate);
+            }
+            catch (Exception e)
+            {
+                Logger.LogCritical(0, e, "Failed to get Locations");
+                throw;
+            }
         }
 
         /// <summary>

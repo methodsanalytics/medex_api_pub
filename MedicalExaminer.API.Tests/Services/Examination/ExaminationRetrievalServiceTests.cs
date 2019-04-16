@@ -57,5 +57,10 @@ namespace MedicalExaminer.API.Tests.Services.Examination
             };
             return new []{ examination1, examination2};
         }
+
+        protected override ExaminationRetrievalQuery GetQuery()
+        {
+            return new ExaminationRetrievalQuery(null, null);
+        }
     }
 }
