@@ -67,8 +67,6 @@ namespace MedicalExaminer.API.Controllers
                 return BadRequest(new GetExaminationsResponse());
             }
 
-            var user = await CurrentUser();
-
             var examinationsQuery = new ExaminationsRetrievalQuery(
                 filter.CaseStatus,
                 filter.LocationId,

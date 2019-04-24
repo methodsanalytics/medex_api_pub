@@ -12,9 +12,14 @@ namespace MedicalExaminer.Common.Services.Examination
 {
     public class ExaminationsDashboardService : QueryHandler<ExaminationsRetrievalQuery, ExaminationsOverview>
     {
-        public ExaminationsDashboardService(IDatabaseAccess databaseAccess, IExaminationConnectionSettings connectionSettings)
-            :base(databaseAccess, connectionSettings)
+        private ExaminationsQueryExpressionBuilder _examinationQueryBuilder;
+
+        public ExaminationsDashboardService(
+            IDatabaseAccess databaseAccess,
+            IExaminationConnectionSettings connectionSettings)
+            : base(databaseAccess, connectionSettings)
         {
+            _examinationQueryBuilder = new ExaminationsQueryExpressionBuilder();
         }
 
         public override Task<ExaminationsOverview> Handle(ExaminationsRetrievalQuery param)
@@ -24,8 +29,8 @@ namespace MedicalExaminer.Common.Services.Examination
                 throw new ArgumentNullException(nameof(param));
             }
 
-            var baseQuery = GetBaseQuery(param);
-            
+            var baseQuery = _examinationQueryBuilder.GetPredicate(param);
+
             var overView = new ExaminationsOverview
             {
                 CountOfAdmissionNotesHaveBeenAdded = GetCount(baseQuery, CaseStatus.AdmissionNotesHaveBeenAdded).Result,
@@ -88,47 +93,6 @@ namespace MedicalExaminer.Common.Services.Examination
                 default:
                     throw new ArgumentOutOfRangeException(nameof(paramFilterCaseStatus), paramFilterCaseStatus, null);
             }
-        }
-
-        private Expression<Func<Models.Examination, bool>> GetBaseQuery(ExaminationsRetrievalQuery param)
-        {
-            var openCasePredicate = GetOpenCasesPredicate(param.FilterOpenCases);
-            var meOfficePredicate = GetCaseMEOfficePredicate(param.FilterLocationId);
-            var userIdPredicate = GetUserIdPredicate(param.FilterUserId);
-
-            var predicate = meOfficePredicate
-                .And(openCasePredicate);
-            predicate.And(userIdPredicate);
-            return predicate;
-        }
-
-        private Expression<Func<Models.Examination, bool>> GetOpenCasesPredicate(bool paramFilterOpenCases)
-        {
-            return examination => examination.Completed == !paramFilterOpenCases;
-        }
-        
-        private Expression<Func<Models.Examination, bool>> GetCaseMEOfficePredicate(string meOffice)
-        {
-            if (string.IsNullOrEmpty(meOffice))
-            {
-                return null;
-            }
-            return examination => examination.MedicalExaminerOfficeResponsible == meOffice;
-        }
-
-        private Expression<Func<Models.Examination, bool>> GetUserIdPredicate(string userId)
-        {
-            if (string.IsNullOrEmpty(userId))
-            {
-                return null;
-            }
-
-            Expression<Func<Models.Examination, bool>> mePredicate = examination => examination.MedicalTeam.MedicalExaminerUserId == userId;
-            Expression<Func<Models.Examination, bool>> meoPredicate = examination => examination.MedicalTeam.MedicalExaminerOfficerUserId == userId;
-
-            var predicate = mePredicate.Or(meoPredicate);
-
-            return predicate;
         }
     }
 }

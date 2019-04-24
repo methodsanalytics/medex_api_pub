@@ -22,10 +22,10 @@ namespace MedicalExaminer.API.Tests.Services.Examination
             var examinationsDashboardQuery = new ExaminationsRetrievalQuery(MedicalExaminer.Models.Enums.CaseStatus.Unassigned,
                 "", null, 0, 0, "", true);
 
-            //Act
+            // Act
             var results = await Service.Handle(examinationsDashboardQuery);
 
-            //Assert
+            // Assert
             results.Should().NotBeNull();
             Assert.Equal(1, results.CountOfUrgentCases);
         }
@@ -91,20 +91,20 @@ namespace MedicalExaminer.API.Tests.Services.Examination
         }
 
         // TODO: Urgency not queryable from current interface.
-        //[Fact]
-        //public virtual async Task UrgentQueryReturnsCorrectCount()
-        //{
-        //    //Arrange
-        //    var examinationsDashboardQuery = new ExaminationsRetrievalQuery(null,
-        //        "", null, 0, 0, "", true);
+        [Fact]
+        public virtual async Task UrgentQueryReturnsCorrectCount()
+        {
+            //Arrange
+            var examinationsDashboardQuery = new ExaminationsRetrievalQuery(null,
+                "", null, 0, 0, "", true);
 
-        //    //Act
-        //    var results = await Service.Handle(examinationsDashboardQuery);
+            //Act
+            var results = await Service.Handle(examinationsDashboardQuery);
 
-        //    //Assert
-        //    results.Should().NotBeNull();
-        //    Assert.Equal(1, results.CountOfUrgentCases);
-        //}
+            //Assert
+            results.Should().NotBeNull();
+            Assert.Equal(1, results.CountOfUrgentCases);
+        }
 
         [Fact]
         public virtual async Task AdmissionNotesHaveBeenAddedQueryReturnsCorrectCount()

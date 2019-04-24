@@ -36,10 +36,12 @@ namespace MedicalExaminer.API.Tests.Services
             where T : class
         {
             var mock = new Mock<ICosmosStore<T>>();
+            
             var provider = new Mock<IQueryProvider>();
             var mockOrderedQueryable = new Mock<IOrderedQueryable<T>>();
             var dataSource = collectionDocuments.AsQueryable();
             var mockDocumentQuery = new Mock<IFakeDocumentQuery<T>>();
+
             provider
                 .Setup(_ => _.CreateQuery<T>(It.IsAny<Expression>()))
                 .Returns((Expression expression) =>
@@ -61,9 +63,7 @@ namespace MedicalExaminer.API.Tests.Services
 
             mockOrderedQueryable.Setup(x => x.Provider).Returns(provider.Object);
             mockOrderedQueryable.Setup(x => x.Expression).Returns(() => dataSource.Expression);
-
             mock.Setup(x => x.Query(null)).Returns(mockOrderedQueryable.Object);
-
             return mock;
         }
 
@@ -104,7 +104,7 @@ namespace MedicalExaminer.API.Tests.Services
         }
     }
 
-    public interface IFakeDocumentQuery<T> : IDocumentQuery<T>, IOrderedQueryable<T>
+    public interface IFakeDocumentQuery<T> : IDocumentQuery<T>, IOrderedQueryable<T>, IOrderedEnumerable<T>
     {
     }
 }
