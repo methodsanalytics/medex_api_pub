@@ -56,27 +56,40 @@ namespace MedicalExaminer.API.Tests.Services.Examination
 
 
         [Fact]
-        public virtual async Task OrderByCaseUrgencyScoreReturnsCorrectItemsOnGivenPage()
+        public virtual async Task OrderByCaseUrgencyScoreReturnsCorrectItems()
         {
             // Arrange
-            var examinationsDashboardQuery = new ExaminationsRetrievalQuery(null,
-                "", ExaminationsOrderBy.Urgency, 2, 3, "", true);
+            var examinationsDashboardQuery = new ExaminationsRetrievalQuery(
+                null,
+                string.Empty,
+                ExaminationsOrderBy.Urgency,
+                1,
+                10,
+                string.Empty,
+                true);
 
             // Act
-            var results = await Service.Handle(examinationsDashboardQuery);
+            var results = (await Service.Handle(examinationsDashboardQuery)).ToList();
 
             var expected = new List<MedicalExaminer.Models.Examination>()
             {
+                examination11,
+                examination9,
+                examination8,
                 examination6,
                 examination7,
-                examination4
+                examination3,
+                examination5,
+                examination2,
+                examination1,
+                examination10,
             };
+
             // Assert
             results.Should().NotBeNull();
-            Assert.Equal(3, results.Count());
-            results.SequenceEqual(expected);
+            Assert.Equal(10, results.Count());
+            results.SequenceEqual(expected).Should().BeTrue();
         }
-
 
         [Fact]
         public virtual async Task ReadyForMEScrutinyCasesReturnsCorrectCount()

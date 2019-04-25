@@ -35,12 +35,12 @@ namespace MedicalExaminer.API.Tests.Services
         public static Mock<ICosmosStore<T>> CreateCosmosStore<T>(T[] collectionDocuments)
             where T : class
         {
-            var mock = new Mock<ICosmosStore<T>>();
+            var mock = new Mock<ICosmosStore<T>>(MockBehavior.Strict);
             
-            var provider = new Mock<IQueryProvider>();
-            var mockOrderedQueryable = new Mock<IOrderedQueryable<T>>();
+            var provider = new Mock<IQueryProvider>(MockBehavior.Strict);
+            var mockOrderedQueryable = new Mock<IOrderedQueryable<T>>(MockBehavior.Strict);
             var dataSource = collectionDocuments.AsQueryable();
-            var mockDocumentQuery = new Mock<IFakeDocumentQuery<T>>();
+            var mockDocumentQuery = new Mock<IFakeDocumentQuery<T>>(MockBehavior.Strict);
 
             provider
                 .Setup(_ => _.CreateQuery<T>(It.IsAny<Expression>()))
@@ -48,6 +48,13 @@ namespace MedicalExaminer.API.Tests.Services
                 {
                     var query = new EnumerableQuery<T>(expression);
                     var response = new FeedResponse<T>(query);
+
+                    mockDocumentQuery
+                        .Setup(d => d.Provider)
+                        .Returns(provider.Object);
+                    mockDocumentQuery
+                        .Setup(d => d.Expression)
+                        .Returns(expression);
 
                     mockDocumentQuery
                         .SetupSequence(_ => _.HasMoreResults)
