@@ -1,6 +1,4 @@
-﻿using MedicalExaminer.Models;
-
-namespace MedicalExaminer.API.Models.v1.CaseBreakdown
+﻿namespace MedicalExaminer.API.Models.v1.CaseBreakdown
 {
     public class CaseBreakDownItem
     {

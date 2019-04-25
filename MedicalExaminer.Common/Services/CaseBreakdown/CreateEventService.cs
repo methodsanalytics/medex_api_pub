@@ -2,8 +2,11 @@
 using System.Threading.Tasks;
 using MedicalExaminer.Common.ConnectionSettings;
 using MedicalExaminer.Common.Database;
+using MedicalExaminer.Common.Enums;
+using MedicalExaminer.Common.Extensions.MeUser;
 using MedicalExaminer.Common.Queries.CaseBreakdown;
 using MedicalExaminer.Models;
+using MedicalExaminer.Models.Enums;
 
 namespace MedicalExaminer.Common.Services.Examination
 {
@@ -32,13 +35,23 @@ namespace MedicalExaminer.Common.Services.Examination
                                 .GetItemAsync<Models.Examination>(
                                     _connectionSettings,
                                     examination => examination.ExaminationId == param.CaseId);
-
+            SetEventVariables(param.Event, param.User, examinationToUpdate);
             examinationToUpdate = examinationToUpdate
                                             .AddEvent(param.Event)
                                             .UpdateCaseUrgencyScore();
+
+
             examinationToUpdate.LastModifiedBy = param.Event.UserId;
+            examinationToUpdate.ModifiedAt = DateTime.Now;
             var result = await _databaseAccess.UpdateItemAsync(_connectionSettings, examinationToUpdate);
             return param.Event.EventId;
+        }
+
+        private void SetEventVariables(IEvent theEvent, MeUser user, Models.Examination examination)
+        {
+            theEvent.UserId = user.UserId;
+            theEvent.UserFullName = user.FullName();
+            theEvent.UsersRole = user.RoleForExamination(examination).GetDescription();
         }
     }
 }

@@ -4,6 +4,7 @@ using AutoMapper;
 using MedicalExaminer.API.Filters;
 using MedicalExaminer.API.Models.v1.CaseBreakdown;
 using MedicalExaminer.API.Models.v1.Examinations;
+using MedicalExaminer.Common.Extensions.MeUser;
 using MedicalExaminer.Common.Loggers;
 using MedicalExaminer.Common.Queries.CaseBreakdown;
 using MedicalExaminer.Common.Queries.Examination;
@@ -58,11 +59,11 @@ namespace MedicalExaminer.API.Controllers
             var bereavedDiscussionEventNote = Mapper.Map<BereavedDiscussionEvent>(putNewBereavedDiscussionEventNoteRequest);
 
             bereavedDiscussionEventNote = SetEventUserStatuses(bereavedDiscussionEventNote, user);
+           
+            var result = await _eventCreationService.Handle(new CreateEventQuery(examinationId, bereavedDiscussionEventNote, user));
 
             var examination = await _examinationRetrievalService.Handle(new ExaminationRetrievalQuery(examinationId, user));
             var patientCard = Mapper.Map<PatientCardItem>(examination);
-            
-            var result = await _eventCreationService.Handle(new CreateEventQuery(examinationId, bereavedDiscussionEventNote));
 
             if (result == null)
             {
@@ -82,7 +83,7 @@ namespace MedicalExaminer.API.Controllers
             where T : IEvent
         {
             theEvent.UserId = user.UserId;
-            theEvent.UserFullName = user.FirstName + user.LastName;
+            theEvent.UserFullName = user.FullName();
             return theEvent;
         }
 
@@ -106,11 +107,10 @@ namespace MedicalExaminer.API.Controllers
             var user = await CurrentUser();
             var preScrutinyEventNote = Mapper.Map<PreScrutinyEvent>(putNewPreScrutinyEventNoteRequest);
             preScrutinyEventNote = SetEventUserStatuses(preScrutinyEventNote, user);
-
+                        
+            var result = await _eventCreationService.Handle(new CreateEventQuery(examinationId, preScrutinyEventNote, user));
             var examination = await _examinationRetrievalService.Handle(new ExaminationRetrievalQuery(examinationId, user));
             var patientCard = Mapper.Map<PatientCardItem>(examination);
-
-            var result = await _eventCreationService.Handle(new CreateEventQuery(examinationId, preScrutinyEventNote));
 
             if (result == null)
             {
@@ -147,10 +147,10 @@ namespace MedicalExaminer.API.Controllers
             var medicalHistoryEventNote = Mapper.Map<MedicalHistoryEvent>(putMedicalHistoryEventRequest);
             medicalHistoryEventNote = SetEventUserStatuses(medicalHistoryEventNote, user);
             
+            var result = await _eventCreationService.Handle(new CreateEventQuery(examinationId, medicalHistoryEventNote, user));
+
             var examination = await _examinationRetrievalService.Handle(new ExaminationRetrievalQuery(examinationId, user));
             var patientCard = Mapper.Map<PatientCardItem>(examination);
-
-            var result = await _eventCreationService.Handle(new CreateEventQuery(examinationId, medicalHistoryEventNote));
 
             if (result == null)
             {
@@ -186,10 +186,10 @@ namespace MedicalExaminer.API.Controllers
             var admissionEventNote = Mapper.Map<AdmissionEvent>(putNewAdmissionEventNoteRequest);
             admissionEventNote = SetEventUserStatuses(admissionEventNote, user);
 
+            var result = await _eventCreationService.Handle(new CreateEventQuery(examinationId, admissionEventNote, user));
+
             var examination = await _examinationRetrievalService.Handle(new ExaminationRetrievalQuery(examinationId, user));
             var patientCard = Mapper.Map<PatientCardItem>(examination);
-
-            var result = await _eventCreationService.Handle(new CreateEventQuery(examinationId, admissionEventNote));
 
             if (result == null)
             {
@@ -227,11 +227,10 @@ namespace MedicalExaminer.API.Controllers
             var otherEventNote = Mapper.Map<OtherEvent>(putNewOtherEventNoteRequest);
             otherEventNote = SetEventUserStatuses(otherEventNote, user);
 
+            var result = await _eventCreationService.Handle(new CreateEventQuery(examinationId, otherEventNote, user));
 
             var examination = await _examinationRetrievalService.Handle(new ExaminationRetrievalQuery(examinationId, user));
             var patientCard = Mapper.Map<PatientCardItem>(examination);
-
-            var result = await _eventCreationService.Handle(new CreateEventQuery(examinationId, otherEventNote));
 
             if (result == null)
             {
@@ -308,10 +307,10 @@ namespace MedicalExaminer.API.Controllers
             var qapDiscussionEventNote = Mapper.Map<QapDiscussionEvent>(putNewQapDiscussionEventNoteRequest);
             qapDiscussionEventNote = SetEventUserStatuses(qapDiscussionEventNote, user);
 
+            var result = await _eventCreationService.Handle(new CreateEventQuery(examinationId, qapDiscussionEventNote, user));
+
             var examination = await _examinationRetrievalService.Handle(new ExaminationRetrievalQuery(examinationId, user));
             var patientCard = Mapper.Map<PatientCardItem>(examination);
-
-            var result = await _eventCreationService.Handle(new CreateEventQuery(examinationId, qapDiscussionEventNote));
 
             if (result == null)
             {
@@ -348,10 +347,10 @@ namespace MedicalExaminer.API.Controllers
             var meoSummaryEvent = Mapper.Map<MeoSummaryEvent>(putNewMeoSummaryEventNoteRequest);
             meoSummaryEvent = SetEventUserStatuses(meoSummaryEvent, user);
 
+            var result = await _eventCreationService.Handle(new CreateEventQuery(examinationId, meoSummaryEvent, user));
+
             var examination = await _examinationRetrievalService.Handle(new ExaminationRetrievalQuery(examinationId, user));
             var patientCard = Mapper.Map<PatientCardItem>(examination);
-
-            var result = await _eventCreationService.Handle(new CreateEventQuery(examinationId, meoSummaryEvent));
 
             if (result == null)
             {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using FluentAssertions;
 using MedicalExaminer.API.Extensions.Models;
+using MedicalExaminer.Common.Extensions.MeUser;
 using MedicalExaminer.Models;
 using MedicalExaminer.Models.Enums;
 using Xunit;

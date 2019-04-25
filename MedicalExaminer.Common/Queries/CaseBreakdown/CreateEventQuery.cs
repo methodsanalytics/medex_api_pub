@@ -8,10 +8,13 @@ namespace MedicalExaminer.Common.Queries.CaseBreakdown
 
         public string CaseId { get; }
 
-        public CreateEventQuery(string caseId, IEvent theEvent)
+        public MeUser User { get; }
+
+        public CreateEventQuery(string caseId, IEvent theEvent, MeUser user)
         {
             CaseId = caseId;
             Event = theEvent;
+            User = user;
         }
     }
 }

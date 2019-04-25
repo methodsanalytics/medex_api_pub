@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using FluentAssertions;
@@ -38,10 +39,23 @@ namespace MedicalExaminer.API.Tests.Services.CaseBreakdown
         public void CreateEventQuerySuccessReturnsEventId()
         {
             // Arrange
-            var examination = new MedicalExaminer.Models.Examination();
+            var examination = new MedicalExaminer.Models.Examination()
+            {
+                NationalLocationId = "377e5b2d-f858-4398-a51c-1892973b6537"
+            };
             var theEvent = new Mock<OtherEvent>(); // only other event has been implemented so far.
             var connectionSettings = new Mock<IExaminationConnectionSettings>();
-            var query = new CreateEventQuery("1", theEvent.Object);
+            var user = new Mock<MeUser>();
+            user.Object.UserId = "a";
+            user.Object.Permissions = new List<MEUserPermission>()
+            {
+                new MEUserPermission()
+                {
+                    LocationId = "377e5b2d-f858-4398-a51c-1892973b6537",
+                    UserRole = 1
+                }
+            };
+            var query = new CreateEventQuery("1", theEvent.Object, user.Object);
             theEvent.Object.UserId = "a";
             var dbAccess = new Mock<IDatabaseAccess>();
 
@@ -80,12 +94,22 @@ namespace MedicalExaminer.API.Tests.Services.CaseBreakdown
                 CulturalPriority = false,
                 FaithPriority = false,
                 OtherPriority = false,
-                CreatedAt = DateTime.Now.AddDays(-3)
+                CreatedAt = DateTime.Now.AddDays(-3),
+                NationalLocationId = "377e5b2d-f858-4398-a51c-1892973b6537"
+            };
+            var user = new Mock<MeUser>();
+            user.Object.UserId = "a";
+            user.Object.Permissions = new List<MEUserPermission>()
+            {
+                new MEUserPermission()
+                {
+                    LocationId = "377e5b2d-f858-4398-a51c-1892973b6537",
+                    UserRole = 1
+                }
             };
             var theEvent = new Mock<OtherEvent>(); // only other event has been implemented so far.
             var connectionSettings = new Mock<IExaminationConnectionSettings>();
-            var query = new CreateEventQuery("1", theEvent.Object);
-            theEvent.Object.UserId = "a";
+            var query = new CreateEventQuery("1", theEvent.Object, user.Object);
             var dbAccess = new Mock<IDatabaseAccess>();
 
             dbAccess.Setup(db => db.GetItemAsync(connectionSettings.Object,
@@ -110,7 +134,7 @@ namespace MedicalExaminer.API.Tests.Services.CaseBreakdown
         /// Test to make sure UpdateCaseUrgencyScore method is called whenever the Examination is updated
         /// </summary>
         [Fact]
-        public void CreateEventOnExaminationWithAllUrgencyIndicatorsSuccessReturnsExaminationWithUrgencyScore500()
+        public async void CreateEventOnExaminationWithAllUrgencyIndicatorsSuccessReturnsExaminationWithUrgencyScore500()
         {
             // Arrange
             var examination = new MedicalExaminer.Models.Examination()
@@ -121,11 +145,21 @@ namespace MedicalExaminer.API.Tests.Services.CaseBreakdown
                 FaithPriority = true,
                 OtherPriority = true,
                 CreatedAt = DateTime.Now.AddDays(-3),
+                NationalLocationId = "377e5b2d-f858-4398-a51c-1892973b6537"
             };
             var theEvent = new Mock<OtherEvent>(); // only other event has been implemented so far.
-            theEvent.Object.UserId = "a";
             var connectionSettings = new Mock<IExaminationConnectionSettings>();
-            var query = new CreateEventQuery("1", theEvent.Object);
+            var user = new Mock<MeUser>();
+            user.Object.UserId = "a";
+            user.Object.Permissions = new List<MEUserPermission>()
+            {
+                new MEUserPermission()
+                {
+                    LocationId = "377e5b2d-f858-4398-a51c-1892973b6537",
+                    UserRole = 1
+                }
+            };
+            var query = new CreateEventQuery("1", theEvent.Object, user.Object);
             var dbAccess = new Mock<IDatabaseAccess>();
 
             dbAccess.Setup(db => db.GetItemAsync(connectionSettings.Object,
@@ -138,7 +172,7 @@ namespace MedicalExaminer.API.Tests.Services.CaseBreakdown
             var sut = new CreateEventService(dbAccess.Object, connectionSettings.Object);
 
             // Act
-            var result = sut.Handle(query);
+            var result = await sut.Handle(query);
 
             // Assert
             Assert.Equal(500, examination.UrgencyScore);
