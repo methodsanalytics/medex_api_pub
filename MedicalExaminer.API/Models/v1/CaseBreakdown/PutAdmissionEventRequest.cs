@@ -16,7 +16,6 @@ namespace MedicalExaminer.API.Models.v1.CaseBreakdown
         /// <summary>
         /// Event Text (Length to be confirmed).
         /// </summary>
-        [RequiredIfAttributesMatch(nameof(IsFinal), true)]
         public string Notes { get; set; }
 
         /// <summary>
@@ -27,11 +26,13 @@ namespace MedicalExaminer.API.Models.v1.CaseBreakdown
         /// <summary>
         /// date of last admission, if known
         /// </summary>
+        [RequiredIfAttributesMatch(nameof(IsFinal), true)]
         public DateTime? AdmittedDate { get; set; }
 
         /// <summary>
         /// time of last admission, if known
         /// </summary>
+        [RequiredIfAttributesMatch(nameof(IsFinal), true)]
         public TimeSpan? AdmittedTime { get; set; }
 
         /// <summary>

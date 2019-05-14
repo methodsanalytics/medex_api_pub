@@ -1,4 +1,5 @@
 ﻿using System;
+using MedicalExaminer.API.Attributes;
 using MedicalExaminer.Models.Enums;
 
 namespace MedicalExaminer.API.Models.v1.CaseBreakdown
@@ -33,7 +34,14 @@ namespace MedicalExaminer.API.Models.v1.CaseBreakdown
         /// <summary>
         /// Date of Conversation.
         /// </summary>
-        public DateTime DateOfConversation { get; set; }
+        [RequiredIfAttributesMatch(nameof(IsFinal), true)]
+        public DateTime? DateOfConversation { get; set; }
+
+        /// <summary>
+        /// Time of Conversation.
+        /// </summary>
+        [RequiredIfAttributesMatch(nameof(IsFinal), true)]
+        public TimeSpan? TimeOfConversation { get; set; }
 
         /// <summary>
         /// Unable to happen.
