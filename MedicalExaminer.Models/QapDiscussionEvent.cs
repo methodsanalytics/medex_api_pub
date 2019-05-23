@@ -16,7 +16,7 @@ namespace MedicalExaminer.Models
         /// Users Role
         /// </summary>
         [JsonProperty(PropertyName = "users_role")]
-        public string UsersRole { get; set; }
+        public UserRoles UsersRole { get; set; }
 
         /// <summary>
         /// Date event was created

@@ -15,7 +15,7 @@ namespace MedicalExaminer.Models
 
         string UserFullName { get; set; }
 
-        string UsersRole { get; set; }
+        UserRoles UsersRole { get; set; }
 
         DateTime? Created { get; set; }
     }

@@ -14,7 +14,7 @@ namespace MedicalExaminer.API.Models.v1.CaseBreakdown
         /// <summary>
         /// Users Role
         /// </summary>
-        public string UsersRole { get; set; }
+        public UserRoles UsersRole { get; set; }
 
         /// <summary>
         /// Event Identification.

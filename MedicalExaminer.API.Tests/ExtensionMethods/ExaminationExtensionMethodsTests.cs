@@ -2,6 +2,7 @@
 using System.Linq;
 using FluentAssertions;
 using MedicalExaminer.Models;
+using MedicalExaminer.Models.Enums;
 using Moq;
 using Xunit;
 
@@ -808,7 +809,7 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
                             OutcomeOfPreScrutiny = MedicalExaminer.Models.Enums.OverallOutcomeOfPreScrutiny.IssueAnMccd,
                             UserFullName = "UserFullName",
                             UserId = "userId",
-                            UsersRole = "UsersRole"
+                            UsersRole = UserRoles.MedicalExaminer
                         }
                     },
                     AdmissionNotes = new AdmissionNotesEventContainer()
@@ -823,7 +824,7 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
                             IsFinal = true,
                             Notes = "Notes",
                             UserId = "userId",
-                            UsersRole = "usersRole",
+                            UsersRole = UserRoles.MedicalExaminer,
                             UserFullName = "usersFullName"
                         }
                     },
@@ -849,7 +850,7 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
                             QapDiscussionOutcome = MedicalExaminer.Models.Enums.QapDiscussionOutcome.MccdCauseOfDeathAgreedByQAPandME,
                             UserFullName = "user full name",
                             UserId = "userId",
-                            UsersRole = "user role"
+                            UsersRole = UserRoles.MedicalExaminer
                         }
                     },
                     BereavedDiscussion = new BereavedDiscussionEventContainer()
@@ -866,7 +867,7 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
                             IsFinal = true,
                             UserId = "userId",
                             UserFullName = "user full name",
-                            UsersRole = "users role",
+                            UsersRole = UserRoles.MedicalExaminer,
                             ParticipantFullName = "ParticipantFullName",
                             ParticipantPhoneNumber = "ParticipantPhoneNumber",
                             ParticipantRelationship = "ParticipantRelationship",
@@ -908,10 +909,10 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
                             EventId = "1",
                             IsFinal = true,
                             MedicalExaminerThoughts = "MedicalExaminerThoughts",
-                            OutcomeOfPreScrutiny = MedicalExaminer.Models.Enums.OverallOutcomeOfPreScrutiny.IssueAnMccd,
+                            OutcomeOfPreScrutiny = OverallOutcomeOfPreScrutiny.IssueAnMccd,
                             UserFullName = "UserFullName",
                             UserId = "userId",
-                            UsersRole = "UsersRole"
+                            UsersRole = UserRoles.MedicalExaminer
                         }
                     },
                     AdmissionNotes = new AdmissionNotesEventContainer()
@@ -926,7 +927,7 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
                             IsFinal = true,
                             Notes = "Notes",
                             UserId = "userId",
-                            UsersRole = "usersRole",
+                            UsersRole = UserRoles.MedicalExaminer,
                             UserFullName = "usersFullName"
                         }
                     },
@@ -952,7 +953,7 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
                             QapDiscussionOutcome = MedicalExaminer.Models.Enums.QapDiscussionOutcome.MccdCauseOfDeathAgreedByQAPandME,
                             UserFullName = "user full name",
                             UserId = "userId",
-                            UsersRole = "user role"
+                            UsersRole = UserRoles.MedicalExaminer
                         }
                     },
                     BereavedDiscussion = new BereavedDiscussionEventContainer()
@@ -969,7 +970,7 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
                             IsFinal = true,
                             UserId = "userId",
                             UserFullName = "user full name",
-                            UsersRole = "users role",
+                            UsersRole = UserRoles.MedicalExaminer,
                             ParticipantFullName = "ParticipantFullName",
                             ParticipantPhoneNumber = "ParticipantPhoneNumber",
                             ParticipantRelationship = "ParticipantRelationship",
@@ -1014,7 +1015,7 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
                             OutcomeOfPreScrutiny = MedicalExaminer.Models.Enums.OverallOutcomeOfPreScrutiny.IssueAnMccd,
                             UserFullName = "UserFullName",
                             UserId = "userId",
-                            UsersRole = "UsersRole"
+                            UsersRole = UserRoles.MedicalExaminer
                         }
                     },
                     AdmissionNotes = new AdmissionNotesEventContainer()
@@ -1029,7 +1030,7 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
                             IsFinal = true,
                             Notes = "Notes",
                             UserId = "userId",
-                            UsersRole = "usersRole",
+                            UsersRole = UserRoles.MedicalExaminer,
                             UserFullName = "usersFullName"
                         }
                     },
@@ -1055,7 +1056,7 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
                             QapDiscussionOutcome = MedicalExaminer.Models.Enums.QapDiscussionOutcome.MccdCauseOfDeathAgreedByQAPandME,
                             UserFullName = "user full name",
                             UserId = "userId",
-                            UsersRole = "user role"
+                            UsersRole = UserRoles.MedicalExaminer
                         }
                     },
                 }
@@ -1086,17 +1087,17 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
                             CauseOfDeath1b = "CauseOfDeath1b",
                             CauseOfDeath1c = "CauseOfDeath1c",
                             CauseOfDeath2 = "CauseOfDeath2",
-                            CircumstancesOfDeath = MedicalExaminer.Models.Enums.OverallCircumstancesOfDeath.Expected,
-                            ClinicalGovernanceReview = MedicalExaminer.Models.Enums.ClinicalGovernanceReview.No,
+                            CircumstancesOfDeath = OverallCircumstancesOfDeath.Expected,
+                            ClinicalGovernanceReview = ClinicalGovernanceReview.No,
                             ClinicalGovernanceReviewText = "ClinicalGovernanceReviewText",
                             Created = DateTime.Now,
                             EventId = "1",
                             IsFinal = true,
                             MedicalExaminerThoughts = "MedicalExaminerThoughts",
-                            OutcomeOfPreScrutiny = MedicalExaminer.Models.Enums.OverallOutcomeOfPreScrutiny.IssueAnMccd,
+                            OutcomeOfPreScrutiny = OverallOutcomeOfPreScrutiny.IssueAnMccd,
                             UserFullName = "UserFullName",
                             UserId = "userId",
-                            UsersRole = "UsersRole"
+                            UsersRole = UserRoles.MedicalExaminer
                         }
                     },
                     AdmissionNotes = new AdmissionNotesEventContainer()
@@ -1111,7 +1112,7 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
                             IsFinal = true,
                             Notes = "Notes",
                             UserId = "userId",
-                            UsersRole = "usersRole",
+                            UsersRole = UserRoles.MedicalExaminer,
                             UserFullName = "usersFullName"
                         }
                     },
@@ -1129,7 +1130,7 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
                             IsFinal = true,
                             UserId = "userId",
                             UserFullName = "user full name",
-                            UsersRole = "users role",
+                            UsersRole = UserRoles.MedicalExaminer,
                             ParticipantFullName = "ParticipantFullName",
                             ParticipantPhoneNumber = "ParticipantPhoneNumber",
                             ParticipantRelationship = "ParticipantRelationship",
@@ -1174,7 +1175,7 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
                             OutcomeOfPreScrutiny = MedicalExaminer.Models.Enums.OverallOutcomeOfPreScrutiny.IssueAnMccd,
                             UserFullName = "UserFullName",
                             UserId = "userId",
-                            UsersRole = "UsersRole"
+                            UsersRole = UserRoles.MedicalExaminer
                         }
                     },
                     QapDiscussion = new QapDiscussionEventContainer()
@@ -1199,7 +1200,7 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
                             QapDiscussionOutcome = MedicalExaminer.Models.Enums.QapDiscussionOutcome.MccdCauseOfDeathAgreedByQAPandME,
                             UserFullName = "user full name",
                             UserId = "userId",
-                            UsersRole = "user role"
+                            UsersRole = UserRoles.MedicalExaminer
                         }
                     },
                     BereavedDiscussion = new BereavedDiscussionEventContainer()
@@ -1216,7 +1217,7 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
                             IsFinal = true,
                             UserId = "userId",
                             UserFullName = "user full name",
-                            UsersRole = "users role",
+                            UsersRole = UserRoles.MedicalExaminer,
                             ParticipantFullName = "ParticipantFullName",
                             ParticipantPhoneNumber = "ParticipantPhoneNumber",
                             ParticipantRelationship = "ParticipantRelationship",
@@ -1255,7 +1256,7 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
                             IsFinal = true,
                             Notes = "Notes",
                             UserId = "userId",
-                            UsersRole = "usersRole",
+                            UsersRole = UserRoles.MedicalExaminer,
                             UserFullName = "usersFullName"
                         }
                     },
@@ -1281,7 +1282,7 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
                             QapDiscussionOutcome = MedicalExaminer.Models.Enums.QapDiscussionOutcome.MccdCauseOfDeathAgreedByQAPandME,
                             UserFullName = "user full name",
                             UserId = "userId",
-                            UsersRole = "user role"
+                            UsersRole = UserRoles.MedicalExaminer
                         }
                     },
                     BereavedDiscussion = new BereavedDiscussionEventContainer()
@@ -1298,7 +1299,7 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
                             IsFinal = true,
                             UserId = "userId",
                             UserFullName = "user full name",
-                            UsersRole = "users role",
+                            UsersRole = UserRoles.MedicalExaminer,
                             ParticipantFullName = "ParticipantFullName",
                             ParticipantPhoneNumber = "ParticipantPhoneNumber",
                             ParticipantRelationship = "ParticipantRelationship",

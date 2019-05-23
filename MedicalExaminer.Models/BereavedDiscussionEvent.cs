@@ -14,7 +14,7 @@ namespace MedicalExaminer.Models
         /// <summary>
         /// Users Role
         /// </summary>
-        public string UsersRole { get; set; }
+        public UserRoles UsersRole { get; set; }
 
         /// <summary>
         /// Date event was created
