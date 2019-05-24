@@ -41,4 +41,52 @@ namespace MedicalExaminer.API.Attributes
             return base.IsValid(value, context);
         }
     }
+
+    /// <summary>
+    ///     Custom Validation attribute.
+    /// </summary>
+    public class RequiredIfAttributesMatchAndOtherAttributeMatchesNotNull : RequiredIfAttributesMatch
+    {
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="RequiredIfAttributesMatch" /> class.
+        /// </summary>
+        /// <param name="propertyName">The name of the property.</param>
+        /// <param name="desiredValue">The desired valuer of the property.</param>
+        public RequiredIfAttributesMatchAndOtherAttributeMatchesNotNull(string propertyName, object desiredValue, string theOtherName)
+            : base(propertyName, desiredValue)
+        {
+            PropertyName = propertyName;
+            TheOtherName = theOtherName;
+        }
+
+        private string PropertyName { get; set; }
+
+        private string TheOtherName { get; }
+
+        /// <summary>
+        ///     Validates the attribute.
+        /// </summary>
+        /// <param name="value">The object the validation is performed on.</param>
+        /// <param name="context">the context of the validation.</param>
+        /// <returns>ValidationResult.</returns>
+        protected override ValidationResult IsValid(object value, ValidationContext context)
+        {
+            var result = base.IsValid(value, context);
+            if (result == null)
+            {
+                var instance = context.ObjectInstance;
+                var type = instance.GetType();
+                var propertyValue = type.GetProperty(PropertyName).GetValue(instance, null);
+                var otherInstance = context.ObjectInstance;
+                var otherPropertyValue = type.GetProperty(TheOtherName).GetValue(instance, null);
+
+                if ((propertyValue == null && otherPropertyValue == null) || (propertyValue != null && otherPropertyValue != null))
+                {
+                    return ValidationResult.Success;
+                }
+            }
+
+            return result;
+        }
+    }
 }

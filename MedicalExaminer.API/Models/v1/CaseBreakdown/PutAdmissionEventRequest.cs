@@ -26,6 +26,7 @@ namespace MedicalExaminer.API.Models.v1.CaseBreakdown
         /// <summary>
         /// date of last admission, if known
         /// </summary>
+        [RequiredIfAttributesMatchAndOtherAttributeMatchesNotNull(nameof(IsFinal), true, nameof(AdmittedDateUnknown))]
         public DateTime? AdmittedDate { get; set; }
 
         /// <summary>
@@ -36,6 +37,7 @@ namespace MedicalExaminer.API.Models.v1.CaseBreakdown
         /// <summary>
         /// time of last admission, if known
         /// </summary>
+        [RequiredIfAttributesMatchAndOtherAttributeMatchesNotNull(nameof(IsFinal), true, nameof(AdmittedTimeUnknown))]
         public TimeSpan? AdmittedTime { get; set; }
 
         /// <summary>
