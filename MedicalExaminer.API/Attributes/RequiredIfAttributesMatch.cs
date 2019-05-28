@@ -76,13 +76,11 @@ namespace MedicalExaminer.API.Attributes
             {
                 var instance = context.ObjectInstance;
                 var type = instance.GetType();
-                var propertyValue = type.GetProperty(PropertyName).GetValue(instance, null);
-                var otherInstance = context.ObjectInstance;
-                var otherPropertyValue = type.GetProperty(TheOtherName).GetValue(instance, null);
+                var propertyValue = type.GetProperty(TheOtherName).GetValue(instance, null);
 
-                if ((propertyValue == null && otherPropertyValue == null) || (propertyValue != null && otherPropertyValue != null))
+                if ((propertyValue == null && value == null) || (propertyValue != null && value != null))
                 {
-                    return ValidationResult.Success;
+                    return new ValidationResult("temp error msg");
                 }
             }
 
