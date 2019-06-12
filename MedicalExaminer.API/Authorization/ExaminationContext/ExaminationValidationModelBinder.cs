@@ -47,7 +47,7 @@ namespace MedicalExaminer.API.Authorization.ExaminationContext
             var examinationId = bindingContext.ValueProvider.GetValue(modelName).FirstValue;
 
             var examinationRetrievalService =
-                (IAsyncQueryHandler<ExaminationRetrievalQuery, MedicalExaminer.Models.Examination>) bindingContext
+                (IAsyncQueryHandler<ExaminationRetrievalQuery, MedicalExaminer.Models.Examination>)bindingContext
                     .HttpContext.RequestServices.GetService(
                         typeof(IAsyncQueryHandler<ExaminationRetrievalQuery, MedicalExaminer.Models.Examination>));
 
@@ -61,10 +61,10 @@ namespace MedicalExaminer.API.Authorization.ExaminationContext
                 .Handle(new ExaminationRetrievalQuery(examinationId, null));
 
             var examinationValidationContextFactory =
-                (ExaminationValidationContextFactory) bindingContext.HttpContext.RequestServices.GetService(
+                (ExaminationValidationContextFactory)bindingContext.HttpContext.RequestServices.GetService(
                     typeof(ExaminationValidationContextFactory));
             var examinationValidationContextProvider =
-                (ExaminationValidationContextProvider) bindingContext.HttpContext.RequestServices.GetService(
+                (ExaminationValidationContextProvider)bindingContext.HttpContext.RequestServices.GetService(
                     typeof(ExaminationValidationContextProvider));
 
             // Create the context with the examination and set.

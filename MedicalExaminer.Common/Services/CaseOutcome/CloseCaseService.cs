@@ -33,7 +33,6 @@ namespace MedicalExaminer.Common.Services.CaseOutcome
                 throw new ArgumentNullException(nameof(param.User));
             }
 
-
             var examinationToUpdate = await
                 _databaseAccess
                     .GetItemAsync<Models.Examination>(

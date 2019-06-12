@@ -49,7 +49,7 @@ namespace MedicalExaminer.Common.Database
 
             client.CreateDocumentCollectionIfNotExistsAsync(
                 databaseUri,
-                new DocumentCollection {Id = connectionSettings.Collection}).Wait();
+                new DocumentCollection { Id = connectionSettings.Collection }).Wait();
         }
 
         private IDocumentClient GetClient(IClientSettings connectionSettings)
@@ -160,7 +160,7 @@ namespace MedicalExaminer.Common.Database
                     UriFactory.CreateDocumentCollectionUri(
                         connectionSettings.DatabaseId,
                         connectionSettings.Collection),
-                    new FeedOptions {MaxItemCount = -1})
+                    new FeedOptions { MaxItemCount = -1 })
                 .Where(predicate)
                 .AsDocumentQuery();
 

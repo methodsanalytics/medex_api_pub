@@ -9,11 +9,6 @@ namespace MedicalExaminer.API.Authorization
     public class PermissionRequirement : IAuthorizationRequirement
     {
         /// <summary>
-        /// Permission.
-        /// </summary>
-        public Permission Permission { get; }
-
-        /// <summary>
         /// Initialise a new instance of <see cref="PermissionRequirement"/>
         /// </summary>
         /// <param name="permission">Permission.</param>
@@ -21,5 +16,10 @@ namespace MedicalExaminer.API.Authorization
         {
             Permission = permission;
         }
+
+        /// <summary>
+        /// Permission.
+        /// </summary>
+        public Permission Permission { get; }
     }
 }

@@ -125,6 +125,5 @@ namespace MedicalExaminer.Models
         /// </summary>
         [JsonProperty(PropertyName = "cause_of_death_2")]
         public string CauseOfDeath2 { get; set; }
-
     }
 }
