@@ -108,7 +108,7 @@ namespace MedicalExaminer.API
 
             ConfigureQueries(services, cosmosDbSettings);
 
-            ConfigureAuthentication(services, oktaSettings, cosmosDbSettings);
+            ConfigureAuthentication(services, oktaSettings);
 
             ConfigureAuthorization(services);
 
@@ -139,8 +139,6 @@ namespace MedicalExaminer.API
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(options =>
             {
-                // c.SwaggerDoc("v1", new Info { Title = "Medical Examiner Data API", Version = "v1" });
-
                 // note: need a temporary service provider here because one has not been created yet
                 var provider = services.BuildServiceProvider()
                     .GetRequiredService<IApiVersionDescriptionProvider>();
@@ -170,7 +168,7 @@ namespace MedicalExaminer.API
                     { "Bearer", Array.Empty<string>() },
                 };
 
-                options.AddSecurityDefinition("Okta", new OAuth2Scheme
+                var oktaScheme = new OAuth2Scheme
                 {
                     Type = "oauth2",
                     Flow = "implicit",
@@ -179,18 +177,21 @@ namespace MedicalExaminer.API
                     {
                         { "profile", "Profile" },
                         { "openid", "OpenID" },
-                    },
-                });
+                    }
+                };
 
-                options.AddSecurityDefinition("Bearer", 
-                    new ApiKeyScheme
+                options.AddSecurityDefinition("Okta", oktaScheme);
+
+                var apiScheme = new ApiKeyScheme
                 {
                     Description =
                         "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
                     Name = "Authorization",
                     In = "header",
                     Type = "apiKey"
-                });
+                };
+
+                options.AddSecurityDefinition("Bearer", apiScheme);
 
                 options.AddSecurityRequirement(security);
             });
@@ -198,7 +199,6 @@ namespace MedicalExaminer.API
             // Logger.
             services.AddScoped<IMELogger, MELogger>();
 
- 
             services.AddScoped<ControllerActionFilter>();
 
             var cosmosSettings = new CosmosStoreSettings(
@@ -297,6 +297,30 @@ namespace MedicalExaminer.API
         }
 
         /// <summary>
+        /// Creates the information for API versions.
+        /// </summary>
+        /// <param name="description">The Description.</param>
+        /// <param name="apiTitle">The API Title</param>
+        /// <param name="apiDescription">The API Description</param>
+        /// <returns>Info for Swagger</returns>
+        private static Info CreateInfoForApiVersion(ApiVersionDescription description, string apiTitle, string apiDescription)
+        {
+            var info = new Info
+            {
+                Title = $"{apiTitle} {description.ApiVersion}",
+                Version = description.ApiVersion.ToString(),
+                Description = apiDescription
+            };
+
+            if (description.IsDeprecated)
+            {
+                info.Description += " This API version has been deprecated.";
+            }
+
+            return info;
+        }
+
+        /// <summary>
         /// Configure Queries.
         /// </summary>
         /// <param name="services">Services.</param>
@@ -368,8 +392,7 @@ namespace MedicalExaminer.API
         /// </summary>
         /// <param name="services">Services.</param>
         /// <param name="oktaSettings">Okta Settings.</param>
-        /// <param name="cosmosDbSettings">Cosmos Database Settings.</param>
-        private void ConfigureAuthentication(IServiceCollection services, OktaSettings oktaSettings, CosmosDbSettings cosmosDbSettings)
+        private void ConfigureAuthentication(IServiceCollection services, OktaSettings oktaSettings)
         {
             var oktaTokenExpiry = int.Parse(oktaSettings.LocalTokenExpiryTimeMinutes);
             var provider = services.BuildServiceProvider();
@@ -409,30 +432,6 @@ namespace MedicalExaminer.API
                 };
             });
             services.AddScoped<OktaClient, OktaClient>();
-        }
-
-        /// <summary>
-        /// Creates the information for API versions.
-        /// </summary>
-        /// <param name="description">The Description.</param>
-        /// <param name="apiTitle">The API Title</param>
-        /// <param name="apiDescription">The API Description</param>
-        /// <returns>Info for Swagger</returns>
-        private static Info CreateInfoForApiVersion(ApiVersionDescription description, string apiTitle, string apiDescription)
-        {
-            var info = new Info
-            {
-                Title = $"{apiTitle} {description.ApiVersion}",
-                Version = description.ApiVersion.ToString(),
-                Description = apiDescription
-            };
-
-            if (description.IsDeprecated)
-            {
-                info.Description += " This API version has been deprecated.";
-            }
-
-            return info;
         }
 
         /// <summary>
