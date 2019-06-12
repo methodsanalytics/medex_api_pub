@@ -11,7 +11,7 @@ namespace MedicalExaminer.Common.Services.Location
     /// <summary>
     /// Locations Parents Query Service.
     /// </summary>
-    public class LocationsParentsQueryService : QueryHandler<LocationsParentsQuery, IDictionary<string,IEnumerable<Models.Location>>>
+    public class LocationsParentsQueryService : QueryHandler<LocationsParentsQuery, IDictionary<string, IEnumerable<Models.Location>>>
     {
         /// <summary>
         /// Maximum number of "recursive" loops before exiting.
@@ -32,7 +32,7 @@ namespace MedicalExaminer.Common.Services.Location
         }
 
         /// <inheritdoc/>
-        public override async Task<IDictionary<string,IEnumerable<Models.Location>>> Handle(LocationsParentsQuery param)
+        public override async Task<IDictionary<string, IEnumerable<Models.Location>>> Handle(LocationsParentsQuery param)
         {
             if (param == null)
             {

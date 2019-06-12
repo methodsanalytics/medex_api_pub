@@ -96,7 +96,7 @@ namespace MedicalExaminer.Common.Services
         /// <returns>A list of <see cref="IEnumerable{T}"/>.</returns>
         protected Task<IEnumerable<T>> GetItemsAsync<T>(
             Expression<Func<T, bool>> predicate)
-            where T:class
+            where T : class
         {
             return DatabaseAccess.GetItemsAsync(ConnectionSettings, predicate);
         }

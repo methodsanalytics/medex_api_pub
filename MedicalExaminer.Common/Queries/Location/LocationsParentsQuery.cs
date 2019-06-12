@@ -5,7 +5,7 @@ namespace MedicalExaminer.Common.Queries.Location
     /// <summary>
     /// Locations Parents Query.
     /// </summary>
-    public class LocationsParentsQuery: IQuery<IDictionary<string, IEnumerable<Models.Location>>>
+    public class LocationsParentsQuery : IQuery<IDictionary<string, IEnumerable<Models.Location>>>
     {
         /// <summary>
         /// Initialise a new instance of <see cref="LocationParentsQuery"/>.
