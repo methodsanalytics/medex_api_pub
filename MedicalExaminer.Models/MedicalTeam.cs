@@ -35,6 +35,9 @@ namespace MedicalExaminer.Models
         [JsonProperty(PropertyName = "medical_examiner")]
         public string MedicalExaminerUserId { get; set; }
 
+        /// <summary>
+        /// Medical Examiner Full Name.
+        /// </summary>
         [Required]
         [JsonProperty(PropertyName = "medical_examiner_full_name")]
         public string MedicalExaminerFullName { get; set; }
@@ -44,7 +47,9 @@ namespace MedicalExaminer.Models
         [JsonProperty(PropertyName = "medical_examiner_officer")]
         public string MedicalExaminerOfficerUserId { get; set; }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Medical Examiner Officer Full Name.
+        /// </summary>
         [Required]
         [JsonProperty(PropertyName = "medical_examiner_officer_full_name")]
         public string MedicalExaminerOfficerFullName { get; set; }

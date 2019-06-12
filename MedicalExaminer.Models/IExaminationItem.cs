@@ -3,6 +3,9 @@ using MedicalExaminer.Models.Enums;
 
 namespace MedicalExaminer.Models
 {
+    /// <summary>
+    /// Examination Item Interface.
+    /// </summary>
     public interface IExaminationItem
     {
         /// <summary>
@@ -74,6 +77,5 @@ namespace MedicalExaminer.Models
         ///     Patients time of death
         /// </summary>
         TimeSpan? TimeOfDeath { get; set; }
-
     }
 }

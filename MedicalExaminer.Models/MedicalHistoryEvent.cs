@@ -4,6 +4,9 @@ using Newtonsoft.Json;
 
 namespace MedicalExaminer.Models
 {
+    /// <summary>
+    /// Medical History Event.
+    /// </summary>
     public class MedicalHistoryEvent : IEvent
     {
         /// <summary>
