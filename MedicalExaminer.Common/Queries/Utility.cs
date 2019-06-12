@@ -21,7 +21,7 @@ namespace MedicalExaminer.Common.Queries
             // replace parameters in the second lambda expression with parameters from the first
             var secondBody = ParameterRebinder.ReplaceParameters(map, second.Body);
 
-            // apply composition of lambda expression bodies to parameters from the first expression 
+            // apply composition of lambda expression bodies to parameters from the first expression
             return Expression.Lambda<T>(merge(first.Body, secondBody), first.Parameters);
         }
 

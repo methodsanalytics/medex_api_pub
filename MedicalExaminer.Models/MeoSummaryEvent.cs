@@ -48,7 +48,7 @@ namespace MedicalExaminer.Models
         /// </summary>
         [JsonProperty(PropertyName = "summary_details")]
         public string SummaryDetails { get; set; }
-        
+
         /// <summary>
         /// Date event was created
         /// </summary>

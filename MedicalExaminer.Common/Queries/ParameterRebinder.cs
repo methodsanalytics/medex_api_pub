@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 namespace MedicalExaminer.Common.Queries
 {
     /// <summary>
-    /// for linq to sql expression its not possible to pass in 2 predicates without 
+    /// for linq to sql expression its not possible to pass in 2 predicates without
     /// reconstructing the expression and rebinding to the shared parameters, this
     /// class acts to rebind the same parameter between 2 expressions and map them to
     /// a single shared parameter so cosmos can interpret the expression
