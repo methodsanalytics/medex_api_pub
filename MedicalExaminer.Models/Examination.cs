@@ -18,187 +18,140 @@ namespace MedicalExaminer.Models
         [JsonProperty(PropertyName = "urgency_score")]
         public int UrgencyScore { get; set; }
 
-        /// <summary>
-        /// Patients first hospital number.
-        /// </summary>
+        /// <inheritdoc/>
         [JsonProperty(PropertyName = "hospital_number_1")]
         public string HospitalNumber_1 { get; set; }
 
-        /// <summary>
-        /// Patients second hospital number.
-        /// </summary>
+        /// <inheritdoc/>
         [JsonProperty(PropertyName = "hospital_number_2")]
         public string HospitalNumber_2 { get; set; }
 
-        /// <summary>
-        /// Patients third hospital number.
-        /// </summary>
+        /// <inheritdoc/>
         [JsonProperty(PropertyName = "hospital_number_3")]
         public string HospitalNumber_3 { get; set; }
 
-        /// <summary>
-        /// time of death
-        /// </summary>
+        /// <inheritdoc/>
         [JsonProperty(PropertyName = "time_of_death")]
         [Required]
         public TimeSpan? TimeOfDeath { get; set; }
 
-        /// <summary>
-        /// Given Names (first names).
-        /// </summary>
+        /// <inheritdoc/>
         [Required]
         [DataType(DataType.Text)]
         [StringLength(250)]
         [JsonProperty(PropertyName = "given_names")]
         public string GivenNames { get; set; }
 
-        /// <summary>
-        /// surname / last name.
-        /// </summary>
+        /// <inheritdoc/>
         [Required]
         [DataType(DataType.Text)]
         [StringLength(250)]
         [JsonProperty(PropertyName = "surname")]
         public string Surname { get; set; }
 
-        /// <summary>
-        /// the patients NHS number.
-        /// </summary>
+        /// <inheritdoc/>
         [Required]
         [DataType(DataType.Text)]
         [StringLength(10)]
         [JsonProperty(PropertyName = "nhs_number")]
         public string NhsNumber { get; set; }
 
-        /// <summary>
-        /// The patients gender.
-        /// </summary>
+        /// <inheritdoc/>
         [Required]
         [JsonProperty(PropertyName = "gender")]
         public ExaminationGender Gender { get; set; }
 
-        /// <summary>
-        /// patients house name or number.
-        /// </summary>
+        /// <inheritdoc/>
         [Required]
         [JsonProperty(PropertyName = "house_name_number")]
         [DataType(DataType.Text)]
         [StringLength(250)]
         public string HouseNameNumber { get; set; }
 
-        /// <summary>
-        /// patients street.
-        /// </summary>
+        /// <inheritdoc/>
         [Required]
         [JsonProperty(PropertyName = "street")]
         [DataType(DataType.Text)]
         [StringLength(250)]
         public string Street { get; set; }
 
-        /// <summary>
-        /// patients town.
-        /// </summary>
+        /// <inheritdoc/>
         [Required]
         [JsonProperty(PropertyName = "town")]
         [DataType(DataType.Text)]
         [StringLength(250)]
         public string Town { get; set; }
 
-        /// <summary>
-        /// patients county.
-        /// </summary>
+        /// <inheritdoc/>
         [Required]
         [JsonProperty(PropertyName = "county")]
         [DataType(DataType.Text)]
         [StringLength(250)]
         public string County { get; set; }
 
-        /// <summary>
-        /// patients postcode.
-        /// </summary>
+        /// <inheritdoc/>
         [Required]
         [JsonProperty(PropertyName = "postcode")]
         [DataType(DataType.Text)]
         [StringLength(12)]
         public string Postcode { get; set; }
 
-        /// <summary>
-        /// ID of MEO user who will be working on the scrutiny
-        /// </summary>
+        /// <inheritdoc/>
         [JsonProperty(PropertyName = "gender_details")]
         [DataType(DataType.Text)]
         public string GenderDetails { get; set; }
 
-        /// <summary>
-        /// patients country.
-        /// </summary>
+        /// <inheritdoc/>
         [Required]
         [JsonProperty(PropertyName = "country")]
         [DataType(DataType.Text)]
         [StringLength(250)]
         public string Country { get; set; }
 
-        /// <summary>
-        /// patients last occupation.
-        /// </summary>
+        /// <inheritdoc/>
         [Required]
         [JsonProperty(PropertyName = "last_occupation")]
         [DataType(DataType.Text)]
         [StringLength(250)]
         public string LastOccupation { get; set; }
 
-        /// <summary>
-        /// the location ID of the NHS organisation to administer care before the patient died.
-        /// </summary>
+        /// <inheritdoc/>
         [Required]
         [JsonProperty(PropertyName = "organisation_care_before_death_location_id")]
         [DataType(DataType.Text)]
         [StringLength(100)]
         public string OrganisationCareBeforeDeathLocationId { get; set; }
 
-        /// <summary>
-        /// The mode of disposal - e.g. buried / cremation.
-        /// </summary>
+        /// <inheritdoc/>
         [Required]
         [JsonProperty(PropertyName = "mode_of_disposal")]
         [DataType(DataType.Text)]
         [StringLength(250)]
         public ModeOfDisposal ModeOfDisposal { get; set; }
 
-        /// <summary>
-        /// The name of the funeral directors.
-        /// </summary>
+        /// <inheritdoc/>
         [Required]
         [JsonProperty(PropertyName = "funderal_directors")]
         [DataType(DataType.Text)]
         [StringLength(100)]
         public string FuneralDirectors { get; set; }
 
-        /// <summary>
-        /// Have any personal effects been collected from the patient?.
-        /// </summary>
-        // Personal affects
+        /// <inheritdoc/>
         [Required]
         [JsonProperty(PropertyName = "personal_effects_collected")]
         public bool AnyPersonalEffects { get; set; }
 
-        /// <summary>
-        /// If there have been personal effects collected from the patient, provide some details.
-        /// </summary>
+        /// <inheritdoc/>
         [Required]
         [JsonProperty(PropertyName = "personal_effects_details")]
         public string PersonalEffectDetails { get; set; }
 
-        /// <summary>
-        /// Where did the patient die?.
-        /// </summary>
+        /// <inheritdoc/>
         [Required]
         [JsonProperty(PropertyName = "place_death_occured")]
         public string PlaceDeathOccured { get; set; }
 
-        /// <summary>
-        /// The date of birth of the patient.
-        /// </summary>
+        /// <inheritdoc/>
         [Required]
         [DataType(DataType.Date)]
         [JsonProperty(PropertyName = "date_of_birth")]
@@ -212,9 +165,7 @@ namespace MedicalExaminer.Models
         [JsonProperty(PropertyName = "last_admission")]
         public DateTime? LastAdmission { get; set; }
 
-        /// <summary>
-        /// Date of death.
-        /// </summary>
+        /// <inheritdoc/>
         [Required]
         [DataType(DataType.DateTime)]
         [JsonProperty(PropertyName = "date_of_death")]
@@ -228,74 +179,52 @@ namespace MedicalExaminer.Models
         [JsonProperty(PropertyName = "medical_team")]
         public MedicalTeam MedicalTeam { get; set; } = new MedicalTeam();
 
-        /// <summary>
-        /// Cultural priority flag
-        /// </summary>
+        /// <inheritdoc/>
         [Required]
         [JsonProperty(PropertyName = "cultural_priority")]
         public bool CulturalPriority { get; set; }
 
-        /// <summary>
-        /// is a Faith priority flag
-        /// </summary>
-        // Flags that effect priority
+        /// <inheritdoc/>
         [Required]
         [JsonProperty(PropertyName = "faith_priority")]
         public bool FaithPriority { get; set; }
 
-        /// <summary>
-        /// is a Child priority flag
-        /// </summary>
+        /// <inheritdoc/>
         [Required]
         [JsonProperty(PropertyName = "child_priority")]
         public bool ChildPriority { get; set; }
 
-        /// <summary>
-        /// is a Coroner priority flag
-        /// </summary>
+        /// <inheritdoc/>
         [Required]
         [JsonProperty(PropertyName = "coroner_priority")]
         public bool CoronerPriority { get; set; }
 
-        /// <summary>
-        /// is a other priority flag
-        /// </summary>
+        /// <inheritdoc/>
         [Required]
         [JsonProperty(PropertyName = "other_priority")]
         public bool OtherPriority { get; set; }
 
-        /// <summary>
-        /// details about the other priority selected.
-        /// </summary>
+        /// <inheritdoc/>
         [Required]
         [JsonProperty(PropertyName = "priority_details")]
         [DataType(DataType.Text)]
         public string PriorityDetails { get; set; }
 
-        /// <summary>
-        /// Not sure about this one, case closed?.
-        /// </summary>
-        // Status Fields
+        /// <inheritdoc/>
         [Required]
         [JsonProperty(PropertyName = "case_completed")]
         public bool CaseCompleted { get; set; }
 
-        /// <summary>
-        /// Coroner status, updated with interaction with coroner
-        /// </summary>
+        /// <inheritdoc/>
         [Required]
         [JsonProperty(PropertyName = "coroner_status")]
         public CoronerStatus CoronerStatus { get; set; }
 
-        /// <summary>
-        /// Does the patient have any implants that may effect mode of disposal?.
-        /// </summary>
+        /// <inheritdoc/>
         [JsonProperty(PropertyName = "any_implants")]
         public bool? AnyImplants { get; set; }
 
-        /// <summary>
-        /// Implant details if has implants.
-        /// </summary>
+        /// <inheritdoc/>
         [JsonProperty(PropertyName = "implant_details")]
         [DataType(DataType.Text)]
         public string ImplantDetails { get; set; }
@@ -308,17 +237,13 @@ namespace MedicalExaminer.Models
         [DataType(DataType.Text)]
         public string MedicalExaminerOfficeResponsible { get; set; }
 
-        /// <summary>
-        /// ID of MEO user who will be working on the scrutiny
-        /// </summary>
+        /// <inheritdoc/>
         [Required]
         [JsonProperty(PropertyName = "medical_examiner_office_responsible_name")]
         [DataType(DataType.Text)]
         public string MedicalExaminerOfficeResponsibleName { get; set; }
 
-        /// <summary>
-        /// enumerable of patients representatives
-        /// </summary>
+        /// <inheritdoc/>
         [JsonProperty(PropertyName = "representatives")]
         public IEnumerable<Representative> Representatives { get; set; }
 
@@ -383,9 +308,7 @@ namespace MedicalExaminer.Models
         [JsonProperty(PropertyName = "have_final_case_outcomes_outstanding")]
         public bool HaveFinalCaseOutcomesOutstanding { get; set; } = true;
 
-        /// <summary>
-        /// the unique identifier for the examination
-        /// </summary>
+        /// <inheritdoc/>
         [JsonProperty(PropertyName = "id")]
         public string ExaminationId { get; set; }
 
