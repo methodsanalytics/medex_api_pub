@@ -40,7 +40,6 @@ namespace MedicalExaminer.API.Controllers
 
         private readonly IAsyncQueryHandler<ExaminationRetrievalQuery, Examination> _examinationRetrievalService;
         private readonly IAsyncUpdateDocumentHandler _medicalTeamUpdateService;
-        private readonly IAsyncQueryHandler<UserRetrievalByOktaIdQuery, MeUser> _UsersRetrievalByOktaIdService;
 
         private readonly IAsyncQueryHandler<UsersRetrievalByRoleLocationQuery, IEnumerable<MeUser>>
             _usersRetrievalByRoleLocationQueryService;
@@ -62,7 +61,7 @@ namespace MedicalExaminer.API.Controllers
             IAsyncQueryHandler<UserRetrievalByOktaIdQuery, MeUser> usersRetrievalByOktaIdService,
             IAuthorizationService authorizationService,
             IPermissionService permissionService,
-            IAsyncQueryHandler<ExaminationRetrievalQuery,Examination> examinationRetrievalService,
+            IAsyncQueryHandler<ExaminationRetrievalQuery, Examination> examinationRetrievalService,
             IAsyncUpdateDocumentHandler medicalTeamUpdateService,
             IAsyncQueryHandler<UsersRetrievalByRoleLocationQuery, IEnumerable<MeUser>> usersRetrievalByRoleLocationQueryService)
             : base(logger, mapper, usersRetrievalByOktaIdService, authorizationService, permissionService)
@@ -70,7 +69,6 @@ namespace MedicalExaminer.API.Controllers
             _examinationRetrievalService = examinationRetrievalService;
             _medicalTeamUpdateService = medicalTeamUpdateService;
             _usersRetrievalByRoleLocationQueryService = usersRetrievalByRoleLocationQueryService;
-            _UsersRetrievalByOktaIdService = usersRetrievalByOktaIdService;
         }
 
         /// <summary>
