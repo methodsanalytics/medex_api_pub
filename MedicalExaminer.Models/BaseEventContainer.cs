@@ -4,16 +4,23 @@ using System.Linq;
 
 namespace MedicalExaminer.Models
 {
-    public abstract class BaseEventContainter<TEvent> : IEventContainer<TEvent>
+    /// <summary>
+    /// Base Event Container.
+    /// </summary>
+    /// <typeparam name="TEvent">Type of Event.</typeparam>
+    public abstract class BaseEventContainer<TEvent> : IEventContainer<TEvent>
         where TEvent : IEvent
     {
+        /// <inheritdoc/>
         public TEvent Latest { get; set; }
 
-        public IList<TEvent> Drafts { get; set; }
+        /// <inheritdoc/>
+        public IList<TEvent> Drafts { get; set; } = new List<TEvent>();
 
-        public IList<TEvent> History { get; set; }
+        /// <inheritdoc/>
+        public IList<TEvent> History { get; set; } = new List<TEvent>();
 
-
+        /// <inheritdoc/>
         public virtual void Add(TEvent theEvent)
         {
             if (string.IsNullOrEmpty(theEvent.EventId))
@@ -27,11 +34,10 @@ namespace MedicalExaminer.Models
                 Latest = theEvent;
                 History.Add(theEvent);
                 Drafts.Clear();
-                return;
             }
             else
             {
-                theEvent.Created = theEvent.Created == null ? DateTime.Now : theEvent.Created;
+                theEvent.Created = theEvent.Created ?? DateTime.Now;
                 var userHasDraft = Drafts.Any(draft => draft.UserId == theEvent.UserId);
                 if (userHasDraft)
                 {

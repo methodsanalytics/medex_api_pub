@@ -43,7 +43,7 @@ namespace MedicalExaminer.API.Extensions.Data
         }
 
         private EventContainerItem<T> EventContainerMapping<T>(
-            BaseEventContainter<T> source,
+            BaseEventContainer<T> source,
             ResolutionContext context)
             where T : IEvent
         {
