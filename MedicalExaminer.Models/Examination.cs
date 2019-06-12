@@ -7,10 +7,13 @@ using DataType = System.ComponentModel.DataAnnotations.DataType;
 
 namespace MedicalExaminer.Models
 {
+    /// <summary>
+    /// Examination.
+    /// </summary>
     public class Examination : Record,  IExamination, ILocationPath
     {
         /// <summary>
-        /// the urgency score assinged to the case
+        /// The urgency score assigned to the case
         /// </summary>
         [JsonProperty(PropertyName = "urgency_score")]
         public int UrgencyScore { get; set; }
@@ -209,6 +212,9 @@ namespace MedicalExaminer.Models
         [JsonProperty(PropertyName = "last_admission")]
         public DateTime? LastAdmission { get; set; }
 
+        /// <summary>
+        /// Date of death.
+        /// </summary>
         [Required]
         [DataType(DataType.DateTime)]
         [JsonProperty(PropertyName = "date_of_death")]

@@ -55,6 +55,5 @@ namespace MedicalExaminer.Models
                 Drafts.Add(theEvent);
             }
         }
-
     }
 }

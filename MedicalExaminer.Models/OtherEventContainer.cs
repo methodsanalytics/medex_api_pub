@@ -7,7 +7,7 @@ namespace MedicalExaminer.Models
     /// <summary>
     /// Other Event Container.
     /// </summary>
-    public class OtherEventContainer : BaseEventContainter<OtherEvent>
+    public class OtherEventContainer : BaseEventContainer<OtherEvent>
     {
         /// <summary>
         /// Initialise a new instance of <see cref="OtherEventContainer"/>.
@@ -59,61 +59,48 @@ namespace MedicalExaminer.Models
 
                 Drafts.Add(theEvent);
             }
-
         }
     }
 
-    public class PreScrutinyEventContainer : BaseEventContainter<PreScrutinyEvent>
+    /// <summary>
+    /// Pre Scrutiny Event Container.
+    /// </summary>
+    public class PreScrutinyEventContainer : BaseEventContainer<PreScrutinyEvent>
     {
-        public PreScrutinyEventContainer()
-        {
-            Drafts = new List<PreScrutinyEvent>();
-            History = new List<PreScrutinyEvent>();
-        }
     }
 
-    public class BereavedDiscussionEventContainer: BaseEventContainter<BereavedDiscussionEvent>
+    /// <summary>
+    /// Bereaved Discussion Event Container.
+    /// </summary>
+    public class BereavedDiscussionEventContainer : BaseEventContainer<BereavedDiscussionEvent>
     {
-        public BereavedDiscussionEventContainer()
-        {
-            Drafts = new List<BereavedDiscussionEvent>();
-            History = new List<BereavedDiscussionEvent>();
-        }
     }
 
-    public class MeoSummaryEventContainer: BaseEventContainter<MeoSummaryEvent>
+    /// <summary>
+    /// Meo Summary Event Container.
+    /// </summary>
+    public class MeoSummaryEventContainer : BaseEventContainer<MeoSummaryEvent>
     {
-        public MeoSummaryEventContainer()
-        {
-            Drafts = new List<MeoSummaryEvent>();
-            History = new List<MeoSummaryEvent>();
-        }
-    }
-    
-    public class AdmissionNotesEventContainer: BaseEventContainter<AdmissionEvent>
-    {
-        public AdmissionNotesEventContainer()
-        {
-            Drafts = new List<AdmissionEvent>();
-            History = new List<AdmissionEvent>();
-        }
     }
 
-    public class MedicalHistoryEventContainer: BaseEventContainter<MedicalHistoryEvent>
+    /// <summary>
+    /// Admission Notes Event Container.
+    /// </summary>
+    public class AdmissionNotesEventContainer : BaseEventContainer<AdmissionEvent>
     {
-        public MedicalHistoryEventContainer()
-        {
-            Drafts = new List<MedicalHistoryEvent>();
-            History = new List<MedicalHistoryEvent>();
-        }
     }
 
-    public class QapDiscussionEventContainer: BaseEventContainter<QapDiscussionEvent>
+    /// <summary>
+    /// Medical History Event Container.
+    /// </summary>
+    public class MedicalHistoryEventContainer : BaseEventContainer<MedicalHistoryEvent>
     {
-        public QapDiscussionEventContainer()
-        {
-            Drafts = new List<QapDiscussionEvent>();
-            History = new List<QapDiscussionEvent>();
-        }
+    }
+
+    /// <summary>
+    /// Qap Discussion Event Container.
+    /// </summary>
+    public class QapDiscussionEventContainer : BaseEventContainer<QapDiscussionEvent>
+    {
     }
 }
