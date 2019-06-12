@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MedicalExaminer.Models
+﻿namespace MedicalExaminer.Models
 {
     /// <summary>
     /// Location Path Interface.

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace MedicalExaminer.API.Models.v1.Locations
+﻿namespace MedicalExaminer.API.Models.v1.Locations
 {
     /// <summary>
     ///     Request object for a list of locations.

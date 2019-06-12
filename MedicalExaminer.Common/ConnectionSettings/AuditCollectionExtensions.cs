@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MedicalExaminer.Common.ConnectionSettings
+﻿namespace MedicalExaminer.Common.ConnectionSettings
 {
     /// <summary>
     /// Audit Collection Extensions.

@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Text;
-using Castle.Core.Logging;
 using FluentAssertions;
 using MedicalExaminer.Common.Settings;
 using Microsoft.Extensions.DependencyInjection;
-using Moq;
 using Xunit;
 
 namespace MedicalExaminer.BackgroundServices.Tests

@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using MedicalExaminer.Common.ConnectionSettings;
 using MedicalExaminer.Common.Database;
 using MedicalExaminer.Common.Queries.CaseOutcome;
-using MedicalExaminer.Common.Queries.Examination;
 using MedicalExaminer.Models;
 
 namespace MedicalExaminer.Common.Services.CaseOutcome

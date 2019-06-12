@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using MedicalExaminer.API.Attributes;
 using MedicalExaminer.API.Authorization.ExaminationContext;
 using MedicalExaminer.Models.Enums;
 

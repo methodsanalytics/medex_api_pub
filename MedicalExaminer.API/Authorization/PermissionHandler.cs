@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using MedicalExaminer.API.Services;
 using Microsoft.AspNetCore.Authorization;

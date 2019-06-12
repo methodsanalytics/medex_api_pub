@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using MedicalExaminer.API.Extensions.Models;
 using MedicalExaminer.Common.Enums;
 using MedicalExaminer.Common.Extensions.MeUser;
 using MedicalExaminer.Common.Queries.User;

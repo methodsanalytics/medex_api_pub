@@ -1,7 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using MedicalExaminer.API.Attributes;
 using MedicalExaminer.Models.Enums;
-using Microsoft.CodeAnalysis.Operations;
 
 namespace MedicalExaminer.API.Models.v1.Permissions
 {

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using MedicalExaminer.Models;
 using MedicalExaminer.Models.Enums;
-using Microsoft.ApplicationInsights;
 
 namespace MedicalExaminer.Common.Extensions.Models
 {
