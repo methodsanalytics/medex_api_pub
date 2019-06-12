@@ -128,14 +128,11 @@ namespace MedicalExaminer.API.Tests.Attributes
 
             // Assert
             Assert.NotNull(result);
-            if (result != null)
-            {
-                Assert.Equal(expectedResult.ErrorMessage, result.ErrorMessage);
-            }
+            Assert.Equal(expectedResult.ErrorMessage, result.ErrorMessage);
         }
 
         [Fact]
-        public void MedicalExaminerUserItemIsNotString_ReturnsFail()
+        public void MedicalExaminerUserItemIsNotString_ReturnsSuccess()
         {
             // Arrange
             SetupExaminationValidationContextProvider(_serviceProvideMock, new Examination());
@@ -148,11 +145,7 @@ namespace MedicalExaminer.API.Tests.Attributes
             var result = sut.GetValidationResult(new object(), _context);
 
             // Assert
-            Assert.Null(result);
-            if (result != null)
-            {
-                Assert.Equal(expectedResult.ErrorMessage, result.ErrorMessage);
-            }
+            result.Should().Be(ValidationResult.Success);
         }
 
         [Fact]
