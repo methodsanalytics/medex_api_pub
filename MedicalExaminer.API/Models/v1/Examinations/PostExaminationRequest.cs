@@ -6,6 +6,7 @@ using MedicalExaminer.Models.Enums;
 namespace MedicalExaminer.API.Models.v1.Examinations
 {
     /// <summary>
+    /// Post Examination Request.
     /// </summary>
     public class PostExaminationRequest
     {

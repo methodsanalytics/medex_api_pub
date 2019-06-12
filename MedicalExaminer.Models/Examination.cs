@@ -230,14 +230,16 @@ namespace MedicalExaminer.Models
         public string ImplantDetails { get; set; }
 
         /// <summary>
-        /// ID of MEO user who will be working on the scrutiny
+        /// Id of Medical Examiner Office (location) responsible.
         /// </summary>
         [Required]
         [JsonProperty(PropertyName = "medical_examiner_office_responsible")]
         [DataType(DataType.Text)]
         public string MedicalExaminerOfficeResponsible { get; set; }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Medical Examiner Office Responsible Name.
+        /// </summary>
         [Required]
         [JsonProperty(PropertyName = "medical_examiner_office_responsible_name")]
         [DataType(DataType.Text)]

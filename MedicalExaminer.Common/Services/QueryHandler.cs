@@ -11,7 +11,7 @@ namespace MedicalExaminer.Common.Services
     /// <summary>
     /// Query Handler.
     /// </summary>
-    /// <typeparam name="TQuery">Query Reqyest</typeparam>
+    /// <typeparam name="TQuery">Query Request</typeparam>
     /// <typeparam name="TResult">Query Response</typeparam>
     public abstract class QueryHandler<TQuery, TResult>
         : IAsyncQueryHandler<TQuery, TResult>
@@ -42,15 +42,15 @@ namespace MedicalExaminer.Common.Services
         /// Handle the Query.
         /// </summary>
         /// <param name="param">Query Request</param>
-        /// <returns>Task of <see cref="TResult"/>.</returns>
+        /// <returns>Task of <see cref="Task{TResult}"/>.</returns>
         public abstract Task<TResult> Handle(TQuery param);
 
         /// <summary>
         /// Create Item Async.
         /// </summary>
-        /// <param name="item"></param>
-        /// <param name="disableAutomaticIdGeneration"></param>
-        /// <returns></returns>
+        /// <param name="item">Item.</param>
+        /// <param name="disableAutomaticIdGeneration">Disable Automatic Id Generation.</param>
+        /// <returns>Result.</returns>
         protected Task<TResult> CreateItemAsync(
             TResult item,
             bool disableAutomaticIdGeneration = false)

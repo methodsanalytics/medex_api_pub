@@ -29,7 +29,6 @@ namespace MedicalExaminer.Models
         /// </summary>
         string MedicalExaminerOfficeResponsible { get; set; }
 
-        // TODO: How does this relate to Gender on the Interface
         /// <summary>
         /// ID of MEO user who will be working on the scrutiny
         /// </summary>

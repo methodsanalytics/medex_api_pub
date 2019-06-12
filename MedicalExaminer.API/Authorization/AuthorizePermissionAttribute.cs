@@ -15,7 +15,7 @@ namespace MedicalExaminer.API.Authorization
         /// <summary>
         /// Initialise a new instance of <see cref="AuthorizePermissionAttribute"/>.
         /// </summary>
-        /// <param name="permission"></param>
+        /// <param name="permission">Permission.</param>
         public AuthorizePermissionAttribute(Permission permission)
             : base($"HasPermission={permission.ToString()}")
         {
