@@ -5,9 +5,11 @@ using Newtonsoft.Json;
 
 namespace MedicalExaminer.Models
 {
+    /// <summary>
+    /// Pre Scrutiny Event.
+    /// </summary>
     public class PreScrutinyEvent : IEvent
     {
-
         /// <summary>
         /// Users full name
         /// </summary>
@@ -49,10 +51,9 @@ namespace MedicalExaminer.Models
         [JsonProperty(PropertyName = "is_final")]
         public bool IsFinal { get; set; }
 
-
-        ///// <summary>
-        ///// the type of event this is
-        ///// </summary>
+        /// <summary>
+        /// the type of event this is
+        /// </summary>
         [JsonProperty(PropertyName = "event_type")]
         public EventType EventType => EventType.PreScrutiny;
 

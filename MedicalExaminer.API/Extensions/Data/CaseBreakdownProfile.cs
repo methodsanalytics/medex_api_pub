@@ -1,12 +1,18 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using AutoMapper;
 using MedicalExaminer.API.Models.v1.CaseBreakdown;
 using MedicalExaminer.Models;
-using System.Linq;
 
 namespace MedicalExaminer.API.Extensions.Data
 {
+    /// <summary>
+    /// Case Break Down Profile.
+    /// </summary>
     public class CaseBreakdownProfile : Profile
     {
+        /// <summary>
+        /// Initialise a new instance of <see cref="CaseBreakdownProfile"/>.
+        /// </summary>
         public CaseBreakdownProfile()
         {
             CreateMap<CaseBreakDown, CaseBreakDownItem>()
@@ -39,7 +45,6 @@ namespace MedicalExaminer.API.Extensions.Data
             {
                 return EventContainerMapping(source.QapDiscussion, context);
             }));
-
         }
 
         private EventContainerItem<T> EventContainerMapping<T>(

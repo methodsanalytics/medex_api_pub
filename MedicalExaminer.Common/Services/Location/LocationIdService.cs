@@ -20,7 +20,6 @@ namespace MedicalExaminer.Common.Services.Location
         public LocationIdService(IDatabaseAccess databaseAccess, ILocationConnectionSettings connectionSettings)
             : base(databaseAccess, connectionSettings)
         {
-
         }
 
         /// <inheritdoc/>

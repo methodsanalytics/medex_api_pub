@@ -70,6 +70,5 @@ namespace MedicalExaminer.API.Models.v1.CaseBreakdown
         /// Date event was created
         /// </summary>
         public DateTime? Created { get; set; }
-
     }
 }

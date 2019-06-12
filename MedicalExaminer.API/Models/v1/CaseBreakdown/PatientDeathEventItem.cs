@@ -4,6 +4,9 @@ using MedicalExaminer.Models.Enums;
 
 namespace MedicalExaminer.API.Models.v1.CaseBreakdown
 {
+    /// <summary>
+    /// Patient Death Event Item.
+    /// </summary>
     public class PatientDeathEventItem : IEvent
     {
         /// <summary>
@@ -50,6 +53,5 @@ namespace MedicalExaminer.API.Models.v1.CaseBreakdown
         /// Date event was created
         /// </summary>
         public DateTime? Created { get; set; }
-
     }
 }

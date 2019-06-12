@@ -42,6 +42,5 @@ namespace MedicalExaminer.Common.Database
             where T : class;
 
         Task<int> GetCountAsync<T>(IConnectionSettings connectionSettings, Expression<Func<T, bool>> predicate);
-
     }
 }

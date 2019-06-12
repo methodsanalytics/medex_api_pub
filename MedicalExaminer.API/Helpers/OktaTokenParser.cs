@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MedicalExaminer.API.Helpers
 {
@@ -10,10 +7,14 @@ namespace MedicalExaminer.API.Helpers
     /// </summary>
     public class OktaTokenParser
     {
+        /// <summary>
+        /// Parse Http Request Authorisation.
+        /// </summary>
+        /// <param name="httpRequestAuthorization">Http Request Authorisation.</param>
+        /// <returns>The token.</returns>
         public static string ParseHttpRequestAuthorisation(string httpRequestAuthorization)
         {
-            
-            var httpRequestPrefix = "Bearer ";
+            const string httpRequestPrefix = "Bearer ";
 
             if (httpRequestAuthorization == null)
             {
