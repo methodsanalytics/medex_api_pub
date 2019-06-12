@@ -4,6 +4,9 @@ using MedicalExaminer.Models.Enums;
 
 namespace MedicalExaminer.API.Models.v1.CaseBreakdown
 {
+    /// <summary>
+    /// Qap Discussion Event Item.
+    /// </summary>
     public class QapDiscussionEventItem : IEvent
     {
         /// <summary>
@@ -76,14 +79,14 @@ namespace MedicalExaminer.API.Models.v1.CaseBreakdown
         /// </summary>
         public string DiscussionDetails { get; set; }
 
-        ///// <summary>
-        ///// Outcome of the Bereaved Discussion.
-        ///// </summary>
+        /// <summary>
+        /// Outcome of the Bereaved Discussion.
+        /// </summary>
         public QapDiscussionOutcome? QapDiscussionOutcome { get; set; }
 
-        ///// <summary>
-        ///// Qap particpant name
-        ///// </summary>
+        /// <summary>
+        /// Qap participant name
+        /// </summary>
         public string ParticipantName { get; set; }
 
         /// <summary>
@@ -105,6 +108,5 @@ namespace MedicalExaminer.API.Models.v1.CaseBreakdown
         /// Possible cause of death established during scrutiny by Medical Examiner 2
         /// </summary>
         public string CauseOfDeath2 { get; set; }
-
     }
 }
