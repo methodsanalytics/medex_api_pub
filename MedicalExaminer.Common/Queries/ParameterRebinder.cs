@@ -18,7 +18,8 @@ namespace MedicalExaminer.Common.Queries
             this.map = map ?? new Dictionary<ParameterExpression, ParameterExpression>();
         }
 
-        public static Expression ReplaceParameters(Dictionary<ParameterExpression, ParameterExpression> map,
+        public static Expression ReplaceParameters(
+            Dictionary<ParameterExpression, ParameterExpression> map,
             Expression exp)
         {
             return new ParameterRebinder(map).Visit(exp);

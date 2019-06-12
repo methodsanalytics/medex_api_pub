@@ -163,7 +163,8 @@ namespace MedicalExaminer.Common.Database
             };
 
             var query = client.CreateDocumentQuery<T>(
-                    UriFactory.CreateDocumentCollectionUri(connectionSettings.DatabaseId,
+                    UriFactory.CreateDocumentCollectionUri(
+                        connectionSettings.DatabaseId,
                         connectionSettings.Collection),
                     feedOptions)
                 .Where(predicate)

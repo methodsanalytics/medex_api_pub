@@ -79,8 +79,10 @@ namespace MedicalExaminer.Common.Database
         /// <param name="predicate">Predicate.</param>
         /// <param name="orderBy">Order by,</param>
         /// <returns>List of items.</returns>
-        Task<IEnumerable<T>> GetItemsAsync<T, TKey>(IConnectionSettings connectionSettings,
-            Expression<Func<T, bool>> predicate, Expression<Func<T, TKey>> orderBy)
+        Task<IEnumerable<T>> GetItemsAsync<T, TKey>(
+            IConnectionSettings connectionSettings,
+            Expression<Func<T, bool>> predicate,
+            Expression<Func<T, TKey>> orderBy)
             where T : class;
 
         /// <summary>

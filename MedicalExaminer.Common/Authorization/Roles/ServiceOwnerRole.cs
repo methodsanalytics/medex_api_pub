@@ -26,13 +26,10 @@ namespace MedicalExaminer.Common.Authorization.Roles
                 Permission.CreateUserPermission,
                 Permission.UpdateUserPermission,
                 Permission.DeleteUserPermission,
-
                 Permission.GetLocations,
                 Permission.GetLocation,
-
                 Permission.GetExaminations,
                 Permission.GetExamination,
-
                 Permission.GetProfile,
                 Permission.UpdateProfile);
         }
