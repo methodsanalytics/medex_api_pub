@@ -2,6 +2,9 @@
 
 namespace MedicalExaminer.API.Models.v1.CaseBreakdown
 {
+    /// <summary>
+    /// Get Case Break Down response.
+    /// </summary>
     public class GetCaseBreakdownResponse : ResponseBase
     {
         /// <summary>

@@ -11,7 +11,7 @@ namespace MedicalExaminer.Common.Loggers
         /// <summary>
         ///     Write log entry based on parameters received
         /// </summary>
-        /// <param name="userName">user name</param>
+        /// <param name="userId">user id.</param>
         /// <param name="userAuthenticationType">user authentication type</param>
         /// <param name="userIsAuthenticated">user authentication status</param>
         /// <param name="controllerName">name of controller called</param>

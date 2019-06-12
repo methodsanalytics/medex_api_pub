@@ -4,6 +4,9 @@ using MedicalExaminer.Models.Enums;
 
 namespace MedicalExaminer.API.Models.v1.CaseBreakdown
 {
+    /// <summary>
+    /// Bereaved Discussion Event Item.
+    /// </summary>
     public class BereavedDiscussionEventItem : IEvent
     {
         /// <summary>
@@ -86,9 +89,9 @@ namespace MedicalExaminer.API.Models.v1.CaseBreakdown
         /// </summary>
         public string DiscussionDetails { get; set; }
 
-        ///// <summary>
-        ///// Outcome of the Bereaved Discussion.
-        ///// </summary>
+        /// <summary>
+        /// Outcome of the Bereaved Discussion.
+        /// </summary>
         public BereavedDiscussionOutcome? BereavedDiscussionOutcome { get; set; }
     }
 }
