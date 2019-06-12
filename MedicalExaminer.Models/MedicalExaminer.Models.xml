@@ -1,0 +1,1323 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MedicalExaminer.Models</name>
+    </assembly>
+    <members>
+        <member name="T:MedicalExaminer.Models.AdmissionEvent">
+            <summary>
+            Admission Event.
+            </summary>
+            <inheritdoc cref="T:MedicalExaminer.Models.IEvent"/>
+        </member>
+        <member name="P:MedicalExaminer.Models.AdmissionEvent.UserFullName">
+            <summary>
+            Users full name
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.AdmissionEvent.UsersRole">
+            <summary>
+            Users Role
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.AdmissionEvent.Created">
+            <summary>
+            Date event was created
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.AdmissionEvent.EventId">
+            <summary>
+            Event Identification.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.AdmissionEvent.UserId">
+            <summary>
+            User Identifier.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.AdmissionEvent.Notes">
+            <summary>
+            Event Text (Length to be confirmed).
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.AdmissionEvent.IsFinal">
+            <summary>
+            IsFinal, final = true, draft = false
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.AdmissionEvent.EventType">
+            <summary>
+            the type of event this is
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.AdmissionEvent.AdmittedDate">
+            <summary>
+            date of last admission
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.AdmissionEvent.AdmittedDateUnknown">
+            <summary>
+            date of last admission - Unknown or not
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.AdmissionEvent.AdmittedTime">
+            <summary>
+            time of last admission
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.AdmissionEvent.AdmittedTimeUnknown">
+            <summary>
+            time of last admission - Unknown or not
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.AdmissionEvent.ImmediateCoronerReferral">
+            <summary>
+            Do you suspect this case may need Immediate Coroner Referral Yes = true, No = false
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.BereavedDiscussionEvent.UserFullName">
+            <summary>
+            Users full name
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.BereavedDiscussionEvent.UsersRole">
+            <summary>
+            Users Role
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.BereavedDiscussionEvent.Created">
+            <summary>
+            Date event was created
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.BereavedDiscussionEvent.EventId">
+            <summary>
+            Event Identification.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.BereavedDiscussionEvent.UserId">
+            <summary>
+            User Identifier.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.BereavedDiscussionEvent.IsFinal">
+            <summary>
+            Draft is false, final true
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.BereavedDiscussionEvent.EventType">
+            <summary>
+            the type of event this is
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.BereavedDiscussionEvent.ParticipantFullName">
+            <summary>
+            Participant's full name.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.BereavedDiscussionEvent.ParticipantRelationship">
+            <summary>
+            Participant's relationship.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.BereavedDiscussionEvent.ParticipantPhoneNumber">
+            <summary>
+            Participant's phone number.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.BereavedDiscussionEvent.PresentAtDeath">
+            <summary>
+            Participant Present At Death.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.BereavedDiscussionEvent.InformedAtDeath">
+            <summary>
+            Participant Informed At Death.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.BereavedDiscussionEvent.DateOfConversation">
+            <summary>
+            Date of Conversation.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.BereavedDiscussionEvent.TimeOfConversation">
+            <summary>
+            time of Conversation.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.BereavedDiscussionEvent.DiscussionUnableHappen">
+            <summary>
+            Unable to happen.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.BereavedDiscussionEvent.DiscussionDetails">
+            <summary>
+            Details of the Discussion.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.CaseOutcome.CaseOutcomeSummary">
+            <summary>
+            Case Outcome Summary
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.CaseOutcome.OutcomeOfRepresentativeDiscussion">
+            <summary>
+            Outcome Of Representative Discussion
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.CaseOutcome.OutcomeOfPrescrutiny">
+            <summary>
+            Outcome Of Pre-scrutiny
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.CaseOutcome.OutcomeQapDiscussion">
+            <summary>
+            Outcome Qap Discussion
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.CaseOutcome.CaseCompleted">
+            <summary>
+            Case Completed?
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.CaseOutcome.ScrutinyConfirmedOn">
+            <summary>
+            Scrutiny Confirmed On
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.CaseOutcome.CoronerReferralSent">
+            <summary>
+            has the coroners referral been sent?
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.CaseOutcome.CaseMedicalExaminerFullName">
+            <summary>
+            Case Medical Examiner Full Name
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.CaseOutcome.MccdIssued">
+            <summary>
+            MCCD Issued?
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.CaseOutcome.CremationFormStatus">
+            <summary>
+            Cremation Form Status
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.CaseOutcome.GpNotifiedStatus">
+            <summary>
+            GP Notified Status
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.DeathEvent.DateOfDeath">
+            <summary>
+            Date the patient died
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.DeathEvent.TimeOfDeath">
+            <summary>
+            time the patient died
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.DeathEvent.EventType">
+            <summary>
+            event type
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.DeathEvent.EventId">
+            <summary>
+            event id
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.DeathEvent.IsFinal">
+            <summary>
+            is the event a draft or a final version
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.DeathEvent.UserId">
+            <summary>
+            user id that created the event
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.DeathEvent.Created">
+            <summary>
+            the date the event was created.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.DeathEvent.UserFullName">
+            <summary>
+            Users full name
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.DeathEvent.UsersRole">
+            <summary>
+            Users Role
+            </summary>
+        </member>
+        <member name="T:MedicalExaminer.Models.Enums.UserRoles">
+            <summary>
+            User Roles.
+            </summary>
+        </member>
+        <member name="F:MedicalExaminer.Models.Enums.UserRoles.MedicalExaminerOfficer">
+            <summary>
+            Medical Examiner Officer.
+            </summary>
+        </member>
+        <member name="F:MedicalExaminer.Models.Enums.UserRoles.MedicalExaminer">
+            <summary>
+            Medical Examiner.
+            </summary>
+        </member>
+        <member name="F:MedicalExaminer.Models.Enums.UserRoles.ServiceAdministrator">
+            <summary>
+            Service Administrator.
+            </summary>
+        </member>
+        <member name="F:MedicalExaminer.Models.Enums.UserRoles.ServiceOwner">
+            <summary>
+            Service Owner.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.UrgencyScore">
+            <summary>
+            the urgency score assinged to the case
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.HospitalNumber_1">
+            <summary>
+            Patients first hospital number.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.HospitalNumber_2">
+            <summary>
+            Patients second hospital number.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.HospitalNumber_3">
+            <summary>
+            Patients third hospital number.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.TimeOfDeath">
+            <summary>
+            time of death
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.GivenNames">
+            <summary>
+            Given Names (first names).
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.Surname">
+            <summary>
+            surname / last name.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.NhsNumber">
+            <summary>
+            the patients NHS number.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.Gender">
+            <summary>
+            The patients gender.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.HouseNameNumber">
+            <summary>
+            patients house name or number.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.Street">
+            <summary>
+            patients street.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.Town">
+            <summary>
+            patients town.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.County">
+            <summary>
+            patients county.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.Postcode">
+            <summary>
+            patients postcode.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.GenderDetails">
+            <summary>
+            ID of MEO user who will be working on the scrutiny
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.Country">
+            <summary>
+            patients country.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.LastOccupation">
+            <summary>
+            patients last occupation.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.OrganisationCareBeforeDeathLocationId">
+            <summary>
+            the location ID of the NHS organisation to administer care before the patient died.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.ModeOfDisposal">
+            <summary>
+            The mode of disposal - e.g. buried / cremation.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.FuneralDirectors">
+            <summary>
+            The name of the funeral directors.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.AnyPersonalEffects">
+            <summary>
+            Have any personal effects been collected from the patient?.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.PersonalEffectDetails">
+            <summary>
+            If there have been personal effects collected from the patient, provide some details.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.PlaceDeathOccured">
+            <summary>
+            Where did the patient die?.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.DateOfBirth">
+            <summary>
+            The date of birth of the patient.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.LastAdmission">
+            <summary>
+            date of death of the patient.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.MedicalTeam">
+            <summary>
+            The medical team associated with the patient
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.CulturalPriority">
+            <summary>
+            Cultural priority flag
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.FaithPriority">
+            <summary>
+            is a Faith priority flag
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.ChildPriority">
+            <summary>
+            is a Child priority flag
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.CoronerPriority">
+            <summary>
+            is a Coroner priority flag
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.OtherPriority">
+            <summary>
+            is a other priority flag
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.PriorityDetails">
+            <summary>
+            details about the other priority selected.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.CaseCompleted">
+            <summary>
+            Not sure about this one, case closed?.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.CoronerStatus">
+            <summary>
+            Coroner status, updated with interaction with coroner
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.AnyImplants">
+            <summary>
+            Does the patient have any implants that may effect mode of disposal?.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.ImplantDetails">
+            <summary>
+            Implant details if has implants.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.MedicalExaminerOfficeResponsible">
+            <summary>
+            ID of MEO user who will be working on the scrutiny
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.MedicalExaminerOfficeResponsibleName">
+            <summary>
+            ID of MEO user who will be working on the scrutiny
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.Representatives">
+            <summary>
+            enumerable of patients representatives
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.CaseBreakdown">
+            <summary>
+            Case break down events
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.AdmissionNotesHaveBeenAdded">
+            <summary>
+            Have the admission notes been added
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.ReadyForMEScrutiny">
+            <summary>
+            is the examination ready for medical examiner scrutiny
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.Unassigned">
+            <summary>
+            is the case currently unassigned
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.HaveBeenScrutinisedByME">
+            <summary>
+            has the case been scrutinised by the medical examiner
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.PendingAdmissionNotes">
+            <summary>
+            have admission notes been added for the examination
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.PendingDiscussionWithQAP">
+            <summary>
+            has the qap discussion occured
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.PendingDiscussionWithRepresentative">
+            <summary>
+            has the discussion with the representative
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.PendingScrutinyNotes">
+            <summary>
+            has the ME added scrutiny notes
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.HaveFinalCaseOutcomesOutstanding">
+            <summary>
+            have the final case outcomes been determined
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.ExaminationId">
+            <summary>
+            the unique identifier for the examination
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.NationalLocationId">
+            <summary>
+            the national location id
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.RegionLocationId">
+            <summary>
+            the regional location id
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.TrustLocationId">
+            <summary>
+            the trusts location id
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.SiteLocationId">
+            <summary>
+            the sites location id
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.ConfirmationOfScrutinyCompletedAt">
+            <summary>
+            Confirmation Of Scrutiny Completed At
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.ConfirmationOfScrutinyCompletedBy">
+            <summary>
+            Confirmation Of Scrutiny Completed By
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.CoronerReferralSent">
+            <summary>
+            has the coroners referral been sent?
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.ScrutinyConfirmed">
+            <summary>
+            has the Scrutiny been confirmed?
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.OutstandingCaseItemsCompleted">
+            <summary>
+            have the outstanding case items been completed?
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Examination.CaseOutcome">
+            <summary>
+            Case Outcome Items
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.ExaminationItem.ExaminationId">
+            <summary>
+                Examination Id
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.ExaminationItem.PlaceDeathOccured">
+            <summary>
+                Where the death occured
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.ExaminationItem.MedicalExaminerOfficeResponsible">
+            <summary>
+                Medical Examiner Office Responsible for dealing with the examination
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.ExaminationItem.Surname">
+            <summary>
+                Patients surname
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.ExaminationItem.GivenNames">
+            <summary>
+                Patients given names
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.ExaminationItem.Gender">
+            <summary>
+                Gender patient identifies as
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.ExaminationItem.GenderDetails">
+            <summary>
+                Comments regarding the patients gender identification
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.ExaminationItem.NhsNumber">
+            <summary>
+                Patients NHS Number
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.ExaminationItem.HospitalNumber_1">
+            <summary>
+                Patients first hospital number
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.ExaminationItem.HospitalNumber_2">
+            <summary>
+                Patients second hospital number
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.ExaminationItem.HospitalNumber_3">
+            <summary>
+                Patients third hospital number
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.ExaminationItem.DateOfBirth">
+            <summary>
+                Patients date of birth
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.ExaminationItem.DateOfDeath">
+            <summary>
+                Patients date of death
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.ExaminationItem.TimeOfDeath">
+            <summary>
+                Patients time of death
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.IExaminationItem.ExaminationId">
+            <summary>
+                Examination Id
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.IExaminationItem.PlaceDeathOccured">
+            <summary>
+                Where the death occured
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.IExaminationItem.MedicalExaminerOfficeResponsible">
+            <summary>
+                Medical Examiner Office Responsible for dealing with the examination
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.IExaminationItem.Surname">
+            <summary>
+                Patients surname
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.IExaminationItem.GivenNames">
+            <summary>
+                Patients given names
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.IExaminationItem.Gender">
+            <summary>
+                Gender patient identifies as
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.IExaminationItem.GenderDetails">
+            <summary>
+                Comments regarding the patients gender identification
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.IExaminationItem.NhsNumber">
+            <summary>
+                Patients NHS Number
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.IExaminationItem.HospitalNumber_1">
+            <summary>
+                Patients first hospital number
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.IExaminationItem.HospitalNumber_2">
+            <summary>
+                Patients second hospital number
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.IExaminationItem.HospitalNumber_3">
+            <summary>
+                Patients third hospital number
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.IExaminationItem.DateOfBirth">
+            <summary>
+                Patients date of birth
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.IExaminationItem.DateOfDeath">
+            <summary>
+                Patients date of death
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.IExaminationItem.TimeOfDeath">
+            <summary>
+                Patients time of death
+            </summary>
+        </member>
+        <member name="T:MedicalExaminer.Models.ILocationPath">
+            <summary>
+            Location Path Interface.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.ILocationPath.NationalLocationId">
+            <summary>
+            National Location Id.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.ILocationPath.RegionLocationId">
+            <summary>
+            Region Location Id.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.ILocationPath.TrustLocationId">
+            <summary>
+            Trust Location Id.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.ILocationPath.SiteLocationId">
+            <summary>
+            Site Location Id.
+            </summary>
+        </member>
+        <member name="T:MedicalExaminer.Models.IMedicalTeam">
+            <summary>
+                Details of medical team associated with medical examination
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.IMedicalTeam.ConsultantResponsible">
+            <summary>
+                Consultant primarily responsible for care
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.IMedicalTeam.ConsultantsOther">
+            <summary>
+                Other consultants involved in care of the patient
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.IMedicalTeam.GeneralPractitioner">
+            <summary>
+                General practitioner responsible for patient
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.IMedicalTeam.Qap">
+            <summary>
+                Clinician responsible for certification
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.IMedicalTeam.NursingTeamInformation">
+            <summary>
+                Nursing team information
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.IMedicalTeam.MedicalExaminerUserId">
+            <summary>
+                Medical Examiner
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.IMedicalTeam.MedicalExaminerOfficerUserId">
+            <summary>
+                Medical Examiner Officer
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Location.NationalLocationId">
+            <inheritdoc/>
+        </member>
+        <member name="P:MedicalExaminer.Models.Location.RegionLocationId">
+            <inheritdoc/>
+        </member>
+        <member name="P:MedicalExaminer.Models.Location.TrustLocationId">
+            <inheritdoc/>
+        </member>
+        <member name="P:MedicalExaminer.Models.Location.SiteLocationId">
+            <inheritdoc/>
+        </member>
+        <member name="P:MedicalExaminer.Models.MedicalHistoryEvent.UserFullName">
+            <summary>
+            Users full name
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.MedicalHistoryEvent.UsersRole">
+            <summary>
+            Users Role
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.MedicalHistoryEvent.Created">
+            <summary>
+            Date event was created
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.MedicalHistoryEvent.EventId">
+            <summary>
+            Event Identification.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.MedicalHistoryEvent.UserId">
+            <summary>
+            User Identifier.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.MedicalHistoryEvent.EventType">
+            <summary>
+            the type of event this is
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.MedicalHistoryEvent.IsFinal">
+            <summary>
+            Draft is false, final true
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.MedicalHistoryEvent.Text">
+            <summary>
+            Event Text (Length to be confirmed).
+            </summary>
+        </member>
+        <member name="T:MedicalExaminer.Models.MedicalTeam">
+            <inheritdoc />
+        </member>
+        <member name="P:MedicalExaminer.Models.MedicalTeam.ConsultantResponsible">
+            <inheritdoc />
+        </member>
+        <member name="P:MedicalExaminer.Models.MedicalTeam.ConsultantsOther">
+            <inheritdoc />
+        </member>
+        <member name="P:MedicalExaminer.Models.MedicalTeam.GeneralPractitioner">
+            <inheritdoc />
+        </member>
+        <member name="P:MedicalExaminer.Models.MedicalTeam.Qap">
+            <inheritdoc />
+        </member>
+        <member name="P:MedicalExaminer.Models.MedicalTeam.NursingTeamInformation">
+            <inheritdoc />
+        </member>
+        <member name="P:MedicalExaminer.Models.MedicalTeam.MedicalExaminerUserId">
+            <inheritdoc />
+        </member>
+        <member name="P:MedicalExaminer.Models.MedicalTeam.MedicalExaminerOfficerUserId">
+            <inheritdoc />
+        </member>
+        <member name="P:MedicalExaminer.Models.MedicalTeam.MedicalExaminerOfficerFullName">
+            <inheritdoc />
+        </member>
+        <member name="P:MedicalExaminer.Models.MeoSummaryEvent.UserFullName">
+            <summary>
+            Users full name
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.MeoSummaryEvent.UsersRole">
+            <summary>
+            Users Role
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.MeoSummaryEvent.EventId">
+            <summary>
+            Event Identification.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.MeoSummaryEvent.UserId">
+            <summary>
+            User Identifier.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.MeoSummaryEvent.IsFinal">
+            <summary>
+            draft = false, final = true
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.MeoSummaryEvent.EventType">
+            <summary>
+            the type of event this is
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.MeoSummaryEvent.SummaryDetails">
+            <summary>
+            Details of the MEO Summary.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.MeoSummaryEvent.Created">
+            <summary>
+            Date event was created
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.MeUser.Permissions">
+            <summary>
+            Permissions.
+            </summary>
+        </member>
+        <member name="T:MedicalExaminer.Models.MEUserPermission">
+            <summary>
+            MedEx User Permission.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.MEUserPermission.PermissionId">
+            <summary>
+            Permission Id.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.MEUserPermission.LocationId">
+            <summary>
+            Location Id.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.MEUserPermission.UserRole">
+            <summary>
+            User Role.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.OtherEvent.UserFullName">
+            <summary>
+            Users full name
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.OtherEvent.UsersRole">
+            <summary>
+            Users Role
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.OtherEvent.Created">
+            <summary>
+            Date event was created
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.OtherEvent.EventId">
+            <summary>
+            Event Identication.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.OtherEvent.UserId">
+            <summary>
+            User Identifier.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.OtherEvent.Text">
+            <summary>
+            Event Text (Length to be confirmed).
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.OtherEvent.IsFinal">
+            <summary>
+            IsFinal, final = true, draft = false
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.OtherEvent.EventType">
+            <summary>
+            the type of event this is
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.PatientDetails.DateOfBirth">
+            <summary>
+                Details of the patients date of birth
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.PatientDetails.DateOfDeath">
+            <summary>
+                Details of the patients date of death
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.PatientDetails.NhsNumber">
+            <summary>
+                Patients NHS Number
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.PatientDetails.HospitalNumber_1">
+            <summary>
+                Patients first hospital number
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.PatientDetails.HospitalNumber_2">
+            <summary>
+                Patients second hospital number
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.PatientDetails.HospitalNumber_3">
+            <summary>
+                Patients third hospital number
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.PatientDetails.TimeOfDeath">
+            <summary>
+                Patients time of death
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.PatientDetails.GivenNames">
+            <summary>
+                Patients given names
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.PatientDetails.Surname">
+            <summary>
+                patients surname
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.PatientDetails.PostCode">
+            <summary>
+                Patients Postcode
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.PatientDetails.HouseNameNumber">
+            <summary>
+                First line of patients addess
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.PatientDetails.Street">
+            <summary>
+                Second line of patients address
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.PatientDetails.Town">
+            <summary>
+                Patients town or city
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.PatientDetails.County">
+            <summary>
+                Patients county
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.PatientDetails.Country">
+            <summary>
+                Patients country
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.PatientDetails.LastOccupation">
+            <summary>
+                Free text for any relevant patient occupation details
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.PatientDetails.OrganisationCareBeforeDeathLocationId">
+            <summary>
+                Organisation responsible for patient at time of death
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.PatientDetails.ModeOfDisposal">
+            <summary>
+                Patients funeral arrangements
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.PatientDetails.AnyImplants">
+            <summary>
+                Does the patient have any implants that may impact on cremation
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.PatientDetails.ImplantDetails">
+            <summary>
+                Free text for the implant details
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.PatientDetails.FuneralDirectors">
+            <summary>
+                Details of the patients funeral directors
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.PatientDetails.AnyPersonalEffects">
+            <summary>
+                Does the patient have any personal effects
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.PatientDetails.PersonalEffectDetails">
+            <summary>
+                Free text details of any personal effects
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.PatientDetails.Representatives">
+            <summary>
+                Details of any representatives
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.PreScrutinyEvent.UserFullName">
+            <summary>
+            Users full name
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.PreScrutinyEvent.UsersRole">
+            <summary>
+            Users Role
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.PreScrutinyEvent.Created">
+            <summary>
+            Date event was created
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.PreScrutinyEvent.EventId">
+            <summary>
+            Event Identification.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.PreScrutinyEvent.UserId">
+            <summary>
+            User Identifier.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.PreScrutinyEvent.MedicalExaminerThoughts">
+            <summary>
+            Event Text.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.PreScrutinyEvent.IsFinal">
+            <summary>
+            IsFinal, final = true, draft = false
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.PreScrutinyEvent.CircumstancesOfDeath">
+            <summary>
+            Dictionary for circumstances of death radio button.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.PreScrutinyEvent.CauseOfDeath1a">
+            <summary>
+            Possible cause of death established during scrutiny by Medical Examiner 1a
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.PreScrutinyEvent.CauseOfDeath1b">
+            <summary>
+            Possible cause of death established during scrutiny by Medical Examiner 1b
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.PreScrutinyEvent.CauseOfDeath1c">
+            <summary>
+            Possible cause of death established during scrutiny by Medical Examiner 1c
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.PreScrutinyEvent.CauseOfDeath2">
+            <summary>
+            Possible cause of death established during scrutiny by Medical Examiner 2
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.PreScrutinyEvent.OutcomeOfPreScrutiny">
+            <summary>
+            Dictionary for Outcome Of Pre-Scrutiny radio button.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.PreScrutinyEvent.ClinicalGovernanceReview">
+            <summary>
+            Dictionary for Clinical Governance Review radio button.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.PreScrutinyEvent.ClinicalGovernanceReviewText">
+            <summary>
+            Details of Clinical Governance Review if said yes for Clinical Governance Review radio button.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.QapDiscussionEvent.UserFullName">
+            <summary>
+            Users full name
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.QapDiscussionEvent.UsersRole">
+            <summary>
+            Users Role
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.QapDiscussionEvent.Created">
+            <summary>
+            Date event was created
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.QapDiscussionEvent.EventId">
+            <summary>
+            Event Identification.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.QapDiscussionEvent.UserId">
+            <summary>
+            User Identifier.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.QapDiscussionEvent.IsFinal">
+            <summary>
+            Draft is false, final true
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.QapDiscussionEvent.EventType">
+            <summary>
+            the type of event this is
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.QapDiscussionEvent.ParticipantRole">
+            <summary>
+            Participant's role.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.QapDiscussionEvent.ParticipantOrganisation">
+            <summary>
+            Participant's organisation.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.QapDiscussionEvent.ParticipantPhoneNumber">
+            <summary>
+            Participant's phone number.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.QapDiscussionEvent.DateOfConversation">
+            <summary>
+            Date of Conversation.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.QapDiscussionEvent.TimeOfConversation">
+            <summary>
+            time of Conversation.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.QapDiscussionEvent.DiscussionUnableHappen">
+            <summary>
+            Unable to happen.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.QapDiscussionEvent.DiscussionDetails">
+            <summary>
+            Details of the Discussion.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.QapDiscussionEvent.CauseOfDeath1a">
+            <summary>
+            Possible cause of death established during scrutiny by Medical Examiner 1a
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.QapDiscussionEvent.CauseOfDeath1b">
+            <summary>
+            Possible cause of death established during scrutiny by Medical Examiner 1b
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.QapDiscussionEvent.CauseOfDeath1c">
+            <summary>
+            Possible cause of death established during scrutiny by Medical Examiner 1c
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.QapDiscussionEvent.CauseOfDeath2">
+            <summary>
+            Possible cause of death established during scrutiny by Medical Examiner 2
+            </summary>
+        </member>
+        <member name="T:MedicalExaminer.Models.Record">
+            <summary>
+            Record.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Record.LastModifiedBy">
+            <summary>
+            Last Modified By.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Record.ModifiedAt">
+            <summary>
+            Modified At.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Record.CreatedAt">
+            <summary>
+            Create At.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Record.DeletedAt">
+            <summary>
+            Deleted At.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Record.CreatedBy">
+            <summary>
+            Last Modified By.
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Representative.Relationship">
+            <summary>
+                Representatives relationship to the patient
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Representative.PhoneNumber">
+            <summary>
+                Representatives phone number
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Representative.PresentAtDeath">
+            <summary>
+                Was the representative present at the death?
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Representative.Informed">
+            <summary>
+                Has the representative been informed?
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Representative.AppointmentDate">
+            <summary>
+            appointment date
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Representative.AppointmentTime">
+            <summary>
+            appointment time
+            </summary>
+        </member>
+        <member name="P:MedicalExaminer.Models.Representative.Notes">
+            <summary>
+            representative notes
+            </summary>
+        </member>
+    </members>
+</doc>

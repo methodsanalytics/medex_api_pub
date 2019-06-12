@@ -5,6 +5,10 @@
     <CodeAnalysisRuleSet>..\Analyzers\Analyzers.ruleset</CodeAnalysisRuleSet>
     <!--<TreatWarningsAsErrors>true</TreatWarningsAsErrors>-->
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\mawip\medical_examiner_api\MedicalExaminer.Models\MedicalExaminer.Models.xml</DocumentationFile>
+  </PropertyGroup>
   
   <ItemGroup>
     <AdditionalFiles Include="..\Analyzers\stylecop.json" Link="stylecop.json" />
