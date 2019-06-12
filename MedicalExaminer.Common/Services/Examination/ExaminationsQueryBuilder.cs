@@ -8,8 +8,16 @@ using MedicalExaminer.Models.Enums;
 
 namespace MedicalExaminer.Common.Services.Examination
 {
+    /// <summary>
+    /// Examinations Query Expression Builder.
+    /// </summary>
     public class ExaminationsQueryExpressionBuilder
     {
+        /// <summary>
+        /// Get Predicate.
+        /// </summary>
+        /// <param name="queryObject">Query.</param>
+        /// <returns>Expression.</returns>
         public Expression<Func<Models.Examination, bool>> GetPredicate(ExaminationsRetrievalQuery queryObject)
         {
             var permissedLocationFilter = GetPermissedLocationPredicate(queryObject.PermissedLocations);
