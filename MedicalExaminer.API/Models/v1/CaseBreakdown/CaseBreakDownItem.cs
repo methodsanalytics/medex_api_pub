@@ -1,10 +1,15 @@
-﻿using MedicalExaminer.Models;
-
-namespace MedicalExaminer.API.Models.v1.CaseBreakdown
+﻿namespace MedicalExaminer.API.Models.v1.CaseBreakdown
 {
+    /// <summary>
+    /// Case Break down Item.
+    /// </summary>
     public class CaseBreakDownItem
     {
+        /// <summary>
+        /// Patient Death Event.
+        /// </summary>
         public PatientDeathEventItem PatientDeathEvent { get; set; }
+
         /// <summary>
         /// Case breakdown other events
         /// </summary>
@@ -16,7 +21,7 @@ namespace MedicalExaminer.API.Models.v1.CaseBreakdown
         public EventContainerItem<PreScrutinyEventItem> PreScrutiny { get; set; }
 
         /// <summary>
-        /// Case breakdown berevaed discussion notes
+        /// Case breakdown bereaved discussion notes
         /// </summary>
         public EventContainerItem<BereavedDiscussionEventItem> BereavedDiscussion { get; set; }
 

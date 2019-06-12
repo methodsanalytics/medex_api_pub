@@ -4,31 +4,74 @@ using MedicalExaminer.Models.Enums;
 
 namespace MedicalExaminer.Models
 {
+    /// <summary>
+    /// Patient Details.
+    /// </summary>
     public class PatientDetails
     {
+        /// <summary>
+        /// Cultural Priority.
+        /// </summary>
         public bool CulturalPriority { get; set; }
+
+        /// <summary>
+        /// Faith Priority.
+        /// </summary>
         public bool FaithPriority { get; set; }
 
+        /// <summary>
+        /// Child Priority.
+        /// </summary>
         public bool ChildPriority { get; set; }
 
+        /// <summary>
+        /// Coroner Priority.
+        /// </summary>
         public bool CoronerPriority { get; set; }
 
+        /// <summary>
+        /// Other Priority.
+        /// </summary>
         public bool OtherPriority { get; set; }
 
+        /// <summary>
+        /// Priority Details.
+        /// </summary>
         public string PriorityDetails { get; set; }
 
+        /// <summary>
+        /// Case Completed.
+        /// </summary>
         public bool CaseCompleted { get; set; }
 
+        /// <summary>
+        /// Coroner Status.
+        /// </summary>
         public CoronerStatus CoronerStatus { get; set; }
 
+        /// <summary>
+        /// Place Death Occured.
+        /// </summary>
         public string PlaceDeathOccured { get; set; }
 
+        /// <summary>
+        /// Gender details.
+        /// </summary>
         public string GenderDetails { get; set; }
 
+        /// <summary>
+        /// Id.
+        /// </summary>
         public string Id { get; set; }
 
+        /// <summary>
+        /// Medical Examiner Office Responsible.
+        /// </summary>
         public string MedicalExaminerOfficeResponsible { get; set; }
 
+        /// <summary>
+        /// Gender.
+        /// </summary>
         public ExaminationGender Gender { get; set; }
 
         /// <summary>

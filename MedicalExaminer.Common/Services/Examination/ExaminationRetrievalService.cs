@@ -15,8 +15,8 @@ namespace MedicalExaminer.Common.Services.Examination
         /// <summary>
         /// Initialise a new instance of <see cref="ExaminationRetrievalService"/>.
         /// </summary>
-        /// <param name="databaseAccess"></param>
-        /// <param name="connectionSettings"></param>
+        /// <param name="databaseAccess">Database access.</param>
+        /// <param name="connectionSettings">Connection settings.</param>
         public ExaminationRetrievalService(
             IDatabaseAccess databaseAccess,
             IExaminationConnectionSettings connectionSettings)

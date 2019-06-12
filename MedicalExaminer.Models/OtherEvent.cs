@@ -4,6 +4,9 @@ using Newtonsoft.Json;
 
 namespace MedicalExaminer.Models
 {
+    /// <summary>
+    /// Other Event.
+    /// </summary>
     public class OtherEvent : IEvent
     {
         /// <summary>

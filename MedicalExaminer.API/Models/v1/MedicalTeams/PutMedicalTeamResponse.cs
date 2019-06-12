@@ -7,7 +7,11 @@ namespace MedicalExaminer.API.Models.v1.MedicalTeams
     /// </summary>
     public class PutMedicalTeamResponse : ResponseBase
     {
+        /// <summary>
+        /// Header.
+        /// </summary>
         public PatientCardItem Header { get; set; }
+
         /// <summary>
         ///     Consultant primarily responsible for care of patient.
         /// </summary>

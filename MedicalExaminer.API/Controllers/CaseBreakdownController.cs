@@ -52,7 +52,7 @@ namespace MedicalExaminer.API.Controllers
         /// Returns a <see cref="GetCaseBreakdownResponse"/> object for the given examination.
         /// </summary>
         /// <param name="examinationId">The examination id.</param>
-        /// <returns></returns>
+        /// <returns>Case break down response</returns>
         [HttpGet]
         [Route("{examinationId}/casebreakdown")]
         [ServiceFilter(typeof(ControllerActionFilter))]
