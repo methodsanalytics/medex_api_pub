@@ -5,6 +5,7 @@ using Microsoft.Azure.Documents.Client;
 
 namespace MedicalExaminer.Common
 {
+    // TODO: Remove and replace subclasses with service based queries.
     public class PersistenceBase
     {
         protected readonly string collectionName;
