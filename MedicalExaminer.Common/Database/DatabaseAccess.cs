@@ -31,10 +31,7 @@ namespace MedicalExaminer.Common.Database
             _documentClientFactory = documentClientFactory;
         }
 
-        /// <summary>
-        /// Ensures the collection is available.
-        /// </summary>
-        /// <param name="connectionSettings">Connection settings.</param>
+        /// <inheritdoc/>
         public void EnsureCollectionAvailable(IConnectionSettings connectionSettings)
         {
             var client = GetClient(connectionSettings);
@@ -52,16 +49,7 @@ namespace MedicalExaminer.Common.Database
                 new DocumentCollection { Id = connectionSettings.Collection }).Wait();
         }
 
-        private IDocumentClient GetClient(IClientSettings connectionSettings)
-        {
-            if (_client == null)
-            {
-                _client = _documentClientFactory.CreateClient(connectionSettings);
-            }
-
-            return _client;
-        }
-
+        /// <inheritdoc/>
         public async Task<T> CreateItemAsync<T>(IConnectionSettings connectionSettings, T item, bool disableAutomaticIdGeneration = false)
         {
             var client = GetClient(connectionSettings);
@@ -72,19 +60,6 @@ namespace MedicalExaminer.Common.Database
                     item);
             AddAuditEntry(connectionSettings, item);
             return (T)(dynamic)resourceResponse.Resource;
-        }
-
-        private void AddAuditEntry<T>(IConnectionSettings connectionSettings, T item)
-        {
-            var auditConnectionSettings = connectionSettings.ToAuditSettings();
-            var auditClient = _documentClientFactory.CreateClient(auditConnectionSettings);
-
-            var auditEntry = new AuditEntry<T>(item);
-            auditClient.CreateDocumentAsync(
-                UriFactory.CreateDocumentCollectionUri(
-                    auditConnectionSettings.DatabaseId,
-                    auditConnectionSettings.Collection),
-                    auditEntry);
         }
 
         /// <inheritdoc/>
@@ -113,6 +88,7 @@ namespace MedicalExaminer.Common.Database
             }
         }
 
+        /// <inheritdoc/>
         public async Task<T> GetItemAsync<T>(
             IConnectionSettings connectionSettings,
             Expression<Func<T, bool>> predicate)
@@ -149,6 +125,7 @@ namespace MedicalExaminer.Common.Database
             }
         }
 
+        /// <inheritdoc/>
         public async Task<IEnumerable<T>> GetItemsAsync<T>(
             IConnectionSettings connectionSettings,
             Expression<Func<T, bool>> predicate)
@@ -173,6 +150,7 @@ namespace MedicalExaminer.Common.Database
             return results;
         }
 
+        /// <inheritdoc/>
         public async Task<IEnumerable<T>> GetItemsAsync<T, TKey>(
             IConnectionSettings connectionSettings,
             Expression<Func<T, bool>> predicate,
@@ -202,6 +180,7 @@ namespace MedicalExaminer.Common.Database
             return results;
         }
 
+        /// <inheritdoc/>
         public async Task<int> GetCountAsync<T>(IConnectionSettings connectionSettings, Expression<Func<T, bool>> predicate)
         {
             var client = GetClient(connectionSettings);
@@ -221,6 +200,7 @@ namespace MedicalExaminer.Common.Database
             return results.Count();
         }
 
+        /// <inheritdoc/>
         public async Task<T> UpdateItemAsync<T>(IConnectionSettings connectionSettings, T item)
         {
             var client = GetClient(connectionSettings);
@@ -229,6 +209,29 @@ namespace MedicalExaminer.Common.Database
                 item);
             AddAuditEntry(connectionSettings, item);
             return (T)(dynamic)updateItemAsync.Resource;
+        }
+
+        private IDocumentClient GetClient(IClientSettings connectionSettings)
+        {
+            if (_client == null)
+            {
+                _client = _documentClientFactory.CreateClient(connectionSettings);
+            }
+
+            return _client;
+        }
+
+        private void AddAuditEntry<T>(IConnectionSettings connectionSettings, T item)
+        {
+            var auditConnectionSettings = connectionSettings.ToAuditSettings();
+            var auditClient = _documentClientFactory.CreateClient(auditConnectionSettings);
+
+            var auditEntry = new AuditEntry<T>(item);
+            auditClient.CreateDocumentAsync(
+                UriFactory.CreateDocumentCollectionUri(
+                    auditConnectionSettings.DatabaseId,
+                    auditConnectionSettings.Collection),
+                auditEntry);
         }
     }
 }

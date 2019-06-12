@@ -4,6 +4,9 @@ using MedicalExaminer.Models;
 
 namespace MedicalExaminer.API.Extensions.Data
 {
+    /// <summary>
+    /// MEO Summary Event Profile.
+    /// </summary>
     public class MeoSummaryEventProfile : Profile
     {
         /// <summary>
