@@ -3,6 +3,9 @@ using MedicalExaminer.Models.Enums;
 
 namespace MedicalExaminer.API.Models.v1.CaseBreakdown
 {
+    /// <summary>
+    /// Put Pre Scrutiny Event Request.
+    /// </summary>
     public class PutPreScrutinyEventRequest
     {
         /// <summary>
@@ -15,11 +18,10 @@ namespace MedicalExaminer.API.Models.v1.CaseBreakdown
         /// </summary>
         public string MedicalExaminerThoughts { get; set; }
 
-        ///// <summary>
-        ///// IsFinal true for final, false for draft
-        ///// </summary>
+        /// <summary>
+        /// IsFinal true for final, false for draft
+        /// </summary>
         public bool IsFinal { get; set; }
-
 
         /// <summary>
         /// Dictionary for circumstances of death radio button.

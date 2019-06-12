@@ -31,7 +31,6 @@ namespace MedicalExaminer.API.Models.v1.CaseBreakdown
         /// </summary>
         public string UserId { get; set; }
 
-
         /// <summary>
         /// draft = false, final = true
         /// </summary>

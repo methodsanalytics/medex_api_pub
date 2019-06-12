@@ -27,7 +27,7 @@ namespace MedicalExaminer.API.Extensions.Data
             {
                 return null;
             }
-            
+
             return representatives.OrderByDescending(x => x.AppointmentDate)
                 .FirstOrDefault(repAppointment => repAppointment.AppointmentDate >= DateTime.Now);
         }

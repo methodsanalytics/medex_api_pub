@@ -31,13 +31,12 @@ namespace MedicalExaminer.Models
         [JsonProperty(PropertyName = "user_id")]
         public string UserId { get; set; }
 
-        
         /// <summary>
         /// draft = false, final = true
         /// </summary>
         [JsonProperty(PropertyName = "is_final")]
         public bool IsFinal { get; set; }
-        
+
         /// <summary>
         /// the type of event this is
         /// </summary>

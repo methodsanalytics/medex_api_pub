@@ -5,32 +5,41 @@ using MedicalExaminer.Common.Database;
 using MedicalExaminer.Common.Extensions.MeUser;
 using MedicalExaminer.Common.Queries.Examination;
 using MedicalExaminer.Common.Queries.Location;
-using MedicalExaminer.Common.Queries.User;
 using MedicalExaminer.Models;
 using MedicalExaminer.Models.Enums;
 
 namespace MedicalExaminer.Common.Services.Examination
 {
+    /// <summary>
+    /// Create Examination Service.
+    /// </summary>
     public class CreateExaminationService : IAsyncQueryHandler<CreateExaminationQuery, Models.Examination>
     {
         private readonly IDatabaseAccess _databaseAccess;
         private readonly IConnectionSettings _connectionSettings;
         private readonly IAsyncQueryHandler<LocationRetrievalByIdQuery, Models.Location> _locationHandler;
-        //private readonly IAsyncQueryHandler<UserRetrievalByOktaIdQuery, UserToCreate> _UsersRetrievalByOktaIdService;
 
-
+        /// <summary>
+        /// Initialise a new instance of <see cref="CreateExaminationService"/>.
+        /// </summary>
+        /// <param name="databaseAccess">Database Access.</param>
+        /// <param name="connectionSettings">Connection Settings.</param>
+        /// <param name="locationHandler">Location Handler.</param>
         public CreateExaminationService(
             IDatabaseAccess databaseAccess,
             IExaminationConnectionSettings connectionSettings,
             IAsyncQueryHandler<LocationRetrievalByIdQuery, Models.Location> locationHandler)
-      //      IAsyncQueryHandler<UserRetrievalByOktaIdQuery, UserToCreate> UsersRetrievalByOktaIdService)
         {
             _databaseAccess = databaseAccess;
             _connectionSettings = connectionSettings;
             _locationHandler = locationHandler;
-        //    _UsersRetrievalByOktaIdService = UsersRetrievalByOktaIdService;
         }
 
+        /// <summary>
+        /// Handle.
+        /// </summary>
+        /// <param name="param">Query.</param>
+        /// <returns>Examination.</returns>
         public async Task<Models.Examination> Handle(CreateExaminationQuery param)
         {
             if (param == null)

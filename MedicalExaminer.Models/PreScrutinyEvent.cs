@@ -44,7 +44,6 @@ namespace MedicalExaminer.Models
         [JsonProperty(PropertyName = "medical_examiner_thoughts")]
         public string MedicalExaminerThoughts { get; set; }
 
-
         /// <summary>
         /// IsFinal, final = true, draft = false
         /// </summary>

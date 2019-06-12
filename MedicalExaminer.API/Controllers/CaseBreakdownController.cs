@@ -183,7 +183,7 @@ namespace MedicalExaminer.API.Controllers
             [FromBody] PutOtherEventRequest putNewOtherEventNoteRequest)
         {
             return await UpsertEvent<OtherEvent, PutOtherEventRequest>(
-                examinationId, 
+                examinationId,
                 Permission.OtherEvent,
                 putNewOtherEventNoteRequest);
         }

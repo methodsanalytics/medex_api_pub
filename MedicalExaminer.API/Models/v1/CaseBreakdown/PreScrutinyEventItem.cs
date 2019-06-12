@@ -36,12 +36,10 @@ namespace MedicalExaminer.API.Models.v1.CaseBreakdown
         /// </summary>
         public string MedicalExaminerThoughts { get; set; }
 
-
         /// <summary>
         /// IsFinal, final = true, draft = false
         /// </summary>
         public bool IsFinal { get; set; }
-
 
         ///// <summary>
         ///// the type of event this is

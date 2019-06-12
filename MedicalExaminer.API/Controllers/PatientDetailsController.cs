@@ -52,8 +52,8 @@ namespace MedicalExaminer.API.Controllers
             IMELogger logger,
             IMapper mapper,
             IAsyncQueryHandler<UserRetrievalByOktaIdQuery, MeUser> usersRetrievalByOktaIdService,
-            IAuthorizationService authorizationService, 
-            IPermissionService permissionService, 
+            IAuthorizationService authorizationService,
+            IPermissionService permissionService,
             IAsyncQueryHandler<ExaminationRetrievalQuery, Examination> examinationRetrievalService,
             IAsyncQueryHandler<PatientDetailsUpdateQuery, Examination> patientDetailsUpdateService,
             IAsyncQueryHandler<LocationParentsQuery, IEnumerable<Location>> locationParentsService)

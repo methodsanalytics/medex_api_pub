@@ -45,7 +45,7 @@ namespace MedicalExaminer.Models
         /// </summary>
         [JsonProperty(PropertyName = "is_final")]
         public bool IsFinal { get; set; }
-                
+
         /// <summary>
         /// the type of event this is
         /// </summary>
