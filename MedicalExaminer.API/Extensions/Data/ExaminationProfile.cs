@@ -3,9 +3,9 @@ using AutoMapper;
 using MedicalExaminer.API.Models.v1.CaseBreakdown;
 using MedicalExaminer.API.Models.v1.CaseOutcome;
 using MedicalExaminer.API.Models.v1.Examinations;
-using MedicalExaminer.Models;
-using MedicalExaminer.API.Models.v1.PatientDetails;
 using MedicalExaminer.API.Models.v1.MedicalTeams;
+using MedicalExaminer.API.Models.v1.PatientDetails;
+using MedicalExaminer.Models;
 using MedicalExaminer.Models.Enums;
 
 namespace MedicalExaminer.API.Extensions.Data
@@ -158,83 +158,123 @@ namespace MedicalExaminer.API.Extensions.Data
                 .ForMember(deathEvent => deathEvent.UsersRole, opt => opt.Ignore())
                 .ForMember(deathEvent => deathEvent.UserFullName, opt => opt.Ignore());
         }
-    }
 
-    internal class QAPDiscussionOutcomeResolver : IValueResolver<Examination, GetCaseOutcomeResponse, QapDiscussionOutcome?>
-    {
-        public QapDiscussionOutcome? Resolve(Examination source, GetCaseOutcomeResponse destination, QapDiscussionOutcome? destMember, ResolutionContext context)
+        /// <summary>
+        /// QAP Discussion Outcome Resolver.
+        /// </summary>
+        internal class QAPDiscussionOutcomeResolver : IValueResolver<Examination, GetCaseOutcomeResponse, QapDiscussionOutcome?>
         {
-            return source.CaseBreakdown.QapDiscussion?.Latest?.QapDiscussionOutcome;
-        }
-    }
-
-    internal class RepresentativeDiscussionOutcomeResolver : IValueResolver<Examination, GetCaseOutcomeResponse, BereavedDiscussionOutcome?>
-    {
-        public BereavedDiscussionOutcome? Resolve(Examination source, GetCaseOutcomeResponse destination, BereavedDiscussionOutcome? destMember, ResolutionContext context)
-        {
-            return source.CaseBreakdown.BereavedDiscussion?.Latest?.BereavedDiscussionOutcome;
-        }
-    }
-
-    internal class PreScrutinyOutcomeResolver : IValueResolver<Examination, GetCaseOutcomeResponse, OverallOutcomeOfPreScrutiny?>
-    {
-        public OverallOutcomeOfPreScrutiny? Resolve(Examination source, GetCaseOutcomeResponse destination, OverallOutcomeOfPreScrutiny? destMember, ResolutionContext context)
-        {
-            return source.CaseBreakdown.PreScrutiny?.Latest?.OutcomeOfPreScrutiny;
-        }
-    }
-
-    internal class AdmissionDateResolver : IValueResolver<Examination, PatientCardItem, DateTime?>
-    {
-        public DateTime? Resolve(Examination source, PatientCardItem destination, DateTime? destMember, ResolutionContext context)
-        {
-            return source.CaseBreakdown.AdmissionNotes?.Latest?.AdmittedDate;
-        }
-    }
-
-    internal class MedicalExaminerFullNameResolver : IValueResolver<Examination, GetCaseOutcomeResponse, string>
-    {
-        public string Resolve(Examination source, GetCaseOutcomeResponse destination, string destMember, ResolutionContext context)
-        {
-            return source.MedicalTeam.MedicalExaminerFullName;
-        }
-    }
-
-    internal class MedicalExaminerIdResolver : IValueResolver<Examination, GetCaseOutcomeResponse, string>
-    {
-        public string Resolve(Examination source, GetCaseOutcomeResponse destination, string destMember, ResolutionContext context)
-        {
-            return source.MedicalTeam.MedicalExaminerUserId;
-        }
-    }
-
-    internal class AppointmentDateResolver : IValueResolver<Examination, PatientCardItem, DateTime?>
-    {
-        private readonly AppointmentFinder _appointmentFinder;
-
-        public AppointmentDateResolver(AppointmentFinder appointmentFinder)
-        {
-            _appointmentFinder = appointmentFinder;
+            /// <inheritdoc/>
+            public QapDiscussionOutcome? Resolve(Examination source, GetCaseOutcomeResponse destination, QapDiscussionOutcome? destMember, ResolutionContext context)
+            {
+                return source.CaseBreakdown.QapDiscussion?.Latest?.QapDiscussionOutcome;
+            }
         }
 
-        public DateTime? Resolve(Examination source, PatientCardItem destination, DateTime? destMember, ResolutionContext context)
+        /// <summary>
+        /// Representative Discussion Outcome Resolver.
+        /// </summary>
+        internal class RepresentativeDiscussionOutcomeResolver : IValueResolver<Examination, GetCaseOutcomeResponse, BereavedDiscussionOutcome?>
         {
-            return _appointmentFinder.FindAppointment(source.Representatives)?.AppointmentDate;
-        }
-    }
-
-    internal class AppointmentTimeResolver : IValueResolver<Examination, PatientCardItem, TimeSpan?>
-    {
-        private AppointmentFinder _appointmentFinder;
-
-        public AppointmentTimeResolver(AppointmentFinder appointmentFinder)
-        {
-            _appointmentFinder = appointmentFinder;
+            /// <inheritdoc/>
+            public BereavedDiscussionOutcome? Resolve(Examination source, GetCaseOutcomeResponse destination, BereavedDiscussionOutcome? destMember, ResolutionContext context)
+            {
+                return source.CaseBreakdown.BereavedDiscussion?.Latest?.BereavedDiscussionOutcome;
+            }
         }
 
-        public TimeSpan? Resolve(Examination source, PatientCardItem destination, TimeSpan? destMember, ResolutionContext context)
+        /// <summary>
+        /// Pre Scrutiny Outcome Resolver.
+        /// </summary>
+        internal class PreScrutinyOutcomeResolver : IValueResolver<Examination, GetCaseOutcomeResponse, OverallOutcomeOfPreScrutiny?>
         {
-            return _appointmentFinder.FindAppointment(source.Representatives)?.AppointmentTime;
+            /// <inheritdoc/>
+            public OverallOutcomeOfPreScrutiny? Resolve(Examination source, GetCaseOutcomeResponse destination, OverallOutcomeOfPreScrutiny? destMember, ResolutionContext context)
+            {
+                return source.CaseBreakdown.PreScrutiny?.Latest?.OutcomeOfPreScrutiny;
+            }
+        }
+
+        /// <summary>
+        /// Admission Date Resolver.
+        /// </summary>
+        internal class AdmissionDateResolver : IValueResolver<Examination, PatientCardItem, DateTime?>
+        {
+            /// <inheritdoc/>
+            public DateTime? Resolve(Examination source, PatientCardItem destination, DateTime? destMember, ResolutionContext context)
+            {
+                return source.CaseBreakdown.AdmissionNotes?.Latest?.AdmittedDate;
+            }
+        }
+
+        /// <summary>
+        /// Medical Examiner Full Name Resolver.
+        /// </summary>
+        internal class MedicalExaminerFullNameResolver : IValueResolver<Examination, GetCaseOutcomeResponse, string>
+        {
+            /// <inheritdoc/>
+            public string Resolve(Examination source, GetCaseOutcomeResponse destination, string destMember, ResolutionContext context)
+            {
+                return source.MedicalTeam.MedicalExaminerFullName;
+            }
+        }
+
+        /// <summary>
+        /// Medical Examiner Id Resolver.
+        /// </summary>
+        internal class MedicalExaminerIdResolver : IValueResolver<Examination, GetCaseOutcomeResponse, string>
+        {
+            /// <inheritdoc/>
+            public string Resolve(Examination source, GetCaseOutcomeResponse destination, string destMember, ResolutionContext context)
+            {
+                return source.MedicalTeam.MedicalExaminerUserId;
+            }
+        }
+
+        /// <summary>
+        /// Appointment Date Resolver.
+        /// </summary>
+        internal class AppointmentDateResolver : IValueResolver<Examination, PatientCardItem, DateTime?>
+        {
+            private readonly AppointmentFinder _appointmentFinder;
+
+            /// <summary>
+            /// Initialise a new instance of <see cref="AppointmentDateResolver"/>.
+            /// </summary>
+            /// <param name="appointmentFinder">Appointment Finder.</param>
+            public AppointmentDateResolver(AppointmentFinder appointmentFinder)
+            {
+                _appointmentFinder = appointmentFinder;
+            }
+
+            /// <inheritdoc/>
+            public DateTime? Resolve(Examination source, PatientCardItem destination, DateTime? destMember, ResolutionContext context)
+            {
+                return _appointmentFinder.FindAppointment(source.Representatives)?.AppointmentDate;
+            }
+        }
+
+        /// <summary>
+        /// Appointment Time Resolver.
+        /// </summary>
+        internal class AppointmentTimeResolver : IValueResolver<Examination, PatientCardItem, TimeSpan?>
+        {
+            private readonly AppointmentFinder _appointmentFinder;
+
+            /// <summary>
+            /// Initialise a new instance of <see cref="AppointmentTimeResolver"/>.
+            /// </summary>
+            /// <param name="appointmentFinder">Appointment Finder.</param>
+            public AppointmentTimeResolver(AppointmentFinder appointmentFinder)
+            {
+                _appointmentFinder = appointmentFinder;
+            }
+
+            /// <inheritdoc/>
+            public TimeSpan? Resolve(Examination source, PatientCardItem destination, TimeSpan? destMember, ResolutionContext context)
+            {
+                return _appointmentFinder.FindAppointment(source.Representatives)?.AppointmentTime;
+            }
         }
     }
 }

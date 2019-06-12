@@ -4,6 +4,9 @@ using Newtonsoft.Json;
 
 namespace MedicalExaminer.Models
 {
+    /// <summary>
+    /// Death Event.
+    /// </summary>
     public class DeathEvent : IEvent
     {
         /// <summary>
@@ -40,7 +43,7 @@ namespace MedicalExaminer.Models
         /// user id that created the event
         /// </summary>
         [JsonProperty(PropertyName = "user_id")]
-        public string UserId {get; set;}
+        public string UserId { get; set; }
 
         /// <summary>
         /// the date the event was created.

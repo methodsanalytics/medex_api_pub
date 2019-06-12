@@ -4,6 +4,9 @@ using Newtonsoft.Json;
 
 namespace MedicalExaminer.Models
 {
+    /// <summary>
+    /// Case Outcome.
+    /// </summary>
     public class CaseOutcome
     {
         /// <summary>
