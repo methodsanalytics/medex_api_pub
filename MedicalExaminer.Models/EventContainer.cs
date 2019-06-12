@@ -4,14 +4,21 @@ using System.Linq;
 
 namespace MedicalExaminer.Models
 {
+    /// <summary>
+    /// Other Event Container.
+    /// </summary>
     public class OtherEventContainer : BaseEventContainter<OtherEvent>
     {
+        /// <summary>
+        /// Initialise a new instance of <see cref="OtherEventContainer"/>.
+        /// </summary>
         public OtherEventContainer()
         {
             Drafts = new List<OtherEvent>();
             History = new List<OtherEvent>();
         }
 
+        /// <inheritdoc/>
         public override void Add(OtherEvent theEvent)
         {
             if (string.IsNullOrEmpty(theEvent.EventId))
