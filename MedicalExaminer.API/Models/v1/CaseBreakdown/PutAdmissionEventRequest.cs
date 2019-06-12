@@ -1,5 +1,5 @@
-﻿using MedicalExaminer.API.Attributes;
-using System;
+﻿using System;
+using MedicalExaminer.API.Attributes;
 
 namespace MedicalExaminer.API.Models.v1.CaseBreakdown
 {

@@ -1,5 +1,5 @@
-﻿using MedicalExaminer.Models;
-using System;
+﻿using System;
+using MedicalExaminer.Models;
 
 namespace MedicalExaminer.Common.Database
 {
