@@ -1,11 +1,19 @@
 ﻿using System;
-using System.Linq;
 using MedicalExaminer.Models.Enums;
 
 namespace MedicalExaminer.Models
 {
+    /// <summary>
+    /// Examination Extension Methods.
+    /// </summary>
     public static class ExaminationExtensionMethods
     {
+        /// <summary>
+        /// Add Event.
+        /// </summary>
+        /// <param name="examination">An examination.</param>
+        /// <param name="theEvent">The event.</param>
+        /// <returns>Examination.</returns>
         public static Examination AddEvent(this Examination examination, IEvent theEvent)
         {
             switch (theEvent.EventType)
@@ -88,6 +96,11 @@ namespace MedicalExaminer.Models
             return examination;
         }
 
+        /// <summary>
+        /// Update Case Urgency Score.
+        /// </summary>
+        /// <param name="examination">The examination.</param>
+        /// <returns>Examination.</returns>
         public static Examination UpdateCaseUrgencyScore(this Examination examination)
         {
             var score = 0;
@@ -139,6 +152,11 @@ namespace MedicalExaminer.Models
             return examination;
         }
 
+        /// <summary>
+        /// Update Case Status.
+        /// </summary>
+        /// <param name="examination">The examination.</param>
+        /// <returns>Examination.</returns>
         public static Examination UpdateCaseStatus(this Examination examination)
         {
             examination.Unassigned = !(examination.MedicalTeam.MedicalExaminerOfficerUserId != null && examination.MedicalTeam.MedicalExaminerUserId != null);
@@ -155,6 +173,11 @@ namespace MedicalExaminer.Models
             return examination;
         }
 
+        /// <summary>
+        /// Calculate Outstanding Case Outcomes Completed.
+        /// </summary>
+        /// <param name="examination">The examination.</param>
+        /// <returns>True if outstanding case outcomes completed.</returns>
         public static bool CalculateOutstandingCaseOutcomesCompleted(this Examination examination)
         {
             if (examination.CaseOutcome.MccdIssued != null && examination.CaseOutcome.MccdIssued.Value)
@@ -179,6 +202,11 @@ namespace MedicalExaminer.Models
             return false;
         }
 
+        /// <summary>
+        /// Calculate Can Complete Scrutiny.
+        /// </summary>
+        /// <param name="examination">The examination.</param>
+        /// <returns>True if can complete scrutiny.</returns>
         public static bool CalculateCanCompleteScrutiny(this Examination examination)
         {
             examination = examination.UpdateCaseStatus();
@@ -214,9 +242,14 @@ namespace MedicalExaminer.Models
             return true;
         }
 
+        /// <summary>
+        /// Calculate Requires Coroner Referral.
+        /// </summary>
+        /// <param name="examination">The examination.</param>
+        /// <returns>True if requires coroner referral.</returns>
         public static bool CalculateRequiresCoronerReferral(this Examination examination)
         {
-            return examination.CaseOutcome.CaseOutcomeSummary == CaseOutcomeSummary.ReferToCoroner || 
+            return examination.CaseOutcome.CaseOutcomeSummary == CaseOutcomeSummary.ReferToCoroner ||
                 examination.CaseOutcome.CaseOutcomeSummary == CaseOutcomeSummary.IssueMCCDWith100a;
         }
 
@@ -234,7 +267,6 @@ namespace MedicalExaminer.Models
                 }
                 else
                 {
-
                     var latest = examination.CaseBreakdown.BereavedDiscussion.Latest;
 
                     if (latest != null && !latest.DiscussionUnableHappen)
@@ -261,7 +293,7 @@ namespace MedicalExaminer.Models
                 return CaseOutcomeSummary.ReferToCoroner;
             }
 
-            if (examination.CaseBreakdown.PreScrutiny?.Latest?.OutcomeOfPreScrutiny == OverallOutcomeOfPreScrutiny.ReferToCoronerFor100a 
+            if (examination.CaseBreakdown.PreScrutiny?.Latest?.OutcomeOfPreScrutiny == OverallOutcomeOfPreScrutiny.ReferToCoronerFor100a
                 && examination.CaseBreakdown.QapDiscussion?.Latest?.QapDiscussionOutcome == QapDiscussionOutcome.ReferToCoronerFor100a)
             {
                 return CaseOutcomeSummary.ReferToCoroner;

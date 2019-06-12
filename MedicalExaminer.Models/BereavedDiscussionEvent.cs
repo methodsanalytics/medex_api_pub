@@ -4,6 +4,9 @@ using Newtonsoft.Json;
 
 namespace MedicalExaminer.Models
 {
+    /// <summary>
+    /// Bereaved Discussion Event.
+    /// </summary>
     public class BereavedDiscussionEvent : IEvent
     {
         /// <summary>
@@ -102,9 +105,9 @@ namespace MedicalExaminer.Models
         [JsonProperty(PropertyName = "discussion_details")]
         public string DiscussionDetails { get; set; }
 
-        ///// <summary>
-        ///// Outcome of the Bereaved Discussion.
-        ///// </summary>
+        /// <summary>
+        /// Outcome of the Bereaved Discussion.
+        /// </summary>
         [JsonProperty(PropertyName = "bereaved_discussion_outcome")]
         public BereavedDiscussionOutcome? BereavedDiscussionOutcome { get; set; }
     }

@@ -41,7 +41,7 @@ namespace MedicalExaminer.API.Controllers
         /// <param name="examinationRetrievalService">The examination retrieval service.</param>
         /// <param name="saveOutstandingCaseItemsService">The save outstanding case items service.</param>
         /// <param name="confirmationOfScrutinyService">The confirmation of scrutiny service.</param>
-        /// <param name="usersRetrievalByEmailService">The users retrieval by email service.</param>
+        /// <param name="usersRetrievalByOktaIdService">The users retrieval by okta id service.</param>
         /// <param name="authorizationService">The authorization service.</param>
         /// <param name="permissionService">The permission service.</param>
         public CaseOutcomeController(
@@ -192,8 +192,8 @@ namespace MedicalExaminer.API.Controllers
         /// <summary>
         /// Closing a case
         /// </summary>
-        /// <param name="examinationId"></param>
-        /// <returns></returns>
+        /// <param name="examinationId">The examination id</param>
+        /// <returns>Action result.</returns>
         [HttpPut]
         [Route("close_case")]
         public async Task<ActionResult> PutCloseCase(string examinationId)
@@ -238,6 +238,7 @@ namespace MedicalExaminer.API.Controllers
         /// <summary>
         /// Get Case Outcome details
         /// </summary>
+        /// <param name="examinationId">The examination id</param>
         /// <returns>Case Outcome Details</returns>
         [HttpGet]
         [ServiceFilter(typeof(ControllerActionFilter))]

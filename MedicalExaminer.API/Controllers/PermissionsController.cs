@@ -188,14 +188,15 @@ namespace MedicalExaminer.API.Controllers
         /// <summary>
         ///     Create a new Permission.
         /// </summary>
+        /// <param name="meUserId">The User id.</param>
         /// <param name="postPermission">The PostPermissionRequest.</param>
         /// <returns>A PostPermissionResponse.</returns>
         [HttpPost]
         [AuthorizePermission(Common.Authorization.Permission.CreateUserPermission)]
         [ServiceFilter(typeof(ControllerActionFilter))]
-        public async Task<ActionResult<PostPermissionResponse>> CreatePermission(string meUserId,
-            [FromBody]
-            PostPermissionRequest postPermission)
+        public async Task<ActionResult<PostPermissionResponse>> CreatePermission(
+            string meUserId,
+            [FromBody] PostPermissionRequest postPermission)
         {
             if (!ModelState.IsValid)
             {
@@ -230,7 +231,7 @@ namespace MedicalExaminer.API.Controllers
 
                 var possiblePermission = existingPermissions.SingleOrDefault(ep => ep.LocationId == postPermission.LocationId
                 && ep.UserRole == postPermission.UserRole);
-                PostPermissionResponse result = null;
+                PostPermissionResponse result;
                 if (possiblePermission == null)
                 {
                     existingPermissions.Add(permission);
@@ -239,15 +240,14 @@ namespace MedicalExaminer.API.Controllers
 
                     await _userUpdateService.Handle(new UserUpdateQuery(user, currentUser));
                     result = Mapper.Map<MEUserPermission, PostPermissionResponse>(
-                    permission,
-                    opts => opts.AfterMap((src, dest) => { dest.UserId = user.UserId; }));
-
+                        permission,
+                        opts => opts.AfterMap((src, dest) => { dest.UserId = user.UserId; }));
                 }
                 else
                 {
                     result = Mapper.Map<MEUserPermission, PostPermissionResponse>(
-                    possiblePermission,
-                    opts => opts.AfterMap((src, dest) => { dest.UserId = user.UserId; }));
+                        possiblePermission,
+                        opts => opts.AfterMap((src, dest) => { dest.UserId = user.UserId; }));
                 }
 
                 return Ok(result);
@@ -265,16 +265,17 @@ namespace MedicalExaminer.API.Controllers
         /// <summary>
         /// Updates a Permission.
         /// </summary>
+        /// <param name="meUserId">The User id.</param>
+        /// <param name="permissionId">The Permission id.</param>
         /// <param name="putPermission">The PutPermissionRequest.</param>
         /// <returns>A PutPermissionResponse.</returns>
         [HttpPut("{permissionId}")]
         [AuthorizePermission(Common.Authorization.Permission.UpdateUserPermission)]
         [ServiceFilter(typeof(ControllerActionFilter))]
         public async Task<ActionResult<PutPermissionResponse>> UpdatePermission(
-            string meUserId, 
+            string meUserId,
             string permissionId,
-            [FromBody]
-            PutPermissionRequest putPermission)
+            [FromBody] PutPermissionRequest putPermission)
         {
             try
             {

@@ -4,6 +4,10 @@ using Newtonsoft.Json;
 
 namespace MedicalExaminer.Models
 {
+    /// <summary>
+    /// Admission Event.
+    /// </summary>
+    /// <inheritdoc cref="IEvent"/>
     public class AdmissionEvent : IEvent
     {
         /// <summary>
