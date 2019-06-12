@@ -146,7 +146,7 @@ namespace MedicalExaminer.API.Controllers
         }
 
         /// <summary>
-        /// List of user roles
+        /// Returns all the data types and the values for user roles
         /// </summary>
         /// <returns>List of user roles</returns>
         [HttpGet("user_roles")]
@@ -218,7 +218,7 @@ namespace MedicalExaminer.API.Controllers
 
             foreach (var value in values)
             {
-                dic.Add(value.ToString(),(int)value);
+                dic.Add(value.ToString(), (int)value);
             }
 
             return dic;
