@@ -130,7 +130,6 @@ namespace MedicalExaminer.API.Tests.Services.Location
                     Type = LocationType.Site,
                 },
             };
-
         }
     }
 }

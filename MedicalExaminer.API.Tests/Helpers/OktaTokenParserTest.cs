@@ -20,7 +20,6 @@ namespace MedicalExaminer.API.Tests.Helpers
 
             //Assert
             Assert.Equal("1234fgtvcjk0sdyakkq", result);
-
         }
 
         [Fact]
@@ -31,7 +30,6 @@ namespace MedicalExaminer.API.Tests.Helpers
 
             // Assert
             act.Should().Throw<ArgumentNullException>();
-
         }
 
         [Fact]
@@ -42,7 +40,6 @@ namespace MedicalExaminer.API.Tests.Helpers
 
             // Assert
             act.Should().Throw<ArgumentException>();
-
         }
     }
 }

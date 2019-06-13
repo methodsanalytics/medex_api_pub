@@ -129,6 +129,5 @@ namespace MedicalExaminer.API.Tests.Authorization
             public string TrustLocationId { get; set; }
             public string SiteLocationId { get; set; }
         }
-
     }
 }

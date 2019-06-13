@@ -63,7 +63,6 @@ namespace MedicalExaminer.API.Tests.Services.CaseBreakdown
 
             Assert.NotNull(result.Result);
             Assert.Equal("a", examination.LastModifiedBy);
-
         }
 
         /// <summary>
@@ -103,7 +102,6 @@ namespace MedicalExaminer.API.Tests.Services.CaseBreakdown
             // Assert
             Assert.Equal(0, examination.UrgencyScore);
             Assert.Equal("a", examination.LastModifiedBy);
-
         }
 
         /// <summary>

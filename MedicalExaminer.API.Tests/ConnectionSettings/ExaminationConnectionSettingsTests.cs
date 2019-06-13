@@ -50,6 +50,5 @@ namespace MedicalExaminer.API.Tests.ConnectionSettings
 
             act.Should().Throw<ArgumentNullException>();
         }
-
     }
 }

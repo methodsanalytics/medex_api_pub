@@ -567,7 +567,6 @@ namespace MedicalExaminer.API.Tests.Mapper
             result.OutcomeOfRepresentativeDiscussion.Should().Be(caseOutcome.OutcomeOfRepresentativeDiscussion);
             result.OutcomeQapDiscussion.Should().Be(caseOutcome.OutcomeQapDiscussion);
             result.CaseCompleted.Should().Be(Completed);
-
         }
 
         [Fact]
@@ -785,7 +784,6 @@ namespace MedicalExaminer.API.Tests.Mapper
             result.PendingDiscussionWithQAP.Should().Be(true);
             result.PendingDiscussionWithRepresentative.Should().Be(true);
             result.Unassigned.Should().Be(true);
-
         }
 
         [Fact]
@@ -1209,7 +1207,6 @@ namespace MedicalExaminer.API.Tests.Mapper
             response.PlaceDeathOccured.Should().Be(PlaceDeathOccured);
             response.Surname.Should().Be(Surname);
             response.TimeOfDeath.Should().Be(TimeOfDeath);
-
         }
 
         private void AssertAllSourcePropertiesMappedForMap(TypeMap map)
@@ -1230,7 +1227,6 @@ namespace MedicalExaminer.API.Tests.Mapper
                     throw new Exception(String.Format("Property '{0}' of type '{1}' is not mapped",
                         propertyInfo, map.SourceType));
             }
-
         }
 
         private void AssertAllSourcePropertiesMapped()

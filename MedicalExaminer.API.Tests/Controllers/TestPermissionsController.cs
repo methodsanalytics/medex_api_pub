@@ -1398,6 +1398,5 @@ namespace MedicalExaminer.API.Tests.Controllers
 
             model.PermissionId.Should().BeNull();
         }
-
     }
 }
