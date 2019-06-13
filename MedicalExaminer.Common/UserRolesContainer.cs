@@ -8,6 +8,9 @@ namespace MedicalExaminer.Common
     /// <remarks>Used to filter results by user role</remarks>
     internal class UserRolesContainer
     {
+        /// <summary>
+        /// Role.
+        /// </summary>
         internal UserRoles Role { get; set; }
     }
 }
