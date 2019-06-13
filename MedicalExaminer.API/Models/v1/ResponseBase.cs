@@ -47,7 +47,7 @@ namespace MedicalExaminer.API.Models.v1
         /// </summary>
         /// <param name="key">The key for the lookup</param>
         /// <param name="lookup">A dictionary of lookups</param>
-        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentException">Argument exception thrown when lookup null.</exception>
         /// <returns>Response Base for chainging.</returns>
         public ResponseBase AddLookup(string key, IEnumerable<object> lookup)
         {

@@ -251,9 +251,6 @@ namespace MedicalExaminer.API
 
             app.UseMiddleware<ResponseTimeMiddleware>();
 
-            // TODO: Not using HTTPS while we join front to back end
-            //app.UseHttpsRedirection();
-
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
