@@ -61,46 +61,4 @@ namespace MedicalExaminer.Models
             }
         }
     }
-
-    /// <summary>
-    /// Pre Scrutiny Event Container.
-    /// </summary>
-    public class PreScrutinyEventContainer : BaseEventContainer<PreScrutinyEvent>
-    {
-    }
-
-    /// <summary>
-    /// Bereaved Discussion Event Container.
-    /// </summary>
-    public class BereavedDiscussionEventContainer : BaseEventContainer<BereavedDiscussionEvent>
-    {
-    }
-
-    /// <summary>
-    /// Meo Summary Event Container.
-    /// </summary>
-    public class MeoSummaryEventContainer : BaseEventContainer<MeoSummaryEvent>
-    {
-    }
-
-    /// <summary>
-    /// Admission Notes Event Container.
-    /// </summary>
-    public class AdmissionNotesEventContainer : BaseEventContainer<AdmissionEvent>
-    {
-    }
-
-    /// <summary>
-    /// Medical History Event Container.
-    /// </summary>
-    public class MedicalHistoryEventContainer : BaseEventContainer<MedicalHistoryEvent>
-    {
-    }
-
-    /// <summary>
-    /// Qap Discussion Event Container.
-    /// </summary>
-    public class QapDiscussionEventContainer : BaseEventContainer<QapDiscussionEvent>
-    {
-    }
 }
