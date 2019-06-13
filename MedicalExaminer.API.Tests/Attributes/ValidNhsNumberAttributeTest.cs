@@ -85,7 +85,7 @@ namespace MedicalExaminer.API.Tests.Attributes
             // Act
             var result = sut.GetValidationResult(nhsNumberString, new ValidationContext(validationContext));
 
-            //Assert
+            // Assert
             Assert.Equal(expectedError, result.ErrorMessage);
         }
 
@@ -102,7 +102,7 @@ namespace MedicalExaminer.API.Tests.Attributes
             // Act
             var result = sut.GetValidationResult(nhsNumberString, new ValidationContext(validationContext));
 
-            //Assert
+            // Assert
             Assert.Equal(expectedResult, result);
         }
     }

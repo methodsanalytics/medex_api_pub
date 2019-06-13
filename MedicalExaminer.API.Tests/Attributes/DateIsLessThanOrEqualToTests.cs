@@ -28,7 +28,7 @@ namespace MedicalExaminer.API.Tests.Attributes
             var sut = new DateIsLessThanOrEqualToNullsAllowed(endDateField);
             // Act
             var result = sut.GetValidationResult(startDate, validationContext);
-            //Assert
+            // Assert
             Assert.Equal(expectedError, result.ErrorMessage);
         }
 
@@ -45,7 +45,7 @@ namespace MedicalExaminer.API.Tests.Attributes
             var sut = new DateIsLessThanOrEqualToNullsAllowed(endDateField);
             // Act
             var result = sut.GetValidationResult(startDate, validationContext);
-            //Assert
+            // Assert
             Assert.Equal(expectedResult, result);
         }
 
@@ -65,7 +65,7 @@ namespace MedicalExaminer.API.Tests.Attributes
             var sut = new DateIsLessThanOrEqualToNullsAllowed(endDateField);
             // Act
             var result = sut.GetValidationResult(startDate, validationContext);
-            //Assert
+            // Assert
             Assert.Equal(expectedResult, result);
         }
 
@@ -86,7 +86,7 @@ namespace MedicalExaminer.API.Tests.Attributes
             var sut = new DateIsLessThanOrEqualToNullsAllowed(endDateField);
             // Act
             var result = sut.GetValidationResult(startDate, validationContext);
-            //Assert
+            // Assert
             Assert.Equal(expectedResult, result.ErrorMessage);
         }
 
@@ -102,7 +102,7 @@ namespace MedicalExaminer.API.Tests.Attributes
             var sut = new DateIsLessThanOrEqualToNullsAllowed(endDateField);
             // Act
             var result = sut.GetValidationResult(startDate, new ValidationContext(serviceProvider));
-            //Assert
+            // Assert
             Assert.Equal(expectedResult, result);
         }
 
@@ -123,7 +123,7 @@ namespace MedicalExaminer.API.Tests.Attributes
             var sut = new DateIsLessThanOrEqualToNullsAllowed(endDateField);
             // Act
             var result = sut.GetValidationResult(startDate, validationContext);
-            //Assert
+            // Assert
             Assert.Equal(expectedResult, result);
         }
     }

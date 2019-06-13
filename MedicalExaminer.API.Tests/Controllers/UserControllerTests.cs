@@ -1,23 +1,23 @@
-﻿//using System.Collections.Generic;
-//using System.Linq;
-//using System.Threading.Tasks;
-//using AutoMapper;
-//using FluentAssertions;
-//using MedicalExaminer.API.Controllers;
-//using MedicalExaminer.API.Models.v1.Examinations;
-//using MedicalExaminer.API.Models.v1.Users;
-//using MedicalExaminer.API.Tests.Controllers;
-//using MedicalExaminer.API.Tests.Persistence;
-//using MedicalExaminer.Common.Loggers;
-//using MedicalExaminer.Common.Queries.User;
-//using MedicalExaminer.Common.Services;
-//using MedicalExaminer.Models;
-//using Microsoft.AspNetCore.Mvc;
-//using Moq;
-//using Xunit;
+﻿// using System.Collections.Generic;
+// using System.Linq;
+// using System.Threading.Tasks;
+// using AutoMapper;
+// using FluentAssertions;
+// using MedicalExaminer.API.Controllers;
+// using MedicalExaminer.API.Models.v1.Examinations;
+// using MedicalExaminer.API.Models.v1.Users;
+// using MedicalExaminer.API.Tests.Controllers;
+// using MedicalExaminer.API.Tests.Persistence;
+// using MedicalExaminer.Common.Loggers;
+// using MedicalExaminer.Common.Queries.User;
+// using MedicalExaminer.Common.Services;
+// using MedicalExaminer.Models;
+// using Microsoft.AspNetCore.Mvc;
+// using Moq;
+// using Xunit;
 //
-//public class UserControllerTests : ControllerTestsBase<UsersController>
-//{
+// public class UserControllerTests : ControllerTestsBase<UsersController>
+// {
 //    /// <summary>
 //    /// Initializes a new instance of the <see cref="UserControllerTests"/> class.
 //    /// </summary>
@@ -157,4 +157,4 @@
 //        var users = okResult.Value.Should().BeAssignableTo<GetUsersResponse>().Subject;
 //        Assert.Equal(10, users.Users.Count());
 //    }
-//}
+// }

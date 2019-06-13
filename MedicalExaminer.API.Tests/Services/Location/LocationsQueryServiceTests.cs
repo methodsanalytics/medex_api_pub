@@ -19,13 +19,13 @@ namespace MedicalExaminer.API.Tests.Services.Location
         [Fact]
         public async Task Handle_ReturnsAllResults_WhenNoFilterApplied()
         {
-            //Arrange
+            // Arrange
             var query = new LocationsRetrievalByQuery(null, null);
 
-            //Act
+            // Act
             var results = (await Service.Handle(query)).ToList();
 
-            //Assert
+            // Assert
             results.Should().NotBeNull();
             results.Count.Should().Be(50);
         }
@@ -33,13 +33,13 @@ namespace MedicalExaminer.API.Tests.Services.Location
         [Fact]
         public async Task Handle_ReturnsFiltered_WhenFilteredByName()
         {
-            //Arrange
+            // Arrange
             var query = new LocationsRetrievalByQuery("Name2", null);
 
-            //Act
+            // Act
             var results = (await Service.Handle(query)).ToList();
 
-            //Assert
+            // Assert
             results.Should().NotBeNull();
             results.Count.Should().Be(1);
         }
@@ -47,13 +47,13 @@ namespace MedicalExaminer.API.Tests.Services.Location
         [Fact]
         public async Task Handle_ReturnsFiltered_WhenFilteredByParentId()
         {
-            //Arrange
+            // Arrange
             var query = new LocationsRetrievalByQuery(null, "Name1");
 
-            //Act
+            // Act
             var results = (await Service.Handle(query)).ToList();
 
-            //Assert
+            // Assert
             results.Should().NotBeNull();
             results.Count.Should().Be(1);
         }
@@ -61,13 +61,13 @@ namespace MedicalExaminer.API.Tests.Services.Location
         [Fact]
         public async Task Handle_ReturnsFiltered_WhenFilteredByNameAndParentId()
         {
-            //Arrange
+            // Arrange
             var query = new LocationsRetrievalByQuery("Name2", "Name1");
 
-            //Act
+            // Act
             var results = (await Service.Handle(query)).ToList();
 
-            //Assert
+            // Assert
             results.Should().NotBeNull();
             results.Count.Should().Be(1);
         }

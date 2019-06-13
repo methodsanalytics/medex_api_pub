@@ -12,13 +12,13 @@ namespace MedicalExaminer.API.Tests.Helpers
         [Fact]
         public void OktaTokenParser_FullHttpRequest()
         {
-            //Arrange
+            // Arrange
             var httpRequestAuthorisation = "Bearer 1234fgtvcjk0sdyakkq";
 
-            //Act
+            // Act
             var result = OktaTokenParser.ParseHttpRequestAuthorisation(httpRequestAuthorisation);
 
-            //Assert
+            // Assert
             Assert.Equal("1234fgtvcjk0sdyakkq", result);
         }
 

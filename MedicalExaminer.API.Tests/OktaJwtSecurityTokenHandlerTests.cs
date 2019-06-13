@@ -148,7 +148,7 @@ namespace MedicalExaminer.API.Tests
         [Fact]
         public void ValidateToken_BypassOktaIfUserFoundAndTokenNotExpired()
         {
-            //Arrange
+            // Arrange
             var securityToken = "Token1";
             var tokenExpiryTime = DateTime.Now.AddMinutes(30);
             var expectedTokenValidationParameters = new TokenValidationParameters();
@@ -163,19 +163,19 @@ namespace MedicalExaminer.API.Tests
                 .Returns(Task.FromResult(meUserExisting));
             _mockTokenService.Setup(ts => ts.IntrospectToken(securityToken, It.IsAny<HttpClient>()));
 
-            //Act
+            // Act
             sut.ValidateToken(securityToken, expectedTokenValidationParameters, out expectedValidatedToken);
 
-            //Assert
+            // Assert
             _mockTokenService.Verify(ts => ts.IntrospectToken(securityToken, It.IsAny<HttpClient>()), Times.Never());
         }
 
         [Fact]
         public void ValidateToken_CallOktaIfUserFoundByTokenButExpired()
         {
-            //Arrange
+            // Arrange
             var securityToken = "Token1";
-            var tokenExpiryTime = DateTime.Now.AddMinutes(-30); //expired!
+            var tokenExpiryTime = DateTime.Now.AddMinutes(-30); // expired!
             var expectedTokenValidationParameters = new TokenValidationParameters();
             var meUserExisting = new MeUser
             {
@@ -192,19 +192,19 @@ namespace MedicalExaminer.API.Tests
                 .Returns(Task.FromResult(meUserExisting));
             _mockTokenService.Setup(ts => ts.IntrospectToken(securityToken, It.IsAny<HttpClient>())).Returns(Task.FromResult(introspectResponse));
 
-            //Act
+            // Act
             sut.ValidateToken(securityToken, expectedTokenValidationParameters, out expectedValidatedToken);
 
-            //Assert
+            // Assert
             _mockTokenService.Verify(ts => ts.IntrospectToken(securityToken, It.IsAny<HttpClient>()), Times.AtLeastOnce);
         }
 
         [Fact]
         public void ValidateToken_ExpiredTokenReset()
         {
-            //Arrange
+            // Arrange
             var securityToken = "Token1";
-            var tokenExpiryTime = DateTime.Now.AddMinutes(-30); //expired!
+            var tokenExpiryTime = DateTime.Now.AddMinutes(-30); // expired!
             var expectedTokenValidationParameters = new TokenValidationParameters();
             var meUserExisting = new MeUser
             {
@@ -234,10 +234,10 @@ namespace MedicalExaminer.API.Tests
             _mockUsersRetrievalByOktaIdService.Setup(es => es.Handle(It.IsAny<UserRetrievalByOktaIdQuery>()))
                 .Returns(Task.FromResult(meUserExisting));
 
-            //Act
+            // Act
             sut.ValidateToken(securityToken, expectedTokenValidationParameters, out expectedValidatedToken);
 
-            //Assert
+            // Assert
             _mockUserUpdateOktaTokenService.Verify(ts => ts.Handle(It.IsAny<UsersUpdateOktaTokenQuery>()), Times.AtLeastOnce);
         }
     }
