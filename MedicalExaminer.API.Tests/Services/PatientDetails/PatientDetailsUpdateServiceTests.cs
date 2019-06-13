@@ -78,10 +78,12 @@ namespace MedicalExaminer.API.Tests.Services.PatientDetails
             var location = new MedicalExaminer.Models.Location();
             var locationService = new Mock<LocationIdService>(dbAccess.Object, locationConnectionSettings.Object);
             locationService.Setup(x => x.Handle(It.IsAny<LocationRetrievalByIdQuery>())).Returns(Task.FromResult(location));
-            dbAccess.Setup(db => db.GetItemAsync(connectionSettings.Object,
+            dbAccess.Setup(db => db.GetItemAsync(
+                connectionSettings.Object,
                     It.IsAny<Expression<Func<MedicalExaminer.Models.Examination, bool>>>()))
                 .Returns(Task.FromResult(examination)).Verifiable();
-            dbAccess.Setup(db => db.UpdateItemAsync(connectionSettings.Object,
+            dbAccess.Setup(db => db.UpdateItemAsync(
+                connectionSettings.Object,
                 It.IsAny<MedicalExaminer.Models.Examination>())).Returns(Task.FromResult(examination)).Verifiable();
             var sut = new PatientDetailsUpdateService(dbAccess.Object, connectionSettings.Object, Mapper, locationService.Object);
 
@@ -89,7 +91,9 @@ namespace MedicalExaminer.API.Tests.Services.PatientDetails
             var result = sut.Handle(query);
 
             // Assert
-            dbAccess.Verify(db => db.UpdateItemAsync(connectionSettings.Object,
+            dbAccess.Verify(
+                db => db.UpdateItemAsync(
+                connectionSettings.Object,
                 It.IsAny<MedicalExaminer.Models.Examination>()), Times.Once);
             Assert.NotNull(result.Result);
             Assert.Equal("a", result.Result.LastModifiedBy);
@@ -110,10 +114,12 @@ namespace MedicalExaminer.API.Tests.Services.PatientDetails
             var location = new MedicalExaminer.Models.Location();
             var locationService = new Mock<LocationIdService>(dbAccess.Object, locationConnectionSettings.Object);
             locationService.Setup(x => x.Handle(It.IsAny<LocationRetrievalByIdQuery>())).Returns(Task.FromResult(location));
-            dbAccess.Setup(db => db.GetItemAsync(connectionSettings.Object,
+            dbAccess.Setup(db => db.GetItemAsync(
+                connectionSettings.Object,
                     It.IsAny<Expression<Func<MedicalExaminer.Models.Examination, bool>>>()))
                 .Returns(Task.FromResult(examination)).Verifiable();
-            dbAccess.Setup(db => db.UpdateItemAsync(connectionSettings.Object,
+            dbAccess.Setup(db => db.UpdateItemAsync(
+                connectionSettings.Object,
                 It.IsAny<MedicalExaminer.Models.Examination>())).Returns(Task.FromResult(examination)).Verifiable();
             var sut = new PatientDetailsUpdateService(dbAccess.Object, connectionSettings.Object, Mapper, locationService.Object);
 
@@ -121,7 +127,9 @@ namespace MedicalExaminer.API.Tests.Services.PatientDetails
             var result = sut.Handle(query);
 
             // Assert
-            dbAccess.Verify(db => db.UpdateItemAsync(connectionSettings.Object,
+            dbAccess.Verify(
+                db => db.UpdateItemAsync(
+                connectionSettings.Object,
                 It.IsAny<MedicalExaminer.Models.Examination>()), Times.Once);
             Assert.NotNull(result.Result);
         }
@@ -161,10 +169,12 @@ namespace MedicalExaminer.API.Tests.Services.PatientDetails
             var location = new MedicalExaminer.Models.Location();
             var locationService = new Mock<LocationIdService>(dbAccess.Object, locationConnectionSettings.Object);
             locationService.Setup(x => x.Handle(It.IsAny<LocationRetrievalByIdQuery>())).Returns(Task.FromResult(location));
-            dbAccess.Setup(db => db.GetItemAsync(connectionSettings.Object,
+            dbAccess.Setup(db => db.GetItemAsync(
+                connectionSettings.Object,
                     It.IsAny<Expression<Func<MedicalExaminer.Models.Examination, bool>>>()))
                 .Returns(Task.FromResult(examination)).Verifiable();
-            dbAccess.Setup(db => db.UpdateItemAsync(connectionSettings.Object,
+            dbAccess.Setup(db => db.UpdateItemAsync(
+                connectionSettings.Object,
                 It.IsAny<MedicalExaminer.Models.Examination>())).Returns(Task.FromResult(examination)).Verifiable();
             var sut = new PatientDetailsUpdateService(dbAccess.Object, connectionSettings.Object, Mapper, locationService.Object);
 
@@ -211,10 +221,12 @@ namespace MedicalExaminer.API.Tests.Services.PatientDetails
             var location = new MedicalExaminer.Models.Location();
             var locationService = new Mock<LocationIdService>(dbAccess.Object, locationConnectionSettings.Object);
             locationService.Setup(x => x.Handle(It.IsAny<LocationRetrievalByIdQuery>())).Returns(Task.FromResult(location));
-            dbAccess.Setup(db => db.GetItemAsync(connectionSettings.Object,
+            dbAccess.Setup(db => db.GetItemAsync(
+                connectionSettings.Object,
                     It.IsAny<Expression<Func<MedicalExaminer.Models.Examination, bool>>>()))
                 .Returns(Task.FromResult(examination)).Verifiable();
-            dbAccess.Setup(db => db.UpdateItemAsync(connectionSettings.Object,
+            dbAccess.Setup(db => db.UpdateItemAsync(
+                connectionSettings.Object,
                 It.IsAny<MedicalExaminer.Models.Examination>())).Returns(Task.FromResult(examination)).Verifiable();
             var sut = new PatientDetailsUpdateService(dbAccess.Object, connectionSettings.Object, Mapper, locationService.Object);
 

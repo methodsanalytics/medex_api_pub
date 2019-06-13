@@ -45,11 +45,13 @@ namespace MedicalExaminer.API.Tests.Services.CaseBreakdown
             theEvent.Object.UserId = "a";
             var dbAccess = new Mock<IDatabaseAccess>();
 
-            dbAccess.Setup(db => db.GetItemAsync(connectionSettings.Object,
+            dbAccess.Setup(db => db.GetItemAsync(
+                connectionSettings.Object,
                     It.IsAny<Expression<Func<MedicalExaminer.Models.Examination, bool>>>()))
                 .Returns(Task.FromResult(examination)).Verifiable();
 
-            dbAccess.Setup(db => db.UpdateItemAsync(connectionSettings.Object,
+            dbAccess.Setup(db => db.UpdateItemAsync(
+                connectionSettings.Object,
                 It.IsAny<MedicalExaminer.Models.Examination>())).Returns(Task.FromResult(examination)).Verifiable();
 
             var sut = new CreateEventService(dbAccess.Object, connectionSettings.Object);
@@ -58,7 +60,9 @@ namespace MedicalExaminer.API.Tests.Services.CaseBreakdown
             var result = sut.Handle(query);
 
             // Assert
-            dbAccess.Verify(db => db.UpdateItemAsync(connectionSettings.Object,
+            dbAccess.Verify(
+                db => db.UpdateItemAsync(
+                connectionSettings.Object,
                 It.IsAny<MedicalExaminer.Models.Examination>()), Times.Once);
 
             Assert.NotNull(result.Result);
@@ -87,11 +91,13 @@ namespace MedicalExaminer.API.Tests.Services.CaseBreakdown
             theEvent.Object.UserId = "a";
             var dbAccess = new Mock<IDatabaseAccess>();
 
-            dbAccess.Setup(db => db.GetItemAsync(connectionSettings.Object,
+            dbAccess.Setup(db => db.GetItemAsync(
+                connectionSettings.Object,
                     It.IsAny<Expression<Func<MedicalExaminer.Models.Examination, bool>>>()))
                 .Returns(Task.FromResult(examination)).Verifiable();
 
-            dbAccess.Setup(db => db.UpdateItemAsync(connectionSettings.Object,
+            dbAccess.Setup(db => db.UpdateItemAsync(
+                connectionSettings.Object,
                 It.IsAny<MedicalExaminer.Models.Examination>())).Returns(Task.FromResult(examination)).Verifiable();
 
             var sut = new CreateEventService(dbAccess.Object, connectionSettings.Object);
@@ -126,11 +132,13 @@ namespace MedicalExaminer.API.Tests.Services.CaseBreakdown
             var query = new CreateEventQuery("1", theEvent.Object);
             var dbAccess = new Mock<IDatabaseAccess>();
 
-            dbAccess.Setup(db => db.GetItemAsync(connectionSettings.Object,
+            dbAccess.Setup(db => db.GetItemAsync(
+                connectionSettings.Object,
                     It.IsAny<Expression<Func<MedicalExaminer.Models.Examination, bool>>>()))
                 .Returns(Task.FromResult(examination)).Verifiable();
 
-            dbAccess.Setup(db => db.UpdateItemAsync(connectionSettings.Object,
+            dbAccess.Setup(db => db.UpdateItemAsync(
+                connectionSettings.Object,
                 It.IsAny<MedicalExaminer.Models.Examination>())).Returns(Task.FromResult(examination)).Verifiable();
 
             var sut = new CreateEventService(dbAccess.Object, connectionSettings.Object);

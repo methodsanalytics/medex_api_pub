@@ -234,6 +234,7 @@ namespace MedicalExaminer.API.Tests.Controllers
             sut.ControllerContext = GetControllerContext();
 
             sut.ModelState.AddModelError("i", "broke it");
+
             // Act
             var response = await sut.UpsertNewMedicalHistoryEvent("a", invalidRequest);
 
@@ -416,6 +417,7 @@ namespace MedicalExaminer.API.Tests.Controllers
             sut.ControllerContext = GetControllerContext();
 
             sut.ModelState.AddModelError("i", "broke it");
+
             // Act
             var response = await sut.UpsertNewOtherEvent("a", invalidRequest);
 
@@ -596,6 +598,7 @@ namespace MedicalExaminer.API.Tests.Controllers
             sut.ControllerContext = GetControllerContext();
 
             sut.ModelState.AddModelError("i", "broke it");
+
             // Act
             var response = await sut.UpsertNewAdmissionEvent("a", invalidRequest);
 
@@ -773,6 +776,7 @@ namespace MedicalExaminer.API.Tests.Controllers
             sut.ControllerContext = GetControllerContext();
 
             sut.ModelState.AddModelError("i", "broke it");
+
             // Act
             var response = await sut.UpsertNewPreScrutinyEvent("a", invalidRequest);
 
@@ -952,6 +956,7 @@ namespace MedicalExaminer.API.Tests.Controllers
             sut.ControllerContext = GetControllerContext();
 
             sut.ModelState.AddModelError("i", "broke it");
+
             // Act
             var response = await sut.UpsertNewBereavedDiscussionEvent("a", invalidRequest);
 
@@ -1130,6 +1135,7 @@ namespace MedicalExaminer.API.Tests.Controllers
             sut.ControllerContext = GetControllerContext();
 
             sut.ModelState.AddModelError("i", "broke it");
+
             // Act
             var response = await sut.UpsertNewQapDiscussionEvent("a", invalidRequest);
 
@@ -1240,7 +1246,8 @@ namespace MedicalExaminer.API.Tests.Controllers
             // Act
             var response = await sut.UpsertNewQapDiscussionEvent("a", validRequest);
 
-            qapDiscussionEventCreationService.Verify(x => x.Handle(It.IsAny<CreateEventQuery>()),
+            qapDiscussionEventCreationService.Verify(
+                x => x.Handle(It.IsAny<CreateEventQuery>()),
                 Times.Once);
 
             // Assert
@@ -1312,6 +1319,7 @@ namespace MedicalExaminer.API.Tests.Controllers
             sut.ControllerContext = GetControllerContext();
 
             sut.ModelState.AddModelError("i", "broke it");
+
             // Act
             var response = await sut.UpsertNewMeoSummaryEvent("a", invalidRequest);
 
@@ -1419,7 +1427,8 @@ namespace MedicalExaminer.API.Tests.Controllers
             // Act
             var response = await sut.UpsertNewMeoSummaryEvent("a", validRequest);
 
-            meoSummaryEventCreationService.Verify(x => x.Handle(It.IsAny<CreateEventQuery>()),
+            meoSummaryEventCreationService.Verify(
+                x => x.Handle(It.IsAny<CreateEventQuery>()),
                Times.Once);
 
             // Assert

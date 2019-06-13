@@ -82,7 +82,8 @@ namespace MedicalExaminer.API.Tests.Attributes
             var sut = new ValidLocation();
 
             // Act
-            var result = sut.GetValidationResult(locationId,
+            var result = sut.GetValidationResult(
+                locationId,
                 new ValidationContext(new object(), serviceProvider.Object, new Dictionary<object, object>()));
 
             // Assert

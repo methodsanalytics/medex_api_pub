@@ -471,6 +471,7 @@ namespace MedicalExaminer.API.Tests.Controllers
                 PermissionServiceMock.Object);
 
             sut.ControllerContext = GetControllerContext();
+
             // Act
             var response = await sut.PutCloseCase("invalidCaseId");
 

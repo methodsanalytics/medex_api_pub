@@ -7,6 +7,7 @@ using MedicalExaminer.Common.Queries;
 using MedicalExaminer.Common.Services;
 using Moq;
 using Xunit;
+
 // ReSharper disable VirtualMemberCallInConstructor
 
 namespace MedicalExaminer.API.Tests.Services

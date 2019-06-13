@@ -152,6 +152,7 @@ namespace MedicalExaminer.API.Tests.Controllers
         {
             // Act
             var response = _controller.GetInformedAtDeath();
+
             // Assert
             var okResult = response.Should().BeAssignableTo<OkObjectResult>().Subject;
             var dictionary = okResult.Value.Should().BeAssignableTo<Dictionary<string, int>>().Subject;

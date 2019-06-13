@@ -140,6 +140,7 @@ namespace MedicalExaminer.API.Tests.Controllers
                 .Returns(Task.FromResult(examination));
 
             Controller.ControllerContext = GetControllerContext();
+
             // Act
             var response = Controller.GetMedicalTeam(examinationId).Result;
 

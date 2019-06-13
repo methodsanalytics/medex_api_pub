@@ -88,7 +88,8 @@ namespace MedicalExaminer.API.Tests.Attributes
             serviceProvider.Setup(context => context.GetService(It.IsAny<Type>())).Returns(dto);
 
             // Act
-            var result = sut.GetValidationResult(dto.TestField,
+            var result = sut.GetValidationResult(
+                dto.TestField,
                 new ValidationContext(dto, serviceProvider.Object, new Dictionary<object, object>()));
 
             // Assert

@@ -26,8 +26,10 @@ namespace MedicalExaminer.API.Tests.Attributes
 
             var expectedError = $"Unable to find the end date field {endDateField} on the object";
             var sut = new DateIsLessThanOrEqualToNullsAllowed(endDateField);
+
             // Act
             var result = sut.GetValidationResult(startDate, validationContext);
+
             // Assert
             Assert.Equal(expectedError, result.ErrorMessage);
         }
@@ -43,8 +45,10 @@ namespace MedicalExaminer.API.Tests.Attributes
             var validationContext = new ValidationContext(postRequest.Object, serviceProvider, GetItemsDictionary());
             var expectedResult = ValidationResult.Success;
             var sut = new DateIsLessThanOrEqualToNullsAllowed(endDateField);
+
             // Act
             var result = sut.GetValidationResult(startDate, validationContext);
+
             // Assert
             Assert.Equal(expectedResult, result);
         }
@@ -63,8 +67,10 @@ namespace MedicalExaminer.API.Tests.Attributes
             var validationContext = new ValidationContext(postRequest, serviceProvider, GetItemsDictionary());
             var expectedResult = ValidationResult.Success;
             var sut = new DateIsLessThanOrEqualToNullsAllowed(endDateField);
+
             // Act
             var result = sut.GetValidationResult(startDate, validationContext);
+
             // Assert
             Assert.Equal(expectedResult, result);
         }
@@ -84,8 +90,10 @@ namespace MedicalExaminer.API.Tests.Attributes
             var validationContext = new ValidationContext(postRequest, serviceProvider, GetItemsDictionary());
             var expectedResult = "The patient cannot have died before they were born";
             var sut = new DateIsLessThanOrEqualToNullsAllowed(endDateField);
+
             // Act
             var result = sut.GetValidationResult(startDate, validationContext);
+
             // Assert
             Assert.Equal(expectedResult, result.ErrorMessage);
         }
@@ -100,8 +108,10 @@ namespace MedicalExaminer.API.Tests.Attributes
 
             var expectedResult = ValidationResult.Success;
             var sut = new DateIsLessThanOrEqualToNullsAllowed(endDateField);
+
             // Act
             var result = sut.GetValidationResult(startDate, new ValidationContext(serviceProvider));
+
             // Assert
             Assert.Equal(expectedResult, result);
         }
@@ -121,8 +131,10 @@ namespace MedicalExaminer.API.Tests.Attributes
             var validationContext = new ValidationContext(postRequest, serviceProvider, GetItemsDictionary());
             var expectedResult = ValidationResult.Success;
             var sut = new DateIsLessThanOrEqualToNullsAllowed(endDateField);
+
             // Act
             var result = sut.GetValidationResult(startDate, validationContext);
+
             // Assert
             Assert.Equal(expectedResult, result);
         }
