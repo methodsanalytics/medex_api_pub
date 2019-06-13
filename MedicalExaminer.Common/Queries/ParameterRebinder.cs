@@ -13,11 +13,21 @@ namespace MedicalExaminer.Common.Queries
     {
         private readonly Dictionary<ParameterExpression, ParameterExpression> map;
 
+        /// <summary>
+        /// Initialise a new instance of <see cref="ParameterRebinder"/>.
+        /// </summary>
+        /// <param name="map">Map.</param>
         public ParameterRebinder(Dictionary<ParameterExpression, ParameterExpression> map)
         {
             this.map = map ?? new Dictionary<ParameterExpression, ParameterExpression>();
         }
 
+        /// <summary>
+        /// Replace parameters.
+        /// </summary>
+        /// <param name="map">Map.</param>
+        /// <param name="exp">Parameter expression.</param>
+        /// <returns>Expression.</returns>
         public static Expression ReplaceParameters(
             Dictionary<ParameterExpression, ParameterExpression> map,
             Expression exp)
@@ -25,11 +35,14 @@ namespace MedicalExaminer.Common.Queries
             return new ParameterRebinder(map).Visit(exp);
         }
 
+        /// <summary>
+        /// Visit Parameter.
+        /// </summary>
+        /// <param name="p">Parameter expression.</param>
+        /// <returns>Expression.</returns>
         protected override Expression VisitParameter(ParameterExpression p)
         {
-            ParameterExpression replacement;
-
-            if (map.TryGetValue(p, out replacement))
+            if (map.TryGetValue(p, out ParameterExpression replacement))
             {
                 p = replacement;
             }
