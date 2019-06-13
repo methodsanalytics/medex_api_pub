@@ -38,7 +38,7 @@ namespace MedicalExaminer.Common.Services.Examination
         }
 
         /// <inheritdoc/>
-        public async override Task<IEnumerable<Models.Examination>> Handle(ExaminationsRetrievalQuery param)
+        public override async Task<IEnumerable<Models.Examination>> Handle(ExaminationsRetrievalQuery param)
         {
             if (param == null)
             {
@@ -49,11 +49,11 @@ namespace MedicalExaminer.Common.Services.Examination
             switch (param.FilterOrderBy)
             {
                 case ExaminationsOrderBy.Urgency:
-                    return _store.Query().WithPagination(param.FilterPageNumber, param.FilterPageSize).Where(predicate).OrderByDescending(x => x.UrgencyScore).ToListAsync().Result;
+                    return await _store.Query().WithPagination(param.FilterPageNumber, param.FilterPageSize).Where(predicate).OrderByDescending(x => x.UrgencyScore).ToListAsync();
                 case ExaminationsOrderBy.CaseCreated:
-                    return _store.Query().WithPagination(param.FilterPageNumber, param.FilterPageSize).Where(predicate).OrderBy(x => x.CreatedAt).ToListAsync().Result;
+                    return await _store.Query().WithPagination(param.FilterPageNumber, param.FilterPageSize).Where(predicate).OrderBy(x => x.CreatedAt).ToListAsync();
                 case null:
-                    return _store.Query().WithPagination(param.FilterPageNumber, param.FilterPageSize).Where(predicate).ToListAsync().Result;
+                    return await _store.Query().WithPagination(param.FilterPageNumber, param.FilterPageSize).Where(predicate).ToListAsync();
                 default:
                     throw new ArgumentOutOfRangeException(nameof(param.FilterOrderBy));
             }
