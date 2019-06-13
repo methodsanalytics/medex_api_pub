@@ -37,8 +37,7 @@ namespace MedicalExaminer.API.Authorization.ExaminationContext
             }
 
             var userRetrievalByIdService =
-                (IAsyncQueryHandler<UserRetrievalByIdQuery, MedicalExaminer.Models.MeUser>)
-                validationContext.GetService(
+                (IAsyncQueryHandler<UserRetrievalByIdQuery, MedicalExaminer.Models.MeUser>)validationContext.GetService(
                     typeof(IAsyncQueryHandler<UserRetrievalByIdQuery, MedicalExaminer.Models.MeUser>));
 
             if (userRetrievalByIdService == null)
