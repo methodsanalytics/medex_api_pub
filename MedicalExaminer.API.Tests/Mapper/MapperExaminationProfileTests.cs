@@ -183,7 +183,6 @@ namespace MedicalExaminer.API.Tests.Mapper
         private string ParticipantName = "participantName";
         private string ParticipantOrganisation = "participantOrganisation";
 
-
         /// <summary>
         ///     Initializes a new instance of the <see cref="MapperExaminationProfileTests" /> class.
         /// </summary>
@@ -197,7 +196,6 @@ namespace MedicalExaminer.API.Tests.Mapper
 
             _mapper = config.CreateMapper();
         }
-
 
         [Fact]
         public void Examination_To_PutMedicalTeamResponse()
@@ -246,7 +244,6 @@ namespace MedicalExaminer.API.Tests.Mapper
 
             Assert.True(IsEqual(examination.CaseBreakdown, result));
         }
-
 
         private bool IsEqual(CaseBreakDown caseBreakdown, CaseBreakDownItem caseBreakdownItem)
         {
@@ -711,7 +708,6 @@ namespace MedicalExaminer.API.Tests.Mapper
                 Relationship = "uncle"
             };
 
-
             var examination = GenerateExamination();
             examination.Representatives = new[] { representativeTwo, representativeOne };
 
@@ -765,7 +761,6 @@ namespace MedicalExaminer.API.Tests.Mapper
                 PresentAtDeath = PresentAtDeath.Unknown,
                 Relationship = "granddad"
             };
-
 
             var examination = GenerateExamination();
             examination.Representatives = new[] { representativeTwo, representativeOne };
@@ -821,7 +816,6 @@ namespace MedicalExaminer.API.Tests.Mapper
                 PresentAtDeath = PresentAtDeath.Unknown,
                 Relationship = "milk man"
             };
-
 
             var examination = GenerateExamination();
             examination.Representatives = new[] { representativeTwo, representativeOne };
@@ -885,8 +879,6 @@ namespace MedicalExaminer.API.Tests.Mapper
             result.Surname.Should().Be(Surname);
             result.TimeOfDeath.Should().Be(TimeOfDeath);
         }
-
-
 
         private Examination GenerateExamination()
         {
@@ -1220,9 +1212,7 @@ namespace MedicalExaminer.API.Tests.Mapper
             response.Surname.Should().Be(Surname);
             response.TimeOfDeath.Should().Be(TimeOfDeath);
 
-
         }
-
 
         private void AssertAllSourcePropertiesMappedForMap(TypeMap map)
         {

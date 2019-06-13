@@ -122,8 +122,6 @@ namespace MedicalExaminer.API.Tests.Services
                     default(CancellationToken)))
                 .Returns((Uri uri, AuditEntry<T> item, RequestOptions ro, bool b, CancellationToken ct) => GetDocumentForItem(item));
 
-
-
             client.Setup(c => c.UpsertDocumentAsync(
                     It.IsAny<Uri>(),
                     It.IsAny<T>(),

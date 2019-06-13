@@ -32,7 +32,6 @@ namespace MedicalExaminer.API.Tests.Controllers
         private readonly Mock<IAsyncQueryHandler<LocationsParentsQuery, IDictionary<string, IEnumerable<Location>>>>
             _locationsParentsServiceMock;
 
-
         /// <summary>
         ///     Initializes a new instance of the <see cref="TestPermissionsController" /> class.
         /// </summary>
@@ -367,7 +366,6 @@ namespace MedicalExaminer.API.Tests.Controllers
 
             model.PermissionId.Should().BeNull();
         }
-
 
         [Fact]
         public async Task GetPermission_ReturnsNotFound_WhenPermissionNotFound()

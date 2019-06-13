@@ -55,7 +55,6 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
             Assert.Equal(0, examination.UrgencyScore);
         }
 
-
         [Fact]
         public void UpdateDraftEventForUserReturnsDraft()
         {

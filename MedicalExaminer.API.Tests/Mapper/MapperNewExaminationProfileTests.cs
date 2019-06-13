@@ -58,7 +58,6 @@ namespace MedicalExaminer.API.Tests.Mapper
                 TimeOfDeath = TimeOfDeath
             };
 
-
             var response = _mapper.Map<ExaminationItem>(postNewCaseRequest);
             response.GenderDetails.Should().Be(GenderDetails);
             response.GivenNames.Should().Be(GivenNames);

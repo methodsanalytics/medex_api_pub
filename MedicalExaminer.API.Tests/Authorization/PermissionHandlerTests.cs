@@ -84,7 +84,6 @@ namespace MedicalExaminer.API.Tests.Authorization
             context.HasSucceeded.Should().BeFalse();
         }
 
-
         /// <summary>
         /// Test Principal for mocking claims.
         /// </summary>

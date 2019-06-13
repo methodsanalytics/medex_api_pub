@@ -40,7 +40,6 @@ namespace MedicalExaminer.API.Tests.Attributes
             Assert.Equal(expectedResult, result);
         }
 
-
         [Fact]
         public void ExcessDigitsInNumberReturnsErrors()
         {

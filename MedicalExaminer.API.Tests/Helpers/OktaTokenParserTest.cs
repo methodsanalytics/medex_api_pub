@@ -35,7 +35,6 @@ namespace MedicalExaminer.API.Tests.Helpers
 
         }
 
-
         [Fact]
         public void OktaTokenParse_TooShortParameterThrowsException()
         {
