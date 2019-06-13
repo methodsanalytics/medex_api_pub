@@ -34,6 +34,13 @@ namespace MedicalExaminer.API.Controllers
         /// <summary>
         /// Initialise a new instance of <see cref="CaseBreakdownController"/>.
         /// </summary>
+        /// <param name="logger">Logger.</param>
+        /// <param name="mapper">Mapper.</param>
+        /// <param name="usersRetrievalByOktaIdService">User Retrieval By Okta Id Service.</param>
+        /// <param name="authorizationService">Authorization Service.</param>
+        /// <param name="permissionService">Permission Service.</param>
+        /// <param name="eventCreationService">Event creation service.</param>
+        /// <param name="examinationRetrievalService">Examination retrieval service.</param>
         public CaseBreakdownController(
             IMELogger logger,
             IMapper mapper,
