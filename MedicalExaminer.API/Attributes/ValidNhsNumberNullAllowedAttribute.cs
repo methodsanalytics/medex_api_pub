@@ -21,25 +21,25 @@ namespace MedicalExaminer.API.Attributes
         /// <returns>ValidationResult.</returns>
         protected override ValidationResult IsValid(object value, ValidationContext context)
         {
-            if (!(value is string nhsNumber))
+            if (value is string nhsNumber)
             {
-                return ValidationResult.Success;
+                nhsNumber = nhsNumber.Replace(" ", string.Empty);
+                nhsNumber = nhsNumber.Replace("-", string.Empty);
+
+                if (CheckStandardNhsNumber(nhsNumber))
+                {
+                    return ValidationResult.Success;
+                }
+
+                if (CheckOldWelshNhsNumber(nhsNumber))
+                {
+                    return ValidationResult.Success;
+                }
+
+                return new ValidationResult("Invalid NHS Number");
             }
 
-            nhsNumber = nhsNumber.Replace(" ", string.Empty);
-            nhsNumber = nhsNumber.Replace("-", string.Empty);
-
-            if (CheckStandardNhsNumber(nhsNumber))
-            {
-                return ValidationResult.Success;
-            }
-
-            if (CheckOldWelshNhsNumber(nhsNumber))
-            {
-                return ValidationResult.Success;
-            }
-
-            return new ValidationResult("Invalid NHS Number");
+            return ValidationResult.Success;
         }
 
         private bool CheckOldWelshNhsNumber(string nhsNumber)
