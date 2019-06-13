@@ -200,7 +200,6 @@ namespace MedicalExaminer.API.Tests.Mapper
         [Fact]
         public void Examination_To_PutMedicalTeamResponse()
         {
-
             var examination = GenerateExamination();
             var response = _mapper.Map<PutMedicalTeamResponse>(examination);
             Assert.True(IsEqual(medicalTeam.ConsultantResponsible, response.ConsultantResponsible));
@@ -1100,7 +1099,6 @@ namespace MedicalExaminer.API.Tests.Mapper
                 },
                 OtherEvents = new OtherEventContainer
                 {
-
                 },
                 PreScrutiny = new PreScrutinyEventContainer()
                 {
@@ -1216,7 +1214,6 @@ namespace MedicalExaminer.API.Tests.Mapper
 
         private void AssertAllSourcePropertiesMappedForMap(TypeMap map)
         {
-
             // Here is hack, because source member mappings are not exposed
             Type t = typeof(TypeMap);
             var configs = t.GetField("_sourceMemberConfigs", BindingFlags.Instance | BindingFlags.NonPublic);

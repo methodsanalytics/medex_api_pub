@@ -26,7 +26,6 @@ namespace MedicalExaminer.API.Tests.Helpers
         [Fact]
         public void OktaTokenParse_NullThrowsException()
         {
-
             // Act
             Action act = () => OktaTokenParser.ParseHttpRequestAuthorisation(null);
 
@@ -38,7 +37,6 @@ namespace MedicalExaminer.API.Tests.Helpers
         [Fact]
         public void OktaTokenParse_TooShortParameterThrowsException()
         {
-
             // Act
             Action act = () => OktaTokenParser.ParseHttpRequestAuthorisation("1");
 
