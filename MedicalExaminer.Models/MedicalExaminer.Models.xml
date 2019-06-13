@@ -75,6 +75,11 @@
             Do you suspect this case may need Immediate Coroner Referral Yes = true, No = false
             </summary>
         </member>
+        <member name="T:MedicalExaminer.Models.AdmissionNotesEventContainer">
+            <summary>
+            Admission Notes Event Container.
+            </summary>
+        </member>
         <member name="T:MedicalExaminer.Models.AnalysisEntry">
             <summary>
             Analysis Entry.
@@ -221,6 +226,11 @@
         <member name="P:MedicalExaminer.Models.BereavedDiscussionEvent.BereavedDiscussionOutcome">
             <summary>
             Outcome of the Bereaved Discussion.
+            </summary>
+        </member>
+        <member name="T:MedicalExaminer.Models.BereavedDiscussionEventContainer">
+            <summary>
+            Bereaved Discussion Event Container.
             </summary>
         </member>
         <member name="T:MedicalExaminer.Models.CaseBreakDown">
@@ -1845,6 +1855,11 @@
             Event Text (Length to be confirmed).
             </summary>
         </member>
+        <member name="T:MedicalExaminer.Models.MedicalHistoryEventContainer">
+            <summary>
+            Medical History Event Container.
+            </summary>
+        </member>
         <member name="T:MedicalExaminer.Models.MedicalTeam">
             <inheritdoc />
         </member>
@@ -1922,6 +1937,11 @@
         <member name="P:MedicalExaminer.Models.MeoSummaryEvent.Created">
             <summary>
             Date event was created
+            </summary>
+        </member>
+        <member name="T:MedicalExaminer.Models.MeoSummaryEventContainer">
+            <summary>
+            Meo Summary Event Container.
             </summary>
         </member>
         <member name="T:MedicalExaminer.Models.MeUser">
@@ -2047,36 +2067,6 @@
         </member>
         <member name="M:MedicalExaminer.Models.OtherEventContainer.Add(MedicalExaminer.Models.OtherEvent)">
             <inheritdoc/>
-        </member>
-        <member name="T:MedicalExaminer.Models.PreScrutinyEventContainer">
-            <summary>
-            Pre Scrutiny Event Container.
-            </summary>
-        </member>
-        <member name="T:MedicalExaminer.Models.BereavedDiscussionEventContainer">
-            <summary>
-            Bereaved Discussion Event Container.
-            </summary>
-        </member>
-        <member name="T:MedicalExaminer.Models.MeoSummaryEventContainer">
-            <summary>
-            Meo Summary Event Container.
-            </summary>
-        </member>
-        <member name="T:MedicalExaminer.Models.AdmissionNotesEventContainer">
-            <summary>
-            Admission Notes Event Container.
-            </summary>
-        </member>
-        <member name="T:MedicalExaminer.Models.MedicalHistoryEventContainer">
-            <summary>
-            Medical History Event Container.
-            </summary>
-        </member>
-        <member name="T:MedicalExaminer.Models.QapDiscussionEventContainer">
-            <summary>
-            Qap Discussion Event Container.
-            </summary>
         </member>
         <member name="T:MedicalExaminer.Models.PatientDetails">
             <summary>
@@ -2353,6 +2343,11 @@
             Details of Clinical Governance Review if said yes for Clinical Governance Review radio button.
             </summary>
         </member>
+        <member name="T:MedicalExaminer.Models.PreScrutinyEventContainer">
+            <summary>
+            Pre Scrutiny Event Container.
+            </summary>
+        </member>
         <member name="T:MedicalExaminer.Models.QapDiscussionEvent">
             <summary>
             QAP Discussion Event.
@@ -2456,6 +2451,11 @@
         <member name="P:MedicalExaminer.Models.QapDiscussionEvent.CauseOfDeath2">
             <summary>
             Possible cause of death established during scrutiny by Medical Examiner 2
+            </summary>
+        </member>
+        <member name="T:MedicalExaminer.Models.QapDiscussionEventContainer">
+            <summary>
+            Qap Discussion Event Container.
             </summary>
         </member>
         <member name="T:MedicalExaminer.Models.Record">

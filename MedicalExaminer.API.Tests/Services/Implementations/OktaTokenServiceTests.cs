@@ -48,8 +48,7 @@ namespace MedicalExaminer.API.Tests.Services.Implementations
                 .Setup<Task<HttpResponseMessage>>(
                     "SendAsync",
                     ItExpr.IsAny<HttpRequestMessage>(),
-                    ItExpr.IsAny<CancellationToken>()
-                )
+                    ItExpr.IsAny<CancellationToken>())
                 .ReturnsAsync(new HttpResponseMessage
                 {
                     StatusCode = HttpStatusCode.OK,
@@ -75,16 +74,14 @@ namespace MedicalExaminer.API.Tests.Services.Implementations
                 .Setup<Task<HttpResponseMessage>>(
                     "SendAsync",
                     ItExpr.IsAny<HttpRequestMessage>(),
-                    ItExpr.IsAny<CancellationToken>()
-                )
+                    ItExpr.IsAny<CancellationToken>())
                 .ReturnsAsync(new HttpResponseMessage
                 {
                     StatusCode = HttpStatusCode.BadRequest
                 });
 
             await Assert.ThrowsAsync<ApplicationException>(async () =>
-                await _sut.IntrospectToken(token, httpClient)
-            );
+                await _sut.IntrospectToken(token, httpClient));
         }
     }
 }

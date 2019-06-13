@@ -301,9 +301,12 @@ namespace MedicalExaminer.API.Tests.Services.Examination
                 PendingAdmissionNotes = true
             };
 
-            return SetLocationCache(new[] { examination1, examination2, examination4, examination5,
+            return SetLocationCache(new[]
+            {
+                examination1, examination2, examination4, examination5,
                            examination6, examination7, examination8, examination9, examination10,
-                           examination11});
+                           examination11
+            });
         }
 
         private MedicalExaminer.Models.Examination[] SetLocationCache(MedicalExaminer.Models.Examination[] examinations)

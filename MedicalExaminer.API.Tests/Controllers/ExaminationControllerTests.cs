@@ -190,7 +190,7 @@ namespace MedicalExaminer.API.Tests.Controllers
             // Assert
             var taskResult = response.Should().BeOfType<ActionResult<GetExaminationsResponse>>().Subject;
             var okResult = taskResult.Result.Should().BeAssignableTo<OkObjectResult>().Subject;
-            var typedResponse = (GetExaminationsResponse) okResult.Value;
+            var typedResponse = (GetExaminationsResponse)okResult.Value;
 
             // Assert
             typedResponse.Lookups.ContainsKey(ExaminationsController.LocationFilterLookupKey).Should().BeTrue();
@@ -217,9 +217,9 @@ namespace MedicalExaminer.API.Tests.Controllers
 
             // Assert
             response.Result.Should().BeAssignableTo<BadRequestObjectResult>();
-            var result = (BadRequestObjectResult) response.Result;
+            var result = (BadRequestObjectResult)response.Result;
             result.Value.Should().BeAssignableTo<PutExaminationResponse>();
-            var model = (PutExaminationResponse) result.Value;
+            var model = (PutExaminationResponse)result.Value;
             model.Errors.Count.Should().Be(1);
             model.Success.Should().BeFalse();
         }
@@ -253,9 +253,9 @@ namespace MedicalExaminer.API.Tests.Controllers
 
             // Assert
             response.Result.Should().BeAssignableTo<OkObjectResult>();
-            var result = (OkObjectResult) response.Result;
+            var result = (OkObjectResult)response.Result;
             result.Value.Should().BeAssignableTo<PutExaminationResponse>();
-            var model = (PutExaminationResponse) result.Value;
+            var model = (PutExaminationResponse)result.Value;
             model.Errors.Count.Should().Be(0);
             model.Success.Should().BeTrue();
         }

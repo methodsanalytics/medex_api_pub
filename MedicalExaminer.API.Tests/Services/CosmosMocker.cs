@@ -146,7 +146,7 @@ namespace MedicalExaminer.API.Tests.Services
                     var value = propertyInfo.GetValue(item, null);
 
                     var jsonProperty =
-                        (JsonPropertyAttribute) propertyInfo.GetCustomAttribute(typeof(JsonPropertyAttribute));
+                        (JsonPropertyAttribute)propertyInfo.GetCustomAttribute(typeof(JsonPropertyAttribute));
 
                     document.SetPropertyValue(jsonProperty?.PropertyName ?? propertyInfo.Name, value);
                 }

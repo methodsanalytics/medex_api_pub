@@ -73,7 +73,7 @@ namespace MedicalExaminer.API.Tests.Authorization.ExaminationContext
             context.SetupGet(c => c.ModelName).Returns(expectedModelName);
             context
                 .Setup(c => c.ValueProvider.GetValue(expectedModelName))
-                .Returns(new ValueProviderResult(new[] {"1"}));
+                .Returns(new ValueProviderResult(new[] { "1" }));
 
             context.SetupGet(c => c.Result).Returns(ModelBindingResult.Success(expectedModel));
 

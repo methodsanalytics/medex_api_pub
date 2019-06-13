@@ -74,9 +74,9 @@ namespace MedicalExaminer.API.Tests.Controllers
 
             // Assert
             response.Result.Should().BeAssignableTo<NotFoundObjectResult>();
-            var result = (NotFoundObjectResult) response.Result;
+            var result = (NotFoundObjectResult)response.Result;
             result.Value.Should().BeAssignableTo<PostUserResponse>();
-            var model = (PostUserResponse) result.Value;
+            var model = (PostUserResponse)result.Value;
             model.Errors.Count.Should().Be(0);
             model.Success.Should().BeTrue();
 
@@ -101,9 +101,9 @@ namespace MedicalExaminer.API.Tests.Controllers
 
             // Assert
             response.Result.Should().BeAssignableTo<NotFoundObjectResult>();
-            var result = (NotFoundObjectResult) response.Result;
+            var result = (NotFoundObjectResult)response.Result;
             result.Value.Should().BeAssignableTo<PostUserResponse>();
-            var model = (PostUserResponse) result.Value;
+            var model = (PostUserResponse)result.Value;
             model.Errors.Count.Should().Be(0);
             model.Success.Should().BeTrue();
 
@@ -141,9 +141,9 @@ namespace MedicalExaminer.API.Tests.Controllers
 
             // Assert
             response.Result.Should().BeAssignableTo<OkObjectResult>();
-            var result = (OkObjectResult) response.Result;
+            var result = (OkObjectResult)response.Result;
             result.Value.Should().BeAssignableTo<PostUserResponse>();
-            var model = (PostUserResponse) result.Value;
+            var model = (PostUserResponse)result.Value;
             model.Errors.Count.Should().Be(0);
             model.Success.Should().BeTrue();
             model.UserId.Should().Be(expectedUserId);
@@ -165,9 +165,9 @@ namespace MedicalExaminer.API.Tests.Controllers
 
             // Assert
             response.Result.Should().BeAssignableTo<BadRequestObjectResult>();
-            var result = (BadRequestObjectResult) response.Result;
+            var result = (BadRequestObjectResult)response.Result;
             result.Value.Should().BeAssignableTo<PostUserResponse>();
-            var model = (PostUserResponse) result.Value;
+            var model = (PostUserResponse)result.Value;
             model.Errors.Count.Should().Be(1);
             model.Success.Should().BeFalse();
         }
@@ -190,9 +190,9 @@ namespace MedicalExaminer.API.Tests.Controllers
 
             // Assert
             response.Result.Should().BeAssignableTo<NotFoundObjectResult>();
-            var result = (NotFoundObjectResult) response.Result;
+            var result = (NotFoundObjectResult)response.Result;
             result.Value.Should().BeAssignableTo<GetUserResponse>();
-            var model = (GetUserResponse) result.Value;
+            var model = (GetUserResponse)result.Value;
             model.Errors.Count.Should().Be(0);
             model.Success.Should().BeTrue();
 
@@ -219,9 +219,9 @@ namespace MedicalExaminer.API.Tests.Controllers
 
             // Assert
             response.Result.Should().BeAssignableTo<OkObjectResult>();
-            var result = (OkObjectResult) response.Result;
+            var result = (OkObjectResult)response.Result;
             result.Value.Should().BeAssignableTo<GetUserResponse>();
-            var model = (GetUserResponse) result.Value;
+            var model = (GetUserResponse)result.Value;
             model.Errors.Count.Should().Be(0);
             model.Success.Should().BeTrue();
             model.UserId.Should().Be(expectedUserId);
@@ -245,9 +245,9 @@ namespace MedicalExaminer.API.Tests.Controllers
 
             // Assert
             response.Result.Should().BeAssignableTo<NotFoundObjectResult>();
-            var result = (NotFoundObjectResult) response.Result;
+            var result = (NotFoundObjectResult)response.Result;
             result.Value.Should().BeAssignableTo<GetUsersResponse>();
-            var model = (GetUsersResponse) result.Value;
+            var model = (GetUsersResponse)result.Value;
             model.Errors.Count.Should().Be(0);
             model.Success.Should().BeTrue();
 
@@ -270,9 +270,9 @@ namespace MedicalExaminer.API.Tests.Controllers
 
             // Assert
             response.Result.Should().BeAssignableTo<OkObjectResult>();
-            var result = (OkObjectResult) response.Result;
+            var result = (OkObjectResult)response.Result;
             result.Value.Should().BeAssignableTo<GetUsersResponse>();
-            var model = (GetUsersResponse) result.Value;
+            var model = (GetUsersResponse)result.Value;
             model.Errors.Count.Should().Be(0);
             model.Success.Should().BeTrue();
 
@@ -298,9 +298,9 @@ namespace MedicalExaminer.API.Tests.Controllers
 
             // Assert
             response.Result.Should().BeAssignableTo<OkObjectResult>();
-            var result = (OkObjectResult) response.Result;
+            var result = (OkObjectResult)response.Result;
             result.Value.Should().BeAssignableTo<GetUsersResponse>();
-            var model = (GetUsersResponse) result.Value;
+            var model = (GetUsersResponse)result.Value;
             model.Errors.Count.Should().Be(0);
             model.Success.Should().BeTrue();
 
@@ -323,9 +323,9 @@ namespace MedicalExaminer.API.Tests.Controllers
 
             // Assert
             response.Result.Should().BeAssignableTo<BadRequestObjectResult>();
-            var result = (BadRequestObjectResult) response.Result;
+            var result = (BadRequestObjectResult)response.Result;
             result.Value.Should().BeAssignableTo<GetUserResponse>();
-            var model = (GetUserResponse) result.Value;
+            var model = (GetUserResponse)result.Value;
             model.Errors.Count.Should().Be(1);
             model.Success.Should().BeFalse();
         }
@@ -349,9 +349,9 @@ namespace MedicalExaminer.API.Tests.Controllers
 
             // Assert
             response.Result.Should().BeAssignableTo<NotFoundObjectResult>();
-            var result = (NotFoundObjectResult) response.Result;
+            var result = (NotFoundObjectResult)response.Result;
             result.Value.Should().BeAssignableTo<PutUserResponse>();
-            var model = (PutUserResponse) result.Value;
+            var model = (PutUserResponse)result.Value;
             model.Errors.Count.Should().Be(0);
             model.Success.Should().BeTrue();
 
@@ -377,9 +377,9 @@ namespace MedicalExaminer.API.Tests.Controllers
 
             // Assert
             response.Result.Should().BeAssignableTo<NotFoundObjectResult>();
-            var result = (NotFoundObjectResult) response.Result;
+            var result = (NotFoundObjectResult)response.Result;
             result.Value.Should().BeAssignableTo<PutUserResponse>();
-            var model = (PutUserResponse) result.Value;
+            var model = (PutUserResponse)result.Value;
             model.Errors.Count.Should().Be(0);
             model.Success.Should().BeTrue();
 
@@ -417,9 +417,9 @@ namespace MedicalExaminer.API.Tests.Controllers
 
             // Assert
             response.Result.Should().BeAssignableTo<OkObjectResult>();
-            var result = (OkObjectResult) response.Result;
+            var result = (OkObjectResult)response.Result;
             result.Value.Should().BeAssignableTo<PutUserResponse>();
-            var model = (PutUserResponse) result.Value;
+            var model = (PutUserResponse)result.Value;
             model.Errors.Count.Should().Be(0);
             model.Success.Should().BeTrue();
             model.UserId.Should().Be(expectedUserId);
@@ -441,9 +441,9 @@ namespace MedicalExaminer.API.Tests.Controllers
 
             // Assert
             response.Result.Should().BeAssignableTo<BadRequestObjectResult>();
-            var result = (BadRequestObjectResult) response.Result;
+            var result = (BadRequestObjectResult)response.Result;
             result.Value.Should().BeAssignableTo<PutUserResponse>();
-            var model = (PutUserResponse) result.Value;
+            var model = (PutUserResponse)result.Value;
             model.Errors.Count.Should().Be(1);
             model.Success.Should().BeFalse();
         }

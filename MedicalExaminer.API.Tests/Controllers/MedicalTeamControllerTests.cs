@@ -362,7 +362,7 @@ namespace MedicalExaminer.API.Tests.Controllers
                 },
             };
 
-            var expectedMedicalExaminer = new UserLookup {UserId = "user1", FullName = "User 1"};
+            var expectedMedicalExaminer = new UserLookup { UserId = "user1", FullName = "User 1" };
             var expectedMedicalExaminerOfficer = new UserLookup { UserId = "user2", FullName = "User 2" };
 
             _usersRetrievalByRoleLocationQueryServiceMock

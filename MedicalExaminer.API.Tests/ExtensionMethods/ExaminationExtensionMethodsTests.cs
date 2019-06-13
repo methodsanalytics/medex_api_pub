@@ -490,7 +490,8 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
         {
             var examination = new Examination();
             examination.ReadyForMEScrutiny = false;
-            examination.CaseBreakdown.AdmissionNotes.Latest = new AdmissionEvent() {
+            examination.CaseBreakdown.AdmissionNotes.Latest = new AdmissionEvent()
+            {
                 ImmediateCoronerReferral = false
             };
             examination = examination.UpdateCaseStatus();

@@ -44,6 +44,7 @@ namespace MedicalExaminer.API.Tests.Services.Examination
             //Assert
             results.Should().BeNull();
         }
+
         [Fact]
         public void ExaminationQueryIsNullThrowsException()
         {
@@ -67,7 +68,7 @@ namespace MedicalExaminer.API.Tests.Services.Examination
             {
                 ExaminationId = "b"
             };
-            return new []{ examination1, examination2};
+            return new [] { examination1, examination2 };
         }
     }
 }
