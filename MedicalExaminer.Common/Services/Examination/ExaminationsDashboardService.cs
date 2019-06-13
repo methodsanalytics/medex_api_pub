@@ -10,10 +10,19 @@ using MedicalExaminer.Models.Enums;
 
 namespace MedicalExaminer.Common.Services.Examination
 {
+    /// <summary>
+    /// Examination Dashboard Service.
+    /// </summary>
     public class ExaminationsDashboardService : QueryHandler<ExaminationsRetrievalQuery, ExaminationsOverview>
     {
         private readonly ExaminationsQueryExpressionBuilder _baseQueryBuilder;
 
+        /// <summary>
+        /// Initialise a new instance of <see cref="ExaminationsDashboardService"/>.
+        /// </summary>
+        /// <param name="databaseAccess">Database access.</param>
+        /// <param name="connectionSettings">Connection settings.</param>
+        /// <param name="baseQueryBuilder">Base query builder.</param>
         public ExaminationsDashboardService(
             IDatabaseAccess databaseAccess,
             IExaminationConnectionSettings connectionSettings,
@@ -23,6 +32,7 @@ namespace MedicalExaminer.Common.Services.Examination
             _baseQueryBuilder = baseQueryBuilder;
         }
 
+        /// <inheritdoc/>
         public override Task<ExaminationsOverview> Handle(ExaminationsRetrievalQuery param)
         {
             if (param == null)

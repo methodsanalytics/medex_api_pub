@@ -4,6 +4,9 @@ using MedicalExaminer.Models.Enums;
 
 namespace MedicalExaminer.API.Models.v1.CaseBreakdown
 {
+    /// <summary>
+    /// MEO Summary Event Item.
+    /// </summary>
     public class MeoSummaryEventItem : IEvent
     {
         /// <summary>

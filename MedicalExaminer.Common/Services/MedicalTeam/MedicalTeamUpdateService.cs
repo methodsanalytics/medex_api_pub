@@ -8,12 +8,21 @@ using MedicalExaminer.Models;
 
 namespace MedicalExaminer.Common.Services.MedicalTeam
 {
+    /// <summary>
+    /// Medical Team Update Service.
+    /// </summary>
     public class MedicalTeamUpdateService : IAsyncUpdateDocumentHandler
     {
         private readonly IConnectionSettings _connectionSettings;
         private readonly IDatabaseAccess _databaseAccess;
         private readonly IAsyncQueryHandler<UserRetrievalByIdQuery, MeUser> _userService;
 
+        /// <summary>
+        /// Initialise a new instance of <see cref="MedicalTeamUpdateService"/>.
+        /// </summary>
+        /// <param name="databaseAccess">Database access.</param>
+        /// <param name="connectionSettings">Connection settings.</param>
+        /// <param name="userService">User service.</param>
         public MedicalTeamUpdateService(
             IDatabaseAccess databaseAccess,
             IExaminationConnectionSettings connectionSettings,
@@ -24,6 +33,12 @@ namespace MedicalExaminer.Common.Services.MedicalTeam
             _userService = userService;
         }
 
+        /// <summary>
+        /// Handle query.
+        /// </summary>
+        /// <param name="examination">Examination.</param>
+        /// <param name="userId">User id.</param>
+        /// <returns>Examination with medical team updated.</returns>
         public async Task<Models.Examination> Handle(Models.Examination examination, string userId)
         {
             if (examination == null)
