@@ -7,11 +7,19 @@ using MedicalExaminer.Models;
 
 namespace MedicalExaminer.Common.Services.Examination
 {
+    /// <summary>
+    /// Create event service.
+    /// </summary>
     public class CreateEventService : IAsyncQueryHandler<CreateEventQuery, EventCreationResult>
     {
         private readonly IConnectionSettings _connectionSettings;
         private readonly IDatabaseAccess _databaseAccess;
 
+        /// <summary>
+        /// Initialise a new instance of <see cref="CreateEventService"/>.
+        /// </summary>
+        /// <param name="databaseAccess">Database access.</param>
+        /// <param name="connectionSettings">Connection settings.</param>
         public CreateEventService(
             IDatabaseAccess databaseAccess,
             IExaminationConnectionSettings connectionSettings)
@@ -20,6 +28,11 @@ namespace MedicalExaminer.Common.Services.Examination
             _connectionSettings = connectionSettings;
         }
 
+        /// <summary>
+        /// Handle the query.
+        /// </summary>
+        /// <param name="param">The query.</param>
+        /// <returns>Event creation result.</returns>
         public async Task<EventCreationResult> Handle(CreateEventQuery param)
         {
             if (param == null)

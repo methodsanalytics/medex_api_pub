@@ -37,7 +37,7 @@ namespace MedicalExaminer.API.Filters
             var logger = controller.Logger;
 
             var identity = context.HttpContext.User.Identity;
-            var userId = ((ClaimsIdentity) identity).Claims
+            var userId = ((ClaimsIdentity)identity).Claims
                 .SingleOrDefault(x => x.Type == Authorization.MEClaimTypes.UserId)?.Value;
             var userAuthenticationType = identity.AuthenticationType ?? "Unknown";
             var userIsAuthenticated = identity.IsAuthenticated;

@@ -2,11 +2,20 @@
 
 namespace MedicalExaminer.Common.ConnectionSettings
 {
+    /// <summary>
+    /// Examination Connection Settings.
+    /// </summary>
     public class ExaminationConnectionSettings : IExaminationConnectionSettings
     {
+        /// <summary>
+        /// Initialise a new instance of <see cref="ExaminationConnectionSettings"/>.
+        /// </summary>
+        /// <param name="endPointUri">End point uri.</param>
+        /// <param name="primaryKey">Primary key.</param>
+        /// <param name="databaseId">Database id.</param>
         public ExaminationConnectionSettings(Uri endPointUri, string primaryKey, string databaseId)
         {
-            if(endPointUri == null)
+            if (endPointUri == null)
             {
                 throw new ArgumentNullException(nameof(endPointUri));
             }
@@ -27,12 +36,16 @@ namespace MedicalExaminer.Common.ConnectionSettings
             Collection = "Examinations";
         }
 
+        /// <inheritdoc/>
         public Uri EndPointUri { get; }
 
+        /// <inheritdoc/>
         public string PrimaryKey { get; }
 
+        /// <inheritdoc/>
         public string DatabaseId { get; }
 
+        /// <inheritdoc/>
         public string Collection { get; }
     }
 }

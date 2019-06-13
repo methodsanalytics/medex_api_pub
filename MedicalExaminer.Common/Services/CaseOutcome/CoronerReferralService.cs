@@ -7,11 +7,19 @@ using MedicalExaminer.Models;
 
 namespace MedicalExaminer.Common.Services.CaseOutcome
 {
+    /// <summary>
+    /// Coroner Referral Service.
+    /// </summary>
     public class CoronerReferralService : IAsyncQueryHandler<CoronerReferralQuery, string>
     {
         private readonly IConnectionSettings _connectionSettings;
         private readonly IDatabaseAccess _databaseAccess;
 
+        /// <summary>
+        /// Initialise a new instance of <see cref="CoronerReferralService"/>.
+        /// </summary>
+        /// <param name="databaseAccess">Database access.</param>
+        /// <param name="connectionSettings">Connection settings.</param>
         public CoronerReferralService(
             IDatabaseAccess databaseAccess,
             IExaminationConnectionSettings connectionSettings)
@@ -20,6 +28,11 @@ namespace MedicalExaminer.Common.Services.CaseOutcome
             _databaseAccess = databaseAccess;
         }
 
+        /// <summary>
+        /// Handle the query.
+        /// </summary>
+        /// <param name="param">The query.</param>
+        /// <returns>Examination id.</returns>
         public async Task<string> Handle(CoronerReferralQuery param)
         {
             if (string.IsNullOrEmpty(param.ExaminationId))

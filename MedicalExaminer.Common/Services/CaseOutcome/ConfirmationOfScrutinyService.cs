@@ -7,8 +7,16 @@ using MedicalExaminer.Models;
 
 namespace MedicalExaminer.Common.Services.CaseOutcome
 {
+    /// <summary>
+    /// Confirmation of Scrutiny Service.
+    /// </summary>
     public class ConfirmationOfScrutinyService : QueryHandler<ConfirmationOfScrutinyQuery, Models.Examination>
     {
+        /// <summary>
+        /// Initialise a new instance of <see cref="ConfirmationOfScrutinyService"/>.
+        /// </summary>
+        /// <param name="databaseAccess">Database access.</param>
+        /// <param name="connectionSettings">Connection settings.</param>
         public ConfirmationOfScrutinyService(
             IDatabaseAccess databaseAccess,
             IExaminationConnectionSettings connectionSettings)
@@ -16,6 +24,7 @@ namespace MedicalExaminer.Common.Services.CaseOutcome
         {
         }
 
+        /// <inheritdoc/>
         public override async Task<Models.Examination> Handle(ConfirmationOfScrutinyQuery param)
         {
             var examinationToUpdate = await

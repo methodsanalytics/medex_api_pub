@@ -7,11 +7,19 @@ using MedicalExaminer.Models;
 
 namespace MedicalExaminer.Common.Services.CaseOutcome
 {
+    /// <summary>
+    /// Close Case Service.
+    /// </summary>
     public class CloseCaseService : IAsyncQueryHandler<CloseCaseQuery, string>
     {
         private readonly IConnectionSettings _connectionSettings;
         private readonly IDatabaseAccess _databaseAccess;
 
+        /// <summary>
+        /// Initialise a new instance of <see cref="CloseCaseService"/>.
+        /// </summary>
+        /// <param name="databaseAccess">Database access.</param>
+        /// <param name="connectionSettings">Connection settings.</param>
         public CloseCaseService(
             IDatabaseAccess databaseAccess,
             IExaminationConnectionSettings connectionSettings)
@@ -20,6 +28,11 @@ namespace MedicalExaminer.Common.Services.CaseOutcome
             _databaseAccess = databaseAccess;
         }
 
+        /// <summary>
+        /// Handle.
+        /// </summary>
+        /// <param name="param">Query.</param>
+        /// <returns>Id of examination.</returns>
         public async Task<string> Handle(CloseCaseQuery param)
         {
             if (string.IsNullOrEmpty(param.ExaminationId))
