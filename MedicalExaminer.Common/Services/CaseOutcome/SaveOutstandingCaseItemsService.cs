@@ -7,11 +7,19 @@ using MedicalExaminer.Models;
 
 namespace MedicalExaminer.Common.Services.CaseOutcome
 {
+    /// <summary>
+    /// Save Outstanding Case Items Service.
+    /// </summary>
     public class SaveOutstandingCaseItemsService : IAsyncQueryHandler<SaveOutstandingCaseItemsQuery, string>
     {
         private readonly IConnectionSettings _connectionSettings;
         private readonly IDatabaseAccess _databaseAccess;
 
+        /// <summary>
+        /// Initialise a new instance of <see cref="SaveOutstandingCaseItemsService"/>.
+        /// </summary>
+        /// <param name="databaseAccess">Database access</param>
+        /// <param name="connectionSettings">Connection settings</param>
         public SaveOutstandingCaseItemsService(
             IDatabaseAccess databaseAccess,
             IExaminationConnectionSettings connectionSettings)
@@ -20,6 +28,11 @@ namespace MedicalExaminer.Common.Services.CaseOutcome
             _databaseAccess = databaseAccess;
         }
 
+        /// <summary>
+        /// Handle query.
+        /// </summary>
+        /// <param name="param">The query.</param>
+        /// <returns>Examination id.</returns>
         public async Task<string> Handle(SaveOutstandingCaseItemsQuery param)
         {
             if (string.IsNullOrEmpty(param.CaseOutcome.ToString()))

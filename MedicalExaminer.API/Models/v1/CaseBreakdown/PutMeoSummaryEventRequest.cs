@@ -1,5 +1,8 @@
 ﻿namespace MedicalExaminer.API.Models.v1.CaseBreakdown
 {
+    /// <summary>
+    /// Put MEO Summary Event Request.
+    /// </summary>
     public class PutMeoSummaryEventRequest
     {
         /// <summary>
@@ -7,9 +10,9 @@
         /// </summary>
         public string EventId { get; set; }
 
-        ///// <summary>
-        ///// bool for the status (Draft or Final).
-        ///// </summary>
+        /// <summary>
+        /// bool for the status (Draft or Final).
+        /// </summary>
         public bool IsFinal { get; set; }
 
         /// <summary>

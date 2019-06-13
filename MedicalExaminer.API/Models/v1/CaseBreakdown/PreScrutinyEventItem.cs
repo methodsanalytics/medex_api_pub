@@ -4,6 +4,9 @@ using MedicalExaminer.Models.Enums;
 
 namespace MedicalExaminer.API.Models.v1.CaseBreakdown
 {
+    /// <summary>
+    /// Pre Scrutiny Event Item.
+    /// </summary>
     public class PreScrutinyEventItem : IEvent
     {
         /// <summary>
@@ -41,9 +44,9 @@ namespace MedicalExaminer.API.Models.v1.CaseBreakdown
         /// </summary>
         public bool IsFinal { get; set; }
 
-        ///// <summary>
-        ///// the type of event this is
-        ///// </summary>
+        /// <summary>
+        /// the type of event this is
+        /// </summary>
         public EventType EventType => EventType.PreScrutiny;
 
         /// <summary>

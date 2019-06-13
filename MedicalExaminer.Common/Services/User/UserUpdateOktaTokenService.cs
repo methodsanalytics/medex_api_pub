@@ -6,11 +6,19 @@ using MedicalExaminer.Common.Queries.User;
 
 namespace MedicalExaminer.Common.Services.User
 {
+    /// <summary>
+    /// User Update Okta Token Service.
+    /// </summary>
     public class UserUpdateOktaTokenService : IAsyncQueryHandler<UsersUpdateOktaTokenQuery, Models.MeUser>
     {
         private readonly IConnectionSettings _connectionSettings;
         private readonly IDatabaseAccess _databaseAccess;
 
+        /// <summary>
+        /// Initialise a new instance of <see cref="UserUpdateOktaTokenService"/>.
+        /// </summary>
+        /// <param name="databaseAccess">Database access</param>
+        /// <param name="connectionSettings">Connection settings</param>
         public UserUpdateOktaTokenService(
             IDatabaseAccess databaseAccess,
             IUserConnectionSettings connectionSettings)
@@ -19,6 +27,11 @@ namespace MedicalExaminer.Common.Services.User
             _connectionSettings = connectionSettings;
         }
 
+        /// <summary>
+        /// Handle query.
+        /// </summary>
+        /// <param name="userUpdate">The query.</param>
+        /// <returns>User.</returns>
         public async Task<Models.MeUser> Handle(UsersUpdateOktaTokenQuery userUpdate)
         {
             if (userUpdate == null)

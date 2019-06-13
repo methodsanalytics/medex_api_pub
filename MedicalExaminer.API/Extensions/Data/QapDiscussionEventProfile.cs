@@ -4,6 +4,9 @@ using MedicalExaminer.Models;
 
 namespace MedicalExaminer.API.Extensions.Data
 {
+    /// <summary>
+    /// QAP Discussion Event Profile.
+    /// </summary>
     public class QapDiscussionEventProfile : Profile
     {
         /// <summary>
