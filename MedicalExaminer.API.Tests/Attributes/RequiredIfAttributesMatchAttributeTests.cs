@@ -110,7 +110,7 @@ namespace MedicalExaminer.API.Tests.Attributes
 
             // Act
             var result = sut.GetValidationResult(
-                dto.TestField, 
+                dto.TestField,
                 new ValidationContext(dto, serviceProvider.Object, new Dictionary<object, object>()));
 
             // Assert

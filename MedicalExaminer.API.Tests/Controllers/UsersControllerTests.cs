@@ -64,7 +64,7 @@ namespace MedicalExaminer.API.Tests.Controllers
         [Fact]
         public async Task TestCreateUserArgumentException()
         {
-            // Arrange 
+            // Arrange
             createUserService.Setup(cus => cus.Handle(It.IsAny<CreateUserQuery>())).Throws<ArgumentException>();
             var expectedRequest = new PostUserRequest();
             Controller.ControllerContext = GetControllerContext();

@@ -58,7 +58,7 @@ namespace MedicalExaminer.API.Tests.Services.CaseBreakdown
             var result = sut.Handle(query);
 
             // Assert
-            dbAccess.Verify(db => db.UpdateItemAsync(connectionSettings.Object, 
+            dbAccess.Verify(db => db.UpdateItemAsync(connectionSettings.Object,
                 It.IsAny<MedicalExaminer.Models.Examination>()), Times.Once);
 
             Assert.NotNull(result.Result);

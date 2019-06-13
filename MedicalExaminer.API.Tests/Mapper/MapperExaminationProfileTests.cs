@@ -198,7 +198,7 @@ namespace MedicalExaminer.API.Tests.Mapper
             _mapper = config.CreateMapper();
         }
 
-        
+
         [Fact]
         public void Examination_To_PutMedicalTeamResponse()
         {
@@ -247,7 +247,7 @@ namespace MedicalExaminer.API.Tests.Mapper
             Assert.True(IsEqual(examination.CaseBreakdown, result));
         }
 
-       
+
         private bool IsEqual(CaseBreakDown caseBreakdown, CaseBreakDownItem caseBreakdownItem)
         {
             return IsEqual(caseBreakdown.AdmissionNotes, caseBreakdownItem.AdmissionNotes) &&
@@ -1223,7 +1223,7 @@ namespace MedicalExaminer.API.Tests.Mapper
 
         }
 
-        
+
         private void AssertAllSourcePropertiesMappedForMap(TypeMap map)
         {
 

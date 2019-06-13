@@ -140,7 +140,7 @@ namespace MedicalExaminer.API.Tests.Controllers
     {
         public ControllerActionFilterTests()
         {
-            
+
             _mockLogger = new MELoggerMocker();
             _mapper = new Mock<IMapper>();
             var createUserService = new Mock<IAsyncQueryHandler<CreateUserQuery, MeUser>>();
