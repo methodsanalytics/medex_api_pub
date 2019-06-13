@@ -23,33 +23,27 @@ namespace MedicalExaminer.API.Tests.Mapper
     public class MapperExaminationProfileTests
     {
         private const string ExaminationId = "expectedExaminationId";
-        private const string AltLink = "altLink";
-        private const bool CaseCompleted = true;
         private const bool AnyImplants = true;
         private const bool AnyPersonalEffects = true;
         private const bool ChildPriority = true;
         private const bool Completed = true;
         private const bool CoronerPriority = true;
-        private readonly CoronerStatus CoronerStatus = CoronerStatus.SentAwaitingConfirm;
+        private const CoronerStatus CoronerStatus = MedicalExaminer.Models.Enums.CoronerStatus.SentAwaitingConfirm;
         private const string County = "Cheshire";
         private const string Country = "England";
         private const bool CulturalPriority = true;
-        private readonly DateTime DateOfBirth = new DateTime(1990, 2, 24);
-        private readonly DateTime DateOfDeath = new DateTime(2019, 2, 24);
         private const string FuneralDirectors = "funeralDirectors";
         private const string MedicalExaminerOfficeResponsibleName = "Medical Examiner Office Name";
         private const bool FaithPriority = true;
         private const string GivenNames = "givenNames";
-        private readonly ExaminationGender Gender = ExaminationGender.Male;
         private const string GenderDetails = "genderDetails";
-        private const string HospitalNumber_1 = "hospitalNumber_1";
-        private const string HospitalNumber_2 = "hospitalNumber_2";
-        private const string HospitalNumber_3 = "hospitalNumber_3";
+        private const string HospitalNumber1 = "hospitalNumber_1";
+        private const string HospitalNumber2 = "hospitalNumber_2";
+        private const string HospitalNumber3 = "hospitalNumber_3";
         private const string HouseNameNumber = "houseNameNumber";
         private const string ImplantDetails = "implantDetails";
         private const string LastOccupation = "lastOccupation";
         private const string MedicalExaminerOfficeResponsible = "medicalExaminerOfficeResponsible";
-        private readonly ModeOfDisposal ModeOfDisposal = ModeOfDisposal.BuriedAtSea;
         private const string NhsNumber = "123456789";
         private const string OrganisationCareBeforeDeathLocationId = "organisationCareBeforeDeathLocationId";
         private const bool OtherPriority = true;
@@ -61,25 +55,28 @@ namespace MedicalExaminer.API.Tests.Mapper
         private const string Street = "street";
         private const string Town = "town";
         private const int UrgencyScore = 4;
-        private DateTime CaseCreated = new DateTime(2019, 3, 15);
-        private DateTime LastAdmission = new DateTime(2019, 1, 15);
-        private TimeSpan TimeOfDeath = new TimeSpan(11, 30, 00);
-        private const string CaseOfficer = "CaseOfficer";
         private const string AdmissionNotes = "admissionNotes";
-        private TimeSpan AdmittedTime = new TimeSpan(12, 30, 01);
-        private MeUser User0 = new MeUser()
+        private const ExaminationGender Gender = ExaminationGender.Male;
+        private const ModeOfDisposal ModeOfDisposal = MedicalExaminer.Models.Enums.ModeOfDisposal.BuriedAtSea;
+        private readonly DateTime _caseCreated = new DateTime(2019, 3, 15);
+        private readonly DateTime _lastAdmission = new DateTime(2019, 1, 15);
+        private readonly TimeSpan _timeOfDeath = new TimeSpan(11, 30, 00);
+        private readonly TimeSpan _admittedTime = new TimeSpan(12, 30, 01);
+        private readonly DateTime _dateOfBirth = new DateTime(1990, 2, 24);
+        private readonly DateTime _dateOfDeath = new DateTime(2019, 2, 24);
+        private readonly MeUser _user0 = new MeUser()
         {
             UserId = "userId0",
             Email = "user@email.com",
         };
 
-        private MeUser User1 = new MeUser()
+        private readonly MeUser _user1 = new MeUser()
         {
             UserId = "userId1",
             Email = "user1@email.com",
         };
 
-        private readonly MedicalTeam medicalTeam = new MedicalTeam
+        private readonly MedicalTeam _medicalTeam = new MedicalTeam
         {
             ConsultantResponsible = new ClinicalProfessional
             {
@@ -127,7 +124,7 @@ namespace MedicalExaminer.API.Tests.Mapper
             MedicalExaminerOfficerFullName = "Medical Examiner Officer FullName"
         };
 
-        private readonly IEnumerable<Representative> Representatives = new List<Representative>
+        private readonly IEnumerable<Representative> _representatives = new List<Representative>
         {
             new Representative
             {
@@ -141,7 +138,7 @@ namespace MedicalExaminer.API.Tests.Mapper
             }
         };
 
-        private readonly CaseOutcome caseOutcome = new CaseOutcome
+        private readonly CaseOutcome _caseOutcome = new CaseOutcome
         {
             ScrutinyConfirmedOn = new DateTime(2019, 5, 1),
             CaseCompleted = false,
@@ -160,28 +157,28 @@ namespace MedicalExaminer.API.Tests.Mapper
         /// </summary>
         private readonly IMapper _mapper;
 
-        private DateTime dateOfConversation = new DateTime(1984, 12, 24);
-        private TimeSpan timeOfConversation = new TimeSpan(10, 30, 00);
-        private string discussionDetails = "discussionDetails";
+        private readonly DateTime _dateOfConversation = new DateTime(1984, 12, 24);
+        private readonly TimeSpan _timeOfConversation = new TimeSpan(10, 30, 00);
+        private readonly string _discussionDetails = "discussionDetails";
 
-        private string ParticipantFullName = "participantFullName";
-        private string ParticipantPhoneNumber = "participantPhoneNumber";
-        private string ParticipantRelationship = "participantRelationship";
+        private readonly string _participantFullName = "participantFullName";
+        private readonly string _participantPhoneNumber = "participantPhoneNumber";
+        private readonly string _participantRelationship = "participantRelationship";
 
-        private string MedicalHistoryEventText = "medicalHistoryEventText";
-        private string SummaryDetails = "SummaryDetails";
+        private readonly string _medicalHistoryEventText = "medicalHistoryEventText";
+        private readonly string _summaryDetails = "SummaryDetails";
 
-        private string CauseOfDeath2 = "CauseOfDeath2";
-        private string CauseOfDeath1c = "CauseOfDeath1c";
-        private string CauseOfDeath1b = "CauseOfDeath1b";
-        private string CauseOfDeath1a = "CauseOfDeath1a";
+        private readonly string _causeOfDeath2 = "CauseOfDeath2";
+        private readonly string _causeOfDeath1C = "CauseOfDeath1c";
+        private readonly string _causeOfDeath1B = "CauseOfDeath1b";
+        private readonly string _causeOfDeath1A = "CauseOfDeath1a";
 
-        private string ClinicalGovernanceReviewText = "clinicalGovernanceReviewText";
-        private string MedicalExaminerThoughts = "medicalExaminerThoughts";
+        private readonly string _clinicalGovernanceReviewText = "clinicalGovernanceReviewText";
+        private readonly string _medicalExaminerThoughts = "medicalExaminerThoughts";
 
-        private string ParticipantRoll = "participantRoll";
-        private string ParticipantName = "participantName";
-        private string ParticipantOrganisation = "participantOrganisation";
+        private readonly string _participantRoll = "participantRoll";
+        private readonly string _participantName = "participantName";
+        private readonly string _participantOrganisation = "participantOrganisation";
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="MapperExaminationProfileTests" /> class.
@@ -202,27 +199,17 @@ namespace MedicalExaminer.API.Tests.Mapper
         {
             var examination = GenerateExamination();
             var response = _mapper.Map<PutMedicalTeamResponse>(examination);
-            Assert.True(IsEqual(medicalTeam.ConsultantResponsible, response.ConsultantResponsible));
-            Assert.True(IsEqual(medicalTeam.GeneralPractitioner, response.GeneralPractitioner));
-            Assert.True(IsEqual(medicalTeam.Qap, response.Qap));
+            Assert.True(IsEqual(_medicalTeam.ConsultantResponsible, response.ConsultantResponsible));
+            Assert.True(IsEqual(_medicalTeam.GeneralPractitioner, response.GeneralPractitioner));
+            Assert.True(IsEqual(_medicalTeam.Qap, response.Qap));
             foreach (var cons in response.ConsultantsOther)
             {
-                Assert.True(IsEqual(medicalTeam.ConsultantsOther[0], cons));
+                Assert.True(IsEqual(_medicalTeam.ConsultantsOther[0], cons));
             }
 
-            response.NursingTeamInformation.Should().Be(medicalTeam.NursingTeamInformation);
-            response.MedicalExaminerUserId.Should().Be(medicalTeam.MedicalExaminerUserId);
-            response.MedicalExaminerOfficerUserId.Should().Be(medicalTeam.MedicalExaminerOfficerUserId);
-        }
-
-        private bool IsEqual(ClinicalProfessional cp, ClinicalProfessionalItem cpi)
-        {
-            return (cp.GMCNumber == cpi.GMCNumber &&
-                    cp.Name == cpi.Name &&
-                    cp.Notes == cpi.Notes &&
-                    cp.Organisation == cpi.Organisation
-                    && cp.Phone == cpi.Phone
-                    && cp.Role == cpi.Role);
+            response.NursingTeamInformation.Should().Be(_medicalTeam.NursingTeamInformation);
+            response.MedicalExaminerUserId.Should().Be(_medicalTeam.MedicalExaminerUserId);
+            response.MedicalExaminerOfficerUserId.Should().Be(_medicalTeam.MedicalExaminerOfficerUserId);
         }
 
         [Fact]
@@ -239,9 +226,438 @@ namespace MedicalExaminer.API.Tests.Mapper
         public void Examination_To_GetCaseBreakdowResponse()
         {
             var examination = GenerateExamination();
-            var result = _mapper.Map<CaseBreakDownItem>(examination.CaseBreakdown, opt => opt.Items["user"] = User0);
+            var result = _mapper.Map<CaseBreakDownItem>(examination.CaseBreakdown, opt => opt.Items["user"] = _user0);
 
             Assert.True(IsEqual(examination.CaseBreakdown, result));
+        }
+
+        [Fact]
+        public void Examination_To_GetPatientDetailsResponse()
+        {
+            var examination = GenerateExamination();
+
+            var response = _mapper.Map<GetPatientDetailsResponse>(examination);
+
+            response.CaseCompleted.Should().Be(Completed);
+            response.AnyImplants.Should().Be(AnyImplants);
+            response.AnyPersonalEffects.Should().Be(examination.AnyPersonalEffects);
+            response.ChildPriority.Should().Be(examination.ChildPriority);
+            response.CoronerPriority.Should().Be(CoronerPriority);
+            response.CulturalPriority.Should().Be(CulturalPriority);
+            response.FaithPriority.Should().Be(FaithPriority);
+            response.OtherPriority.Should().Be(OtherPriority);
+            response.PriorityDetails.Should().Be(PriorityDetails);
+            response.CoronerStatus.Should().Be(CoronerStatus);
+            response.Gender.Should().Be(Gender);
+            response.County.Should().Be(County);
+            response.Country.Should().Be(Country);
+            response.UrgencyScore.Should().Be(UrgencyScore);
+            response.GenderDetails.Should().Be(GenderDetails);
+            response.PlaceDeathOccured.Should().Be(PlaceDeathOccured);
+            response.MedicalExaminerOfficeResponsible.Should().Be(MedicalExaminerOfficeResponsible);
+            response.MedicalExaminerOfficeResponsibleName.Should().Be(MedicalExaminerOfficeResponsibleName);
+            response.DateOfBirth.Should().Be(_dateOfBirth);
+            response.HospitalNumber_1.Should().Be(HospitalNumber1);
+            response.HospitalNumber_2.Should().Be(HospitalNumber2);
+            response.HospitalNumber_3.Should().Be(HospitalNumber3);
+            response.TimeOfDeath.Should().Be(_timeOfDeath);
+            response.GivenNames.Should().Be(GivenNames);
+            response.Surname.Should().Be(Surname);
+            response.PostCode.Should().Be(Postcode);
+            response.HouseNameNumber.Should().Be(HouseNameNumber);
+            response.Street.Should().Be(Street);
+            response.Town.Should().Be(Town);
+            response.LastOccupation.Should().Be(LastOccupation);
+            response.OrganisationCareBeforeDeathLocationId.Should().Be(OrganisationCareBeforeDeathLocationId);
+            response.ImplantDetails.Should().Be(ImplantDetails);
+            response.FuneralDirectors.Should().Be(FuneralDirectors);
+            response.PersonalEffectDetails.Should().Be(PersonalEffectDetails);
+            response.Representatives.Should().AllBeEquivalentTo(_representatives);
+        }
+
+        [Fact]
+        public void Examination_To_GetCaseOutcomeResponse()
+        {
+            var examination = GenerateExamination();
+
+            var response = _mapper.Map<GetCaseOutcomeResponse>(examination);
+
+            response.CaseCompleted.Should().Be(Completed);
+            response.CaseMedicalExaminerFullName.Should().Be(_caseOutcome.CaseMedicalExaminerFullName);
+            response.CaseOutcomeSummary.Should().Be(_caseOutcome.CaseOutcomeSummary);
+            response.CremationFormStatus.Should().Be(_caseOutcome.CremationFormStatus);
+            response.GpNotifiedStatus.Should().Be(_caseOutcome.GpNotifiedStatus);
+            response.MccdIssued.Should().Be(_caseOutcome.MccdIssued);
+            response.OutcomeOfPrescrutiny.Should().Be(examination.CaseBreakdown.PreScrutiny.Latest.OutcomeOfPreScrutiny);
+            response.OutcomeOfRepresentativeDiscussion.Should().Be(examination.CaseBreakdown.BereavedDiscussion.Latest.BereavedDiscussionOutcome);
+            response.OutcomeQapDiscussion.Should().Be(examination.CaseBreakdown.QapDiscussion.Latest.QapDiscussionOutcome);
+            response.ScrutinyConfirmedOn.Should().Be(_caseOutcome.ScrutinyConfirmedOn);
+        }
+
+        [Fact]
+        public void Examination_To_CaseOutcome()
+        {
+            var examination = GenerateExamination();
+
+            var result = _mapper.Map<CaseOutcome>(examination);
+
+            result.ScrutinyConfirmedOn.Should().Be(_caseOutcome.ScrutinyConfirmedOn);
+            result.CaseMedicalExaminerFullName.Should().Be(_caseOutcome.CaseMedicalExaminerFullName);
+            result.CaseOutcomeSummary.Should().Be(_caseOutcome.CaseOutcomeSummary);
+            result.CremationFormStatus.Should().Be(_caseOutcome.CremationFormStatus);
+            result.GpNotifiedStatus.Should().Be(_caseOutcome.GpNotifiedStatus);
+            result.MccdIssued.Should().Be(_caseOutcome.MccdIssued);
+            result.OutcomeOfPrescrutiny.Should().Be(_caseOutcome.OutcomeOfPrescrutiny);
+            result.OutcomeOfRepresentativeDiscussion.Should().Be(_caseOutcome.OutcomeOfRepresentativeDiscussion);
+            result.OutcomeQapDiscussion.Should().Be(_caseOutcome.OutcomeQapDiscussion);
+            result.CaseCompleted.Should().Be(Completed);
+        }
+
+        [Fact]
+        public void Examination_To_PatientCard_NullAppointments()
+        {
+            var examination = GenerateExamination();
+
+            var result = _mapper.Map<PatientCardItem>(examination);
+
+            result.DateOfBirth.Should().Be(_dateOfBirth);
+            result.DateOfDeath.Should().Be(_dateOfDeath);
+            result.TimeOfDeath.Should().Be(_timeOfDeath);
+            result.ExaminationId.Should().Be(ExaminationId);
+            result.NhsNumber.Should().Be(NhsNumber);
+            result.GivenNames.Should().Be(GivenNames);
+            result.Surname.Should().Be(Surname);
+            result.UrgencyScore.Should().Be(UrgencyScore);
+            result.AppointmentDate.Should().Be(null);
+            result.AppointmentTime.Should().Be(null);
+            result.LastAdmission.Should().Be(_lastAdmission);
+            result.ReadyForMEScrutiny.Should().Be(true);
+            result.AdmissionNotesHaveBeenAdded.Should().Be(true);
+            result.HaveBeenScrutinisedByME.Should().Be(true);
+            result.HaveFinalCaseOutcomesOutstanding.Should().Be(true);
+            result.PendingAdmissionNotes.Should().Be(true);
+            result.PendingDiscussionWithQAP.Should().Be(true);
+            result.PendingDiscussionWithRepresentative.Should().Be(true);
+            result.Unassigned.Should().Be(true);
+        }
+
+        [Fact]
+        public void Examination_To_PatientCard_One_Representative_Null_Appointment_Details()
+        {
+            var representative = new Representative()
+            {
+                AppointmentDate = null,
+                AppointmentTime = null,
+                FullName = "bob",
+                Informed = Informed.Yes,
+                PhoneNumber = "1234",
+                PresentAtDeath = PresentAtDeath.Unknown,
+                Relationship = "milk man"
+            };
+
+            var examination = GenerateExamination();
+
+            examination.Representatives = new[] { representative };
+
+            var result = _mapper.Map<PatientCardItem>(examination);
+
+            result.DateOfBirth.Should().Be(_dateOfBirth);
+            result.DateOfDeath.Should().Be(_dateOfDeath);
+            result.TimeOfDeath.Should().Be(_timeOfDeath);
+            result.ExaminationId.Should().Be(ExaminationId);
+            result.NhsNumber.Should().Be(NhsNumber);
+            result.GivenNames.Should().Be(GivenNames);
+            result.Surname.Should().Be(Surname);
+            result.UrgencyScore.Should().Be(UrgencyScore);
+            result.AppointmentDate.Should().Be(null);
+            result.AppointmentTime.Should().Be(null);
+            result.LastAdmission.Should().Be(_lastAdmission);
+            result.ReadyForMEScrutiny.Should().Be(true);
+            result.AdmissionNotesHaveBeenAdded.Should().Be(true);
+            result.HaveBeenScrutinisedByME.Should().Be(true);
+            result.HaveFinalCaseOutcomesOutstanding.Should().Be(true);
+            result.PendingAdmissionNotes.Should().Be(true);
+            result.PendingDiscussionWithQAP.Should().Be(true);
+            result.PendingDiscussionWithRepresentative.Should().Be(true);
+            result.Unassigned.Should().Be(true);
+        }
+
+        [Fact]
+        public void Examination_To_PatientCard_One_Representative_Appointment_Details()
+        {
+            var appointmentDate = DateTime.Now.AddDays(1);
+            var appointmentTime = new TimeSpan(10, 30, 00);
+            var representative = new Representative()
+            {
+                AppointmentDate = appointmentDate,
+                AppointmentTime = appointmentTime,
+                FullName = "bob",
+                Informed = Informed.Yes,
+                PhoneNumber = "1234",
+                PresentAtDeath = PresentAtDeath.Unknown,
+                Relationship = "milk man"
+            };
+
+            var examination = GenerateExamination();
+            examination.Representatives = new[] { representative };
+            var result = _mapper.Map<PatientCardItem>(examination);
+
+            result.DateOfBirth.Should().Be(_dateOfBirth);
+            result.DateOfDeath.Should().Be(_dateOfDeath);
+            result.TimeOfDeath.Should().Be(_timeOfDeath);
+            result.ExaminationId.Should().Be(ExaminationId);
+            result.NhsNumber.Should().Be(NhsNumber);
+            result.GivenNames.Should().Be(GivenNames);
+            result.Surname.Should().Be(Surname);
+            result.UrgencyScore.Should().Be(UrgencyScore);
+            result.AppointmentDate.Should().Be(appointmentDate);
+            result.AppointmentTime.Should().Be(appointmentTime);
+            result.LastAdmission.Should().Be(_lastAdmission);
+            result.CaseCreatedDate.Should().Be(_caseCreated);
+            result.ReadyForMEScrutiny.Should().Be(true);
+            result.AdmissionNotesHaveBeenAdded.Should().Be(true);
+            result.HaveBeenScrutinisedByME.Should().Be(true);
+            result.HaveFinalCaseOutcomesOutstanding.Should().Be(true);
+            result.PendingAdmissionNotes.Should().Be(true);
+            result.PendingDiscussionWithQAP.Should().Be(true);
+            result.PendingDiscussionWithRepresentative.Should().Be(true);
+            result.Unassigned.Should().Be(true);
+        }
+
+        [Fact]
+        public void Examination_To_PatientCard_Two_Representatives_One_Null_One_Complete_Appointment_Details()
+        {
+            var appointmentDate = DateTime.Now.AddDays(1);
+            var appointmentTime = new TimeSpan(10, 30, 00);
+            var representativeOne = new Representative()
+            {
+                AppointmentDate = appointmentDate,
+                AppointmentTime = appointmentTime,
+                FullName = "bob",
+                Informed = Informed.Yes,
+                PhoneNumber = "1234",
+                PresentAtDeath = PresentAtDeath.Unknown,
+                Relationship = "milk man"
+            };
+
+            var representativeTwo = new Representative()
+            {
+                AppointmentDate = null,
+                AppointmentTime = null,
+                FullName = "bob",
+                Informed = Informed.Yes,
+                PhoneNumber = "1234",
+                PresentAtDeath = PresentAtDeath.Unknown,
+                Relationship = "uncle"
+            };
+
+            var examination = GenerateExamination();
+            examination.Representatives = new[] { representativeTwo, representativeOne };
+
+            var result = _mapper.Map<PatientCardItem>(examination);
+
+            result.DateOfBirth.Should().Be(_dateOfBirth);
+            result.DateOfDeath.Should().Be(_dateOfDeath);
+            result.TimeOfDeath.Should().Be(_timeOfDeath);
+            result.ExaminationId.Should().Be(ExaminationId);
+            result.NhsNumber.Should().Be(NhsNumber);
+            result.GivenNames.Should().Be(GivenNames);
+            result.Surname.Should().Be(Surname);
+            result.UrgencyScore.Should().Be(UrgencyScore);
+            result.AppointmentDate.Should().Be(appointmentDate);
+            result.AppointmentTime.Should().Be(appointmentTime);
+            result.LastAdmission.Should().Be(_lastAdmission);
+            result.ReadyForMEScrutiny.Should().Be(true);
+            result.AdmissionNotesHaveBeenAdded.Should().Be(true);
+            result.HaveBeenScrutinisedByME.Should().Be(true);
+            result.HaveFinalCaseOutcomesOutstanding.Should().Be(true);
+            result.PendingAdmissionNotes.Should().Be(true);
+            result.PendingDiscussionWithQAP.Should().Be(true);
+            result.PendingDiscussionWithRepresentative.Should().Be(true);
+            result.Unassigned.Should().Be(true);
+        }
+
+        [Fact]
+        public void Examination_To_PatientCard_Two_Representatives_Both_Appointments_In_Past_Complete_Appointment_Details()
+        {
+            var appointmentDate1 = DateTime.Now.AddDays(-1);
+            var appointmentDate2 = DateTime.Now.AddDays(-2);
+            var appointmentTime = new TimeSpan(10, 30, 00);
+            var representativeOne = new Representative()
+            {
+                AppointmentDate = appointmentDate1,
+                AppointmentTime = appointmentTime,
+                FullName = "bob",
+                Informed = Informed.Yes,
+                PhoneNumber = "1234",
+                PresentAtDeath = PresentAtDeath.Unknown,
+                Relationship = "uncle"
+            };
+
+            var representativeTwo = new Representative()
+            {
+                AppointmentDate = appointmentDate2,
+                AppointmentTime = appointmentTime,
+                FullName = "barry",
+                Informed = Informed.Yes,
+                PhoneNumber = "1234",
+                PresentAtDeath = PresentAtDeath.Unknown,
+                Relationship = "granddad"
+            };
+
+            var examination = GenerateExamination();
+            examination.Representatives = new[] { representativeTwo, representativeOne };
+
+            var result = _mapper.Map<PatientCardItem>(examination);
+
+            result.DateOfBirth.Should().Be(_dateOfBirth);
+            result.DateOfDeath.Should().Be(_dateOfDeath);
+            result.TimeOfDeath.Should().Be(_timeOfDeath);
+            result.ExaminationId.Should().Be(ExaminationId);
+            result.NhsNumber.Should().Be(NhsNumber);
+            result.GivenNames.Should().Be(GivenNames);
+            result.Surname.Should().Be(Surname);
+            result.UrgencyScore.Should().Be(UrgencyScore);
+            result.AppointmentDate.Should().Be(null);
+            result.AppointmentTime.Should().Be(null);
+            result.LastAdmission.Should().Be(_lastAdmission);
+            result.ReadyForMEScrutiny.Should().Be(true);
+            result.AdmissionNotesHaveBeenAdded.Should().Be(true);
+            result.HaveBeenScrutinisedByME.Should().Be(true);
+            result.HaveFinalCaseOutcomesOutstanding.Should().Be(true);
+            result.PendingAdmissionNotes.Should().Be(true);
+            result.PendingDiscussionWithQAP.Should().Be(true);
+            result.PendingDiscussionWithRepresentative.Should().Be(true);
+            result.Unassigned.Should().Be(true);
+        }
+
+        [Fact]
+        public void Examination_To_PatientCard_Two_Representatives_One_Appointment_In_Past_Complete_Appointment_Details()
+        {
+            var appointmentDate1 = DateTime.Now.AddDays(1);
+            var appointmentDate2 = DateTime.Now.AddDays(-2);
+            var appointmentTime = new TimeSpan(10, 30, 00);
+            var representativeOne = new Representative()
+            {
+                AppointmentDate = appointmentDate1,
+                AppointmentTime = appointmentTime,
+                FullName = "bob",
+                Informed = Informed.Yes,
+                PhoneNumber = "1234",
+                PresentAtDeath = PresentAtDeath.Unknown,
+                Relationship = "milk man"
+            };
+
+            var representativeTwo = new Representative()
+            {
+                AppointmentDate = appointmentDate2,
+                AppointmentTime = appointmentTime,
+                FullName = "bob",
+                Informed = Informed.Yes,
+                PhoneNumber = "1234",
+                PresentAtDeath = PresentAtDeath.Unknown,
+                Relationship = "milk man"
+            };
+
+            var examination = GenerateExamination();
+            examination.Representatives = new[] { representativeTwo, representativeOne };
+
+            var result = _mapper.Map<PatientCardItem>(examination);
+
+            result.DateOfBirth.Should().Be(_dateOfBirth);
+            result.DateOfDeath.Should().Be(_dateOfDeath);
+            result.TimeOfDeath.Should().Be(_timeOfDeath);
+            result.ExaminationId.Should().Be(ExaminationId);
+            result.NhsNumber.Should().Be(NhsNumber);
+            result.GivenNames.Should().Be(GivenNames);
+            result.Surname.Should().Be(Surname);
+            result.UrgencyScore.Should().Be(UrgencyScore);
+            result.AppointmentDate.Should().Be(appointmentDate1);
+            result.AppointmentTime.Should().Be(appointmentTime);
+            result.LastAdmission.Should().Be(_lastAdmission);
+            result.ReadyForMEScrutiny.Should().Be(true);
+            result.AdmissionNotesHaveBeenAdded.Should().Be(true);
+            result.HaveBeenScrutinisedByME.Should().Be(true);
+            result.HaveFinalCaseOutcomesOutstanding.Should().Be(true);
+            result.PendingAdmissionNotes.Should().Be(true);
+            result.PendingDiscussionWithQAP.Should().Be(true);
+            result.PendingDiscussionWithRepresentative.Should().Be(true);
+            result.Unassigned.Should().Be(true);
+        }
+
+        [Fact]
+        public void PostNewCaseRequest_To_Examination()
+        {
+            var postNewCaseRequest = new PostExaminationRequest
+            {
+                DateOfDeath = _dateOfDeath,
+                DateOfBirth = _dateOfBirth,
+                GivenNames = GivenNames,
+                Gender = Gender,
+                GenderDetails = GenderDetails,
+                HospitalNumber_1 = HospitalNumber1,
+                HospitalNumber_2 = HospitalNumber2,
+                HospitalNumber_3 = HospitalNumber3,
+                MedicalExaminerOfficeResponsible = MedicalExaminerOfficeResponsible,
+                NhsNumber = NhsNumber,
+                PlaceDeathOccured = PlaceDeathOccured,
+                Surname = Surname,
+                TimeOfDeath = _timeOfDeath
+            };
+
+            var result = _mapper.Map<Examination>(postNewCaseRequest);
+
+            result.DateOfBirth.Should().Be(_dateOfBirth);
+            result.DateOfDeath.Should().Be(_dateOfDeath);
+            result.GivenNames.Should().Be(GivenNames);
+            result.Gender.Should().Be(Gender);
+            result.GenderDetails.Should().Be(GenderDetails);
+            result.HospitalNumber_1.Should().Be(HospitalNumber1);
+            result.HospitalNumber_2.Should().Be(HospitalNumber2);
+            result.HospitalNumber_3.Should().Be(HospitalNumber3);
+            result.MedicalExaminerOfficeResponsible.Should().Be(MedicalExaminerOfficeResponsible);
+            result.NhsNumber.Should().Be(NhsNumber);
+            result.PlaceDeathOccured.Should().Be(PlaceDeathOccured);
+            result.Surname.Should().Be(Surname);
+            result.TimeOfDeath.Should().Be(_timeOfDeath);
+        }
+
+        /// <summary>
+        /// Test Mapping Examination to ExaminationItem.
+        /// </summary>
+        [Fact]
+        public void Examination_To_ExaminationItem()
+        {
+            var examinationId = "expectedExaminationId";
+
+            var examination = GenerateExamination();
+
+            var response = _mapper.Map<ExaminationItem>(examination);
+            response.GenderDetails.Should().Be(GenderDetails);
+            response.ExaminationId.Should().Be(examinationId);
+            response.GivenNames.Should().Be(GivenNames);
+            response.DateOfBirth.Should().Be(_dateOfBirth);
+            response.DateOfDeath.Should().Be(_dateOfDeath);
+            response.Gender.Should().Be(Gender);
+            response.GivenNames.Should().Be(GivenNames);
+            response.HospitalNumber_1.Should().Be(HospitalNumber1);
+            response.HospitalNumber_2.Should().Be(HospitalNumber2);
+            response.HospitalNumber_3.Should().Be(HospitalNumber3);
+            response.MedicalExaminerOfficeResponsible.Should().Be(MedicalExaminerOfficeResponsible);
+            response.NhsNumber.Should().Be(NhsNumber);
+            response.PlaceDeathOccured.Should().Be(PlaceDeathOccured);
+            response.Surname.Should().Be(Surname);
+            response.TimeOfDeath.Should().Be(_timeOfDeath);
+        }
+
+        private bool IsEqual(ClinicalProfessional cp, ClinicalProfessionalItem cpi)
+        {
+            return cp.GMCNumber == cpi.GMCNumber &&
+                   cp.Name == cpi.Name &&
+                   cp.Notes == cpi.Notes &&
+                   cp.Organisation == cpi.Organisation
+                   && cp.Phone == cpi.Phone
+                   && cp.Role == cpi.Role;
         }
 
         private bool IsEqual(CaseBreakDown caseBreakdown, CaseBreakDownItem caseBreakdownItem)
@@ -452,7 +868,7 @@ namespace MedicalExaminer.API.Tests.Mapper
                 }
             }
 
-            var draftIsEqual = IsEqual(admissionNotes1.Drafts.Single(draft => draft.UserId == User0.UserId), admissionNotes2.UsersDraft);
+            var draftIsEqual = IsEqual(admissionNotes1.Drafts.Single(draft => draft.UserId == _user0.UserId), admissionNotes2.UsersDraft);
 
             return draftIsEqual && historyIsEqual && IsEqual(admissionNotes1.Latest, admissionNotes2.Latest);
         }
@@ -460,421 +876,31 @@ namespace MedicalExaminer.API.Tests.Mapper
         private bool IsEqual(AdmissionEvent history, AdmissionEventItem historyItem)
         {
             return historyItem.AdmittedDate == history.AdmittedDate &&
-                historyItem.AdmittedTime == history.AdmittedTime &&
-                historyItem.Created == history.Created &&
-                historyItem.ImmediateCoronerReferral == history.ImmediateCoronerReferral &&
-                historyItem.IsFinal == history.IsFinal &&
-                historyItem.Notes == history.Notes &&
-                historyItem.UserId == history.UserId &&
-                historyItem.AdmittedDateUnknown == history.AdmittedDateUnknown &&
-                historyItem.AdmittedTimeUnknown == history.AdmittedTimeUnknown;
+                   historyItem.AdmittedTime == history.AdmittedTime &&
+                   historyItem.Created == history.Created &&
+                   historyItem.ImmediateCoronerReferral == history.ImmediateCoronerReferral &&
+                   historyItem.IsFinal == history.IsFinal &&
+                   historyItem.Notes == history.Notes &&
+                   historyItem.UserId == history.UserId &&
+                   historyItem.AdmittedDateUnknown == history.AdmittedDateUnknown &&
+                   historyItem.AdmittedTimeUnknown == history.AdmittedTimeUnknown;
         }
 
         private bool IsEqual(Examination examination, PatientDeathEventItem patientDeathEvent)
         {
             return patientDeathEvent.TimeOfDeath == examination.TimeOfDeath &&
-                patientDeathEvent.DateOfDeath == examination.DateOfDeath;
+                   patientDeathEvent.DateOfDeath == examination.DateOfDeath;
         }
 
         private bool IsEqual(Examination examination, GetMedicalTeamResponse response)
         {
             return IsEqual(examination.MedicalTeam.ConsultantResponsible, response.ConsultantResponsible) &&
-                IsEqual(examination.MedicalTeam.GeneralPractitioner, response.GeneralPractitioner) &&
-                IsEqual(examination.MedicalTeam.Qap, response.Qap) &&
-                response.NursingTeamInformation == examination.MedicalTeam.NursingTeamInformation &&
-                response.MedicalExaminerUserId == examination.MedicalTeam.MedicalExaminerUserId &&
-                response.MedicalExaminerOfficerUserId == examination.MedicalTeam.MedicalExaminerOfficerUserId &&
-                IsEqual(examination.MedicalTeam.ConsultantsOther[0], response.ConsultantsOther[0]);
-        }
-
-        [Fact]
-        public void Examination_To_GetPatientDetailsResponse()
-        {
-            var examination = GenerateExamination();
-
-            var response = _mapper.Map<GetPatientDetailsResponse>(examination);
-
-            response.CaseCompleted.Should().Be(Completed);
-            response.AnyImplants.Should().Be(AnyImplants);
-            response.AnyPersonalEffects.Should().Be(examination.AnyPersonalEffects);
-            response.ChildPriority.Should().Be(examination.ChildPriority);
-            response.CoronerPriority.Should().Be(CoronerPriority);
-            response.CulturalPriority.Should().Be(CulturalPriority);
-            response.FaithPriority.Should().Be(FaithPriority);
-            response.OtherPriority.Should().Be(OtherPriority);
-            response.PriorityDetails.Should().Be(PriorityDetails);
-            response.CoronerStatus.Should().Be(CoronerStatus);
-            response.Gender.Should().Be(Gender);
-            response.County.Should().Be(County);
-            response.Country.Should().Be(Country);
-            response.UrgencyScore.Should().Be(UrgencyScore);
-            response.GenderDetails.Should().Be(GenderDetails);
-            response.PlaceDeathOccured.Should().Be(PlaceDeathOccured);
-            response.MedicalExaminerOfficeResponsible.Should().Be(MedicalExaminerOfficeResponsible);
-            response.MedicalExaminerOfficeResponsibleName.Should().Be(MedicalExaminerOfficeResponsibleName);
-            response.DateOfBirth.Should().Be(DateOfBirth);
-            response.HospitalNumber_1.Should().Be(HospitalNumber_1);
-            response.HospitalNumber_2.Should().Be(HospitalNumber_2);
-            response.HospitalNumber_3.Should().Be(HospitalNumber_3);
-            response.TimeOfDeath.Should().Be(TimeOfDeath);
-            response.GivenNames.Should().Be(GivenNames);
-            response.Surname.Should().Be(Surname);
-            response.PostCode.Should().Be(Postcode);
-            response.HouseNameNumber.Should().Be(HouseNameNumber);
-            response.Street.Should().Be(Street);
-            response.Town.Should().Be(Town);
-            response.LastOccupation.Should().Be(LastOccupation);
-            response.OrganisationCareBeforeDeathLocationId.Should().Be(OrganisationCareBeforeDeathLocationId);
-            response.ImplantDetails.Should().Be(ImplantDetails);
-            response.FuneralDirectors.Should().Be(FuneralDirectors);
-            response.PersonalEffectDetails.Should().Be(PersonalEffectDetails);
-            response.Representatives.Should().AllBeEquivalentTo(Representatives);
-        }
-
-        [Fact]
-        public void Examination_To_GetCaseOutcomeResponse()
-        {
-            var examination = GenerateExamination();
-
-            var response = _mapper.Map<GetCaseOutcomeResponse>(examination);
-
-            response.CaseCompleted.Should().Be(Completed);
-            response.CaseMedicalExaminerFullName.Should().Be(caseOutcome.CaseMedicalExaminerFullName);
-            response.CaseOutcomeSummary.Should().Be(caseOutcome.CaseOutcomeSummary);
-            response.CremationFormStatus.Should().Be(caseOutcome.CremationFormStatus);
-            response.GpNotifiedStatus.Should().Be(caseOutcome.GpNotifiedStatus);
-            response.MccdIssued.Should().Be(caseOutcome.MccdIssued);
-            response.OutcomeOfPrescrutiny.Should().Be(examination.CaseBreakdown.PreScrutiny.Latest.OutcomeOfPreScrutiny);
-            response.OutcomeOfRepresentativeDiscussion.Should().Be(examination.CaseBreakdown.BereavedDiscussion.Latest.BereavedDiscussionOutcome);
-            response.OutcomeQapDiscussion.Should().Be(examination.CaseBreakdown.QapDiscussion.Latest.QapDiscussionOutcome);
-            response.ScrutinyConfirmedOn.Should().Be(caseOutcome.ScrutinyConfirmedOn);
-        }
-
-        [Fact]
-        public void Examination_To_CaseOutcome()
-        {
-            var examination = GenerateExamination();
-
-            var result = _mapper.Map<CaseOutcome>(examination);
-
-            result.ScrutinyConfirmedOn.Should().Be(caseOutcome.ScrutinyConfirmedOn);
-            result.CaseMedicalExaminerFullName.Should().Be(caseOutcome.CaseMedicalExaminerFullName);
-            result.CaseOutcomeSummary.Should().Be(caseOutcome.CaseOutcomeSummary);
-            result.CremationFormStatus.Should().Be(caseOutcome.CremationFormStatus);
-            result.GpNotifiedStatus.Should().Be(caseOutcome.GpNotifiedStatus);
-            result.MccdIssued.Should().Be(caseOutcome.MccdIssued);
-            result.OutcomeOfPrescrutiny.Should().Be(caseOutcome.OutcomeOfPrescrutiny);
-            result.OutcomeOfRepresentativeDiscussion.Should().Be(caseOutcome.OutcomeOfRepresentativeDiscussion);
-            result.OutcomeQapDiscussion.Should().Be(caseOutcome.OutcomeQapDiscussion);
-            result.CaseCompleted.Should().Be(Completed);
-        }
-
-        [Fact]
-        public void Examination_To_PatientCard_NullAppointments()
-        {
-            var examination = GenerateExamination();
-
-            var result = _mapper.Map<PatientCardItem>(examination);
-
-            result.DateOfBirth.Should().Be(DateOfBirth);
-            result.DateOfDeath.Should().Be(DateOfDeath);
-            result.TimeOfDeath.Should().Be(TimeOfDeath);
-            result.ExaminationId.Should().Be(ExaminationId);
-            result.NhsNumber.Should().Be(NhsNumber);
-            result.GivenNames.Should().Be(GivenNames);
-            result.Surname.Should().Be(Surname);
-            result.UrgencyScore.Should().Be(UrgencyScore);
-            result.AppointmentDate.Should().Be(null);
-            result.AppointmentTime.Should().Be(null);
-            result.LastAdmission.Should().Be(LastAdmission);
-            result.ReadyForMEScrutiny.Should().Be(true);
-            result.AdmissionNotesHaveBeenAdded.Should().Be(true);
-            result.HaveBeenScrutinisedByME.Should().Be(true);
-            result.HaveFinalCaseOutcomesOutstanding.Should().Be(true);
-            result.PendingAdmissionNotes.Should().Be(true);
-            result.PendingDiscussionWithQAP.Should().Be(true);
-            result.PendingDiscussionWithRepresentative.Should().Be(true);
-            result.Unassigned.Should().Be(true);
-        }
-
-        [Fact]
-        public void Examination_To_PatientCard_One_Representative_Null_Appointment_Details()
-        {
-            var representative = new Representative()
-            {
-                AppointmentDate = null,
-                AppointmentTime = null,
-                FullName = "bob",
-                Informed = Informed.Yes,
-                PhoneNumber = "1234",
-                PresentAtDeath = PresentAtDeath.Unknown,
-                Relationship = "milk man"
-            };
-
-            var examination = GenerateExamination();
-
-            examination.Representatives = new[] { representative };
-
-            var result = _mapper.Map<PatientCardItem>(examination);
-
-            result.DateOfBirth.Should().Be(DateOfBirth);
-            result.DateOfDeath.Should().Be(DateOfDeath);
-            result.TimeOfDeath.Should().Be(TimeOfDeath);
-            result.ExaminationId.Should().Be(ExaminationId);
-            result.NhsNumber.Should().Be(NhsNumber);
-            result.GivenNames.Should().Be(GivenNames);
-            result.Surname.Should().Be(Surname);
-            result.UrgencyScore.Should().Be(UrgencyScore);
-            result.AppointmentDate.Should().Be(null);
-            result.AppointmentTime.Should().Be(null);
-            result.LastAdmission.Should().Be(LastAdmission);
-            result.ReadyForMEScrutiny.Should().Be(true);
-            result.AdmissionNotesHaveBeenAdded.Should().Be(true);
-            result.HaveBeenScrutinisedByME.Should().Be(true);
-            result.HaveFinalCaseOutcomesOutstanding.Should().Be(true);
-            result.PendingAdmissionNotes.Should().Be(true);
-            result.PendingDiscussionWithQAP.Should().Be(true);
-            result.PendingDiscussionWithRepresentative.Should().Be(true);
-            result.Unassigned.Should().Be(true);
-        }
-
-        public void Examination_To_PatientCard_One_Representative_Appointment_Details()
-        {
-            var appointmentDate = DateTime.Now.AddDays(1);
-            var appointmentTime = new TimeSpan(10, 30, 00);
-            var representative = new Representative()
-            {
-                AppointmentDate = appointmentDate,
-                AppointmentTime = appointmentTime,
-                FullName = "bob",
-                Informed = Informed.Yes,
-                PhoneNumber = "1234",
-                PresentAtDeath = PresentAtDeath.Unknown,
-                Relationship = "milk man"
-            };
-
-            var examination = GenerateExamination();
-            examination.Representatives = new[] { representative };
-            var result = _mapper.Map<PatientCardItem>(examination);
-
-            result.DateOfBirth.Should().Be(DateOfBirth);
-            result.DateOfDeath.Should().Be(DateOfDeath);
-            result.TimeOfDeath.Should().Be(TimeOfDeath);
-            result.ExaminationId.Should().Be(ExaminationId);
-            result.NhsNumber.Should().Be(NhsNumber);
-            result.GivenNames.Should().Be(GivenNames);
-            result.Surname.Should().Be(Surname);
-            result.UrgencyScore.Should().Be(UrgencyScore);
-            result.AppointmentDate.Should().Be(appointmentDate);
-            result.AppointmentTime.Should().Be(appointmentTime);
-            result.LastAdmission.Should().Be(LastAdmission);
-            result.CaseCreatedDate.Should().Be(CaseCreated);
-            result.ReadyForMEScrutiny.Should().Be(true);
-            result.AdmissionNotesHaveBeenAdded.Should().Be(true);
-            result.HaveBeenScrutinisedByME.Should().Be(true);
-            result.HaveFinalCaseOutcomesOutstanding.Should().Be(true);
-            result.PendingAdmissionNotes.Should().Be(true);
-            result.PendingDiscussionWithQAP.Should().Be(true);
-            result.PendingDiscussionWithRepresentative.Should().Be(true);
-            result.Unassigned.Should().Be(true);
-        }
-
-        [Fact]
-        public void Examination_To_PatientCard_Two_Representatives_One_Null_One_Complete_Appointment_Details()
-        {
-            var appointmentDate = DateTime.Now.AddDays(1);
-            var appointmentTime = new TimeSpan(10, 30, 00);
-            var representativeOne = new Representative()
-            {
-                AppointmentDate = appointmentDate,
-                AppointmentTime = appointmentTime,
-                FullName = "bob",
-                Informed = Informed.Yes,
-                PhoneNumber = "1234",
-                PresentAtDeath = PresentAtDeath.Unknown,
-                Relationship = "milk man"
-            };
-
-            var representativeTwo = new Representative()
-            {
-                AppointmentDate = null,
-                AppointmentTime = null,
-                FullName = "bob",
-                Informed = Informed.Yes,
-                PhoneNumber = "1234",
-                PresentAtDeath = PresentAtDeath.Unknown,
-                Relationship = "uncle"
-            };
-
-            var examination = GenerateExamination();
-            examination.Representatives = new[] { representativeTwo, representativeOne };
-
-            var result = _mapper.Map<PatientCardItem>(examination);
-
-            result.DateOfBirth.Should().Be(DateOfBirth);
-            result.DateOfDeath.Should().Be(DateOfDeath);
-            result.TimeOfDeath.Should().Be(TimeOfDeath);
-            result.ExaminationId.Should().Be(ExaminationId);
-            result.NhsNumber.Should().Be(NhsNumber);
-            result.GivenNames.Should().Be(GivenNames);
-            result.Surname.Should().Be(Surname);
-            result.UrgencyScore.Should().Be(UrgencyScore);
-            result.AppointmentDate.Should().Be(appointmentDate);
-            result.AppointmentTime.Should().Be(appointmentTime);
-            result.LastAdmission.Should().Be(LastAdmission);
-            result.ReadyForMEScrutiny.Should().Be(true);
-            result.AdmissionNotesHaveBeenAdded.Should().Be(true);
-            result.HaveBeenScrutinisedByME.Should().Be(true);
-            result.HaveFinalCaseOutcomesOutstanding.Should().Be(true);
-            result.PendingAdmissionNotes.Should().Be(true);
-            result.PendingDiscussionWithQAP.Should().Be(true);
-            result.PendingDiscussionWithRepresentative.Should().Be(true);
-            result.Unassigned.Should().Be(true);
-        }
-
-        [Fact]
-        public void Examination_To_PatientCard_Two_Representatives_Both_Appointments_In_Past_Complete_Appointment_Details()
-        {
-            var appointmentDate1 = DateTime.Now.AddDays(-1);
-            var appointmentDate2 = DateTime.Now.AddDays(-2);
-            var appointmentTime = new TimeSpan(10, 30, 00);
-            var representativeOne = new Representative()
-            {
-                AppointmentDate = appointmentDate1,
-                AppointmentTime = appointmentTime,
-                FullName = "bob",
-                Informed = Informed.Yes,
-                PhoneNumber = "1234",
-                PresentAtDeath = PresentAtDeath.Unknown,
-                Relationship = "uncle"
-            };
-
-            var representativeTwo = new Representative()
-            {
-                AppointmentDate = appointmentDate2,
-                AppointmentTime = appointmentTime,
-                FullName = "barry",
-                Informed = Informed.Yes,
-                PhoneNumber = "1234",
-                PresentAtDeath = PresentAtDeath.Unknown,
-                Relationship = "granddad"
-            };
-
-            var examination = GenerateExamination();
-            examination.Representatives = new[] { representativeTwo, representativeOne };
-
-            var result = _mapper.Map<PatientCardItem>(examination);
-
-            result.DateOfBirth.Should().Be(DateOfBirth);
-            result.DateOfDeath.Should().Be(DateOfDeath);
-            result.TimeOfDeath.Should().Be(TimeOfDeath);
-            result.ExaminationId.Should().Be(ExaminationId);
-            result.NhsNumber.Should().Be(NhsNumber);
-            result.GivenNames.Should().Be(GivenNames);
-            result.Surname.Should().Be(Surname);
-            result.UrgencyScore.Should().Be(UrgencyScore);
-            result.AppointmentDate.Should().Be(null);
-            result.AppointmentTime.Should().Be(null);
-            result.LastAdmission.Should().Be(LastAdmission);
-            result.ReadyForMEScrutiny.Should().Be(true);
-            result.AdmissionNotesHaveBeenAdded.Should().Be(true);
-            result.HaveBeenScrutinisedByME.Should().Be(true);
-            result.HaveFinalCaseOutcomesOutstanding.Should().Be(true);
-            result.PendingAdmissionNotes.Should().Be(true);
-            result.PendingDiscussionWithQAP.Should().Be(true);
-            result.PendingDiscussionWithRepresentative.Should().Be(true);
-            result.Unassigned.Should().Be(true);
-        }
-
-        [Fact]
-        public void Examination_To_PatientCard_Two_Representatives_One_Appointment_In_Past_Complete_Appointment_Details()
-        {
-            var appointmentDate1 = DateTime.Now.AddDays(1);
-            var appointmentDate2 = DateTime.Now.AddDays(-2);
-            var appointmentTime = new TimeSpan(10, 30, 00);
-            var representativeOne = new Representative()
-            {
-                AppointmentDate = appointmentDate1,
-                AppointmentTime = appointmentTime,
-                FullName = "bob",
-                Informed = Informed.Yes,
-                PhoneNumber = "1234",
-                PresentAtDeath = PresentAtDeath.Unknown,
-                Relationship = "milk man"
-            };
-
-            var representativeTwo = new Representative()
-            {
-                AppointmentDate = appointmentDate2,
-                AppointmentTime = appointmentTime,
-                FullName = "bob",
-                Informed = Informed.Yes,
-                PhoneNumber = "1234",
-                PresentAtDeath = PresentAtDeath.Unknown,
-                Relationship = "milk man"
-            };
-
-            var examination = GenerateExamination();
-            examination.Representatives = new[] { representativeTwo, representativeOne };
-
-            var result = _mapper.Map<PatientCardItem>(examination);
-
-            result.DateOfBirth.Should().Be(DateOfBirth);
-            result.DateOfDeath.Should().Be(DateOfDeath);
-            result.TimeOfDeath.Should().Be(TimeOfDeath);
-            result.ExaminationId.Should().Be(ExaminationId);
-            result.NhsNumber.Should().Be(NhsNumber);
-            result.GivenNames.Should().Be(GivenNames);
-            result.Surname.Should().Be(Surname);
-            result.UrgencyScore.Should().Be(UrgencyScore);
-            result.AppointmentDate.Should().Be(appointmentDate1);
-            result.AppointmentTime.Should().Be(appointmentTime);
-            result.LastAdmission.Should().Be(LastAdmission);
-            result.ReadyForMEScrutiny.Should().Be(true);
-            result.AdmissionNotesHaveBeenAdded.Should().Be(true);
-            result.HaveBeenScrutinisedByME.Should().Be(true);
-            result.HaveFinalCaseOutcomesOutstanding.Should().Be(true);
-            result.PendingAdmissionNotes.Should().Be(true);
-            result.PendingDiscussionWithQAP.Should().Be(true);
-            result.PendingDiscussionWithRepresentative.Should().Be(true);
-            result.Unassigned.Should().Be(true);
-        }
-
-        [Fact]
-        public void PostNewCaseRequest_To_Examination()
-        {
-            var postNewCaseRequest = new PostExaminationRequest
-            {
-                DateOfDeath = DateOfDeath,
-                DateOfBirth = DateOfBirth,
-                GivenNames = GivenNames,
-                Gender = Gender,
-                GenderDetails = GenderDetails,
-                HospitalNumber_1 = HospitalNumber_1,
-                HospitalNumber_2 = HospitalNumber_2,
-                HospitalNumber_3 = HospitalNumber_3,
-                MedicalExaminerOfficeResponsible = MedicalExaminerOfficeResponsible,
-                NhsNumber = NhsNumber,
-                PlaceDeathOccured = PlaceDeathOccured,
-                Surname = Surname,
-                TimeOfDeath = TimeOfDeath
-            };
-
-            var result = _mapper.Map<Examination>(postNewCaseRequest);
-
-            result.DateOfBirth.Should().Be(DateOfBirth);
-            result.DateOfDeath.Should().Be(DateOfDeath);
-            result.GivenNames.Should().Be(GivenNames);
-            result.Gender.Should().Be(Gender);
-            result.GenderDetails.Should().Be(GenderDetails);
-            result.HospitalNumber_1.Should().Be(HospitalNumber_1);
-            result.HospitalNumber_2.Should().Be(HospitalNumber_2);
-            result.HospitalNumber_3.Should().Be(HospitalNumber_3);
-            result.MedicalExaminerOfficeResponsible.Should().Be(MedicalExaminerOfficeResponsible);
-            result.NhsNumber.Should().Be(NhsNumber);
-            result.PlaceDeathOccured.Should().Be(PlaceDeathOccured);
-            result.Surname.Should().Be(Surname);
-            result.TimeOfDeath.Should().Be(TimeOfDeath);
+                   IsEqual(examination.MedicalTeam.GeneralPractitioner, response.GeneralPractitioner) &&
+                   IsEqual(examination.MedicalTeam.Qap, response.Qap) &&
+                   response.NursingTeamInformation == examination.MedicalTeam.NursingTeamInformation &&
+                   response.MedicalExaminerUserId == examination.MedicalTeam.MedicalExaminerUserId &&
+                   response.MedicalExaminerOfficerUserId == examination.MedicalTeam.MedicalExaminerOfficerUserId &&
+                   IsEqual(examination.MedicalTeam.ConsultantsOther[0], response.ConsultantsOther[0]);
         }
 
         private Examination GenerateExamination()
@@ -883,7 +909,7 @@ namespace MedicalExaminer.API.Tests.Mapper
             {
                 ExaminationId = ExaminationId,
                 CaseBreakdown = GenerateCaseBreakdown(),
-                CaseOutcome = caseOutcome,
+                CaseOutcome = _caseOutcome,
                 AnyImplants = AnyImplants,
                 AnyPersonalEffects = AnyPersonalEffects,
                 ChildPriority = ChildPriority,
@@ -893,16 +919,16 @@ namespace MedicalExaminer.API.Tests.Mapper
                 County = County,
                 Country = Country,
                 CulturalPriority = CulturalPriority,
-                DateOfBirth = DateOfBirth,
-                DateOfDeath = DateOfDeath,
+                DateOfBirth = _dateOfBirth,
+                DateOfDeath = _dateOfDeath,
                 FuneralDirectors = FuneralDirectors,
                 FaithPriority = FaithPriority,
                 GivenNames = GivenNames,
                 Gender = Gender,
                 GenderDetails = GenderDetails,
-                HospitalNumber_1 = HospitalNumber_1,
-                HospitalNumber_2 = HospitalNumber_2,
-                HospitalNumber_3 = HospitalNumber_3,
+                HospitalNumber_1 = HospitalNumber1,
+                HospitalNumber_2 = HospitalNumber2,
+                HospitalNumber_3 = HospitalNumber3,
                 HouseNameNumber = HouseNameNumber,
                 ImplantDetails = ImplantDetails,
                 LastOccupation = LastOccupation,
@@ -920,9 +946,9 @@ namespace MedicalExaminer.API.Tests.Mapper
                 Surname = Surname,
                 Street = Street,
                 Town = Town,
-                TimeOfDeath = TimeOfDeath,
+                TimeOfDeath = _timeOfDeath,
                 UrgencyScore = UrgencyScore,
-                LastAdmission = LastAdmission,
+                LastAdmission = _lastAdmission,
                 PendingAdmissionNotes = true,
                 PendingDiscussionWithQAP = true,
                 PendingDiscussionWithRepresentative = true,
@@ -931,7 +957,7 @@ namespace MedicalExaminer.API.Tests.Mapper
                 HaveFinalCaseOutcomesOutstanding = true,
                 ReadyForMEScrutiny = true,
                 Unassigned = true,
-                MedicalTeam = medicalTeam
+                MedicalTeam = _medicalTeam
             };
 
             return examination;
@@ -943,49 +969,49 @@ namespace MedicalExaminer.API.Tests.Mapper
             {
                 DeathEvent = new DeathEvent()
                 {
-                    DateOfDeath = DateOfDeath,
+                    DateOfDeath = _dateOfDeath,
                     EventId = "deathEventId",
-                    TimeOfDeath = TimeOfDeath,
-                    UserId = User0.UserId
+                    TimeOfDeath = _timeOfDeath,
+                    UserId = _user0.UserId
                 },
                 AdmissionNotes = new AdmissionNotesEventContainer()
                 {
                     Latest = new AdmissionEvent()
                     {
-                        AdmittedDate = LastAdmission,
+                        AdmittedDate = _lastAdmission,
                         AdmittedDateUnknown = false,
                         EventId = "admissionEventId",
                         ImmediateCoronerReferral = false,
                         IsFinal = true,
                         Notes = AdmissionNotes,
-                        UserId = User0.UserId,
-                        AdmittedTime = AdmittedTime,
+                        UserId = _user0.UserId,
+                        AdmittedTime = _admittedTime,
                         AdmittedTimeUnknown = false
                     },
                     History = new[]
                     {
                         new AdmissionEvent()
                         {
-                            AdmittedDate = LastAdmission,
+                            AdmittedDate = _lastAdmission,
                             AdmittedDateUnknown = false,
                             EventId = "admissionEventId",
                             ImmediateCoronerReferral = false,
                             IsFinal = true,
                             Notes = AdmissionNotes,
-                            UserId = User0.UserId,
-                            AdmittedTime = AdmittedTime,
+                            UserId = _user0.UserId,
+                            AdmittedTime = _admittedTime,
                             AdmittedTimeUnknown = false
                         },
                         new AdmissionEvent()
                         {
-                            AdmittedDate = LastAdmission,
+                            AdmittedDate = _lastAdmission,
                             AdmittedDateUnknown = false,
                             EventId = "admissionEventId2",
                             ImmediateCoronerReferral = false,
                             IsFinal = true,
                             Notes = AdmissionNotes,
-                            UserId = User0.UserId,
-                            AdmittedTime = AdmittedTime,
+                            UserId = _user0.UserId,
+                            AdmittedTime = _admittedTime,
                             AdmittedTimeUnknown = false
                         }
                     },
@@ -993,26 +1019,26 @@ namespace MedicalExaminer.API.Tests.Mapper
                     {
                         new AdmissionEvent()
                         {
-                            AdmittedDate = LastAdmission,
+                            AdmittedDate = _lastAdmission,
                             AdmittedDateUnknown = false,
                             EventId = "admissionEventId2",
                             ImmediateCoronerReferral = false,
                             IsFinal = false,
                             Notes = AdmissionNotes,
-                            UserId = User0.UserId,
-                            AdmittedTime = AdmittedTime,
+                            UserId = _user0.UserId,
+                            AdmittedTime = _admittedTime,
                             AdmittedTimeUnknown = false
                         },
                         new AdmissionEvent()
                         {
-                            AdmittedDate = LastAdmission,
+                            AdmittedDate = _lastAdmission,
                             AdmittedDateUnknown = false,
                             EventId = "admissionEventId2",
                             ImmediateCoronerReferral = false,
                             IsFinal = false,
                             Notes = AdmissionNotes,
-                            UserId = User1.UserId,
-                            AdmittedTime = AdmittedTime,
+                            UserId = _user1.UserId,
+                            AdmittedTime = _admittedTime,
                             AdmittedTimeUnknown = false
                         }
                     }
@@ -1022,17 +1048,17 @@ namespace MedicalExaminer.API.Tests.Mapper
                     Latest = new BereavedDiscussionEvent()
                     {
                         BereavedDiscussionOutcome = BereavedDiscussionOutcome.CauseOfDeathAccepted,
-                        DateOfConversation = dateOfConversation,
-                        TimeOfConversation = timeOfConversation,
-                        DiscussionDetails = discussionDetails,
+                        DateOfConversation = _dateOfConversation,
+                        TimeOfConversation = _timeOfConversation,
+                        DiscussionDetails = _discussionDetails,
                         DiscussionUnableHappen = false,
                         EventId = "bereavedDiscussionEventId",
                         InformedAtDeath = InformedAtDeath.Unknown,
                         IsFinal = true,
-                        UserId = User0.UserId,
-                        ParticipantFullName = ParticipantFullName,
-                        ParticipantPhoneNumber = ParticipantPhoneNumber,
-                        ParticipantRelationship = ParticipantRelationship,
+                        UserId = _user0.UserId,
+                        ParticipantFullName = _participantFullName,
+                        ParticipantPhoneNumber = _participantPhoneNumber,
+                        ParticipantRelationship = _participantRelationship,
                         PresentAtDeath = PresentAtDeath.No,
                     },
                     History = new[]
@@ -1040,17 +1066,17 @@ namespace MedicalExaminer.API.Tests.Mapper
                         new BereavedDiscussionEvent()
                         {
                             BereavedDiscussionOutcome = BereavedDiscussionOutcome.CauseOfDeathAccepted,
-                            DateOfConversation = dateOfConversation,
-                            TimeOfConversation = timeOfConversation,
-                            DiscussionDetails = discussionDetails,
+                            DateOfConversation = _dateOfConversation,
+                            TimeOfConversation = _timeOfConversation,
+                            DiscussionDetails = _discussionDetails,
                             DiscussionUnableHappen = false,
                             EventId = "bereavedDiscussionEventId",
                             InformedAtDeath = InformedAtDeath.Unknown,
                             IsFinal = true,
-                            UserId= User0.UserId,
-                            ParticipantFullName = ParticipantFullName,
-                            ParticipantPhoneNumber = ParticipantPhoneNumber,
-                            ParticipantRelationship = ParticipantRelationship,
+                            UserId = _user0.UserId,
+                            ParticipantFullName = _participantFullName,
+                            ParticipantPhoneNumber = _participantPhoneNumber,
+                            ParticipantRelationship = _participantRelationship,
                             PresentAtDeath = PresentAtDeath.No,
                         }
                     }
@@ -1061,8 +1087,8 @@ namespace MedicalExaminer.API.Tests.Mapper
                     {
                         EventId = "MedicalHistoryEventId",
                         IsFinal = true,
-                        UserId = User0.UserId,
-                        Text = MedicalHistoryEventText,
+                        UserId = _user0.UserId,
+                        Text = _medicalHistoryEventText,
                     },
                     History = new[]
                     {
@@ -1070,8 +1096,8 @@ namespace MedicalExaminer.API.Tests.Mapper
                         {
                             EventId = "MedicalHistoryEventId",
                             IsFinal = true,
-                            UserId = User0.UserId,
-                            Text = MedicalHistoryEventText,
+                            UserId = _user0.UserId,
+                            Text = _medicalHistoryEventText,
                         }
                     }
                 },
@@ -1081,8 +1107,8 @@ namespace MedicalExaminer.API.Tests.Mapper
                     {
                         EventId = "MeoSummaryEventId",
                         IsFinal = true,
-                        UserId = User0.UserId,
-                        SummaryDetails = SummaryDetails
+                        UserId = _user0.UserId,
+                        SummaryDetails = _summaryDetails
                     },
                     History = new[]
                     {
@@ -1090,8 +1116,8 @@ namespace MedicalExaminer.API.Tests.Mapper
                         {
                             EventId = "MeoSummaryEventId",
                             IsFinal = true,
-                            UserId = User0.UserId,
-                            SummaryDetails = SummaryDetails
+                            UserId = _user0.UserId,
+                            SummaryDetails = _summaryDetails
                         }
                     }
                 },
@@ -1102,35 +1128,35 @@ namespace MedicalExaminer.API.Tests.Mapper
                 {
                     Latest = new PreScrutinyEvent()
                     {
-                        CauseOfDeath1a = CauseOfDeath1a,
-                        CauseOfDeath1b = CauseOfDeath1b,
-                        CauseOfDeath1c = CauseOfDeath1c,
-                        CauseOfDeath2 = CauseOfDeath2,
+                        CauseOfDeath1a = _causeOfDeath1A,
+                        CauseOfDeath1b = _causeOfDeath1B,
+                        CauseOfDeath1c = _causeOfDeath1C,
+                        CauseOfDeath2 = _causeOfDeath2,
                         CircumstancesOfDeath = OverallCircumstancesOfDeath.Unexpected,
                         ClinicalGovernanceReview = ClinicalGovernanceReview.Unknown,
-                        ClinicalGovernanceReviewText = ClinicalGovernanceReviewText,
+                        ClinicalGovernanceReviewText = _clinicalGovernanceReviewText,
                         EventId = "preScrutinyEventId",
                         IsFinal = true,
-                        MedicalExaminerThoughts = MedicalExaminerThoughts,
+                        MedicalExaminerThoughts = _medicalExaminerThoughts,
                         OutcomeOfPreScrutiny = OverallOutcomeOfPreScrutiny.ReferToCoronerFor100a,
-                        UserId = User0.UserId
+                        UserId = _user0.UserId
                     },
                     History = new[]
                     {
                         new PreScrutinyEvent()
                         {
-                            CauseOfDeath1a = CauseOfDeath1a,
-                            CauseOfDeath1b = CauseOfDeath1b,
-                            CauseOfDeath1c = CauseOfDeath1c,
-                            CauseOfDeath2 = CauseOfDeath2,
+                            CauseOfDeath1a = _causeOfDeath1A,
+                            CauseOfDeath1b = _causeOfDeath1B,
+                            CauseOfDeath1c = _causeOfDeath1C,
+                            CauseOfDeath2 = _causeOfDeath2,
                             CircumstancesOfDeath = OverallCircumstancesOfDeath.Unexpected,
                             ClinicalGovernanceReview = ClinicalGovernanceReview.Unknown,
-                            ClinicalGovernanceReviewText = ClinicalGovernanceReviewText,
+                            ClinicalGovernanceReviewText = _clinicalGovernanceReviewText,
                             EventId = "preScrutinyEventId",
                             IsFinal = true,
-                            MedicalExaminerThoughts = MedicalExaminerThoughts,
+                            MedicalExaminerThoughts = _medicalExaminerThoughts,
                             OutcomeOfPreScrutiny = OverallOutcomeOfPreScrutiny.ReferToCoronerFor100a,
-                            UserId = User0.UserId
+                            UserId = _user0.UserId
                         }
                     }
                 },
@@ -1140,20 +1166,20 @@ namespace MedicalExaminer.API.Tests.Mapper
                     {
                         EventId = "QapDiscussionEventId",
                         IsFinal = true,
-                        UserId = User0.UserId,
-                        DiscussionDetails = discussionDetails,
-                        CauseOfDeath1a = CauseOfDeath1a,
-                        CauseOfDeath1b = CauseOfDeath1b,
-                        CauseOfDeath1c = CauseOfDeath1c,
-                        CauseOfDeath2 = CauseOfDeath2,
+                        UserId = _user0.UserId,
+                        DiscussionDetails = _discussionDetails,
+                        CauseOfDeath1a = _causeOfDeath1A,
+                        CauseOfDeath1b = _causeOfDeath1B,
+                        CauseOfDeath1c = _causeOfDeath1C,
+                        CauseOfDeath2 = _causeOfDeath2,
                         DiscussionUnableHappen = false,
                         QapDiscussionOutcome = QapDiscussionOutcome.MccdCauseOfDeathAgreedByQAPandME,
-                        ParticipantRole = ParticipantRoll,
-                        DateOfConversation = dateOfConversation,
-                        TimeOfConversation = timeOfConversation,
-                        ParticipantName = ParticipantName,
-                        ParticipantOrganisation = ParticipantOrganisation,
-                        ParticipantPhoneNumber = ParticipantPhoneNumber
+                        ParticipantRole = _participantRoll,
+                        DateOfConversation = _dateOfConversation,
+                        TimeOfConversation = _timeOfConversation,
+                        ParticipantName = _participantName,
+                        ParticipantOrganisation = _participantOrganisation,
+                        ParticipantPhoneNumber = _participantPhoneNumber
                     },
                     History = new[]
                     {
@@ -1161,52 +1187,24 @@ namespace MedicalExaminer.API.Tests.Mapper
                     {
                         EventId = "QapDiscussionEventId",
                         IsFinal = true,
-                        UserId = User0.UserId,
-                        DiscussionDetails = discussionDetails,
-                        CauseOfDeath1a = CauseOfDeath1a,
-                        CauseOfDeath1b = CauseOfDeath1b,
-                        CauseOfDeath1c = CauseOfDeath1c,
-                        CauseOfDeath2 = CauseOfDeath2,
+                        UserId = _user0.UserId,
+                        DiscussionDetails = _discussionDetails,
+                        CauseOfDeath1a = _causeOfDeath1A,
+                        CauseOfDeath1b = _causeOfDeath1B,
+                        CauseOfDeath1c = _causeOfDeath1C,
+                        CauseOfDeath2 = _causeOfDeath2,
                         DiscussionUnableHappen = false,
                         QapDiscussionOutcome = QapDiscussionOutcome.MccdCauseOfDeathAgreedByQAPandME,
-                        ParticipantRole = ParticipantRoll,
-                        DateOfConversation = dateOfConversation,
-                        TimeOfConversation = timeOfConversation,
-                        ParticipantName = ParticipantName,
-                        ParticipantOrganisation = ParticipantOrganisation,
-                        ParticipantPhoneNumber = ParticipantPhoneNumber
+                        ParticipantRole = _participantRoll,
+                        DateOfConversation = _dateOfConversation,
+                        TimeOfConversation = _timeOfConversation,
+                        ParticipantName = _participantName,
+                        ParticipantOrganisation = _participantOrganisation,
+                        ParticipantPhoneNumber = _participantPhoneNumber
                     }
                     }
                 }
             };
-        }
-
-        /// <summary>
-        /// Test Mapping Examination to ExaminationItem.
-        /// </summary>
-        [Fact]
-        public void Examination_To_ExaminationItem()
-        {
-            var expectedExaminationId = "expectedExaminationId";
-
-            var examination = GenerateExamination();
-
-            var response = _mapper.Map<ExaminationItem>(examination);
-            response.GenderDetails.Should().Be(GenderDetails);
-            response.ExaminationId.Should().Be(expectedExaminationId);
-            response.GivenNames.Should().Be(GivenNames);
-            response.DateOfBirth.Should().Be(DateOfBirth);
-            response.DateOfDeath.Should().Be(DateOfDeath);
-            response.Gender.Should().Be(Gender);
-            response.GivenNames.Should().Be(GivenNames);
-            response.HospitalNumber_1.Should().Be(HospitalNumber_1);
-            response.HospitalNumber_2.Should().Be(HospitalNumber_2);
-            response.HospitalNumber_3.Should().Be(HospitalNumber_3);
-            response.MedicalExaminerOfficeResponsible.Should().Be(MedicalExaminerOfficeResponsible);
-            response.NhsNumber.Should().Be(NhsNumber);
-            response.PlaceDeathOccured.Should().Be(PlaceDeathOccured);
-            response.Surname.Should().Be(Surname);
-            response.TimeOfDeath.Should().Be(TimeOfDeath);
         }
 
         private void AssertAllSourcePropertiesMappedForMap(TypeMap map)
@@ -1224,8 +1222,13 @@ namespace MedicalExaminer.API.Tests.Mapper
             foreach (var propertyInfo in properties)
             {
                 if (!mappedProperties.Contains(propertyInfo))
-                    throw new Exception(String.Format("Property '{0}' of type '{1}' is not mapped",
-                        propertyInfo, map.SourceType));
+                {
+                    throw new Exception(
+                        string.Format(
+                            "Property '{0}' of type '{1}' is not mapped",
+                            propertyInfo,
+                            map.SourceType));
+                }
             }
         }
 
@@ -1246,8 +1249,13 @@ namespace MedicalExaminer.API.Tests.Mapper
                 foreach (var propertyInfo in properties)
                 {
                     if (!mappedProperties.Contains(propertyInfo))
-                        throw new Exception(String.Format("Property '{0}' of type '{1}' is not mapped",
-                            propertyInfo, map.SourceType));
+                    {
+                        throw new Exception(
+                            string.Format(
+                                "Property '{0}' of type '{1}' is not mapped",
+                                propertyInfo,
+                                map.SourceType));
+                    }
                 }
             }
         }
