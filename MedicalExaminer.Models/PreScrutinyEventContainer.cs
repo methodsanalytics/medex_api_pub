@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-namespace MedicalExaminer.Models
+﻿namespace MedicalExaminer.Models
 {
     /// <summary>
     /// Pre Scrutiny Event Container.
