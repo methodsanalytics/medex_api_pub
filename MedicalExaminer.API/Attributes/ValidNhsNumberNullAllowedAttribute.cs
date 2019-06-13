@@ -76,9 +76,9 @@ namespace MedicalExaminer.API.Attributes
                 return false;
             }
 
-            var sumNhsFactor = seq[0] * factors[0] + seq[1] * factors[1] + seq[2] * factors[2] + seq[3] * factors[3]
-                               + seq[4] * factors[4] + seq[5] * factors[5] + seq[6] * factors[6] + seq[7] * factors[7]
-                               + seq[8] * factors[8];
+            var sumNhsFactor = (seq[0] * factors[0]) + (seq[1] * factors[1]) + (seq[2] * factors[2]) + (seq[3] * factors[3])
+                               + (seq[4] * factors[4]) + (seq[5] * factors[5]) + (seq[6] * factors[6]) + (seq[7] * factors[7])
+                               + (seq[8] * factors[8]);
 
             var remainder = sumNhsFactor % 11;
             var check = 11 - remainder;
