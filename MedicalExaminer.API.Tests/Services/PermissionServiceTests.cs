@@ -138,7 +138,6 @@ namespace MedicalExaminer.API.Tests.Services
         {
             // Arrange
             var expectedEmail = "expectedEmail";
-            var expectedRole = UserRoles.MedicalExaminer;
             var expectedPermission = Permission.AddEventToExamination;
 
             var meUser = new MeUser()
@@ -236,7 +235,6 @@ namespace MedicalExaminer.API.Tests.Services
         {
             // Arrange
             var expectedEmail = "expectedEmail";
-            var expectedRole = UserRoles.MedicalExaminer;
             var expectedPermission = Permission.AddEventToExamination;
 
             var meUser = new MeUser()

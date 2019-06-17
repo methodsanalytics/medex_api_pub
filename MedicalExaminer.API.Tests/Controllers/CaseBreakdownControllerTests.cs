@@ -83,7 +83,6 @@ namespace MedicalExaminer.API.Tests.Controllers
             // Arrange
             var logger = new Mock<IMELogger>();
             var mapper = new Mock<IMapper>();
-            var expectedUserId = "123";
 
             var examinationId = "7E5D50CE-05BF-4A1F-AA6E-25418A723A7F";
             var usersRetrievalByOktaIdService = new Mock<IAsyncQueryHandler<UserRetrievalByOktaIdQuery, MeUser>>();

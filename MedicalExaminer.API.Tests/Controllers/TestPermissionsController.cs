@@ -61,7 +61,6 @@ namespace MedicalExaminer.API.Tests.Controllers
         public async Task GetPermissions_ReturnsPermission()
         {
             // Arrange
-            var expectedEmail = "expectedEmail";
             var expectedCurrentUserId = "expectedCurrentUserId";
             var expectedUserId = "expectedUserId";
             var expectedSiteId = "site1";
@@ -211,7 +210,6 @@ namespace MedicalExaminer.API.Tests.Controllers
             SetupAuthorize(AuthorizationResult.Success());
 
             var expectedPermissionId = "expectedPermissionId";
-            var expectedEmail = "expectedEmail";
             var expectedCurrentUserId = "expectedCurrentUserId";
             var expectedUserId = "expectedUserId";
             var expectedSiteId = "site1";
@@ -301,7 +299,6 @@ namespace MedicalExaminer.API.Tests.Controllers
             SetupAuthorize(AuthorizationResult.Success());
 
             var expectedPermissionId = "expectedPermissionId";
-            var expectedEmail = "expectedEmail";
             var expectedCurrentUserId = "expectedCurrentUserId";
             var expectedUserId = "expectedUserId";
             var expectedSiteId = "site1";
@@ -373,7 +370,6 @@ namespace MedicalExaminer.API.Tests.Controllers
             SetupAuthorize(AuthorizationResult.Success());
 
             var expectedPermissionId = "expectedPermissionId";
-            var expectedEmail = "expectedEmail";
             var expectedCurrentUserId = "expectedCurrentUserId";
             var expectedUserId = "expectedUserId";
             var expectedSiteId = "site1";
@@ -457,7 +453,6 @@ namespace MedicalExaminer.API.Tests.Controllers
             SetupAuthorize(AuthorizationResult.Failed());
 
             var expectedPermissionId = "expectedPermissionId";
-            var expectedEmail = "expectedEmail";
             var expectedCurrentUserId = "expectedCurrentUserId";
             var expectedUserId = "expectedUserId";
             var expectedSiteId = "site1";
@@ -607,7 +602,6 @@ namespace MedicalExaminer.API.Tests.Controllers
         public async Task GetPermissions_ReturnsNotFound_WhenUserNotFound()
         {
             // Arrange
-            var expectedEmail = "expectedEmail";
             var expectedCurrentUserId = "expectedCurrentUserId";
             var expectedUserId = "expectedUserId";
             var expectedSiteId = "site1";
@@ -689,7 +683,6 @@ namespace MedicalExaminer.API.Tests.Controllers
             SetupAuthorize(AuthorizationResult.Success());
 
             var expectedPermissionId = "expectedPermissionId";
-            var expectedEmail = "expectedEmail";
             var expectedCurrentUserId = "expectedCurrentUserId";
             var expectedUserId = "expectedUserId";
             var expectedSiteId = "site1";
@@ -789,8 +782,6 @@ namespace MedicalExaminer.API.Tests.Controllers
             // Arrange
             SetupAuthorize(AuthorizationResult.Success());
 
-            var expectedPermissionId = "expectedPermissionId";
-            var expectedEmail = "expectedEmail";
             var expectedCurrentUserId = "expectedCurrentUserId";
             var expectedUserId = "expectedUserId";
             var expectedSiteId = "site1";
@@ -873,7 +864,6 @@ namespace MedicalExaminer.API.Tests.Controllers
             SetupAuthorize(AuthorizationResult.Failed());
 
             var expectedPermissionId = "expectedPermissionId";
-            var expectedEmail = "expectedEmail";
             var expectedCurrentUserId = "expectedCurrentUserId";
             var expectedUserId = "expectedUserId";
             var expectedSiteId = "site1";
@@ -1030,7 +1020,6 @@ namespace MedicalExaminer.API.Tests.Controllers
             SetupAuthorize(AuthorizationResult.Success());
 
             var expectedPermissionId = "expectedPermissionId";
-            var expectedEmail = "expectedEmail";
             var expectedCurrentUserId = "expectedCurrentUserId";
             var expectedUserId = "expectedUserId";
             var expectedSiteId = "site1";
@@ -1134,7 +1123,6 @@ namespace MedicalExaminer.API.Tests.Controllers
             SetupAuthorize(AuthorizationResult.Failed());
 
             var expectedPermissionId = "expectedPermissionId";
-            var expectedEmail = "expectedEmail";
             var expectedCurrentUserId = "expectedCurrentUserId";
             var expectedUserId = "expectedUserId";
             var expectedSiteId = "site1";
@@ -1255,7 +1243,6 @@ namespace MedicalExaminer.API.Tests.Controllers
             SetupAuthorize(AuthorizationResult.Failed());
 
             var expectedPermissionId = "expectedPermissionId";
-            var expectedEmail = "expectedEmail";
             var expectedCurrentUserId = "expectedCurrentUserId";
             var expectedUserId = "expectedUserId";
             var expectedSiteId = "site1";

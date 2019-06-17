@@ -87,114 +87,115 @@ namespace MedicalExaminer.API.Tests.Controllers
             const string expectedMessage = "UserId Unknown False MyMethod MyAction Unknown";
             Assert.Equal(expectedMessage, logEntryContents);
         }
-    }
 
-    internal class MockConnectionInfo : ConnectionInfo
-    {
-        public override string Id
+        internal class MockConnectionInfo : ConnectionInfo
         {
-            get => throw new NotImplementedException();
-            set => throw new NotImplementedException();
+            public override string Id
+            {
+                get => throw new NotImplementedException();
+                set => throw new NotImplementedException();
+            }
+
+            public override IPAddress RemoteIpAddress
+            {
+                get => null;
+                set { }
+            }
+
+            public override int RemotePort
+            {
+                get => throw new NotImplementedException();
+                set => throw new NotImplementedException();
+            }
+
+            public override IPAddress LocalIpAddress
+            {
+                get => throw new NotImplementedException();
+                set => throw new NotImplementedException();
+            }
+
+            public override int LocalPort
+            {
+                get => throw new NotImplementedException();
+                set => throw new NotImplementedException();
+            }
+
+            public override X509Certificate2 ClientCertificate
+            {
+                get => throw new NotImplementedException();
+                set => throw new NotImplementedException();
+            }
+
+            public override Task<X509Certificate2> GetClientCertificateAsync(
+                CancellationToken cancellationToken = default(CancellationToken))
+            {
+                throw new NotImplementedException();
+            }
         }
 
-        public override IPAddress RemoteIpAddress
+        internal class MockHttpContext : HttpContext
         {
-            get => null;
-            set { }
-        }
+            private ClaimsPrincipal _claimsPrincipal;
 
-        public override int RemotePort
-        {
-            get => throw new NotImplementedException();
-            set => throw new NotImplementedException();
-        }
+            public MockHttpContext()
+            {
+                _claimsPrincipal = new ClaimsPrincipal();
+                Connection = new MockConnectionInfo();
+            }
 
-        public override IPAddress LocalIpAddress
-        {
-            get => throw new NotImplementedException();
-            set => throw new NotImplementedException();
-        }
+            public override IFeatureCollection Features => throw new NotImplementedException();
 
-        public override int LocalPort
-        {
-            get => throw new NotImplementedException();
-            set => throw new NotImplementedException();
-        }
+            public override HttpRequest Request => throw new NotImplementedException();
 
-        public override X509Certificate2 ClientCertificate
-        {
-            get => throw new NotImplementedException();
-            set => throw new NotImplementedException();
-        }
+            public override HttpResponse Response => throw new NotImplementedException();
 
-        public override Task<X509Certificate2> GetClientCertificateAsync(
-            CancellationToken cancellationToken = default(CancellationToken))
-        {
-            throw new NotImplementedException();
-        }
-    }
+            public override ConnectionInfo Connection { get; }
 
-    internal class MockHttpContext : HttpContext
-    {
-        private ClaimsPrincipal _claimsPrincipal;
+            public override WebSocketManager WebSockets => throw new NotImplementedException();
 
-        public MockHttpContext()
-        {
-            _claimsPrincipal = new ClaimsPrincipal();
-            Connection = new MockConnectionInfo();
-        }
+            [Obsolete]
+            public override AuthenticationManager Authentication { get; }
 
-        public override IFeatureCollection Features => throw new NotImplementedException();
+            public override ClaimsPrincipal User
+            {
+                get => _claimsPrincipal;
+                set => _claimsPrincipal = value;
+            }
 
-        public override HttpRequest Request => throw new NotImplementedException();
+            public override IDictionary<object, object> Items
+            {
+                get => throw new NotImplementedException();
+                set => throw new NotImplementedException();
+            }
 
-        public override HttpResponse Response => throw new NotImplementedException();
+            public override IServiceProvider RequestServices
+            {
+                get => throw new NotImplementedException();
+                set => throw new NotImplementedException();
+            }
 
-        public override ConnectionInfo Connection { get; }
+            public override CancellationToken RequestAborted
+            {
+                get => throw new NotImplementedException();
+                set => throw new NotImplementedException();
+            }
 
-        public override WebSocketManager WebSockets => throw new NotImplementedException();
+            public override string TraceIdentifier
+            {
+                get => throw new NotImplementedException();
+                set => throw new NotImplementedException();
+            }
 
-        public override AuthenticationManager Authentication { get; }
+            public override ISession Session
+            {
+                get => throw new NotImplementedException();
+                set => throw new NotImplementedException();
+            }
 
-        public override ClaimsPrincipal User
-        {
-            get => _claimsPrincipal;
-            set => _claimsPrincipal = value;
-        }
-
-        public override IDictionary<object, object> Items
-        {
-            get => throw new NotImplementedException();
-            set => throw new NotImplementedException();
-        }
-
-        public override IServiceProvider RequestServices
-        {
-            get => throw new NotImplementedException();
-            set => throw new NotImplementedException();
-        }
-
-        public override CancellationToken RequestAborted
-        {
-            get => throw new NotImplementedException();
-            set => throw new NotImplementedException();
-        }
-
-        public override string TraceIdentifier
-        {
-            get => throw new NotImplementedException();
-            set => throw new NotImplementedException();
-        }
-
-        public override ISession Session
-        {
-            get => throw new NotImplementedException();
-            set => throw new NotImplementedException();
-        }
-
-        public override void Abort()
-        {
-            throw new NotImplementedException();
+            public override void Abort()
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

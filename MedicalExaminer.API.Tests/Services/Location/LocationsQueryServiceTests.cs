@@ -101,7 +101,7 @@ namespace MedicalExaminer.API.Tests.Services.Location
             {
                 LocationId = $"Name{i}",
                 Name = $"Name{i}",
-                ParentId = i > start ? $"Name{(i-1)}" : null
+                ParentId = i > start ? $"Name{i - 1}" : null
             }).ToArray();
         }
     }

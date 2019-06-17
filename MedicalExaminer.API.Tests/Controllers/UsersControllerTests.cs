@@ -31,12 +31,13 @@ namespace MedicalExaminer.API.Tests.Controllers
     /// </summary>
     public class UsersControllerTests : AuthorizedControllerTestsBase<UsersController>
     {
-        public Mock<IAsyncQueryHandler<CreateUserQuery, MeUser>> createUserService;
-        public Mock<IAsyncQueryHandler<UserRetrievalByIdQuery, MeUser>> userRetrievalService;
-        public Mock<IAsyncQueryHandler<UsersRetrievalQuery, IEnumerable<MeUser>>> usersRetrievalService;
-        public Mock<IAsyncQueryHandler<UserUpdateQuery, MeUser>> userUpdateService;
+        private Mock<IAsyncQueryHandler<CreateUserQuery, MeUser>> createUserService;
+        private Mock<IAsyncQueryHandler<UserRetrievalByIdQuery, MeUser>> userRetrievalService;
+        private Mock<IAsyncQueryHandler<UsersRetrievalQuery, IEnumerable<MeUser>>> usersRetrievalService;
+        private Mock<IAsyncQueryHandler<UserUpdateQuery, MeUser>> userUpdateService;
 
-        public UsersControllerTests() : base()
+        public UsersControllerTests()
+            : base()
         {
             var logger = new Mock<IMELogger>();
 

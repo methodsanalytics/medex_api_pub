@@ -10,6 +10,10 @@
     <Rule Id="SA1633" Action="None" />
     <Rule Id="SA1642" Action="None" />
     <Rule Id="SA1600" Action="None" />
+    <Rule Id="SA1117" Action="None" />
+    <Rule Id="SA1118" Action="None" />
+    <Rule Id="SA1652" Action="None" />
+    <Rule Id="SA1310" Action="None" />
   </Rules>
   <Rules AnalyzerId="Microsoft.Analyzers.ManagedCodeAnalysis" RuleNamespace="Microsoft.Rules.Managed">
     <Rule Id="CA1000" Action="Warning" />

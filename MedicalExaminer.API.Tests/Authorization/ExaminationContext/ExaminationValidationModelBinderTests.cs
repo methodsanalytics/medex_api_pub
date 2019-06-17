@@ -52,7 +52,7 @@ namespace MedicalExaminer.API.Tests.Authorization.ExaminationContext
         }
 
         [Fact]
-        public async void BindModelAsync_ThrowsInvalidOperationException_WhenExaminationRetrievalServiceNotRegistered()
+        public void BindModelAsync_ThrowsInvalidOperationException_WhenExaminationRetrievalServiceNotRegistered()
         {
             // Arrange
             var expectedModelBinder = new Mock<IModelBinder>();

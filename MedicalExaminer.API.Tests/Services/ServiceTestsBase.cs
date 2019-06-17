@@ -9,7 +9,6 @@ using Moq;
 using Xunit;
 
 // ReSharper disable VirtualMemberCallInConstructor
-
 namespace MedicalExaminer.API.Tests.Services
 {
     /// <summary>
@@ -68,6 +67,7 @@ namespace MedicalExaminer.API.Tests.Services
         /// </summary>
         /// <param name="databaseAccess">Database access.</param>
         /// <param name="connectionSettings">Connection settings.</param>
+        /// <param name="cosmosStore">Cosmos store.</param>
         /// <returns>Service.</returns>
         protected virtual TService GetService(IDatabaseAccess databaseAccess, TConnectionSettings connectionSettings, ICosmosStore<TType> cosmosStore = null)
         {

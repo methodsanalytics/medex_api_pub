@@ -48,7 +48,7 @@ namespace MedicalExaminer.API.Tests.Services.Users
         }
 
         [Fact]
-        public async Task Handle_UpdateUser_ThatDoesntExist_ThrowsException()
+        public void Handle_UpdateUser_ThatDoesntExist_ThrowsException()
         {
             // Arrange
             var expectedUserId = "userId3";

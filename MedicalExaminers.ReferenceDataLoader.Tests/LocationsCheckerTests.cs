@@ -218,7 +218,7 @@ namespace MedicalExaminers.ReferenceDataLoader.Tests
         [Fact]
         public void CheckParentIdsValid_NationalHasParentId()
         {
-            ///Arrange
+            // Arrange
             var national = new Location();
             national.LocationId = "N1";
             national.ParentId = "X1"; // should be null!

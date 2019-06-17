@@ -20,15 +20,12 @@ namespace MedicalExaminer.API.Tests.Mapper
         private const string NhsNumber = "123456789";
         private const string PlaceDeathOccured = "placeDeathOccured";
         private const string Surname = "surname";
+        private const ExaminationGender Gender = ExaminationGender.Male;
 
-        private readonly DateTime DateOfBirth = new DateTime(1990, 2, 24);
-        private readonly DateTime DateOfDeath = new DateTime(2019, 2, 24);
-        private readonly ExaminationGender Gender = ExaminationGender.Male;
-        private readonly TimeSpan TimeOfDeath = new TimeSpan(11, 30, 00);
+        private readonly DateTime _dateOfBirth = new DateTime(1990, 2, 24);
+        private readonly DateTime _dateOfDeath = new DateTime(2019, 2, 24);
+        private readonly TimeSpan _timeOfDeath = new TimeSpan(11, 30, 00);
         private readonly IMapper _mapper;
-
-        private CoronerStatus CoronerStatus = CoronerStatus.SentAwaitingConfirm;
-        private ModeOfDisposal ModeOfDisposal = ModeOfDisposal.BuriedAtSea;
 
         public MapperNewExaminationProfileTests()
         {
@@ -45,8 +42,8 @@ namespace MedicalExaminer.API.Tests.Mapper
         {
             var postNewCaseRequest = new PostExaminationRequest
             {
-                DateOfDeath = DateOfDeath,
-                DateOfBirth = DateOfBirth,
+                DateOfDeath = _dateOfDeath,
+                DateOfBirth = _dateOfBirth,
                 GivenNames = GivenNames,
                 Gender = Gender,
                 GenderDetails = GenderDetails,
@@ -57,14 +54,14 @@ namespace MedicalExaminer.API.Tests.Mapper
                 NhsNumber = NhsNumber,
                 PlaceDeathOccured = PlaceDeathOccured,
                 Surname = Surname,
-                TimeOfDeath = TimeOfDeath
+                TimeOfDeath = _timeOfDeath
             };
 
             var response = _mapper.Map<ExaminationItem>(postNewCaseRequest);
             response.GenderDetails.Should().Be(GenderDetails);
             response.GivenNames.Should().Be(GivenNames);
-            response.DateOfBirth.Should().Be(DateOfBirth);
-            response.DateOfDeath.Should().Be(DateOfDeath);
+            response.DateOfBirth.Should().Be(_dateOfBirth);
+            response.DateOfDeath.Should().Be(_dateOfDeath);
             response.Gender.Should().Be(Gender);
             response.GivenNames.Should().Be(GivenNames);
             response.HospitalNumber_1.Should().Be(HospitalNumber_1);
@@ -74,7 +71,7 @@ namespace MedicalExaminer.API.Tests.Mapper
             response.NhsNumber.Should().Be(NhsNumber);
             response.PlaceDeathOccured.Should().Be(PlaceDeathOccured);
             response.Surname.Should().Be(Surname);
-            response.TimeOfDeath.Should().Be(TimeOfDeath);
+            response.TimeOfDeath.Should().Be(_timeOfDeath);
         }
     }
 }

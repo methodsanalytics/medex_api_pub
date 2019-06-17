@@ -60,7 +60,7 @@ namespace MedicalExaminer.API.Tests.Controllers
         }
 
         [Fact]
-        public async void PutConfirmationOfScrutiny_When_Called_With_Invalid_Case_Id_Returns_Not_Found()
+        public void PutConfirmationOfScrutiny_When_Called_With_Invalid_Case_Id_Returns_Not_Found()
         {
             // Arrange
             var logger = new Mock<IMELogger>();

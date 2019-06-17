@@ -37,11 +37,7 @@ namespace MedicalExaminer.API.Tests.Controllers
 
         private readonly Mock<IAsyncQueryHandler<UserUpdateOktaQuery, MeUser>> _mockUserUpdateOktaService;
 
-        private readonly Mock<IOptions<OktaSettings>> _mockOktaSettings;
-
-        private readonly ControllerContext _controllerContext;
-
-        private AccountControllerProxy _accountController;
+        private readonly AccountControllerProxy _accountController;
 
         public AccountControllerTests()
         {
