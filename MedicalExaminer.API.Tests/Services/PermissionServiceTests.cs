@@ -66,7 +66,7 @@ namespace MedicalExaminer.API.Tests.Services
                 {
                     new MEUserPermission()
                     {
-                        PermissionId = "",
+                        PermissionId = string.Empty,
                         LocationId = expectedNationalLocationId,
                         UserRole = expectedRole,
                     }
@@ -107,7 +107,7 @@ namespace MedicalExaminer.API.Tests.Services
                 {
                     new MEUserPermission()
                     {
-                        PermissionId = "",
+                        PermissionId = string.Empty,
                         LocationId = expectedNationalLocationId,
                         UserRole = expectedRole,
                     }
@@ -173,8 +173,8 @@ namespace MedicalExaminer.API.Tests.Services
                 {
                     new MEUserPermission()
                     {
-                        PermissionId = "",
-                        LocationId = "",
+                        PermissionId = string.Empty,
+                        LocationId = string.Empty,
                         UserRole = expectedRole,
                     }
                 }
@@ -209,8 +209,8 @@ namespace MedicalExaminer.API.Tests.Services
                 {
                     new MEUserPermission()
                     {
-                        PermissionId = "",
-                        LocationId = "",
+                        PermissionId = string.Empty,
+                        LocationId = string.Empty,
                         UserRole = expectedRole,
                     }
                 }

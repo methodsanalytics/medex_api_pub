@@ -37,25 +37,6 @@ namespace MedicalExaminer.API.Tests.Attributes
             _context = new ValidationContext(new object(), _serviceProvideMock.Object, new Dictionary<object, object>());
         }
 
-        private void SetupExaminationValidationContextProvider(
-            Mock<IServiceProvider> serviceProvider,
-            Examination expectedExamination)
-        {
-            var examinationValidationContextProvider = new ExaminationValidationContextProvider();
-            examinationValidationContextProvider.Set(new ExaminationValidationContext(expectedExamination));
-
-            serviceProvider
-                .Setup(context => context.GetService(typeof(ExaminationValidationContextProvider)))
-                .Returns(examinationValidationContextProvider);
-        }
-
-        private void SetupUserRetrievalByIdMock(string userId, MeUser expectedUser)
-        {
-            _userRetrievalByIdServiceMock
-                .Setup(urbis => urbis.Handle(It.Is<UserRetrievalByIdQuery>(query => query.UserId == userId)))
-                .Returns(Task.FromResult(expectedUser));
-        }
-
         [Fact]
         public void GetValidationResult_ShouldThrowInvalidOperationException_WhenExaminationValidationContextProviderNotSetupOnContext()
         {
@@ -212,6 +193,25 @@ namespace MedicalExaminer.API.Tests.Attributes
 
             // Assert
             Assert.Equal(expectedResult, result);
+        }
+
+        private void SetupExaminationValidationContextProvider(
+            Mock<IServiceProvider> serviceProvider,
+            Examination expectedExamination)
+        {
+            var examinationValidationContextProvider = new ExaminationValidationContextProvider();
+            examinationValidationContextProvider.Set(new ExaminationValidationContext(expectedExamination));
+
+            serviceProvider
+                .Setup(context => context.GetService(typeof(ExaminationValidationContextProvider)))
+                .Returns(examinationValidationContextProvider);
+        }
+
+        private void SetupUserRetrievalByIdMock(string userId, MeUser expectedUser)
+        {
+            _userRetrievalByIdServiceMock
+                .Setup(urbis => urbis.Handle(It.Is<UserRetrievalByIdQuery>(query => query.UserId == userId)))
+                .Returns(Task.FromResult(expectedUser));
         }
     }
 }

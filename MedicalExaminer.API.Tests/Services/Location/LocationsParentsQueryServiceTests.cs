@@ -13,7 +13,7 @@ namespace MedicalExaminer.API.Tests.Services.Location
     public class LocationsParentsQueryServiceTests : ServiceTestsBase<
         LocationsParentsQuery,
         LocationConnectionSettings,
-        IDictionary<string,IEnumerable<MedicalExaminer.Models.Location>>,
+        IDictionary<string, IEnumerable<MedicalExaminer.Models.Location>>,
         MedicalExaminer.Models.Location,
         LocationsParentsQueryService>
     {

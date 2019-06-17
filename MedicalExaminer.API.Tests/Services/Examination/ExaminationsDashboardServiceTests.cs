@@ -19,26 +19,12 @@ namespace MedicalExaminer.API.Tests.Services.Examination
         MedicalExaminer.Models.Examination,
         ExaminationsDashboardService>
     {
-        /// <inheritdoc/>
-        /// <remarks>Overrides to pass extra constructor parameter.</remarks>
-        protected override ExaminationsDashboardService GetService(
-            IDatabaseAccess databaseAccess,
-            ExaminationConnectionSettings connectionSettings,
-            ICosmosStore<MedicalExaminer.Models.Examination> cosmosStore = null)
-        {
-            var examinationQueryBuilder = new ExaminationsQueryExpressionBuilder();
-            return new ExaminationsDashboardService(
-                databaseAccess,
-                connectionSettings,
-                examinationQueryBuilder);
-        }
-
         [Fact]
         public virtual async Task UnassignedCasesReturnsCorrectCount()
         {
             // Arrange
             var examinationsDashboardQuery = new ExaminationsRetrievalQuery(PermissedLocations(), MedicalExaminer.Models.Enums.CaseStatus.Unassigned,
-                "", null, 0, 0, "", true);
+                string.Empty, null, 0, 0, string.Empty, true);
 
             // Act
             var results = await Service.Handle(examinationsDashboardQuery);
@@ -98,7 +84,7 @@ namespace MedicalExaminer.API.Tests.Services.Examination
         {
             // Arrange
             var examinationsDashboardQuery = new ExaminationsRetrievalQuery(PermissedLocations(), null,
-                "", null, 0, 0, "", true);
+                string.Empty, null, 0, 0, string.Empty, true);
 
             // Act
             var results = await Service.Handle(examinationsDashboardQuery);
@@ -113,7 +99,7 @@ namespace MedicalExaminer.API.Tests.Services.Examination
         {
             // Arrange
             var examinationsDashboardQuery = new ExaminationsRetrievalQuery(PermissedLocations(), null,
-                "", null, 0, 0, "", false);
+                string.Empty, null, 0, 0, string.Empty, false);
 
             // Act
             var results = await Service.Handle(examinationsDashboardQuery);
@@ -128,7 +114,7 @@ namespace MedicalExaminer.API.Tests.Services.Examination
         {
             // Arrange
             var examinationsDashboardQuery = new ExaminationsRetrievalQuery(PermissedLocations(), null,
-                "", null, 0, 0, "", true);
+                string.Empty, null, 0, 0, string.Empty, true);
 
             // Act
             var results = await Service.Handle(examinationsDashboardQuery);
@@ -143,7 +129,7 @@ namespace MedicalExaminer.API.Tests.Services.Examination
         {
             // Arrange
             var examinationsDashboardQuery = new ExaminationsRetrievalQuery(PermissedLocations(), null,
-                "", null, 0, 0, "", true);
+                string.Empty, null, 0, 0, string.Empty, true);
 
             // Act
             var results = await Service.Handle(examinationsDashboardQuery);
@@ -158,7 +144,7 @@ namespace MedicalExaminer.API.Tests.Services.Examination
         {
             // Arrange
             var examinationsDashboardQuery = new ExaminationsRetrievalQuery(PermissedLocations(), null,
-                "", null, 0, 0, "", true);
+                string.Empty, null, 0, 0, string.Empty, true);
 
             // Act
             var results = await Service.Handle(examinationsDashboardQuery);
@@ -173,7 +159,7 @@ namespace MedicalExaminer.API.Tests.Services.Examination
         {
             // Arrange
             var examinationsDashboardQuery = new ExaminationsRetrievalQuery(PermissedLocations(), null,
-                "", null, 0, 0, "", true);
+                string.Empty, null, 0, 0, string.Empty, true);
 
             // Act
             var results = await Service.Handle(examinationsDashboardQuery);
@@ -188,7 +174,7 @@ namespace MedicalExaminer.API.Tests.Services.Examination
         {
             // Arrange
             var examinationsDashboardQuery = new ExaminationsRetrievalQuery(PermissedLocations(), null,
-                "", null, 0, 0, "", true);
+                string.Empty, null, 0, 0, string.Empty, true);
 
             // Act
             var results = await Service.Handle(examinationsDashboardQuery);
@@ -203,7 +189,7 @@ namespace MedicalExaminer.API.Tests.Services.Examination
         {
             // Arrange
             var examinationsDashboardQuery = new ExaminationsRetrievalQuery(PermissedLocations(), null,
-                "", null, 0, 0, "", true);
+                string.Empty, null, 0, 0, string.Empty, true);
 
             // Act
             var results = await Service.Handle(examinationsDashboardQuery);
@@ -218,7 +204,7 @@ namespace MedicalExaminer.API.Tests.Services.Examination
         {
             // Arrange
             var examinationsDashboardQuery = new ExaminationsRetrievalQuery(PermissedLocations(), null,
-                "", null, 0, 0, "", true);
+                string.Empty, null, 0, 0, string.Empty, true);
 
             // Act
             var results = await Service.Handle(examinationsDashboardQuery);
@@ -226,6 +212,20 @@ namespace MedicalExaminer.API.Tests.Services.Examination
             // Assert
             results.Should().NotBeNull();
             Assert.Equal(1, results.CountOfUrgentCases);
+        }
+
+        /// <inheritdoc/>
+        /// <remarks>Overrides to pass extra constructor parameter.</remarks>
+        protected override ExaminationsDashboardService GetService(
+            IDatabaseAccess databaseAccess,
+            ExaminationConnectionSettings connectionSettings,
+            ICosmosStore<MedicalExaminer.Models.Examination> cosmosStore = null)
+        {
+            var examinationQueryBuilder = new ExaminationsQueryExpressionBuilder();
+            return new ExaminationsDashboardService(
+                databaseAccess,
+                connectionSettings,
+                examinationQueryBuilder);
         }
 
         /// <inheritdoc/>

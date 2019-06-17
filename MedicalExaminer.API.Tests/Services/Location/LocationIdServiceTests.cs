@@ -23,7 +23,7 @@ namespace MedicalExaminer.API.Tests.Services.Location
             var query = new Mock<LocationRetrievalByIdQuery>(locationId);
             var dbAccess = new Mock<IDatabaseAccess>();
             dbAccess
-                .Setup(db => db.GetItemByIdAsync<MedicalExaminer.Models.Location>(connectionSettings.Object,It.IsAny<string>()))
+                .Setup(db => db.GetItemByIdAsync<MedicalExaminer.Models.Location>(connectionSettings.Object, It.IsAny<string>()))
                 .Returns(Task.FromResult(location.Object))
                 .Verifiable();
             var sut = new LocationIdService(dbAccess.Object, connectionSettings.Object);

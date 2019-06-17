@@ -27,6 +27,68 @@ using AuthenticationManager = Microsoft.AspNetCore.Http.Authentication.Authentic
 
 namespace MedicalExaminer.API.Tests.Controllers
 {
+    public class ControllerActionFilterTests
+    {
+        private readonly MELoggerMocker _mockLogger;
+        private readonly UsersController _controller;
+        private readonly Mock<IMapper> _mapper;
+
+        public ControllerActionFilterTests()
+        {
+            _mockLogger = new MELoggerMocker();
+            _mapper = new Mock<IMapper>();
+            var createUserService = new Mock<IAsyncQueryHandler<CreateUserQuery, MeUser>>();
+            var userRetrievalService = new Mock<IAsyncQueryHandler<UserRetrievalByIdQuery, MeUser>>();
+            var usersRetrievalService =
+                new Mock<IAsyncQueryHandler<UsersRetrievalQuery, IEnumerable<MeUser>>>();
+            var userUpdateService = new Mock<IAsyncQueryHandler<UserUpdateQuery, MeUser>>();
+
+            var usersRetrievalByOktaIdServiceMock = new Mock<IAsyncQueryHandler<UserRetrievalByOktaIdQuery, MeUser>>();
+
+            var authorizationServiceMock = new Mock<IAuthorizationService>();
+
+            var permissionServiceMock = new Mock<IPermissionService>();
+
+            _controller = new UsersController(
+                _mockLogger,
+                _mapper.Object,
+                usersRetrievalByOktaIdServiceMock.Object,
+                authorizationServiceMock.Object,
+                permissionServiceMock.Object,
+                createUserService.Object,
+                userRetrievalService.Object,
+                usersRetrievalService.Object,
+                userUpdateService.Object);
+        }
+
+        [Fact]
+        public void CheckCallToLogger()
+        {
+            var controllerActionFilter = new ControllerActionFilter();
+            var actionContext = new ActionContext { HttpContext = new MockHttpContext() };
+            var identity = new ClaimsIdentity();
+            identity.AddClaim(new Claim(MEClaimTypes.UserId, "UserId"));
+            actionContext.HttpContext.User.AddIdentity(identity);
+            actionContext.RouteData = new RouteData();
+            actionContext.RouteData.Values.Add("Action", "MyAction");
+            actionContext.RouteData.Values.Add("Method", "MyMethod");
+            actionContext.ActionDescriptor = new ActionDescriptor();
+            var filters = new List<IFilterMetadata>();
+            var actionArguments = new Dictionary<string, object>();
+            var actionExecutingContext =
+                new ActionExecutingContext(actionContext, filters, actionArguments, _controller);
+            controllerActionFilter.OnActionExecuting(actionExecutingContext);
+            var logEntry = _mockLogger.LogEntry;
+
+            var logEntryContents = logEntry.UserName + " " + logEntry.UserAuthenticationType + " " +
+                                   logEntry.UserIsAuthenticated + " " + logEntry.ControllerName + " " +
+                                   logEntry.ControllerMethod + " " + logEntry.RemoteIP;
+
+            const string expectedMessage = "UserId Unknown False MyMethod MyAction Unknown";
+            Assert.Equal(expectedMessage, logEntryContents);
+        }
+    }
+
     internal class MockConnectionInfo : ConnectionInfo
     {
         public override string Id
@@ -133,68 +195,6 @@ namespace MedicalExaminer.API.Tests.Controllers
         public override void Abort()
         {
             throw new NotImplementedException();
-        }
-    }
-
-    public class ControllerActionFilterTests
-    {
-        public ControllerActionFilterTests()
-        {
-            _mockLogger = new MELoggerMocker();
-            _mapper = new Mock<IMapper>();
-            var createUserService = new Mock<IAsyncQueryHandler<CreateUserQuery, MeUser>>();
-            var userRetrievalService = new Mock<IAsyncQueryHandler<UserRetrievalByIdQuery, MeUser>>();
-            var usersRetrievalService =
-                new Mock<IAsyncQueryHandler<UsersRetrievalQuery, IEnumerable<MeUser>>>();
-            var userUpdateService = new Mock<IAsyncQueryHandler<UserUpdateQuery, MeUser>>();
-
-            var usersRetrievalByOktaIdServiceMock = new Mock<IAsyncQueryHandler<UserRetrievalByOktaIdQuery, MeUser>>();
-
-            var authorizationServiceMock = new Mock<IAuthorizationService>();
-
-            var permissionServiceMock = new Mock<IPermissionService>();
-
-            _controller = new UsersController(
-                _mockLogger,
-                _mapper.Object,
-                usersRetrievalByOktaIdServiceMock.Object,
-                authorizationServiceMock.Object,
-                permissionServiceMock.Object,
-                createUserService.Object,
-                userRetrievalService.Object,
-                usersRetrievalService.Object,
-                userUpdateService.Object);
-        }
-
-        private readonly MELoggerMocker _mockLogger;
-        private readonly UsersController _controller;
-        private readonly Mock<IMapper> _mapper;
-
-        [Fact]
-        public void CheckCallToLogger()
-        {
-            var controllerActionFilter = new ControllerActionFilter();
-            var actionContext = new ActionContext { HttpContext = new MockHttpContext() };
-            var identity = new ClaimsIdentity();
-            identity.AddClaim(new Claim(MEClaimTypes.UserId, "UserId"));
-            actionContext.HttpContext.User.AddIdentity(identity);
-            actionContext.RouteData = new RouteData();
-            actionContext.RouteData.Values.Add("Action", "MyAction");
-            actionContext.RouteData.Values.Add("Method", "MyMethod");
-            actionContext.ActionDescriptor = new ActionDescriptor();
-            var filters = new List<IFilterMetadata>();
-            var actionArguments = new Dictionary<string, object>();
-            var actionExecutingContext =
-                new ActionExecutingContext(actionContext, filters, actionArguments, _controller);
-            controllerActionFilter.OnActionExecuting(actionExecutingContext);
-            var logEntry = _mockLogger.LogEntry;
-
-            var logEntryContents = logEntry.UserName + " " + logEntry.UserAuthenticationType + " " +
-                                   logEntry.UserIsAuthenticated + " " + logEntry.ControllerName + " " +
-                                   logEntry.ControllerMethod + " " + logEntry.RemoteIP;
-
-            const string expectedMessage = "UserId Unknown False MyMethod MyAction Unknown";
-            Assert.Equal(expectedMessage, logEntryContents);
         }
     }
 }

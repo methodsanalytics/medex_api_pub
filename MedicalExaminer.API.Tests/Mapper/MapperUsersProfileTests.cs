@@ -14,6 +14,11 @@ namespace MedicalExaminer.API.Tests.Mapper
     public class MapperUsersProfileTests
     {
         /// <summary>
+        ///     Mapper.
+        /// </summary>
+        private readonly IMapper _mapper;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="MapperUsersProfileTests"/> class.
         /// </summary>
         public MapperUsersProfileTests()
@@ -21,11 +26,6 @@ namespace MedicalExaminer.API.Tests.Mapper
             var config = new MapperConfiguration(cfg => { cfg.AddProfile<UsersProfile>(); });
             _mapper = config.CreateMapper();
         }
-
-        /// <summary>
-        ///     Mapper.
-        /// </summary>
-        private readonly IMapper _mapper;
 
         [Fact]
         public void MEUserPermission_To_UserPermission()

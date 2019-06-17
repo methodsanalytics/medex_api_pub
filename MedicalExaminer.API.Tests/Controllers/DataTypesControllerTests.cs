@@ -9,13 +9,13 @@ namespace MedicalExaminer.API.Tests.Controllers
 {
     public class DataTypesControllerTests : ControllerTestsBase<DataTypesController>
     {
+        private readonly DataTypesController _controller;
+
         public DataTypesControllerTests()
         {
             var mockLogger = new MELoggerMocker();
             _controller = new DataTypesController(mockLogger, Mapper);
         }
-
-        private readonly DataTypesController _controller;
 
         [Fact]
         public void GetCoronerStatuses_When_Called_Returns_Expected_Type()

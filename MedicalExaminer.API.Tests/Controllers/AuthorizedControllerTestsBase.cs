@@ -44,6 +44,14 @@ namespace MedicalExaminer.API.Tests.Controllers
             }
         }
 
+        protected Mock<IAsyncQueryHandler<UserRetrievalByOktaIdQuery, MeUser>> UsersRetrievalByOktaIdServiceMock { get; }
+
+        protected Mock<IAuthorizationService> AuthorizationServiceMock { get; }
+
+        protected Mock<IPermissionService> PermissionServiceMock { get; }
+
+        protected MeUser AuthorizedUser { get; }
+
         protected void SetupAuthorize(AuthorizationResult result)
         {
             AuthorizationServiceMock
@@ -53,13 +61,5 @@ namespace MedicalExaminer.API.Tests.Controllers
                     It.IsAny<IEnumerable<IAuthorizationRequirement>>()))
                 .Returns(Task.FromResult(result));
         }
-
-        protected Mock<IAsyncQueryHandler<UserRetrievalByOktaIdQuery, MeUser>> UsersRetrievalByOktaIdServiceMock { get; }
-
-        protected Mock<IAuthorizationService> AuthorizationServiceMock { get; }
-
-        protected Mock<IPermissionService> PermissionServiceMock { get; }
-
-        protected MeUser AuthorizedUser { get; }
     }
 }

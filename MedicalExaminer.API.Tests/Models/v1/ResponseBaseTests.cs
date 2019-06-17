@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using FluentAssertions;
-using Xunit;
 using MedicalExaminer.API.Models.v1;
+using Xunit;
 
 namespace MedicalExaminer.API.Tests.Models.v1
 {

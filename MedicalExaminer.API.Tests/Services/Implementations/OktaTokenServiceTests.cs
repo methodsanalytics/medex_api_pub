@@ -16,6 +16,10 @@ namespace MedicalExaminer.API.Tests.Services.Implementations
 {
     public class OktaTokenServiceTests
     {
+        private readonly IOptions<OktaSettings> _oktaSettings;
+
+        private readonly OktaTokenService _sut;
+
         public OktaTokenServiceTests()
         {
             _oktaSettings = Options.Create(new OktaSettings
@@ -31,10 +35,6 @@ namespace MedicalExaminer.API.Tests.Services.Implementations
 
             _sut = new OktaTokenService(_oktaSettings);
         }
-
-        private readonly IOptions<OktaSettings> _oktaSettings;
-
-        private readonly OktaTokenService _sut;
 
         [Fact]
         public void IntrospectToken_ShouldReturnIntrospectResponse_WhenValidToken()

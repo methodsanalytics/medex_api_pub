@@ -11,29 +11,31 @@ namespace MedicalExaminer.API.Tests.Mapper
 {
     public class MapperNewExaminationProfileTests
     {
+        private const string GivenNames = "givenNames";
+        private const string GenderDetails = "genderDetails";
+        private const string HospitalNumber_1 = "hospitalNumber_1";
+        private const string HospitalNumber_2 = "hospitalNumber_2";
+        private const string HospitalNumber_3 = "hospitalNumber_3";
+        private const string MedicalExaminerOfficeResponsible = "medicalExaminerOfficeResponsible";
+        private const string NhsNumber = "123456789";
+        private const string PlaceDeathOccured = "placeDeathOccured";
+        private const string Surname = "surname";
+
+        private readonly DateTime DateOfBirth = new DateTime(1990, 2, 24);
+        private readonly DateTime DateOfDeath = new DateTime(2019, 2, 24);
+        private readonly ExaminationGender Gender = ExaminationGender.Male;
+        private readonly TimeSpan TimeOfDeath = new TimeSpan(11, 30, 00);
+        private readonly IMapper _mapper;
+
+        private CoronerStatus CoronerStatus = CoronerStatus.SentAwaitingConfirm;
+        private ModeOfDisposal ModeOfDisposal = ModeOfDisposal.BuriedAtSea;
+
         public MapperNewExaminationProfileTests()
         {
             var config = new MapperConfiguration(cfg => { cfg.AddProfile<NewExaminationProfile>(); });
 
             _mapper = config.CreateMapper();
         }
-
-        private CoronerStatus CoronerStatus = CoronerStatus.SentAwaitingConfirm;
-        private readonly DateTime DateOfBirth = new DateTime(1990, 2, 24);
-        private readonly DateTime DateOfDeath = new DateTime(2019, 2, 24);
-        private const string GivenNames = "givenNames";
-        private readonly ExaminationGender Gender = ExaminationGender.Male;
-        private const string GenderDetails = "genderDetails";
-        private const string HospitalNumber_1 = "hospitalNumber_1";
-        private const string HospitalNumber_2 = "hospitalNumber_2";
-        private const string HospitalNumber_3 = "hospitalNumber_3";
-        private const string MedicalExaminerOfficeResponsible = "medicalExaminerOfficeResponsible";
-        private ModeOfDisposal ModeOfDisposal = ModeOfDisposal.BuriedAtSea;
-        private const string NhsNumber = "123456789";
-        private const string PlaceDeathOccured = "placeDeathOccured";
-        private const string Surname = "surname";
-        private readonly TimeSpan TimeOfDeath = new TimeSpan(11, 30, 00);
-        private readonly IMapper _mapper;
 
         /// <summary>
         ///     Test Mapping Examination to ExaminationItem.

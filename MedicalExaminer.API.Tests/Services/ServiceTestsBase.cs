@@ -27,11 +27,6 @@ namespace MedicalExaminer.API.Tests.Services
         where TType : class
     {
         /// <summary>
-        /// The Service under test.
-        /// </summary>
-        protected TService Service { get; }
-
-        /// <summary>
         /// Initialise a new instance of <see cref="ServiceTestsBase{TQuery,TConnectionSettings,TItem,TType,TService}"/>.
         /// </summary>
         protected ServiceTestsBase()
@@ -45,20 +40,9 @@ namespace MedicalExaminer.API.Tests.Services
         }
 
         /// <summary>
-        /// Base method to construct simple services. Override if you need to pass in other defaults.
+        /// The Service under test.
         /// </summary>
-        /// <param name="databaseAccess"></param>
-        /// <param name="connectionSettings"></param>
-        /// <returns></returns>
-        protected virtual TService GetService(IDatabaseAccess databaseAccess, TConnectionSettings connectionSettings, ICosmosStore<TType> cosmosStore = null)
-        {
-            if (cosmosStore != null)
-            {
-                return  (TService)Activator.CreateInstance(typeof(TService), databaseAccess, connectionSettings, cosmosStore);
-            }
-
-            return (TService)Activator.CreateInstance(typeof(TService), databaseAccess, connectionSettings);
-        }
+        protected TService Service { get; }
 
         /// <summary>
         /// Query is null throws an exception.
@@ -80,10 +64,26 @@ namespace MedicalExaminer.API.Tests.Services
         }
 
         /// <summary>
+        /// Base method to construct simple services. Override if you need to pass in other defaults.
+        /// </summary>
+        /// <param name="databaseAccess">Database access.</param>
+        /// <param name="connectionSettings">Connection settings.</param>
+        /// <returns>Service.</returns>
+        protected virtual TService GetService(IDatabaseAccess databaseAccess, TConnectionSettings connectionSettings, ICosmosStore<TType> cosmosStore = null)
+        {
+            if (cosmosStore != null)
+            {
+                return (TService)Activator.CreateInstance(typeof(TService), databaseAccess, connectionSettings, cosmosStore);
+            }
+
+            return (TService)Activator.CreateInstance(typeof(TService), databaseAccess, connectionSettings);
+        }
+
+        /// <summary>
         /// Get Examples
         /// </summary>
         /// <remarks>Called from constructor so return only; do not interact with the sub class since it wont have been set up yet.</remarks>
-        /// <returns></returns>
+        /// <returns>Array of examples.</returns>
         protected abstract TType[] GetExamples();
     }
 }

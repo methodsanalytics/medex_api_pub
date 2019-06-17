@@ -23,6 +23,19 @@ namespace MedicalExaminer.API.Tests
     /// </summary>
     public class OktaJwtSecurityTokenHandlerTests
     {
+        private readonly Mock<ITokenService> _mockTokenService;
+
+        private readonly Mock<ISecurityTokenValidator> _mockSecurityTokenValidator;
+
+        private readonly Mock<IAsyncQueryHandler<UsersUpdateOktaTokenQuery, MeUser>> _mockUserUpdateOktaTokenService;
+
+        private readonly Mock<IAsyncQueryHandler<UserRetrievalByOktaTokenQuery, MeUser>>
+            _mockUserRetrieveOktaTokenService;
+
+        private readonly Mock<IAsyncQueryHandler<UserRetrievalByOktaIdQuery, MeUser>> _mockUsersRetrievalByOktaIdService;
+
+        private readonly OktaJwtSecurityTokenHandler sut;
+
         public OktaJwtSecurityTokenHandlerTests()
         {
             _mockTokenService = new Mock<ITokenService>();
@@ -39,19 +52,6 @@ namespace MedicalExaminer.API.Tests
 
             sut = new OktaJwtSecurityTokenHandler(_mockTokenService.Object, _mockSecurityTokenValidator.Object, _mockUserUpdateOktaTokenService.Object, _mockUserRetrieveOktaTokenService.Object, _mockUsersRetrievalByOktaIdService.Object, tokenExpiryTime);
         }
-
-        private readonly Mock<ITokenService> _mockTokenService;
-
-        private readonly Mock<ISecurityTokenValidator> _mockSecurityTokenValidator;
-
-        private readonly Mock<IAsyncQueryHandler<UsersUpdateOktaTokenQuery, MeUser>> _mockUserUpdateOktaTokenService;
-
-        private readonly Mock<IAsyncQueryHandler<UserRetrievalByOktaTokenQuery, MeUser>>
-            _mockUserRetrieveOktaTokenService;
-
-        private readonly Mock<IAsyncQueryHandler<UserRetrievalByOktaIdQuery, MeUser>> _mockUsersRetrievalByOktaIdService;
-
-        private readonly OktaJwtSecurityTokenHandler sut;
 
         [Fact]
         public void CanReadToken_ShouldCallCanReadOnHandler()

@@ -10,11 +10,6 @@ namespace MedicalExaminer.API.Tests.Attributes
 {
     public class DateIsLessThanOrEqualToTests
     {
-        private Dictionary<object, object> GetItemsDictionary()
-        {
-            return new Mock<Dictionary<object, object>>().Object;
-        }
-
         [Fact]
         public void EndDateFieldIsNotFoundOnObjectReturnsError()
         {
@@ -103,7 +98,7 @@ namespace MedicalExaminer.API.Tests.Attributes
         {
             // Arrange
             const string startDate = null;
-            var endDateField = "";
+            var endDateField = string.Empty;
             var serviceProvider = new Mock<IServiceProvider>().Object;
 
             var expectedResult = ValidationResult.Success;
@@ -137,6 +132,11 @@ namespace MedicalExaminer.API.Tests.Attributes
 
             // Assert
             Assert.Equal(expectedResult, result);
+        }
+
+        private Dictionary<object, object> GetItemsDictionary()
+        {
+            return new Mock<Dictionary<object, object>>().Object;
         }
     }
 }
