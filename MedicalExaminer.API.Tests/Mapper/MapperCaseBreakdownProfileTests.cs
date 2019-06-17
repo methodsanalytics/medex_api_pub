@@ -2,7 +2,7 @@
 using AutoMapper;
 using FluentAssertions;
 using MedicalExaminer.API.Extensions.Data;
-using MedicalExaminer.API.Models.v1.CaseBreakdown;
+using MedicalExaminer.API.Models.V1.CaseBreakdown;
 using MedicalExaminer.Models;
 using Xunit;
 

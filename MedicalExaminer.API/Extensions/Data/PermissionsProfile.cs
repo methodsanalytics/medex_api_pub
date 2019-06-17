@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using MedicalExaminer.API.Models.v1.Permissions;
+using MedicalExaminer.API.Models.V1.Permissions;
 using MedicalExaminer.Models;
 
 namespace MedicalExaminer.API.Extensions.Data

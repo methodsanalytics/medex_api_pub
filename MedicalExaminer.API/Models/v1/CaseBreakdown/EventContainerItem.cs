@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MedicalExaminer.API.Models.v1.CaseBreakdown
+namespace MedicalExaminer.API.Models.V1.CaseBreakdown
 {
     /// <summary>
     /// Event Container Item.

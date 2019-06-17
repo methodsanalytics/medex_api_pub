@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using MedicalExaminer.API.Filters;
-using MedicalExaminer.API.Models.v1.CaseBreakdown;
-using MedicalExaminer.API.Models.v1.Examinations;
+using MedicalExaminer.API.Models.V1.CaseBreakdown;
+using MedicalExaminer.API.Models.V1.Examinations;
 using MedicalExaminer.API.Services;
 using MedicalExaminer.Common.Extensions.MeUser;
 using MedicalExaminer.Common.Loggers;

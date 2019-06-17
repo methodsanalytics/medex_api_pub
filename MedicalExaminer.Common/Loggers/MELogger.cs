@@ -1,22 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using MedicalExaminer.Common.Services;
 
 namespace MedicalExaminer.Common.Loggers
 {
     /// <summary>
-    ///     Construct log objects and submit to logging destination
+    /// Construct log objects and submit to logging destination
     /// </summary>
     public class MELogger : IMELogger
     {
-        private readonly IMeLoggerPersistence mEloggerPersistence;
+        private readonly IAsyncQueryHandler<LogMessageActionDefault, string> _writeLogService;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="MELogger" /> class.
         /// </summary>
-        /// <param name="mEloggerPersistence">persistence object that writes to logging destination</param>
-        public MELogger(IMeLoggerPersistence mEloggerPersistence)
+        /// <param name="writeLogService">Write Log Service.</param>
+        public MELogger(IAsyncQueryHandler<LogMessageActionDefault, string> writeLogService)
         {
-            this.mEloggerPersistence = mEloggerPersistence;
+            _writeLogService = writeLogService;
         }
 
         /// <inheritdoc />
@@ -40,7 +41,7 @@ namespace MedicalExaminer.Common.Loggers
                 remoteIP,
                 timeStamp);
 
-            await mEloggerPersistence.SaveLogEntryAsync(logEntry);
+            await _writeLogService.Handle(logEntry);
         }
     }
 }

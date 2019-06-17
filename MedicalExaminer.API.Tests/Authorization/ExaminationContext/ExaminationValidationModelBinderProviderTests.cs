@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using FluentAssertions;
 using MedicalExaminer.API.Authorization.ExaminationContext;
-using MedicalExaminer.API.Models.v1.MedicalTeams;
+using MedicalExaminer.API.Models.V1.MedicalTeams;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 using Moq;

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using MedicalExaminer.API.Extensions.Models;
-using MedicalExaminer.API.Models.v1;
+using MedicalExaminer.API.Models.V1;
 using MedicalExaminer.Common.Loggers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

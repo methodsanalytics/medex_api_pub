@@ -1,6 +1,6 @@
 ﻿using MedicalExaminer.Models.Enums;
 
-namespace MedicalExaminer.API.Models.v1.CaseOutcome
+namespace MedicalExaminer.API.Models.V1.CaseOutcome
 {
     /// <summary>
     /// Put Outstanding Case Items Request.

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using MedicalExaminer.API.Models.v1.Users;
+using MedicalExaminer.API.Models.V1.Users;
 using MedicalExaminer.Common.Extensions.MeUser;
 using MedicalExaminer.Models;
 

@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using MedicalExaminer.API.Filters;
-using MedicalExaminer.API.Models.v1.CaseOutcome;
+using MedicalExaminer.API.Models.V1.CaseOutcome;
 using MedicalExaminer.API.Services;
 using MedicalExaminer.Common.Authorization;
 using MedicalExaminer.Common.Loggers;

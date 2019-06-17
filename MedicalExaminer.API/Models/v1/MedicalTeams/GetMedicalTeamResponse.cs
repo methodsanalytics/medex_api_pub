@@ -1,6 +1,6 @@
-﻿using MedicalExaminer.API.Models.v1.Examinations;
+﻿using MedicalExaminer.API.Models.V1.Examinations;
 
-namespace MedicalExaminer.API.Models.v1.MedicalTeams
+namespace MedicalExaminer.API.Models.V1.MedicalTeams
 {
     /// <summary>
     ///     GetMedicalTeamResponse class.

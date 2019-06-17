@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using MedicalExaminer.Models.Enums;
 
-namespace MedicalExaminer.API.Models.v1.Permissions
+namespace MedicalExaminer.API.Models.V1.Permissions
 {
     /// <summary>
     ///     Post Permission Request.

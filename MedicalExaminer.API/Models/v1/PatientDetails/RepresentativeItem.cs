@@ -1,7 +1,7 @@
 ﻿using System;
 using MedicalExaminer.Models.Enums;
 
-namespace MedicalExaminer.API.Models.v1.PatientDetails
+namespace MedicalExaminer.API.Models.V1.PatientDetails
 {
     /// <summary>
     ///     Object for creating and updating patients representative

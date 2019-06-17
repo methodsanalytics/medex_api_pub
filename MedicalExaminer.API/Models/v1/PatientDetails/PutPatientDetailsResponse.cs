@@ -1,6 +1,6 @@
-﻿using MedicalExaminer.API.Models.v1.Examinations;
+﻿using MedicalExaminer.API.Models.V1.Examinations;
 
-namespace MedicalExaminer.API.Models.v1.PatientDetails
+namespace MedicalExaminer.API.Models.V1.PatientDetails
 {
     /// <summary>
     ///     The response returned when a request to PUT the patients details

@@ -1,4 +1,4 @@
-﻿using MedicalExaminer.API.Models.v1;
+﻿using MedicalExaminer.API.Models.V1;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace MedicalExaminer.API.Extensions.Models

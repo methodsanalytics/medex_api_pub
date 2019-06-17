@@ -1,6 +1,6 @@
-﻿using MedicalExaminer.API.Models.v1.Examinations;
+﻿using MedicalExaminer.API.Models.V1.Examinations;
 
-namespace MedicalExaminer.API.Models.v1.CaseBreakdown
+namespace MedicalExaminer.API.Models.V1.CaseBreakdown
 {
     /// <summary>
     /// Get Case Break Down response.

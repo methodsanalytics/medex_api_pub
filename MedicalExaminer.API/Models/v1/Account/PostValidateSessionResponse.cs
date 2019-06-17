@@ -2,7 +2,7 @@
 using MedicalExaminer.Common.Authorization;
 using MedicalExaminer.Models.Enums;
 
-namespace MedicalExaminer.API.Models.v1.Account
+namespace MedicalExaminer.API.Models.V1.Account
 {
     /// <summary>
     ///     Post Validate Session Response

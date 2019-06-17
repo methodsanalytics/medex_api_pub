@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentAssertions;
 using MedicalExaminer.API.Controllers;
-using MedicalExaminer.API.Models.v1.PatientDetails;
+using MedicalExaminer.API.Models.V1.PatientDetails;
 using MedicalExaminer.Common.Queries.Examination;
 using MedicalExaminer.Common.Queries.Location;
 using MedicalExaminer.Common.Queries.PatientDetails;

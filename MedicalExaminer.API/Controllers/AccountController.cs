@@ -5,7 +5,7 @@ using AutoMapper;
 using MedicalExaminer.API.Authorization;
 using MedicalExaminer.API.Helpers;
 using MedicalExaminer.API.Models;
-using MedicalExaminer.API.Models.v1.Account;
+using MedicalExaminer.API.Models.V1.Account;
 using MedicalExaminer.Common.Authorization;
 using MedicalExaminer.Common.Loggers;
 using MedicalExaminer.Common.Queries.User;

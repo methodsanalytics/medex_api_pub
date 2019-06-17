@@ -1,7 +1,7 @@
 ﻿using System;
 using MedicalExaminer.Models.Enums;
 
-namespace MedicalExaminer.API.Models.v1.CaseBreakdown
+namespace MedicalExaminer.API.Models.V1.CaseBreakdown
 {
     /// <summary>
     /// Put QAP Discussion Event Request.

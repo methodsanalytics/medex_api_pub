@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using MedicalExaminer.Common.Queries;
 
 namespace MedicalExaminer.Common.Loggers
 {
     /// <summary>
     ///     Log message for before controller action has executed
     /// </summary>
-    public class LogMessageActionDefault
+    public class LogMessageActionDefault : IQuery<string>
     {
         /// <summary>
         ///     Constructor

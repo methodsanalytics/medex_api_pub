@@ -2,7 +2,7 @@
 using MedicalExaminer.API.Attributes;
 using MedicalExaminer.Models.Enums;
 
-namespace MedicalExaminer.API.Models.v1.Examinations
+namespace MedicalExaminer.API.Models.V1.Examinations
 {
     /// <summary>
     /// A filter object to request examinations

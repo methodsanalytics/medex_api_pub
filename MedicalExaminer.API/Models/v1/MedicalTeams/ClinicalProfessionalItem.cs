@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MedicalExaminer.API.Models.v1.MedicalTeams
+namespace MedicalExaminer.API.Models.V1.MedicalTeams
 {
     /// <summary>
     /// Clinical Professional Item.

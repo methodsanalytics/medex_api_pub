@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using FluentAssertions;
 using MedicalExaminer.API.Controllers;
-using MedicalExaminer.API.Models.v1.Users;
+using MedicalExaminer.API.Models.V1.Users;
 using MedicalExaminer.Common;
 using MedicalExaminer.Common.Loggers;
 using MedicalExaminer.Common.Queries.User;

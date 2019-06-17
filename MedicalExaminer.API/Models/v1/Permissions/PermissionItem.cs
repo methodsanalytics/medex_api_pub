@@ -1,6 +1,6 @@
 ﻿using MedicalExaminer.Models.Enums;
 
-namespace MedicalExaminer.API.Models.v1.Permissions
+namespace MedicalExaminer.API.Models.V1.Permissions
 {
     /// <summary>
     ///     A user item as part of multiple permission responses.

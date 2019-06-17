@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using MedicalExaminer.API.Attributes;
-using MedicalExaminer.API.Models.v1.Examinations;
+using MedicalExaminer.API.Models.V1.Examinations;
 using MedicalExaminer.Models.Enums;
 
-namespace MedicalExaminer.API.Models.v1.PatientDetails
+namespace MedicalExaminer.API.Models.V1.PatientDetails
 {
     /// <summary>
     ///     Response returned when requesting the patients details

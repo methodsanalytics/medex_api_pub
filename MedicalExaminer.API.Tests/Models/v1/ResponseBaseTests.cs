@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using FluentAssertions;
-using MedicalExaminer.API.Models.v1;
+using MedicalExaminer.API.Models.V1;
 using Xunit;
 
-namespace MedicalExaminer.API.Tests.Models.v1
+namespace MedicalExaminer.API.Tests.Models.V1
 {
     public class ResponseBaseTests
     {

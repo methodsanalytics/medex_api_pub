@@ -99,7 +99,7 @@ namespace MedicalExaminer.API.Tests.Attributes
             var locationId = "good location";
             var locationPersistence = new Mock<IAsyncQueryHandler<LocationRetrievalByIdQuery, Location>>();
             locationPersistence
-                .Setup(persistence => persistence.Handle(It.Is<LocationRetrievalByIdQuery>( o => o.LocationId == "good location")))
+                .Setup(persistence => persistence.Handle(It.Is<LocationRetrievalByIdQuery>(o => o.LocationId == "good location")))
                 .Returns(Task.FromResult(locationResult.Object));
 
             var serviceProvider = new Mock<IServiceProvider>();

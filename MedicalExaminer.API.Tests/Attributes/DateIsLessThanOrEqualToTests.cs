@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using MedicalExaminer.API.Attributes;
-using MedicalExaminer.API.Models.v1.Examinations;
+using MedicalExaminer.API.Models.V1.Examinations;
 using Moq;
 using Xunit;
 

@@ -1,8 +1,8 @@
 ﻿using System;
-using MedicalExaminer.API.Models.v1.Examinations;
+using MedicalExaminer.API.Models.V1.Examinations;
 using MedicalExaminer.Models.Enums;
 
-namespace MedicalExaminer.API.Models.v1.CaseOutcome
+namespace MedicalExaminer.API.Models.V1.CaseOutcome
 {
     /// <summary>
     /// Get Case Outcome Response.

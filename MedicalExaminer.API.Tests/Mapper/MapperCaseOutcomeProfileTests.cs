@@ -2,7 +2,7 @@
 using AutoMapper;
 using FluentAssertions;
 using MedicalExaminer.API.Extensions.Data;
-using MedicalExaminer.API.Models.v1.CaseOutcome;
+using MedicalExaminer.API.Models.V1.CaseOutcome;
 using MedicalExaminer.Models;
 using MedicalExaminer.Models.Enums;
 using Xunit;

@@ -1,4 +1,4 @@
-﻿namespace MedicalExaminer.API.Models.v1.CaseBreakdown
+﻿namespace MedicalExaminer.API.Models.V1.CaseBreakdown
 {
     /// <summary>
     /// Case Break down Item.

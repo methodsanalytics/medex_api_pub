@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using MedicalExaminer.API.Attributes;
 using MedicalExaminer.Models.Enums;
 
-namespace MedicalExaminer.API.Models.v1.PatientDetails
+namespace MedicalExaminer.API.Models.V1.PatientDetails
 {
     /// <summary>
     ///     Put Patient Details Request Object.

@@ -1,10 +1,10 @@
 ﻿using System;
 using AutoMapper;
-using MedicalExaminer.API.Models.v1.CaseBreakdown;
-using MedicalExaminer.API.Models.v1.CaseOutcome;
-using MedicalExaminer.API.Models.v1.Examinations;
-using MedicalExaminer.API.Models.v1.MedicalTeams;
-using MedicalExaminer.API.Models.v1.PatientDetails;
+using MedicalExaminer.API.Models.V1.CaseBreakdown;
+using MedicalExaminer.API.Models.V1.CaseOutcome;
+using MedicalExaminer.API.Models.V1.Examinations;
+using MedicalExaminer.API.Models.V1.MedicalTeams;
+using MedicalExaminer.API.Models.V1.PatientDetails;
 using MedicalExaminer.Models;
 using MedicalExaminer.Models.Enums;
 

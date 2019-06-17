@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MedicalExaminer.API.Models.v1
+namespace MedicalExaminer.API.Models.V1
 {
     /// <summary>
     ///     Base View Model that supports passing errors to the view.

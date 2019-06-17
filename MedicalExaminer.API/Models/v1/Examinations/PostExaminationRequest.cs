@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using MedicalExaminer.API.Attributes;
 using MedicalExaminer.Models.Enums;
 
-namespace MedicalExaminer.API.Models.v1.Examinations
+namespace MedicalExaminer.API.Models.V1.Examinations
 {
     /// <summary>
     /// Post Examination Request.

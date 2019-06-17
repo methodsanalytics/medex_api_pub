@@ -6,11 +6,11 @@ using AutoMapper;
 using AutoMapper.Configuration;
 using FluentAssertions;
 using MedicalExaminer.API.Extensions.Data;
-using MedicalExaminer.API.Models.v1.CaseBreakdown;
-using MedicalExaminer.API.Models.v1.CaseOutcome;
-using MedicalExaminer.API.Models.v1.Examinations;
-using MedicalExaminer.API.Models.v1.MedicalTeams;
-using MedicalExaminer.API.Models.v1.PatientDetails;
+using MedicalExaminer.API.Models.V1.CaseBreakdown;
+using MedicalExaminer.API.Models.V1.CaseOutcome;
+using MedicalExaminer.API.Models.V1.Examinations;
+using MedicalExaminer.API.Models.V1.MedicalTeams;
+using MedicalExaminer.API.Models.V1.PatientDetails;
 using MedicalExaminer.Models;
 using MedicalExaminer.Models.Enums;
 using Xunit;
@@ -957,7 +957,8 @@ namespace MedicalExaminer.API.Tests.Mapper
                 HaveFinalCaseOutcomesOutstanding = true,
                 ReadyForMEScrutiny = true,
                 Unassigned = true,
-                MedicalTeam = _medicalTeam
+                MedicalTeam = _medicalTeam,
+                CreatedAt = _caseCreated,
             };
 
             return examination;

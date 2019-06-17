@@ -1,6 +1,6 @@
 ﻿using MedicalExaminer.API.Attributes;
 
-namespace MedicalExaminer.API.Models.v1.CaseBreakdown
+namespace MedicalExaminer.API.Models.V1.CaseBreakdown
 {
     /// <summary>
     ///     Put Other Event Request Object.

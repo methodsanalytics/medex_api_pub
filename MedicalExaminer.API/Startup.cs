@@ -210,11 +210,6 @@ namespace MedicalExaminer.API
             services.AddCosmosStore<Examination>(cosmosSettings, examinationsCollection);
             services.AddCosmosStore<AuditEntry<Examination>>(cosmosSettings, examinationsCollection.AuditCollection());
 
-            services.AddScoped<IMeLoggerPersistence>(s => new MeLoggerPersistence(
-                new Uri(cosmosDbSettings.URL),
-                cosmosDbSettings.PrimaryKey,
-                cosmosDbSettings.DatabaseId));
-
             services.AddBackgroundServices(backgroundServicesSettings);
         }
 
@@ -248,6 +243,7 @@ namespace MedicalExaminer.API
             databaseAccess.EnsureCollectionAvailable(app.ApplicationServices.GetRequiredService<ILocationConnectionSettings>());
             databaseAccess.EnsureCollectionAvailable(app.ApplicationServices.GetRequiredService<IExaminationConnectionSettings>());
             databaseAccess.EnsureCollectionAvailable(app.ApplicationServices.GetRequiredService<IUserConnectionSettings>());
+            databaseAccess.EnsureCollectionAvailable(app.ApplicationServices.GetRequiredService<IMELoggerConnectionSettings>());
 
             app.UseMiddleware<ResponseTimeMiddleware>();
 
@@ -339,6 +335,11 @@ namespace MedicalExaminer.API
                 cosmosDbSettings.PrimaryKey,
                 cosmosDbSettings.DatabaseId));
 
+            services.AddSingleton<IMELoggerConnectionSettings>(s => new MELoggerConnectionSettings(
+                new Uri(cosmosDbSettings.URL),
+                cosmosDbSettings.PrimaryKey,
+                cosmosDbSettings.DatabaseId));
+
             // Examination services
             services.AddScoped(s => new ExaminationsQueryExpressionBuilder());
             services.AddScoped<IAsyncQueryHandler<ExaminationsRetrievalQuery, ExaminationsOverview>, ExaminationsDashboardService>();
@@ -381,6 +382,9 @@ namespace MedicalExaminer.API
             services.AddScoped<IAsyncQueryHandler<LocationsRetrievalByQuery, IEnumerable<Location>>, LocationsQueryService>();
             services.AddScoped<IAsyncQueryHandler<LocationParentsQuery, IEnumerable<Location>>, LocationParentsQueryService>();
             services.AddScoped<IAsyncQueryHandler<LocationsParentsQuery, IDictionary<string, IEnumerable<Location>>>, LocationsParentsQueryService>();
+
+            // ME Logger
+            services.AddScoped<IAsyncQueryHandler<LogMessageActionDefault, string>, WriteMELoggerService>();
         }
 
         /// <summary>

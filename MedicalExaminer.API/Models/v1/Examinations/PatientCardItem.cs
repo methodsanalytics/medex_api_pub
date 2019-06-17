@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MedicalExaminer.API.Models.v1.Examinations
+namespace MedicalExaminer.API.Models.V1.Examinations
 {
     /// <summary>
     /// class for displaying the examinations on the home page

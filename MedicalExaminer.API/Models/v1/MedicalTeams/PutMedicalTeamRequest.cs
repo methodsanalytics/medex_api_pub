@@ -2,7 +2,7 @@
 using MedicalExaminer.API.Authorization.ExaminationContext;
 using MedicalExaminer.Models.Enums;
 
-namespace MedicalExaminer.API.Models.v1.MedicalTeams
+namespace MedicalExaminer.API.Models.V1.MedicalTeams
 {
     /// <summary>
     ///     Put Medical Team Request.

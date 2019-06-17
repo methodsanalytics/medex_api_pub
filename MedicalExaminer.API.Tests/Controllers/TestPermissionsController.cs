@@ -5,7 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using FluentAssertions;
 using MedicalExaminer.API.Controllers;
-using MedicalExaminer.API.Models.v1.Permissions;
+using MedicalExaminer.API.Models.V1.Permissions;
 using MedicalExaminer.Common;
 using MedicalExaminer.Common.Queries.Location;
 using MedicalExaminer.Common.Queries.User;

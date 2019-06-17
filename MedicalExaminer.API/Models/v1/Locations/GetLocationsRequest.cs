@@ -1,4 +1,4 @@
-﻿namespace MedicalExaminer.API.Models.v1.Locations
+﻿namespace MedicalExaminer.API.Models.V1.Locations
 {
     /// <summary>
     ///     Request object for a list of locations.

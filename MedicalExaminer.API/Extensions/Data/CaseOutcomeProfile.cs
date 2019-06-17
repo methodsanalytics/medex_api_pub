@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using MedicalExaminer.API.Models.v1.CaseOutcome;
+using MedicalExaminer.API.Models.V1.CaseOutcome;
 using MedicalExaminer.Models;
 
 namespace MedicalExaminer.API.Extensions.Data
