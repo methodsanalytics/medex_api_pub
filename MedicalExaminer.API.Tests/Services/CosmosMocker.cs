@@ -9,7 +9,6 @@ using MedicalExaminer.Common.ConnectionSettings;
 using MedicalExaminer.Common.Database;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
-using Microsoft.Azure.Documents.Linq;
 using Moq;
 using Newtonsoft.Json;
 using Document = Microsoft.Azure.Documents.Document;
@@ -154,9 +153,5 @@ namespace MedicalExaminer.API.Tests.Services
 
             return Task.FromResult(new ResourceResponse<Document>(document));
         }
-    }
-
-    public interface IFakeDocumentQuery<T> : IDocumentQuery<T>, IOrderedQueryable<T>
-    {
     }
 }

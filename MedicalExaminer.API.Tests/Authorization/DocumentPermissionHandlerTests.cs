@@ -4,11 +4,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using MedicalExaminer.API.Authorization;
 using MedicalExaminer.API.Services;
-using MedicalExaminer.Common.Authorization;
-using MedicalExaminer.Common.Queries.User;
-using MedicalExaminer.Common.Services;
 using MedicalExaminer.Models;
-using MedicalExaminer.Models.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Moq;
 using Xunit;
@@ -98,7 +94,7 @@ namespace MedicalExaminer.API.Tests.Authorization
         public class TestPrincipal : ClaimsPrincipal
         {
             /// <summary>
-            /// Inialise a new instance of the Test Principal.
+            /// Initialise a new instance of the Test Principal.
             /// </summary>
             /// <param name="claims">Claims.</param>
             public TestPrincipal(params Claim[] claims)
@@ -125,8 +121,11 @@ namespace MedicalExaminer.API.Tests.Authorization
         private class TestDocument : ILocationPath
         {
             public string NationalLocationId { get; set; }
+
             public string RegionLocationId { get; set; }
+
             public string TrustLocationId { get; set; }
+
             public string SiteLocationId { get; set; }
         }
     }
