@@ -14,7 +14,7 @@
     <NoWarn>1701;1702</NoWarn>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
     <DocumentationFile>bin\Release\MedicalExaminer.BackgroundServices.xml</DocumentationFile>
   </PropertyGroup>
 
