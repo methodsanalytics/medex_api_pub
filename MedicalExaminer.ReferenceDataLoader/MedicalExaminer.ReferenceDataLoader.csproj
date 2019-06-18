@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\mawip\medical_examiner_api\MedicalExaminer.ReferenceDataLoader\MedicalExaminer.ReferenceDataLoader.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\netcoreapp2.1\MedicalExaminer.ReferenceDataLoader.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
