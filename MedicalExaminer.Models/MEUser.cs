@@ -49,5 +49,9 @@ namespace MedicalExaminer.Models
         [JsonProperty(PropertyName = "permissions")]
         public IEnumerable<MEUserPermission> Permissions { get; set; }
 
+        /// <summary>
+        /// Active.
+        /// </summary>
+        public bool Active { get; set; }
     }
 }
