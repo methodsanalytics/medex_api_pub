@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using MedicalExaminer.API.Authorization;
-using MedicalExaminer.API.Filters;
 using MedicalExaminer.API.Models.v1.Users;
 using MedicalExaminer.API.Services;
 using MedicalExaminer.Common.Loggers;
@@ -32,9 +31,11 @@ namespace MedicalExaminer.API.Controllers
         ///     The User Persistence Layer
         /// </summary>
         private readonly IAsyncQueryHandler<CreateUserQuery, MeUser> _userCreationService;
+
         private readonly IAsyncQueryHandler<UserRetrievalByIdQuery, MeUser> _userRetrievalByIdService;
         private readonly IAsyncQueryHandler<UsersRetrievalQuery, IEnumerable<MeUser>> _usersRetrievalService;
         private readonly IAsyncQueryHandler<UserUpdateQuery, MeUser> _userUpdateService;
+        private readonly IAsyncQueryHandler<UserEnableQuery, MeUser> _userEnableService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UsersController"/> class.
@@ -48,6 +49,7 @@ namespace MedicalExaminer.API.Controllers
         /// <param name="userRetrievalByIdService">User retrieval service.</param>
         /// <param name="usersRetrievalService">Users retrieval service.</param>
         /// <param name="userUpdateService">The userToCreate update service</param>
+        /// <param name="userEnableService">The user enable service.</param>
         public UsersController(
             IMELogger logger,
             IMapper mapper,
@@ -57,13 +59,15 @@ namespace MedicalExaminer.API.Controllers
             IAsyncQueryHandler<CreateUserQuery, MeUser> userCreationService,
             IAsyncQueryHandler<UserRetrievalByIdQuery, MeUser> userRetrievalByIdService,
             IAsyncQueryHandler<UsersRetrievalQuery, IEnumerable<MeUser>> usersRetrievalService,
-            IAsyncQueryHandler<UserUpdateQuery, MeUser> userUpdateService)
+            IAsyncQueryHandler<UserUpdateQuery, MeUser> userUpdateService,
+            IAsyncQueryHandler<UserEnableQuery, MeUser> userEnableService)
             : base(logger, mapper, usersRetrievalByOktaIdService, authorizationService, permissionService)
         {
             _userCreationService = userCreationService;
             _userRetrievalByIdService = userRetrievalByIdService;
             _usersRetrievalService = usersRetrievalService;
             _userUpdateService = userUpdateService;
+            _userEnableService = userEnableService;
         }
 
         /// <summary>
@@ -181,6 +185,63 @@ namespace MedicalExaminer.API.Controllers
             catch (ArgumentException)
             {
                 return NotFound(new PutUserResponse());
+            }
+        }
+
+        /// <summary>
+        /// Update a new User.
+        /// </summary>
+        /// <param name="meUserId">The User Identifier.</param>
+        /// <returns>A PutUserResponse.</returns>
+        [HttpPut("{meUserId}/enable")]
+        [AuthorizePermission(Permission.EnableUser)]
+        public async Task<ActionResult<PutEnableUserResponse>> EnableUser(string meUserId)
+        {
+            return await SetUserActive(meUserId, true);
+        }
+
+        /// <summary>
+        /// Update a new User.
+        /// </summary>
+        /// <param name="meUserId">The User Identifier.</param>
+        /// <returns>A PutUserResponse.</returns>
+        [HttpPut("{meUserId}/suspend")]
+        [AuthorizePermission(Permission.SuspendUser)]
+        public async Task<ActionResult<PutEnableUserResponse>> SuspendUser(string meUserId)
+        {
+            return await SetUserActive(meUserId, false);
+        }
+
+        /// <summary>
+        /// Common method for <see cref="EnableUser"/> and <see cref="SuspendUser"/>.
+        /// </summary>
+        /// <param name="userId">Id of the user.</param>
+        /// <param name="enable">Whether to enable or not.</param>
+        /// <returns>Response.</returns>
+        private async Task<ActionResult<PutEnableUserResponse>> SetUserActive(string userId, bool enable)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new PutUserResponse());
+            }
+
+            try
+            {
+                var currentUser = await CurrentUser();
+                var updatedUser = await _userEnableService.Handle(
+                    new UserEnableQuery(
+                        userId,
+                        enable,
+                        currentUser));
+                return Ok(Mapper.Map<PutEnableUserResponse>(updatedUser));
+            }
+            catch (DocumentClientException)
+            {
+                return NotFound(new PutEnableUserResponse());
+            }
+            catch (ArgumentException)
+            {
+                return NotFound(new PutEnableUserResponse());
             }
         }
     }
