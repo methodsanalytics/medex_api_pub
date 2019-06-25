@@ -35,6 +35,7 @@ namespace MedicalExaminer.API.Tests.Controllers
         public Mock<IAsyncQueryHandler<UserRetrievalByIdQuery, MeUser>> userRetrievalService;
         public Mock<IAsyncQueryHandler<UsersRetrievalQuery, IEnumerable<MeUser>>> usersRetrievalService;
         public Mock<IAsyncQueryHandler<UserUpdateQuery, MeUser>> userUpdateService;
+        public Mock<IAsyncQueryHandler<UserEnableQuery, MeUser>> userEnableService;
 
         public UsersControllerTests() : base()
         {
@@ -44,6 +45,7 @@ namespace MedicalExaminer.API.Tests.Controllers
             userRetrievalService = new Mock<IAsyncQueryHandler<UserRetrievalByIdQuery, MeUser>>();
             usersRetrievalService = new Mock<IAsyncQueryHandler<UsersRetrievalQuery, IEnumerable<MeUser>>>();
             userUpdateService = new Mock<IAsyncQueryHandler<UserUpdateQuery, MeUser>>();
+            userEnableService = new Mock<IAsyncQueryHandler<UserEnableQuery, MeUser>>();
 
             Controller = new UsersController(
                 logger.Object,
@@ -54,7 +56,8 @@ namespace MedicalExaminer.API.Tests.Controllers
                 createUserService.Object,
                 userRetrievalService.Object,
                 usersRetrievalService.Object,
-                userUpdateService.Object);
+                userUpdateService.Object,
+                userEnableService.Object);
         }
 
         /// <summary>
