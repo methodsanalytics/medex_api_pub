@@ -138,38 +138,21 @@ namespace MedicalExaminer.API.Tests.Controllers
         }
     }
 
+
     public class ControllerActionFilterTests
     {
         private readonly MELoggerMocker _mockLogger;
-        private readonly UsersController _controller;
+        private readonly BaseController _controller;
         private readonly Mock<IMapper> _mapper;
 
         public ControllerActionFilterTests()
         {
             _mockLogger = new MELoggerMocker();
             _mapper = new Mock<IMapper>();
-            var createUserService = new Mock<IAsyncQueryHandler<CreateUserQuery, MeUser>>();
-            var userRetrievalService = new Mock<IAsyncQueryHandler<UserRetrievalByIdQuery, MeUser>>();
-            var usersRetrievalService =
-                new Mock<IAsyncQueryHandler<UsersRetrievalQuery, IEnumerable<MeUser>>>();
-            var userUpdateService = new Mock<IAsyncQueryHandler<UserUpdateQuery, MeUser>>();
 
-            var usersRetrievalByOktaIdServiceMock = new Mock<IAsyncQueryHandler<UserRetrievalByOktaIdQuery, MeUser>>();
-
-            var authorizationServiceMock = new Mock<IAuthorizationService>();
-
-            var permissionServiceMock = new Mock<IPermissionService>();
-
-            _controller = new UsersController(
+            _controller = new ExampleController(
                 _mockLogger,
-                _mapper.Object,
-                usersRetrievalByOktaIdServiceMock.Object,
-                authorizationServiceMock.Object,
-                permissionServiceMock.Object,
-                createUserService.Object,
-                userRetrievalService.Object,
-                usersRetrievalService.Object,
-                userUpdateService.Object);
+                _mapper.Object);
         }
 
         [Fact]
@@ -236,6 +219,14 @@ namespace MedicalExaminer.API.Tests.Controllers
             logEntry.RemoteIP.Should().Be(expectedUnknown);
             logEntry.UserAuthenticationType.Should().Be(expectedUnknown);
             logEntry.Parameters.Keys.Should().Contain("filter");
+        }
+
+        private class ExampleController : BaseController
+        {
+            public ExampleController(IMELogger logger, IMapper mapper)
+                : base(logger, mapper)
+            {
+            }
         }
     }
 }
