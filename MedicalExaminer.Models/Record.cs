@@ -34,18 +34,17 @@ namespace MedicalExaminer.Models
         public DateTimeOffset CreatedAt { get; set; }
 
         /// <summary>
-        /// Deleted At.
-        /// </summary>
-        [Display(Name = "deleted_at")]
-        [DataType(DataType.DateTime)]
-        public DateTimeOffset? DeletedAt { get; set; }
-
-        /// <summary>
         /// Last Modified By.
         /// </summary>
         [Required]
         [Display(Name = "created_by")]
         [DataType(DataType.Text)]
         public string CreatedBy { get; set; }
+
+        /// <summary>
+        /// Deleted.
+        /// </summary>
+        [Display(Name = "deleted")]
+        public bool Deleted { get; set; }
     }
 }
