@@ -162,37 +162,6 @@ namespace MedicalExaminer.API.Controllers
         }
 
         /// <summary>
-        /// Update a new User.
-        /// </summary>
-        /// <param name="putUser">The PutUserRequest.</param>
-        /// <returns>A PutUserResponse.</returns>
-        [HttpPut("{meUserId}")]
-        [AuthorizePermission(Permission.UpdateUser)]
-        public async Task<ActionResult<PutUserResponse>> UpdateUser([FromBody] PutUserRequest putUser)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(new PutUserResponse());
-            }
-
-            try
-            {
-                var userToUpdate = Mapper.Map<MeUser>(putUser);
-                var currentUser = await CurrentUser();
-                var updatedUser = await _userUpdateService.Handle(new UserUpdateQuery(userToUpdate, currentUser));
-                return Ok(Mapper.Map<PutUserResponse>(updatedUser));
-            }
-            catch (DocumentClientException)
-            {
-                return NotFound(new PutUserResponse());
-            }
-            catch (ArgumentException)
-            {
-                return NotFound(new PutUserResponse());
-            }
-        }
-
-        /// <summary>
         /// Delete a user.
         /// </summary>
         /// <param name="meUserId">The user identifier.</param>
