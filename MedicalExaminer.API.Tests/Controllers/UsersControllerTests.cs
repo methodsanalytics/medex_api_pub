@@ -441,9 +441,6 @@ namespace MedicalExaminer.API.Tests.Controllers
             model.Success.Should().BeFalse();
         }
 
-        ///
-
-
         [Fact]
         public async Task TestEnableUserArgumentException()
         {
@@ -536,10 +533,6 @@ namespace MedicalExaminer.API.Tests.Controllers
             model.Success.Should().BeFalse();
         }
 
-
-
-        ///
-
         [Fact]
         public async Task TestSuspendUserArgumentException()
         {
@@ -631,6 +624,5 @@ namespace MedicalExaminer.API.Tests.Controllers
             model.Errors.Count.Should().Be(1);
             model.Success.Should().BeFalse();
         }
-
     }
 }
