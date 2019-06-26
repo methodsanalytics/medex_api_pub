@@ -9,17 +9,17 @@ using Xunit;
 
 namespace MedicalExaminer.API.Tests.Services.Users
 {
-    public class UserEnableServiceTests : ServiceTestsBase<
-        UserEnableQuery,
+    public class UserSuspendServiceTests : ServiceTestsBase<
+        UserSuspendQuery,
         UserConnectionSettings,
         MeUser,
         MeUser,
-        UserEnableService>
+        UserSuspendService>
     {
         [Theory]
         [InlineData(true)]
         [InlineData(false)]
-        public async Task Handle(bool enable)
+        public async Task Handle(bool suspend)
         {
             // Arrange
             var expectedUserId = "expectedUserId";
@@ -38,14 +38,14 @@ namespace MedicalExaminer.API.Tests.Services.Users
                 Email = expectedOurEmail,
             };
 
-            var query = new UserEnableQuery(expectedUser.UserId, enable, expectedOurUser);
+            var query = new UserSuspendQuery(expectedUser.UserId, suspend, expectedOurUser);
 
             // Act
             var result = await Service.Handle(query);
 
             // Assert
             result.Should().NotBeNull();
-            result.Active.Should().Be(enable);
+            result.Suspended.Should().Be(suspend);
         }
 
         [Fact]
@@ -68,7 +68,7 @@ namespace MedicalExaminer.API.Tests.Services.Users
                 Email = expectedOurEmail,
             };
 
-            var query = new UserEnableQuery(expectedUser.UserId, true, expectedOurUser);
+            var query = new UserSuspendQuery(expectedUser.UserId, true, expectedOurUser);
 
             // Act
             Func<Task> act = async () => await Service.Handle(query);
