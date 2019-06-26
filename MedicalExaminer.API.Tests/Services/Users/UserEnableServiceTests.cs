@@ -19,7 +19,7 @@ namespace MedicalExaminer.API.Tests.Services.Users
         [Theory]
         [InlineData(true)]
         [InlineData(false)]
-        public async Task Handle_SetEnable(bool enable)
+        public async Task Handle(bool enable)
         {
             // Arrange
             var expectedUserId = "expectedUserId";
@@ -48,12 +48,11 @@ namespace MedicalExaminer.API.Tests.Services.Users
             result.Active.Should().Be(enable);
         }
 
-/*
         [Fact]
-        public async Task Handle_UpdateUser_ThatDoesntExist_ThrowsException()
+        public async Task Handle_ThrowsException_WhenUserDoesntExist()
         {
             // Arrange
-            var expectedUserId = "userId3";
+            var expectedUserId = "unexpectedUserId";
             var expectedEmail = "email1";
             var expectedUser = new MeUser()
             {
@@ -69,7 +68,7 @@ namespace MedicalExaminer.API.Tests.Services.Users
                 Email = expectedOurEmail,
             };
 
-            var query = new UserUpdateQuery(expectedUser, expectedOurUser);
+            var query = new UserEnableQuery(expectedUser.UserId, true, expectedOurUser);
 
             // Act
             Func<Task> act = async () => await Service.Handle(query);
@@ -77,7 +76,7 @@ namespace MedicalExaminer.API.Tests.Services.Users
             // Assert
             act.Should().Throw<InvalidOperationException>();
         }
-*/
+
         protected override MeUser[] GetExamples()
         {
             return new[]

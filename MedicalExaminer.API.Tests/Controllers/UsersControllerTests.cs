@@ -1,26 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using AutoMapper;
 using FluentAssertions;
 using MedicalExaminer.API.Controllers;
 using MedicalExaminer.API.Models.v1.Users;
-using MedicalExaminer.Common;
 using MedicalExaminer.Common.Loggers;
 using MedicalExaminer.Common.Queries.User;
 using MedicalExaminer.Common.Services;
-using MedicalExaminer.Common.Services.Examination;
-using MedicalExaminer.Common.Services.User;
 using MedicalExaminer.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Azure.Documents;
-using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
 
@@ -37,7 +26,8 @@ namespace MedicalExaminer.API.Tests.Controllers
         public Mock<IAsyncQueryHandler<UserUpdateQuery, MeUser>> userUpdateService;
         public Mock<IAsyncQueryHandler<UserEnableQuery, MeUser>> userEnableService;
 
-        public UsersControllerTests() : base()
+        public UsersControllerTests()
+            : base()
         {
             var logger = new Mock<IMELogger>();
 
@@ -67,7 +57,7 @@ namespace MedicalExaminer.API.Tests.Controllers
         [Fact]
         public async Task TestCreateUserArgumentException()
         {
-            // Arrange 
+            // Arrange
             createUserService.Setup(cus => cus.Handle(It.IsAny<CreateUserQuery>())).Throws<ArgumentException>();
             var expectedRequest = new PostUserRequest();
             Controller.ControllerContext = GetControllerContext();
@@ -450,5 +440,197 @@ namespace MedicalExaminer.API.Tests.Controllers
             model.Errors.Count.Should().Be(1);
             model.Success.Should().BeFalse();
         }
+
+        ///
+
+
+        [Fact]
+        public async Task TestEnableUserArgumentException()
+        {
+            // Arrange
+            const string expectedUserId = null;
+
+            userEnableService.Setup(up => up.Handle(It.IsAny<UserEnableQuery>()))
+                .Throws<ArgumentException>();
+            Controller.ControllerContext = GetControllerContext();
+
+            // Act
+            var response = await Controller.EnableUser(expectedUserId);
+
+            // Assert
+            response.Result.Should().BeAssignableTo<NotFoundObjectResult>();
+            var result = (NotFoundObjectResult)response.Result;
+            result.Value.Should().BeAssignableTo<PutEnableUserResponse>();
+            var model = (PutEnableUserResponse)result.Value;
+            model.Errors.Count.Should().Be(0);
+            model.Success.Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task TestEnableUserDocumentClientException()
+        {
+            // Arrange
+            var expectedUserId = "expectedUserId";
+
+            userEnableService.Setup(up => up.Handle(It.IsAny<UserEnableQuery>()))
+                .Throws(CreateDocumentClientExceptionForTesting());
+            Controller.ControllerContext = GetControllerContext();
+
+            // Act
+            var response = await Controller.EnableUser(expectedUserId);
+
+            // Assert
+            response.Result.Should().BeAssignableTo<NotFoundObjectResult>();
+            var result = (NotFoundObjectResult)response.Result;
+            result.Value.Should().BeAssignableTo<PutEnableUserResponse>();
+            var model = (PutEnableUserResponse)result.Value;
+            model.Errors.Count.Should().Be(0);
+            model.Success.Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task TestEnableUserOkResponse()
+        {
+            // Arrange
+            const string expectedUserId = "expectedUserId";
+
+            var expectedUser = new MeUser
+            {
+                UserId = expectedUserId,
+                Email = "testing@methods.co.uk"
+            };
+
+            userEnableService.Setup(up => up.Handle(It.IsAny<UserEnableQuery>()))
+                .Returns(Task.FromResult(expectedUser));
+            Controller.ControllerContext = GetControllerContext();
+
+            // Act
+            var response = await Controller.EnableUser(expectedUserId);
+
+            // Assert
+            response.Result.Should().BeAssignableTo<OkObjectResult>();
+            var result = (OkObjectResult)response.Result;
+            result.Value.Should().BeAssignableTo<PutEnableUserResponse>();
+            var model = (PutEnableUserResponse)result.Value;
+            model.Errors.Count.Should().Be(0);
+            model.Success.Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task TestEnableUserVerificationFailure()
+        {
+            // Arrange
+            const string expectedUserId = "expectedUserId";
+            Controller.ModelState.AddModelError("An", "Error");
+
+            // Act
+            var request = new PutUserRequest();
+            var response = await Controller.EnableUser(expectedUserId);
+
+            // Assert
+            response.Result.Should().BeAssignableTo<BadRequestObjectResult>();
+            var result = (BadRequestObjectResult)response.Result;
+            result.Value.Should().BeAssignableTo<PutEnableUserResponse>();
+            var model = (PutEnableUserResponse)result.Value;
+            model.Errors.Count.Should().Be(1);
+            model.Success.Should().BeFalse();
+        }
+
+
+
+        ///
+
+        [Fact]
+        public async Task TestSuspendUserArgumentException()
+        {
+            // Arrange
+            const string expectedUserId = null;
+
+            userEnableService.Setup(up => up.Handle(It.IsAny<UserEnableQuery>()))
+                .Throws<ArgumentException>();
+            Controller.ControllerContext = GetControllerContext();
+
+            // Act
+            var response = await Controller.SuspendUser(expectedUserId);
+
+            // Assert
+            response.Result.Should().BeAssignableTo<NotFoundObjectResult>();
+            var result = (NotFoundObjectResult)response.Result;
+            result.Value.Should().BeAssignableTo<PutEnableUserResponse>();
+            var model = (PutEnableUserResponse)result.Value;
+            model.Errors.Count.Should().Be(0);
+            model.Success.Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task TestSuspendUserDocumentClientException()
+        {
+            // Arrange
+            var expectedUserId = "expectedUserId";
+
+            userEnableService.Setup(up => up.Handle(It.IsAny<UserEnableQuery>()))
+                .Throws(CreateDocumentClientExceptionForTesting());
+            Controller.ControllerContext = GetControllerContext();
+
+            // Act
+            var response = await Controller.SuspendUser(expectedUserId);
+
+            // Assert
+            response.Result.Should().BeAssignableTo<NotFoundObjectResult>();
+            var result = (NotFoundObjectResult)response.Result;
+            result.Value.Should().BeAssignableTo<PutEnableUserResponse>();
+            var model = (PutEnableUserResponse)result.Value;
+            model.Errors.Count.Should().Be(0);
+            model.Success.Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task TestSuspendUserOkResponse()
+        {
+            // Arrange
+            const string expectedUserId = "expectedUserId";
+
+            var expectedUser = new MeUser
+            {
+                UserId = expectedUserId,
+                Email = "testing@methods.co.uk"
+            };
+
+            userEnableService.Setup(up => up.Handle(It.IsAny<UserEnableQuery>()))
+                .Returns(Task.FromResult(expectedUser));
+            Controller.ControllerContext = GetControllerContext();
+
+            // Act
+            var response = await Controller.SuspendUser(expectedUserId);
+
+            // Assert
+            response.Result.Should().BeAssignableTo<OkObjectResult>();
+            var result = (OkObjectResult)response.Result;
+            result.Value.Should().BeAssignableTo<PutEnableUserResponse>();
+            var model = (PutEnableUserResponse)result.Value;
+            model.Errors.Count.Should().Be(0);
+            model.Success.Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task TestSuspendUserVerificationFailure()
+        {
+            // Arrange
+            const string expectedUserId = "expectedUserId";
+            Controller.ModelState.AddModelError("An", "Error");
+
+            // Act
+            var request = new PutUserRequest();
+            var response = await Controller.SuspendUser(expectedUserId);
+
+            // Assert
+            response.Result.Should().BeAssignableTo<BadRequestObjectResult>();
+            var result = (BadRequestObjectResult)response.Result;
+            result.Value.Should().BeAssignableTo<PutEnableUserResponse>();
+            var model = (PutEnableUserResponse)result.Value;
+            model.Errors.Count.Should().Be(1);
+            model.Success.Should().BeFalse();
+        }
+
     }
 }
