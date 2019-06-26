@@ -202,7 +202,7 @@ namespace MedicalExaminer.Common.Database
             return results;
         }
 
-        public Task<int> GetCountAsync<T>(IConnectionSettings connectionSettings, Expression<Func<T, bool>> predicate)
+        public async Task<int> GetCountAsync<T>(IConnectionSettings connectionSettings, Expression<Func<T, bool>> predicate)
         {
             var client = GetClient(connectionSettings);
             var feedOptions = new FeedOptions { MaxItemCount = -1, EnableCrossPartitionQuery = true };
@@ -210,9 +210,15 @@ namespace MedicalExaminer.Common.Database
 
             var query = client.CreateDocumentQuery<T>(documentCollectionUri, feedOptions)
                 .Where(predicate)
-                .CountAsync();
+                .AsDocumentQuery();
 
-            return query;
+            var results = new List<T>();
+            while (query.HasMoreResults)
+            {
+                results.AddRange(await query.ExecuteNextAsync<T>());
+            }
+
+            return results.Count();
         }
 
         public async Task<T> UpdateItemAsync<T>(IConnectionSettings connectionSettings, T item)
