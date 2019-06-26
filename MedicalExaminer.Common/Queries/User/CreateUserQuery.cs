@@ -2,18 +2,25 @@
 
 namespace MedicalExaminer.Common.Queries.User
 {
-    /// <inheritdoc />
-    public class CreateUserQuery : IQuery<MeUser>
+    /// <summary>
+    /// Create User Query.
+    /// </summary>
+    public class CreateUserQuery : AuthenticatedQuery<MeUser>
     {
-        /// <inheritdoc />
-        public CreateUserQuery(MeUser userToCreate, MeUser currentUser)
+        /// <summary>
+        /// Initialise a new instance of <see cref="CreateUserQuery"/>.
+        /// </summary>
+        /// <param name="userToCreate">User to create.</param>
+        /// <param name="authenticatedUser">Authenticated user making the query</param>
+        public CreateUserQuery(MeUser userToCreate, MeUser authenticatedUser)
+            : base(authenticatedUser)
         {
             UserToCreate = userToCreate;
-            CurrentUser = currentUser;
         }
 
+        /// <summary>
+        /// User to create.
+        /// </summary>
         public MeUser UserToCreate { get; }
-
-        public MeUser CurrentUser { get; }
     }
 }

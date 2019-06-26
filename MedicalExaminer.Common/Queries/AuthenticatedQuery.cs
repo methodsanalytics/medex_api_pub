@@ -14,7 +14,7 @@ namespace MedicalExaminer.Common.Queries
         /// <summary>
         /// Initialise a new instance of <see cref="AuthenticatedQuery{T}"/>.
         /// </summary>
-        /// <param name="authenticatedUser">The authenticated user.</param>
+        /// <param name="authenticatedUser">The authenticated user making the query.</param>
         public AuthenticatedQuery(MeUser authenticatedUser)
         {
             AuthenticatedUser = authenticatedUser;

@@ -33,8 +33,8 @@ namespace MedicalExaminer.Common.Services.User
             param.UserToCreate.UserId = Guid.NewGuid().ToString();
             param.UserToCreate.CreatedAt = DateTime.Now;
             param.UserToCreate.ModifiedAt = DateTime.Now;
-            param.UserToCreate.CreatedBy = param.CurrentUser.UserId;
-            param.UserToCreate.LastModifiedBy = param.CurrentUser.UserId;
+            param.UserToCreate.CreatedBy = param.AuthenticatedUser.UserId;
+            param.UserToCreate.LastModifiedBy = param.AuthenticatedUser.UserId;
             var result = await CreateItemAsync(param.UserToCreate);
             return result;
         }
