@@ -28,7 +28,10 @@ namespace MedicalExaminer.API.Extensions.Data
             CreateMap<MeUser, PostUserResponse>()
                 .ForMember(response => response.Errors, opt => opt.Ignore())
                 .ForMember(response => response.Lookups, opt => opt.Ignore());
-            CreateMap<MeUser, PutEnableUserResponse>()
+            CreateMap<MeUser, PutSuspendUserResponse>()
+                .ForMember(response => response.Errors, opt => opt.Ignore())
+                .ForMember(response => response.Lookups, opt => opt.Ignore());
+            CreateMap<MeUser, DeleteUserResponse>()
                 .ForMember(response => response.Errors, opt => opt.Ignore())
                 .ForMember(response => response.Lookups, opt => opt.Ignore());
             CreateMap<PostUserRequest, MeUser>()

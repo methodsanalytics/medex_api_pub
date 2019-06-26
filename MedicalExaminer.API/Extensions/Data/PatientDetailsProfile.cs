@@ -41,7 +41,7 @@ namespace MedicalExaminer.API.Extensions.Data
                 .ForMember(examination => examination.ModifiedAt, opt => opt.Ignore())
                 .ForMember(examination => examination.CreatedAt, opt => opt.Ignore())
                 .ForMember(examination => examination.CreatedBy, opt => opt.Ignore())
-                .ForMember(examination => examination.DeletedAt, opt => opt.Ignore())
+                .ForMember(examination => examination.Deleted, opt => opt.Ignore())
                 .ForMember(examination => examination.ConfirmationOfScrutinyCompletedAt, opt => opt.Ignore())
                 .ForMember(examination => examination.ConfirmationOfScrutinyCompletedBy, opt => opt.Ignore())
                 .ForMember(examination => examination.CoronerReferralSent, opt => opt.Ignore())

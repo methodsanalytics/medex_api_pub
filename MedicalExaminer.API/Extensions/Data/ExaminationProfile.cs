@@ -120,7 +120,6 @@ namespace MedicalExaminer.API.Extensions.Data
                 .ForMember(examination => examination.LastModifiedBy, opt => opt.Ignore())
                 .ForMember(examination => examination.ModifiedAt, opt => opt.Ignore())
                 .ForMember(examination => examination.CreatedAt, opt => opt.Ignore())
-                .ForMember(examination => examination.DeletedAt, opt => opt.Ignore())
                 .ForMember(examination => examination.CaseBreakdown, opt => opt.Ignore())
                 .ForMember(examination => examination.MedicalTeam, opt => opt.Ignore())
                 .ForMember(examination => examination.MedicalExaminerOfficeResponsibleName, opt => opt.Ignore())
@@ -135,7 +134,9 @@ namespace MedicalExaminer.API.Extensions.Data
                 .ForMember(examination => examination.ScrutinyConfirmed, opt => opt.Ignore())
                 .ForMember(examination => examination.OutstandingCaseItemsCompleted, opt => opt.Ignore())
                 .ForMember(examination => examination.CaseOutcome, opt => opt.Ignore())
-                .ForMember(examination => examination.CreatedBy, opt => opt.Ignore());
+                .ForMember(examination => examination.CreatedBy, opt => opt.Ignore())
+                .ForMember(examination => examination.Deleted, opt => opt.Ignore());
+
             CreateMap<Examination, PatientCardItem>()
                 .ForMember(
                     patientCard => patientCard.AppointmentDate,
