@@ -3,21 +3,21 @@
 namespace MedicalExaminer.Common.Queries.User
 {
     /// <summary>
-    /// User Enable  Query.
+    /// User Suspend Query.
     /// </summary>
-    public class UserEnableQuery : IQuery<MeUser>
+    public class UserSuspendQuery : IQuery<MeUser>
     {
         /// <summary>
-        /// Initialise a new instance of <see cref="UserEnableQuery"/>.
+        /// Initialise a new instance of <see cref="UserSuspendQuery"/>.
         /// </summary>
-        /// <param name="userId">The ID of the user who to enable or disable</param>
-        /// <param name="enableUser">True to enable. False to disable.</param>
+        /// <param name="userId">The ID of the user who to suspend.</param>
+        /// <param name="suspend">True to suspend a user.</param>
         /// <param name="currentUser">The user performing the change.</param>
-        public UserEnableQuery(string userId, bool enableUser, MeUser currentUser)
+        public UserSuspendQuery(string userId, bool suspend, MeUser currentUser)
         {
             CurrentUser = currentUser;
             UserId = userId;
-            EnableUser = enableUser;
+            Suspend = suspend;
         }
 
         /// <summary>
@@ -33,9 +33,9 @@ namespace MedicalExaminer.Common.Queries.User
         public string UserId { get; }
 
         /// <summary>
-        /// Enable User.
+        /// Suspend User.
         /// </summary>
-        /// <remarks>True to enable, False to disable</remarks>
-        public bool EnableUser { get; }
+        /// <remarks>True to suspend</remarks>
+        public bool Suspend { get; }
     }
 }
