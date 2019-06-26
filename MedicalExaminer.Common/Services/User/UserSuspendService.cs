@@ -7,22 +7,22 @@ using MedicalExaminer.Common.Queries.User;
 namespace MedicalExaminer.Common.Services.User
 {
     /// <summary>
-    /// User Enable Service.
+    /// User Suspend Service.
     /// </summary>
-    public class UserEnableService : QueryHandler<UserEnableQuery, Models.MeUser>
+    public class UserSuspendService : QueryHandler<UserSuspendQuery, Models.MeUser>
     {
         /// <summary>
-        /// Initialise a new instance of <see cref="UserEnableService"/>.
+        /// Initialise a new instance of <see cref="UserSuspendService"/>.
         /// </summary>
         /// <param name="databaseAccess">Database Access.</param>
         /// <param name="connectionSettings">User Connection Settings.</param>
-        public UserEnableService(IDatabaseAccess databaseAccess, IUserConnectionSettings connectionSettings)
+        public UserSuspendService(IDatabaseAccess databaseAccess, IUserConnectionSettings connectionSettings)
             : base(databaseAccess, connectionSettings)
         {
         }
 
         /// <inheritdoc/>
-        public override async Task<Models.MeUser> Handle(UserEnableQuery param)
+        public override async Task<Models.MeUser> Handle(UserSuspendQuery param)
         {
             if (param == null)
             {
@@ -36,7 +36,7 @@ namespace MedicalExaminer.Common.Services.User
                 throw new InvalidOperationException($"User with id `{param.UserId}` not found.");
             }
 
-            userToUpdate.Active = param.EnableUser;
+            userToUpdate.Suspended = param.Suspend;
 
             userToUpdate.LastModifiedBy = param.CurrentUser.UserId;
             userToUpdate.ModifiedAt = DateTime.Now;
