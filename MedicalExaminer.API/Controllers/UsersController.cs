@@ -35,7 +35,8 @@ namespace MedicalExaminer.API.Controllers
         private readonly IAsyncQueryHandler<UserRetrievalByIdQuery, MeUser> _userRetrievalByIdService;
         private readonly IAsyncQueryHandler<UsersRetrievalQuery, IEnumerable<MeUser>> _usersRetrievalService;
         private readonly IAsyncQueryHandler<UserUpdateQuery, MeUser> _userUpdateService;
-        private readonly IAsyncQueryHandler<UserEnableQuery, MeUser> _userEnableService;
+        private readonly IAsyncQueryHandler<UserSuspendQuery, MeUser> _userSuspendService;
+        private readonly IAsyncQueryHandler<UserDeleteQuery, MeUser> _userDeleteService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UsersController"/> class.
@@ -49,7 +50,8 @@ namespace MedicalExaminer.API.Controllers
         /// <param name="userRetrievalByIdService">User retrieval service.</param>
         /// <param name="usersRetrievalService">Users retrieval service.</param>
         /// <param name="userUpdateService">The userToCreate update service</param>
-        /// <param name="userEnableService">The user enable service.</param>
+        /// <param name="userSuspendService">The user suspend service.</param>
+        /// <param name="userDeleteService">The user delete service.</param>
         public UsersController(
             IMELogger logger,
             IMapper mapper,
@@ -60,14 +62,16 @@ namespace MedicalExaminer.API.Controllers
             IAsyncQueryHandler<UserRetrievalByIdQuery, MeUser> userRetrievalByIdService,
             IAsyncQueryHandler<UsersRetrievalQuery, IEnumerable<MeUser>> usersRetrievalService,
             IAsyncQueryHandler<UserUpdateQuery, MeUser> userUpdateService,
-            IAsyncQueryHandler<UserEnableQuery, MeUser> userEnableService)
+            IAsyncQueryHandler<UserSuspendQuery, MeUser> userSuspendService,
+            IAsyncQueryHandler<UserDeleteQuery, MeUser> userDeleteService)
             : base(logger, mapper, usersRetrievalByOktaIdService, authorizationService, permissionService)
         {
             _userCreationService = userCreationService;
             _userRetrievalByIdService = userRetrievalByIdService;
             _usersRetrievalService = usersRetrievalService;
             _userUpdateService = userUpdateService;
-            _userEnableService = userEnableService;
+            _userSuspendService = userSuspendService;
+            _userDeleteService = userDeleteService;
         }
 
         /// <summary>
@@ -189,15 +193,48 @@ namespace MedicalExaminer.API.Controllers
         }
 
         /// <summary>
+        /// Delete a user.
+        /// </summary>
+        /// <param name="meUserId">The user identifier.</param>
+        /// <returns></returns>
+        [HttpDelete("{meUserId}")]
+        [AuthorizePermission(Permission.DeleteUser)]
+        public async Task<ActionResult<DeleteUserResponse>> DeleteUser(string meUserId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new DeleteUserResponse());
+            }
+
+            try
+            {
+                var currentUser = await CurrentUser();
+                var updatedUser = await _userDeleteService.Handle(
+                    new UserDeleteQuery(
+                        meUserId,
+                        currentUser));
+                return Ok(Mapper.Map<DeleteUserResponse>(updatedUser));
+            }
+            catch (DocumentClientException)
+            {
+                return NotFound(new DeleteUserResponse());
+            }
+            catch (ArgumentException)
+            {
+                return NotFound(new DeleteUserResponse());
+            }
+        }
+
+        /// <summary>
         /// Update a new User.
         /// </summary>
         /// <param name="meUserId">The User Identifier.</param>
         /// <returns>A PutUserResponse.</returns>
-        [HttpPut("{meUserId}/enable")]
+        [HttpPut("{meUserId}/suspend")]
         [AuthorizePermission(Permission.EnableUser)]
-        public async Task<ActionResult<PutEnableUserResponse>> EnableUser(string meUserId)
+        public async Task<ActionResult<PutSuspendUserResponse>> EnableUser(string meUserId)
         {
-            return await SetUserActive(meUserId, true);
+            return await SuspendUser(meUserId, false);
         }
 
         /// <summary>
@@ -207,41 +244,41 @@ namespace MedicalExaminer.API.Controllers
         /// <returns>A PutUserResponse.</returns>
         [HttpPut("{meUserId}/suspend")]
         [AuthorizePermission(Permission.SuspendUser)]
-        public async Task<ActionResult<PutEnableUserResponse>> SuspendUser(string meUserId)
+        public async Task<ActionResult<PutSuspendUserResponse>> SuspendUser(string meUserId)
         {
-            return await SetUserActive(meUserId, false);
+            return await SuspendUser(meUserId, true);
         }
 
         /// <summary>
         /// Common method for <see cref="EnableUser"/> and <see cref="SuspendUser"/>.
         /// </summary>
         /// <param name="userId">Id of the user.</param>
-        /// <param name="enable">Whether to enable or not.</param>
+        /// <param name="suspend">True to suspend the user.</param>
         /// <returns>Response.</returns>
-        private async Task<ActionResult<PutEnableUserResponse>> SetUserActive(string userId, bool enable)
+        private async Task<ActionResult<PutSuspendUserResponse>> SuspendUser(string userId, bool suspend)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(new PutEnableUserResponse());
+                return BadRequest(new PutSuspendUserResponse());
             }
 
             try
             {
                 var currentUser = await CurrentUser();
-                var updatedUser = await _userEnableService.Handle(
-                    new UserEnableQuery(
+                var updatedUser = await _userSuspendService.Handle(
+                    new UserSuspendQuery(
                         userId,
-                        enable,
+                        suspend,
                         currentUser));
-                return Ok(Mapper.Map<PutEnableUserResponse>(updatedUser));
+                return Ok(Mapper.Map<PutSuspendUserResponse>(updatedUser));
             }
             catch (DocumentClientException)
             {
-                return NotFound(new PutEnableUserResponse());
+                return NotFound(new PutSuspendUserResponse());
             }
             catch (ArgumentException)
             {
-                return NotFound(new PutEnableUserResponse());
+                return NotFound(new PutSuspendUserResponse());
             }
         }
     }
