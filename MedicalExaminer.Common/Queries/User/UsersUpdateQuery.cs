@@ -4,11 +4,19 @@ using MedicalExaminer.Models;
 
 namespace MedicalExaminer.Common.Queries.User
 {
-    public class UserUpdateQuery : IQuery<MeUser>
+    /// <summary>
+    /// User Update Query.
+    /// </summary>
+    public class UserUpdateQuery : AuthenticatedQuery<MeUser>
     {
-        public UserUpdateQuery(MeUser userToUpdate, MeUser currentUser)
+        /// <summary>
+        /// User Update Query.
+        /// </summary>
+        /// <param name="userToUpdate">User to update.</param>
+        /// <param name="authenticatedUser">Authenticated User.</param>
+        public UserUpdateQuery(MeUser userToUpdate, MeUser authenticatedUser)
+            : base(authenticatedUser)
         {
-            CurrentUser = currentUser;
             UserId = userToUpdate.UserId;
             Email = userToUpdate.Email;
             Permissions = userToUpdate.Permissions != null
@@ -20,8 +28,6 @@ namespace MedicalExaminer.Common.Queries.User
                 })
                 : Enumerable.Empty<MEUserPermission>();
         }
-
-        public MeUser CurrentUser { get; }
 
         public string UserId { get; }
 
