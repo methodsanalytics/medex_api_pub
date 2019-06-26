@@ -369,7 +369,8 @@ namespace MedicalExaminer.API
             services.AddScoped<IAsyncQueryHandler<UsersUpdateOktaTokenQuery, MeUser>, UserUpdateOktaTokenService>();
             services.AddScoped<IAsyncQueryHandler<UserUpdateOktaQuery, MeUser>, UserUpdateOktaService>();
             services.AddScoped<IAsyncQueryHandler<UserRetrievalByOktaTokenQuery, MeUser>, UsersRetrievalByOktaTokenService>();
-            services.AddScoped<IAsyncQueryHandler<UserEnableQuery, MeUser>, UserEnableService>();
+            services.AddScoped<IAsyncQueryHandler<UserSuspendQuery, MeUser>, UserSuspendService>();
+            services.AddScoped<IAsyncQueryHandler<UserDeleteQuery, MeUser>, UserDeleteService>();
 
             // Used for roles; but is being abused to pass null and get all users.
             services.AddScoped<IAsyncQueryHandler<UsersRetrievalQuery, IEnumerable<MeUser>>, UsersRetrievalService>();
