@@ -8,6 +8,7 @@ using MedicalExaminer.API.Models.v1.Users;
 using MedicalExaminer.Common.Loggers;
 using MedicalExaminer.Common.Queries.User;
 using MedicalExaminer.Common.Services;
+using MedicalExaminer.Common.Services.User;
 using MedicalExaminer.Models;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -24,7 +25,8 @@ namespace MedicalExaminer.API.Tests.Controllers
         public Mock<IAsyncQueryHandler<UserRetrievalByIdQuery, MeUser>> userRetrievalService;
         public Mock<IAsyncQueryHandler<UsersRetrievalQuery, IEnumerable<MeUser>>> usersRetrievalService;
         public Mock<IAsyncQueryHandler<UserUpdateQuery, MeUser>> userUpdateService;
-        public Mock<IAsyncQueryHandler<UserEnableQuery, MeUser>> userEnableService;
+        public Mock<IAsyncQueryHandler<UserSuspendQuery, MeUser>> userSuspendService;
+        public Mock<IAsyncQueryHandler<UserDeleteQuery, MeUser>> userDeleteService;
 
         public UsersControllerTests()
             : base()
@@ -35,7 +37,8 @@ namespace MedicalExaminer.API.Tests.Controllers
             userRetrievalService = new Mock<IAsyncQueryHandler<UserRetrievalByIdQuery, MeUser>>();
             usersRetrievalService = new Mock<IAsyncQueryHandler<UsersRetrievalQuery, IEnumerable<MeUser>>>();
             userUpdateService = new Mock<IAsyncQueryHandler<UserUpdateQuery, MeUser>>();
-            userEnableService = new Mock<IAsyncQueryHandler<UserEnableQuery, MeUser>>();
+            userSuspendService = new Mock<IAsyncQueryHandler<UserSuspendQuery, MeUser>>();
+            userDeleteService = new Mock<IAsyncQueryHandler<UserDeleteQuery, MeUser>>();
 
             Controller = new UsersController(
                 logger.Object,
@@ -47,7 +50,8 @@ namespace MedicalExaminer.API.Tests.Controllers
                 userRetrievalService.Object,
                 usersRetrievalService.Object,
                 userUpdateService.Object,
-                userEnableService.Object);
+                userSuspendService.Object,
+                userDeleteService.Object);
         }
 
         /// <summary>
@@ -447,7 +451,7 @@ namespace MedicalExaminer.API.Tests.Controllers
             // Arrange
             const string expectedUserId = null;
 
-            userEnableService.Setup(up => up.Handle(It.IsAny<UserEnableQuery>()))
+            userSuspendService.Setup(up => up.Handle(It.IsAny<UserSuspendQuery>()))
                 .Throws<ArgumentException>();
             Controller.ControllerContext = GetControllerContext();
 
@@ -457,8 +461,8 @@ namespace MedicalExaminer.API.Tests.Controllers
             // Assert
             response.Result.Should().BeAssignableTo<NotFoundObjectResult>();
             var result = (NotFoundObjectResult)response.Result;
-            result.Value.Should().BeAssignableTo<PutEnableUserResponse>();
-            var model = (PutEnableUserResponse)result.Value;
+            result.Value.Should().BeAssignableTo<PutSuspendUserResponse>();
+            var model = (PutSuspendUserResponse)result.Value;
             model.Errors.Count.Should().Be(0);
             model.Success.Should().BeTrue();
         }
@@ -469,7 +473,7 @@ namespace MedicalExaminer.API.Tests.Controllers
             // Arrange
             var expectedUserId = "expectedUserId";
 
-            userEnableService.Setup(up => up.Handle(It.IsAny<UserEnableQuery>()))
+            userSuspendService.Setup(up => up.Handle(It.IsAny<UserSuspendQuery>()))
                 .Throws(CreateDocumentClientExceptionForTesting());
             Controller.ControllerContext = GetControllerContext();
 
@@ -479,8 +483,8 @@ namespace MedicalExaminer.API.Tests.Controllers
             // Assert
             response.Result.Should().BeAssignableTo<NotFoundObjectResult>();
             var result = (NotFoundObjectResult)response.Result;
-            result.Value.Should().BeAssignableTo<PutEnableUserResponse>();
-            var model = (PutEnableUserResponse)result.Value;
+            result.Value.Should().BeAssignableTo<PutSuspendUserResponse>();
+            var model = (PutSuspendUserResponse)result.Value;
             model.Errors.Count.Should().Be(0);
             model.Success.Should().BeTrue();
         }
@@ -497,7 +501,7 @@ namespace MedicalExaminer.API.Tests.Controllers
                 Email = "testing@methods.co.uk"
             };
 
-            userEnableService.Setup(up => up.Handle(It.IsAny<UserEnableQuery>()))
+            userSuspendService.Setup(up => up.Handle(It.IsAny<UserSuspendQuery>()))
                 .Returns(Task.FromResult(expectedUser));
             Controller.ControllerContext = GetControllerContext();
 
@@ -507,8 +511,8 @@ namespace MedicalExaminer.API.Tests.Controllers
             // Assert
             response.Result.Should().BeAssignableTo<OkObjectResult>();
             var result = (OkObjectResult)response.Result;
-            result.Value.Should().BeAssignableTo<PutEnableUserResponse>();
-            var model = (PutEnableUserResponse)result.Value;
+            result.Value.Should().BeAssignableTo<PutSuspendUserResponse>();
+            var model = (PutSuspendUserResponse)result.Value;
             model.Errors.Count.Should().Be(0);
             model.Success.Should().BeTrue();
         }
@@ -527,8 +531,8 @@ namespace MedicalExaminer.API.Tests.Controllers
             // Assert
             response.Result.Should().BeAssignableTo<BadRequestObjectResult>();
             var result = (BadRequestObjectResult)response.Result;
-            result.Value.Should().BeAssignableTo<PutEnableUserResponse>();
-            var model = (PutEnableUserResponse)result.Value;
+            result.Value.Should().BeAssignableTo<PutSuspendUserResponse>();
+            var model = (PutSuspendUserResponse)result.Value;
             model.Errors.Count.Should().Be(1);
             model.Success.Should().BeFalse();
         }
@@ -539,7 +543,7 @@ namespace MedicalExaminer.API.Tests.Controllers
             // Arrange
             const string expectedUserId = null;
 
-            userEnableService.Setup(up => up.Handle(It.IsAny<UserEnableQuery>()))
+            userSuspendService.Setup(up => up.Handle(It.IsAny<UserSuspendQuery>()))
                 .Throws<ArgumentException>();
             Controller.ControllerContext = GetControllerContext();
 
@@ -549,8 +553,8 @@ namespace MedicalExaminer.API.Tests.Controllers
             // Assert
             response.Result.Should().BeAssignableTo<NotFoundObjectResult>();
             var result = (NotFoundObjectResult)response.Result;
-            result.Value.Should().BeAssignableTo<PutEnableUserResponse>();
-            var model = (PutEnableUserResponse)result.Value;
+            result.Value.Should().BeAssignableTo<PutSuspendUserResponse>();
+            var model = (PutSuspendUserResponse)result.Value;
             model.Errors.Count.Should().Be(0);
             model.Success.Should().BeTrue();
         }
@@ -561,7 +565,7 @@ namespace MedicalExaminer.API.Tests.Controllers
             // Arrange
             var expectedUserId = "expectedUserId";
 
-            userEnableService.Setup(up => up.Handle(It.IsAny<UserEnableQuery>()))
+            userSuspendService.Setup(up => up.Handle(It.IsAny<UserSuspendQuery>()))
                 .Throws(CreateDocumentClientExceptionForTesting());
             Controller.ControllerContext = GetControllerContext();
 
@@ -571,8 +575,8 @@ namespace MedicalExaminer.API.Tests.Controllers
             // Assert
             response.Result.Should().BeAssignableTo<NotFoundObjectResult>();
             var result = (NotFoundObjectResult)response.Result;
-            result.Value.Should().BeAssignableTo<PutEnableUserResponse>();
-            var model = (PutEnableUserResponse)result.Value;
+            result.Value.Should().BeAssignableTo<PutSuspendUserResponse>();
+            var model = (PutSuspendUserResponse)result.Value;
             model.Errors.Count.Should().Be(0);
             model.Success.Should().BeTrue();
         }
@@ -589,7 +593,7 @@ namespace MedicalExaminer.API.Tests.Controllers
                 Email = "testing@methods.co.uk"
             };
 
-            userEnableService.Setup(up => up.Handle(It.IsAny<UserEnableQuery>()))
+            userSuspendService.Setup(up => up.Handle(It.IsAny<UserSuspendQuery>()))
                 .Returns(Task.FromResult(expectedUser));
             Controller.ControllerContext = GetControllerContext();
 
@@ -599,8 +603,8 @@ namespace MedicalExaminer.API.Tests.Controllers
             // Assert
             response.Result.Should().BeAssignableTo<OkObjectResult>();
             var result = (OkObjectResult)response.Result;
-            result.Value.Should().BeAssignableTo<PutEnableUserResponse>();
-            var model = (PutEnableUserResponse)result.Value;
+            result.Value.Should().BeAssignableTo<PutSuspendUserResponse>();
+            var model = (PutSuspendUserResponse)result.Value;
             model.Errors.Count.Should().Be(0);
             model.Success.Should().BeTrue();
         }
@@ -619,8 +623,8 @@ namespace MedicalExaminer.API.Tests.Controllers
             // Assert
             response.Result.Should().BeAssignableTo<BadRequestObjectResult>();
             var result = (BadRequestObjectResult)response.Result;
-            result.Value.Should().BeAssignableTo<PutEnableUserResponse>();
-            var model = (PutEnableUserResponse)result.Value;
+            result.Value.Should().BeAssignableTo<PutSuspendUserResponse>();
+            var model = (PutSuspendUserResponse)result.Value;
             model.Errors.Count.Should().Be(1);
             model.Success.Should().BeFalse();
         }
