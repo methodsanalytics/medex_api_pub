@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using MedicalExaminer.Models.Enums;
 using Newtonsoft.Json;
 
 namespace MedicalExaminer.Models
@@ -50,8 +51,8 @@ namespace MedicalExaminer.Models
         public IEnumerable<MEUserPermission> Permissions { get; set; }
 
         /// <summary>
-        /// Active.
+        /// User Suspended.
         /// </summary>
-        public bool Active { get; set; }
+        public bool Suspended { get; set; }
     }
 }
