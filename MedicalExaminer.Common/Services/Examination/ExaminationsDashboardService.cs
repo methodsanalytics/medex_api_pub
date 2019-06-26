@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using MedicalExaminer.Common.ConnectionSettings;
@@ -46,37 +45,44 @@ namespace MedicalExaminer.Common.Services.Examination
             var baseQuery = GetBaseQuery(param);
 
             // Just get all the examinations once from cosmos
-            var examinations = (await GetItemsAsync(baseQuery)).ToList().AsQueryable();
+           // var examinations = (await GetItemsAsync(baseQuery)).ToList().AsQueryable();
 
             // Now do all the counting our side.
             var overView = new ExaminationsOverview
             {
-                CountOfAdmissionNotesHaveBeenAdded = GetCount(examinations, CaseStatus.AdmissionNotesHaveBeenAdded),
-                CountOfUnassigned = GetCount(examinations, CaseStatus.Unassigned),
-                CountOfHaveBeenScrutinisedByME = GetCount(examinations, CaseStatus.HaveBeenScrutinisedByME),
-                CountOfHaveFinalCaseOutstandingOutcomes = GetCount(examinations, CaseStatus.HaveFinalCaseOutstandingOutcomes),
-                CountOfPendingAdmissionNotes = GetCount(examinations, CaseStatus.PendingAdmissionNotes),
-                CountOfPendingDiscussionWithQAP = GetCount(examinations, CaseStatus.PendingDiscussionWithQAP),
-                CountOfPendingDiscussionWithRepresentative = GetCount(examinations, CaseStatus.PendingDiscussionWithRepresentative),
-                CountOfReadyForMEScrutiny = GetCount(examinations, CaseStatus.ReadyForMEScrutiny),
-                TotalCases = examinations.Count(),
-                CountOfUrgentCases = GetCount(examinations, x => ((x.UrgencyScore > 0) && (x.CaseCompleted == false)))
+                CountOfAdmissionNotesHaveBeenAdded = await GetCount(baseQuery, CaseStatus.AdmissionNotesHaveBeenAdded),
+                CountOfUnassigned = await GetCount(baseQuery, CaseStatus.Unassigned),
+                CountOfHaveBeenScrutinisedByME = await GetCount(baseQuery, CaseStatus.HaveBeenScrutinisedByME),
+                CountOfHaveFinalCaseOutstandingOutcomes = await GetCount(baseQuery, CaseStatus.HaveFinalCaseOutstandingOutcomes),
+                CountOfPendingAdmissionNotes = await GetCount(baseQuery, CaseStatus.PendingAdmissionNotes),
+                CountOfPendingDiscussionWithQAP = await GetCount(baseQuery, CaseStatus.PendingDiscussionWithQAP),
+                CountOfPendingDiscussionWithRepresentative = await GetCount(baseQuery, CaseStatus.PendingDiscussionWithRepresentative),
+                CountOfReadyForMEScrutiny = await GetCount(baseQuery, CaseStatus.ReadyForMEScrutiny),
+                TotalCases = GetCount(baseQuery).Result,
+                CountOfUrgentCases = await GetCount(baseQuery, x => x.UrgencyScore > 0 && x.CaseCompleted == false)
             };
 
             return overView;
         }
 
-        private int GetCount(IQueryable<Models.Examination> examinations, CaseStatus caseStatus)
+        private async Task<int> GetCount(Expression<Func<Models.Examination, bool>> baseQuery, CaseStatus caseStatus)
         {
             var caseStatusPredicate = GetCaseStatusPredicate(caseStatus);
-            var result = examinations.Count(caseStatusPredicate);
+            var query = baseQuery.And(caseStatusPredicate);
 
+            var result = await DatabaseAccess.GetCountAsync(ConnectionSettings, query);
             return result;
         }
 
-        private int GetCount(IQueryable<Models.Examination> examinations, Expression<Func<Models.Examination, bool>> query)
+        private async Task<int> GetCount(Expression<Func<Models.Examination, bool>> query)
         {
-            return examinations.Count(query);
+            return await DatabaseAccess.GetCountAsync(ConnectionSettings, query);
+        }
+
+        private async Task<int> GetCount(Expression<Func<Models.Examination, bool>> baseQuery, Expression<Func<Models.Examination, bool>> query)
+        {
+            var combinedQuery = query.And(baseQuery);
+            return await DatabaseAccess.GetCountAsync(ConnectionSettings, combinedQuery);
         }
 
         private Expression<Func<Models.Examination, bool>> GetCaseStatusPredicate(CaseStatus? paramFilterCaseStatus)
