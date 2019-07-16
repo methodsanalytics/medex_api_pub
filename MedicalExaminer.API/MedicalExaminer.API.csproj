@@ -16,6 +16,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Reports\**" />
+    <Content Remove="Reports\**" />
+    <EmbeddedResource Remove="Reports\**" />
+    <None Remove="Reports\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="8.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Cosmonaut" Version="2.10.0" />
@@ -63,6 +70,7 @@
     <ProjectReference Include="..\MedicalExaminer.BackgroundServices\MedicalExaminer.BackgroundServices.csproj" />
     <ProjectReference Include="..\MedicalExaminer.Common\MedicalExaminer.Common.csproj" />
     <ProjectReference Include="..\MedicalExaminer.Models\MedicalExaminer.Models.csproj" />
+    <ProjectReference Include="..\MedicalExaminer.Reports\MedicalExaminer.Reports.csproj" />
   </ItemGroup>
 
   <ItemGroup>

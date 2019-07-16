@@ -1,4 +1,11 @@
 ﻿using System;
+using System.IO;
+using System.IO.Compression;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Reflection;
 using System.Threading.Tasks;
 using AutoMapper;
 using MedicalExaminer.API.Filters;
@@ -11,8 +18,10 @@ using MedicalExaminer.Common.Queries.Examination;
 using MedicalExaminer.Common.Queries.User;
 using MedicalExaminer.Common.Services;
 using MedicalExaminer.Models;
+using MedicalExaminer.Reports;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace MedicalExaminer.API.Controllers
 {
@@ -274,6 +283,46 @@ namespace MedicalExaminer.API.Controllers
             var result = Mapper.Map<GetCaseOutcomeResponse>(examination);
 
             return Ok(result);
+        }
+
+        /// <summary>
+        /// Download Coroner Referral Form.
+        /// </summary>
+        /// <param name="examinationId">Examination ID.</param>
+        /// <returns>Stream.</returns>
+        [HttpGet("coroner_referral_form")]
+        public async Task<IActionResult> DownloadCoronerReferralForm(string examinationId)
+        {
+            var downloadName = "coroner-referral-form.odt";
+            var mimeType = "application/octet-stream";
+
+            if (string.IsNullOrEmpty(examinationId))
+            {
+                return BadRequest(new GetCaseOutcomeResponse());
+            }
+
+            if (!Guid.TryParse(examinationId, out _))
+            {
+                return BadRequest(new GetCaseOutcomeResponse());
+            }
+
+            var user = await CurrentUser();
+
+            var examination = await _examinationRetrievalService.Handle(new ExaminationRetrievalQuery(examinationId, user));
+
+            if (examination == null)
+            {
+                return NotFound(new GetCaseOutcomeResponse());
+            }
+
+            if (!CanAsync(Permission.GetExamination, examination))
+            {
+                return Forbid();
+            }
+
+            var formOutput = new FormOutput(examination);
+
+            return File(formOutput.GetBytes(), mimeType, downloadName);
         }
     }
 }
