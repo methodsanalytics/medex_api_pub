@@ -1723,6 +1723,9 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
             BereavedDiscussionOutcome? bereavedDiscussionOutcome,
             CaseOutcomeSummary caseOutcomeSummary)
         {
+            var qapNotRecorded = !qapDiscussionUnableToHappen && qapDiscussionOutcome == null;
+            var bereavedNotRecorded = !bereavedDiscussionUnableToHappen && bereavedDiscussionOutcome == null;
+
             var examination = new Examination
             {
                 ReadyForMEScrutiny = true,
@@ -1738,19 +1741,25 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
                 OutcomeOfPreScrutiny = overallOutcomeOfPreScrutiny
             });
 
-            examination.CaseBreakdown.QapDiscussion.Add(new QapDiscussionEvent
+            if (!qapNotRecorded)
             {
-                IsFinal = true,
-                QapDiscussionOutcome = qapDiscussionOutcome,
-                DiscussionUnableHappen = qapDiscussionUnableToHappen
-            });
+                examination.CaseBreakdown.QapDiscussion.Add(new QapDiscussionEvent
+                {
+                    IsFinal = true,
+                    QapDiscussionOutcome = qapDiscussionOutcome,
+                    DiscussionUnableHappen = qapDiscussionUnableToHappen
+                });
+            }
 
-            examination.CaseBreakdown.BereavedDiscussion.Add(new BereavedDiscussionEvent
+            if (!bereavedNotRecorded)
             {
-                IsFinal = true,
-                BereavedDiscussionOutcome = bereavedDiscussionOutcome,
-                DiscussionUnableHappen = bereavedDiscussionUnableToHappen
-            });
+                examination.CaseBreakdown.BereavedDiscussion.Add(new BereavedDiscussionEvent
+                {
+                    IsFinal = true,
+                    BereavedDiscussionOutcome = bereavedDiscussionOutcome,
+                    DiscussionUnableHappen = bereavedDiscussionUnableToHappen
+                });
+            }
 
             var actualCaseOutcomeSummary = examination.CalculateScrutinyOutcome();
 
