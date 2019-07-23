@@ -15,11 +15,9 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
             // Arrange
             var examination = new Examination();
 
-            var caseBreakdown = new CaseBreakDown();
-            caseBreakdown.OtherEvents = new OtherEventContainer();
-            var myUser = new MeUser
+            var caseBreakdown = new CaseBreakDown
             {
-                UserId = "userOne"
+                OtherEvents = new OtherEventContainer()
             };
 
             var newDraft = new OtherEvent
@@ -44,8 +42,10 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
         public void CaseCompleted_UrgencyScoreIsZero()
         {
             // Arrange
-            var examination = new Examination();
-            examination.CaseCompleted = true;
+            var examination = new Examination
+            {
+                CaseCompleted = true
+            };
 
             // Act
             examination.UpdateCaseUrgencyScore();
@@ -54,18 +54,15 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
             Assert.Equal(0, examination.UrgencyScore);
         }
 
-
         [Fact]
         public void UpdateDraftEventForUserReturnsDraft()
         {
             // Arrange
             var examination = new Examination();
 
-            var caseBreakdown = new CaseBreakDown();
-            caseBreakdown.OtherEvents = new OtherEventContainer();
-            var myUser = new MeUser
+            var caseBreakdown = new CaseBreakDown
             {
-                UserId = "userOne"
+                OtherEvents = new OtherEventContainer()
             };
 
             var newDraft = new OtherEvent
@@ -100,11 +97,9 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
             // Arrange
             var examination = new Examination();
 
-            var caseBreakdown = new CaseBreakDown();
-            caseBreakdown.OtherEvents = new OtherEventContainer();
-            var myUser = new MeUser
+            var caseBreakdown = new CaseBreakDown
             {
-                UserId = "userOne"
+                OtherEvents = new OtherEventContainer()
             };
 
             var newDraft = new OtherEvent
@@ -139,16 +134,9 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
             // Arrange
             var examination = new Examination();
 
-            var caseBreakdown = new CaseBreakDown();
-            caseBreakdown.OtherEvents = new OtherEventContainer();
-            var userOne = new MeUser
+            var caseBreakdown = new CaseBreakDown
             {
-                UserId = "userOne"
-            };
-
-            var userTwo = new MeUser
-            {
-                UserId = "userTwo"
+                OtherEvents = new OtherEventContainer()
             };
 
             var newDraft = new OtherEvent
@@ -295,10 +283,12 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
             // Arrange
             var examination = new Examination();
             var caseBreakDown = new CaseBreakDown();
-            var admissionNotes = new AdmissionNotesEventContainer();
-            admissionNotes.Latest = new AdmissionEvent
+            var admissionNotes = new AdmissionNotesEventContainer
             {
-                ImmediateCoronerReferral = false
+                Latest = new AdmissionEvent
+                {
+                    ImmediateCoronerReferral = false
+                }
             };
             caseBreakDown.AdmissionNotes = admissionNotes;
             examination.CaseBreakdown = caseBreakDown;
@@ -349,10 +339,12 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
             // Arrange
             var examination = new Examination();
             var caseBreakDown = new CaseBreakDown();
-            var admissionNotes = new AdmissionNotesEventContainer();
-            admissionNotes.Latest = new AdmissionEvent
+            var admissionNotes = new AdmissionNotesEventContainer
             {
-                ImmediateCoronerReferral = false
+                Latest = new AdmissionEvent
+                {
+                    ImmediateCoronerReferral = false
+                }
             };
             caseBreakDown.AdmissionNotes = admissionNotes;
             examination.CaseBreakdown = caseBreakDown;
@@ -369,14 +361,18 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
         {
             // Arrange
             var examination = new Examination();
-            var medicalTeam = new MedicalTeam();
-            medicalTeam.ConsultantResponsible = new ClinicalProfessional();
+            var medicalTeam = new MedicalTeam
+            {
+                ConsultantResponsible = new ClinicalProfessional()
+            };
             examination.MedicalTeam = medicalTeam;
             var caseBreakDown = new CaseBreakDown();
-            var admissionNotes = new AdmissionNotesEventContainer();
-            admissionNotes.Latest = new AdmissionEvent
+            var admissionNotes = new AdmissionNotesEventContainer
             {
-                ImmediateCoronerReferral = false
+                Latest = new AdmissionEvent
+                {
+                    ImmediateCoronerReferral = false
+                }
             };
             caseBreakDown.AdmissionNotes = admissionNotes;
             examination.CaseBreakdown = caseBreakDown;
@@ -412,8 +408,10 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
         [Fact]
         public void No_Me_Assigned_Meo_Unassigned_True()
         {
-            var examination = new Examination();
-            examination.MedicalTeam.MedicalExaminerOfficerUserId = "a";
+            var examination = new Examination
+            {
+                MedicalTeam = { MedicalExaminerOfficerUserId = "a" }
+            };
             examination = examination.UpdateCaseStatus();
             Assert.True(examination.Unassigned);
         }
@@ -421,9 +419,10 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
         [Fact]
         public void Assigned_Me_Assigned_Meo_Unassigned_False()
         {
-            var examination = new Examination();
-            examination.MedicalTeam.MedicalExaminerOfficerUserId = "a";
-            examination.MedicalTeam.MedicalExaminerUserId = "a";
+            var examination = new Examination
+            {
+                MedicalTeam = { MedicalExaminerOfficerUserId = "a", MedicalExaminerUserId = "a" }
+            };
             examination = examination.UpdateCaseStatus();
             Assert.False(examination.Unassigned);
         }
@@ -431,8 +430,10 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
         [Fact]
         public void Assigned_Me_No_Meo_Unassigned_True()
         {
-            var examination = new Examination();
-            examination.MedicalTeam.MedicalExaminerUserId = "a";
+            var examination = new Examination
+            {
+                MedicalTeam = { MedicalExaminerUserId = "a" }
+            };
             examination = examination.UpdateCaseStatus();
             Assert.True(examination.Unassigned);
         }
@@ -488,8 +489,10 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
         [Fact]
         public void NotReadyForMeScrutiny_FinalAdmissionNotes_PendingQapDiscussion_False()
         {
-            var examination = new Examination();
-            examination.ReadyForMEScrutiny = false;
+            var examination = new Examination
+            {
+                ReadyForMEScrutiny = false
+            };
             examination.CaseBreakdown.AdmissionNotes.Latest = new AdmissionEvent
             {
                 ImmediateCoronerReferral = false
@@ -501,8 +504,10 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
         [Fact]
         public void NotReadyForMeScrutiny_FinalAdmissionNotes_ImmediateCoronerTrue_PendingQapDiscussion_False()
         {
-            var examination = new Examination();
-            examination.ReadyForMEScrutiny = false;
+            var examination = new Examination
+            {
+                ReadyForMEScrutiny = false
+            };
             examination.CaseBreakdown.AdmissionNotes.Latest = new AdmissionEvent { ImmediateCoronerReferral = true };
             examination = examination.UpdateCaseStatus();
             Assert.False(examination.PendingDiscussionWithQAP);
@@ -730,28 +735,6 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
             return examination;
         }
 
-        private Examination SetAdmissionNotesAdded(Examination examination)
-        {
-            examination.CaseBreakdown.AdmissionNotes.Latest = new AdmissionEvent();
-            examination.MedicalTeam.ConsultantResponsible = new ClinicalProfessional();
-            return examination;
-        }
-
-        private Examination SetPendingQapDiscussion(Examination examination)
-        {
-            examination = SetNotReadyForMeScrutiny(examination);
-            examination.CaseBreakdown.AdmissionNotes.Latest = new AdmissionEvent
-            {
-                ImmediateCoronerReferral = false
-            };
-            examination.CaseBreakdown.QapDiscussion.Latest = new QapDiscussionEvent
-            {
-                DiscussionUnableHappen = false
-            };
-
-            return examination;
-        }
-
         private Examination SetPreScrutinyDone(Examination examination)
         {
             examination.CaseBreakdown.PreScrutiny.Latest = new PreScrutinyEvent();
@@ -761,52 +744,6 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
         private Examination SetQapDiscussionDone(Examination examination)
         {
             examination.CaseBreakdown.QapDiscussion.Latest = new QapDiscussionEvent();
-            return examination;
-        }
-
-        private Examination SetRepresentativeDiscussionDone_ReadyForMeScrutiny_AdmissionNotes(Examination examination)
-        {
-            examination = SetReadyForMeScrutinyAdmissionNotes(examination);
-            return examination;
-        }
-
-        private Examination SetRepresentativeDiscussionDone_ReadyForMeScrutiny_MeoSummary(Examination examination)
-        {
-            examination = SetReadyForMeScrutinyMeoSummary(examination);
-            return examination;
-        }
-
-        private Examination SetRepresentativeDiscussionDone_AdmissionNotes_ImmediateReferral(Examination examination)
-        {
-            if (examination.CaseBreakdown.AdmissionNotes.Latest != null)
-            {
-                examination.CaseBreakdown.AdmissionNotes.Latest.ImmediateCoronerReferral = true;
-            }
-            else
-            {
-                examination.CaseBreakdown.AdmissionNotes.Latest = new AdmissionEvent
-                {
-                    ImmediateCoronerReferral = true
-                };
-            }
-
-            return examination;
-        }
-
-        private Examination SetRepresentativeDiscussionDone_RepresentativeDiscussion(Examination examination)
-        {
-            if (examination.CaseBreakdown.BereavedDiscussion.Latest != null)
-            {
-                examination.CaseBreakdown.BereavedDiscussion.Latest.DiscussionUnableHappen = false;
-            }
-            else
-            {
-                examination.CaseBreakdown.BereavedDiscussion.Latest = new BereavedDiscussionEvent
-                {
-                    DiscussionUnableHappen = false
-                };
-            }
-
             return examination;
         }
 
@@ -1774,6 +1711,9 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
         [InlineData("Scenario88", OverallOutcomeOfPreScrutiny.ReferToCoronerInvestigation, true, null, false, BereavedDiscussionOutcome.ConcernsRequires100a, CaseOutcomeSummary.IssueMCCDWith100a)]
         [InlineData("Scenario89", OverallOutcomeOfPreScrutiny.ReferToCoronerInvestigation, true, null, false, BereavedDiscussionOutcome.ConcernsAddressedWithoutCoroner, CaseOutcomeSummary.ReferToCoroner)]
         [InlineData("Scenario90", OverallOutcomeOfPreScrutiny.ReferToCoronerInvestigation, true, null, true, null, CaseOutcomeSummary.ReferToCoroner)]
+        [InlineData("Scenario91", OverallOutcomeOfPreScrutiny.IssueAnMccd, false, null, false, null, CaseOutcomeSummary.IssueMCCD)]
+        [InlineData("Scenario92", OverallOutcomeOfPreScrutiny.ReferToCoronerFor100a, false, null, false, null, CaseOutcomeSummary.IssueMCCDWith100a)]
+
         public void TestCaseOutcome(
             string scenario,
             OverallOutcomeOfPreScrutiny? overallOutcomeOfPreScrutiny,
@@ -1783,14 +1723,14 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
             BereavedDiscussionOutcome? bereavedDiscussionOutcome,
             CaseOutcomeSummary caseOutcomeSummary)
         {
-            var examination = new Examination();
-
-            examination.ReadyForMEScrutiny = true;
-            examination.Unassigned = false;
-            examination.PendingScrutinyNotes = false;
-            examination.PendingAdmissionNotes = false;
-            examination.PendingDiscussionWithQAP = false;
-
+            var examination = new Examination
+            {
+                ReadyForMEScrutiny = true,
+                Unassigned = false,
+                PendingScrutinyNotes = false,
+                PendingAdmissionNotes = false,
+                PendingDiscussionWithQAP = false
+            };
 
             examination.CaseBreakdown.PreScrutiny.Add(new PreScrutinyEvent
             {
