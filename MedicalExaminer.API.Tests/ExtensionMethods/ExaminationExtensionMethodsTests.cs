@@ -1713,6 +1713,7 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
         [InlineData("Scenario90", OverallOutcomeOfPreScrutiny.ReferToCoronerInvestigation, true, null, true, null, CaseOutcomeSummary.ReferToCoroner)]
         [InlineData("Scenario91", OverallOutcomeOfPreScrutiny.IssueAnMccd, false, null, false, null, CaseOutcomeSummary.IssueMCCD)]
         [InlineData("Scenario92", OverallOutcomeOfPreScrutiny.ReferToCoronerFor100a, false, null, false, null, CaseOutcomeSummary.IssueMCCDWith100a)]
+        [InlineData("Scenario93", OverallOutcomeOfPreScrutiny.ReferToCoronerInvestigation, false, null, false, null, CaseOutcomeSummary.ReferToCoroner)]
 
         public void TestCaseOutcome(
             string scenario,
