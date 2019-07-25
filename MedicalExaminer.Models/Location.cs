@@ -38,5 +38,8 @@ namespace MedicalExaminer.Models
         /// <inheritdoc/>
         [JsonProperty(PropertyName = "site_location_id")]
         public string SiteLocationId { get; set; }
+
+        [JsonProperty(PropertyName = "isMedicalExaminerOffice")]
+        public bool IsMedicalExaminerOffice { get; set; } = false;
     }
 }
