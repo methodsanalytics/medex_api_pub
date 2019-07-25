@@ -39,7 +39,7 @@ namespace MedicalExaminer.Models
         [JsonProperty(PropertyName = "site_location_id")]
         public string SiteLocationId { get; set; }
 
-        [JsonProperty(PropertyName = "isMedicalExaminerOffice")]
-        public bool IsMedicalExaminerOffice { get; set; } = false;
+        [JsonProperty(PropertyName = "is_Me_Office")]
+        public bool IsMeOffice { get; set; } = false;
     }
 }

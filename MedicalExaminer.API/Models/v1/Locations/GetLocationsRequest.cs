@@ -22,5 +22,10 @@ namespace MedicalExaminer.API.Models.v1.Locations
         /// Parent Id.
         /// </summary>
         public string ParentId { get; set; }
+
+        /// <summary>
+        /// Only ME Offices
+        /// </summary>
+        public bool OnlyMeOffices { get; set; } = false;
     }
 }

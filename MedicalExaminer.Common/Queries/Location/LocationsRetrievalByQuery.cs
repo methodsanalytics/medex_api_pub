@@ -10,17 +10,24 @@ namespace MedicalExaminer.Common.Queries.Location
         /// <summary>
         /// Initialise a new instance of the <see cref="LocationsRetrievalByQuery"/>.
         /// </summary>
+        /// <param name="onlyMeOffices"></param>
         /// <param name="name">Name.</param>
         /// <param name="parentId">Parent Id.</param>
         /// <param name="forLookup">Is the query targeted at lookups.</param>
         /// <param name="permissedLocations">Permissed locations.</param>
-        public LocationsRetrievalByQuery(string name, string parentId, bool forLookup, IEnumerable<string> permissedLocations = null)
+        public LocationsRetrievalByQuery(bool onlyMeOffices, string name, string parentId, bool forLookup, IEnumerable<string> permissedLocations = null)
         {
             Name = name;
             ParentId = parentId;
             ForLookup = forLookup;
             PermissedLocations = permissedLocations;
+            OnlyMeOffices = onlyMeOffices;
         }
+
+        /// <summary>
+        /// Only ME Offices
+        /// </summary>
+        public bool OnlyMeOffices { get; set; }
 
         /// <summary>
         /// For Lookup

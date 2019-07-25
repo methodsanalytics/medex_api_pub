@@ -94,6 +94,11 @@ namespace MedicalExaminer.Common.Services.Location
                                         && location.ParentId == param.ParentId;
             }
 
+            if (param.OnlyMeOffices)
+            {
+                predicate = predicate.And(x => x.IsMeOffice);
+            }
+
             return predicate;
         }
     }

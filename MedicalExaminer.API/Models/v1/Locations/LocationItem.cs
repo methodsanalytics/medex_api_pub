@@ -40,6 +40,6 @@ namespace MedicalExaminer.API.Models.v1.Locations
         /// <summary>
         ///     Location is a Medical Examiner Office.
         /// </summary>
-        public bool IsMedicalExaminerOffice { get; set; }
+        public bool IsMeOffice { get; set; }
     }
 }

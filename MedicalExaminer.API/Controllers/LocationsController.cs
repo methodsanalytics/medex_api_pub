@@ -76,7 +76,7 @@ namespace MedicalExaminer.API.Controllers
 
             var locations =
                 await _locationRetrievalByQueryHandler.Handle(
-                    new LocationsRetrievalByQuery(request.Name, request.ParentId, false, permissedLocations));
+                    new LocationsRetrievalByQuery(request.OnlyMeOffices, request.Name, request.ParentId, false, permissedLocations));
 
             return Ok(new GetLocationsResponse
             {

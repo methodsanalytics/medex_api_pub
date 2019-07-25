@@ -120,6 +120,7 @@ namespace MedicalExaminer.API.Controllers
 
                 var locations =
                     _locationsRetrievalService.Handle(new LocationsRetrievalByQuery(
+                        false,
                         null,
                         null,
                         false,
