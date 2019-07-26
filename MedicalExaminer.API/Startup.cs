@@ -266,10 +266,10 @@ namespace MedicalExaminer.API
             {
                 var databaseAccess = scope.ServiceProvider.GetRequiredService<IDatabaseAccess>();
 
-                databaseAccess.EnsureCollectionAvailable(app.ApplicationServices.GetRequiredService<ILocationConnectionSettings>());
-                databaseAccess.EnsureCollectionAvailable(app.ApplicationServices.GetRequiredService<IExaminationConnectionSettings>());
-                databaseAccess.EnsureCollectionAvailable(app.ApplicationServices.GetRequiredService<IUserConnectionSettings>());
-                databaseAccess.EnsureCollectionAvailable(app.ApplicationServices.GetRequiredService<IUserSessionConnectionSettings>());
+                databaseAccess.EnsureCollectionAvailable(app.ApplicationServices.GetRequiredService<ILocationConnectionSettings>()).Wait();
+                databaseAccess.EnsureCollectionAvailable(app.ApplicationServices.GetRequiredService<IExaminationConnectionSettings>()).Wait();
+                databaseAccess.EnsureCollectionAvailable(app.ApplicationServices.GetRequiredService<IUserConnectionSettings>()).Wait();
+                databaseAccess.EnsureCollectionAvailable(app.ApplicationServices.GetRequiredService<IUserSessionConnectionSettings>()).Wait();
             }
 
             app.UseMiddleware<ResponseTimeMiddleware>();
