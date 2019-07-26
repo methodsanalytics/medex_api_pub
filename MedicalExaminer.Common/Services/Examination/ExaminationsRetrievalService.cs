@@ -49,7 +49,28 @@ namespace MedicalExaminer.Common.Services.Examination
             switch (param.FilterOrderBy)
             {
                 case ExaminationsOrderBy.Urgency:
-                    return _store.Query().WithPagination(param.FilterPageNumber, param.FilterPageSize).Where(predicate).OrderByDescending(x => x.UrgencyScore).ToListAsync().Result;
+
+                    var results = await DatabaseAccess.GetItemsAsync(
+                        ConnectionSettings,
+                        predicate,
+                        x => x.UrgencyScore,
+                        x => x.CreatedAt);
+
+                    return results;
+/*
+                    GetItemsAsync(predicate, )
+
+                    var a = _store
+                        .Query()
+                        .WithPagination(param.FilterPageNumber, param.FilterPageSize)
+                        .Where(predicate)
+                        .OrderByDescending(x => x.UrgencyScore)
+                        .ThenBy(x => x.CreatedAt);
+
+                    return a
+                        .ToListAsync()
+                        .Result;*/
+
                 case ExaminationsOrderBy.CaseCreated:
                     return _store.Query().WithPagination(param.FilterPageNumber, param.FilterPageSize).Where(predicate).OrderBy(x => x.CreatedAt).ToListAsync().Result;
                 case null:
