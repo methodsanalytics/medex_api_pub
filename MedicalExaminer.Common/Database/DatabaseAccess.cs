@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
@@ -37,21 +38,58 @@ namespace MedicalExaminer.Common.Database
         /// Ensures the collection is available.
         /// </summary>
         /// <param name="connectionSettings">Connection settings.</param>
-        public void EnsureCollectionAvailable(IConnectionSettings connectionSettings)
+        public async Task EnsureCollectionAvailable(IConnectionSettings connectionSettings)
         {
             var client = GetClient(connectionSettings);
 
-            client.CreateDatabaseIfNotExistsAsync(
+            await client.CreateDatabaseIfNotExistsAsync(
                 new Microsoft.Azure.Documents.Database
                 {
                     Id = connectionSettings.DatabaseId
-                }).Wait();
+                });
 
             var databaseUri = UriFactory.CreateDatabaseUri(connectionSettings.DatabaseId);
 
-            client.CreateDocumentCollectionIfNotExistsAsync(
+            var documentCollection = await client.CreateDocumentCollectionIfNotExistsAsync(
                 databaseUri,
-                new DocumentCollection {Id = connectionSettings.Collection}).Wait();
+                new DocumentCollection {Id = connectionSettings.Collection});
+
+            var collectionUri =
+                UriFactory.CreateDocumentCollectionUri(connectionSettings.DatabaseId, connectionSettings.Collection);
+
+            documentCollection = await client.ReadDocumentCollectionAsync(collectionUri);
+
+            var indexingPolicy = documentCollection.Resource.IndexingPolicy; // new IndexingPolicy {IndexingMode = IndexingMode.Consistent};
+
+         /*   IncludedPath includedPath = new IncludedPath {Path = "/*"};
+
+            Index numberIndex = Index.Range(DataType.Number, -1);
+            Index stringIndex = Index.Range(DataType.String);
+            includedPath.Indexes = new Collection<Index>() { numberIndex, stringIndex };
+            indexingPolicy.IncludedPaths = new Collection<IncludedPath>() { includedPath };*/
+
+             indexingPolicy.CompositeIndexes = new Collection<Collection<CompositePath>>()
+             {
+                 new Collection<CompositePath>()
+                 {
+                     new CompositePath()
+                     {
+                         Order = CompositePathSortOrder.Descending,
+                         Path = "/urgency_score"
+                     },
+                     new CompositePath()
+                     {
+                         Order = CompositePathSortOrder.Ascending,
+                         Path = "/CreatedAt"
+                     }
+                 }
+             };
+
+            documentCollection.Resource.IndexingPolicy = indexingPolicy;
+
+            var result = await client.ReplaceDocumentCollectionAsync(collectionUri, documentCollection.Resource);
+
+            var charge = result.RequestCharge;
         }
 
         private IDocumentClient GetClient(IClientSettings connectionSettings)
@@ -245,6 +283,45 @@ namespace MedicalExaminer.Common.Database
                     feedOptions)
                 .Where(predicate)
                 .OrderBy(orderBy)
+                .AsDocumentQuery();
+
+            var results = new List<T>();
+            while (query.HasMoreResults)
+            {
+                var response = await query.ExecuteNextAsync<T>();
+
+                _requestChargeService.RequestCharges.Add(new RequestChargeService.RequestCharge()
+                {
+                    Request = $"GetItemAsync<{typeof(T).Name}>(query={query})",
+                    Charge = response.RequestCharge
+                });
+
+                results.AddRange(response);
+            }
+
+            return results;
+        }
+
+        public async Task<IEnumerable<T>> GetItemsAsync<T, TKey, TKey2>(
+            IConnectionSettings connectionSettings,
+            Expression<Func<T, bool>> predicate,
+            Expression<Func<T, TKey>> orderBy,
+            Expression<Func<T, TKey2>> thenBy)
+            where T : class
+        {
+            var client = GetClient(connectionSettings);
+            FeedOptions feedOptions = new FeedOptions
+            {
+                MaxItemCount = -1,
+            };
+
+            var query = client.CreateDocumentQuery<T>(
+                    UriFactory.CreateDocumentCollectionUri(connectionSettings.DatabaseId,
+                        connectionSettings.Collection),
+                    feedOptions)
+                .Where(predicate)
+                .OrderBy(orderBy)
+                .ThenBy(thenBy)
                 .AsDocumentQuery();
 
             var results = new List<T>();

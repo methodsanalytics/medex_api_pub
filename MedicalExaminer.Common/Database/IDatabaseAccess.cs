@@ -30,7 +30,7 @@ namespace MedicalExaminer.Common.Database
 
         Task<T> GetItemAsync<T>(IConnectionSettings connectionSettings, Expression<Func<T, bool>> predicate);
 
-        void EnsureCollectionAvailable(IConnectionSettings connectionSettings);
+        Task EnsureCollectionAvailable(IConnectionSettings connectionSettings);
 
         Task<IEnumerable<T>> GetItemsAsync<T>(
             IConnectionSettings connectionSettings,
@@ -45,6 +45,10 @@ namespace MedicalExaminer.Common.Database
 
         Task<IEnumerable<T>> GetItemsAsync<T, TKey>(IConnectionSettings connectionSettings,
             Expression<Func<T, bool>> predicate, Expression<Func<T, TKey>> orderBy)
+            where T : class;
+
+        Task<IEnumerable<T>> GetItemsAsync<T, TKey, TKey2>(IConnectionSettings connectionSettings,
+            Expression<Func<T, bool>> predicate, Expression<Func<T, TKey>> orderBy, Expression<Func<T, TKey2>> thenBy)
             where T : class;
 
         Task<int> GetCountAsync<T>(IConnectionSettings connectionSettings, Expression<Func<T, bool>> predicate);
