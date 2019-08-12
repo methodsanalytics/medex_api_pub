@@ -1,4 +1,5 @@
-﻿using MedicalExaminer.Common.Database;
+﻿using MedicalExaminer.Common.ConnectionSettings;
+using MedicalExaminer.Common.Database;
 using MedicalExaminer.Migration.MigrationDefinitions;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -9,16 +10,18 @@ namespace MedicalExaminer.Migration
     public class MigrationService
     {
         IDatabaseAccess _dataAccess;
-        public MigrationService(IDatabaseAccess dataAccess)
+        IConnectionSettings _connectionSettings;
+        public MigrationService(IDatabaseAccess dataAccess, IConnectionSettings connectionSettings)
         {
             _dataAccess = dataAccess;
+            _connectionSettings = connectionSettings; // not sure this is needed, and tired.
         }
 
         private Dictionary<int, IMigrationDefinition> _migrations = new Dictionary<int, IMigrationDefinition>()
         {
         };
 
-        public IEnumerable<T> Migrate<T>()
+        public IEnumerable<T> Migrate<T>(/*pass in the query object?*/)
         {
             var versionToMigrateTo = 1; // get from appsettings
             var results = new List<T>();
