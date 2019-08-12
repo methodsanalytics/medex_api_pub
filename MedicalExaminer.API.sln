@@ -36,7 +36,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedicalExaminer.BackgroundS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedicalExaminer.BackgroundServices.Tests", "MedicalExaminer.BackgroundServices.Tests\MedicalExaminer.BackgroundServices.Tests.csproj", "{9FB0BDE0-3713-41E3-BFF3-4B31067F0A2D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedicalExaminer.Migration", "..\MedicalExaminer.Migration\MedicalExaminer.Migration.csproj", "{54679088-832C-4601-9178-C5C604A35931}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedicalExaminer.Migration", "MedicalExaminer.Migration\MedicalExaminer.Migration.csproj", "{23B3F31E-F13F-4D63-BC82-023E5C90114F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -92,10 +92,10 @@ Global
 		{9FB0BDE0-3713-41E3-BFF3-4B31067F0A2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FB0BDE0-3713-41E3-BFF3-4B31067F0A2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9FB0BDE0-3713-41E3-BFF3-4B31067F0A2D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{54679088-832C-4601-9178-C5C604A35931}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{54679088-832C-4601-9178-C5C604A35931}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{54679088-832C-4601-9178-C5C604A35931}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{54679088-832C-4601-9178-C5C604A35931}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23B3F31E-F13F-4D63-BC82-023E5C90114F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23B3F31E-F13F-4D63-BC82-023E5C90114F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23B3F31E-F13F-4D63-BC82-023E5C90114F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23B3F31E-F13F-4D63-BC82-023E5C90114F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
