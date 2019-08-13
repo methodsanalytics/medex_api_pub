@@ -23,6 +23,11 @@ namespace MedicalExaminer.Migration
 
             var migratedObjects = _migrationProcessor.Migrate(examinations, param.VersionNumber);
 
+            foreach(var migratedObject in migratedObjects)
+            {
+                await DatabaseAccess.UpdateItemAsync(ConnectionSettings, migratedObject);
+            }
+
             return true;
         }
     }
