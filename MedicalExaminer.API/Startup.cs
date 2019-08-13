@@ -40,6 +40,7 @@ using MedicalExaminer.Common.Services.PatientDetails;
 using MedicalExaminer.Common.Services.Permissions;
 using MedicalExaminer.Common.Services.User;
 using MedicalExaminer.Common.Settings;
+using MedicalExaminer.Migration;
 using MedicalExaminer.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -97,13 +98,25 @@ namespace MedicalExaminer.API
             var locationMigrationSettings =
                 services.ConfigureSettings<LocationMigrationSettings>(Configuration, "LocationMigrationSettings");
 
+            var examinationMigrationSettings =
+                services.ConfigureSettings<ExaminationMigrationSettings>(Configuration, "ExaminationMigrationSettings");
 
-            if(locationMigrationSettings == null)
+            if (locationMigrationSettings == null)
             {
                 throw new ArgumentNullException(@"there is no location migration settings
 example:
   LocationMigrationSettings: {
   Version: 1
+  }
+            ");
+            }
+
+            if (examinationMigrationSettings == null)
+            {
+                throw new ArgumentNullException(@"there is no examination migration settings
+example:
+  ExaminationMigrationSettings: {
+  Version: 0
   }
             ");
             }
@@ -247,6 +260,7 @@ example:
 
             UpdateInvalidOrNullUserPermissionIds(serviceProvider);
             UpdateLocations(serviceProvider, locationMigrationSettings);
+            MigrateData(serviceProvider, examinationMigrationSettings);
         }
 
         /// <summary>
@@ -549,6 +563,14 @@ example:
             services.AddScoped<IAuthorizationHandler, PermissionHandler>();
             services.AddScoped<IAuthorizationHandler, DocumentPermissionHandler>();
             services.AddScoped<IPermissionService, PermissionService>();
+        }
+
+        private void MigrateData(IServiceProvider serviceProvider, IMigrationSettings examinationMigrationSettings)
+        {
+            var databaseAccess = serviceProvider.GetService<IDatabaseAccess>();
+            var examinationsCollectionConnectionSettings = serviceProvider.GetService<IExaminationConnectionSettings>();
+            var examinationsMigrationService = new MigrationProcessor<Examination>(databaseAccess, examinationsCollectionConnectionSettings, examinationMigrationSettings);
+            examinationsMigrationService.Migrate(null);
         }
 
         private void UpdateLocations(IServiceProvider serviceProvider, LocationMigrationSettings locationMigrationSettings)

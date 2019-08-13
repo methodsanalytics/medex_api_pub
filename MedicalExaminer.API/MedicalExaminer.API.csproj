@@ -62,6 +62,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MedicalExaminer.BackgroundServices\MedicalExaminer.BackgroundServices.csproj" />
     <ProjectReference Include="..\MedicalExaminer.Common\MedicalExaminer.Common.csproj" />
+    <ProjectReference Include="..\MedicalExaminer.Migration\MedicalExaminer.Migration.csproj" />
     <ProjectReference Include="..\MedicalExaminer.Models\MedicalExaminer.Models.csproj" />
   </ItemGroup>
 

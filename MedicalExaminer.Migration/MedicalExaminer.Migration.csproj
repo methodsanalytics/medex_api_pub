@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="MigrationDefinitions\Examinations\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\MedicalExaminer.Common\MedicalExaminer.Common.csproj" />
   </ItemGroup>
 
