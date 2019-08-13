@@ -228,7 +228,7 @@ namespace MedicalExaminer.Common.Database
             return results;
         }
 
-        public async Task<IEnumerable<object>> GetItemsAsyncX(
+        public async Task<IEnumerable<object>> GetItemsForMigration(
             IConnectionSettings connectionSettings,
             Expression<Func<IVersion, bool>> predicate)
         {

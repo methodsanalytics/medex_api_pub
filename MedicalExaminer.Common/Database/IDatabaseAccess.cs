@@ -12,7 +12,7 @@ namespace MedicalExaminer.Common.Database
     /// </summary>
     public interface IDatabaseAccess
     {
-        Task<IEnumerable<object>> GetItemsAsyncX(
+        Task<IEnumerable<object>> GetItemsForMigration(
             IConnectionSettings connectionSettings,
             Expression<Func<IVersion, bool>> predicate);
 

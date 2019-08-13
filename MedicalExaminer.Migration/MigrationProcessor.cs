@@ -1,5 +1,4 @@
-﻿using MedicalExaminer.Common.Settings;
-using MedicalExaminer.Migration.MigrationDefinitions;
+﻿using MedicalExaminer.Migration.MigrationDefinitions;
 using MedicalExaminer.Migration.MigrationDefinitions.Examinations;
 using Newtonsoft.Json;
 using System.Collections.Generic;

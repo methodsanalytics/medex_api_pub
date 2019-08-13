@@ -18,7 +18,7 @@ namespace MedicalExaminer.Migration
 
         public async override Task<bool> Handle(ExaminationMigrationQuery param)
         {
-            var examinations = await DatabaseAccess.GetItemsAsyncX(ConnectionSettings, x => x.Version < param.VersionNumber
+            var examinations = await DatabaseAccess.GetItemsForMigration(ConnectionSettings, x => x.Version < param.VersionNumber
             || !x.Version.IsDefined());
 
             var migratedObjects = _migrationProcessor.Migrate(examinations, param.VersionNumber);
