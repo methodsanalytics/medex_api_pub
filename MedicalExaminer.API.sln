@@ -38,6 +38,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedicalExaminer.BackgroundS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedicalExaminer.Migration", "MedicalExaminer.Migration\MedicalExaminer.Migration.csproj", "{23B3F31E-F13F-4D63-BC82-023E5C90114F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedicalExaminer.Migration.Tests", "MedicalExaminer.Migration.Tests\MedicalExaminer.Migration.Tests.csproj", "{B06757CD-5C2F-4FE1-81DE-BF9C18E1B932}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -96,6 +98,10 @@ Global
 		{23B3F31E-F13F-4D63-BC82-023E5C90114F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23B3F31E-F13F-4D63-BC82-023E5C90114F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23B3F31E-F13F-4D63-BC82-023E5C90114F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B06757CD-5C2F-4FE1-81DE-BF9C18E1B932}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B06757CD-5C2F-4FE1-81DE-BF9C18E1B932}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B06757CD-5C2F-4FE1-81DE-BF9C18E1B932}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B06757CD-5C2F-4FE1-81DE-BF9C18E1B932}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
