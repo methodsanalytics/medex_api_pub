@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace MedicalExaminer.Migration.MigrationDefinitions.Examinations
 {
-    public class ExaminationMigrationDefinitionV0 : IMigrationDefinition
+    public class ExaminationMigrationDefinitionV1 : IMigrationDefinition
     {
         public Dictionary<string, string> PropertiesToRename => new Dictionary<string, string>();
 

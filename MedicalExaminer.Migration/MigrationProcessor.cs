@@ -9,7 +9,7 @@ namespace MedicalExaminer.Migration
     {
         private Dictionary<int, IMigrationDefinition> _migrations = new Dictionary<int, IMigrationDefinition>()
         {
-            {0, new ExaminationMigrationDefinitionV0() }
+            {0, new ExaminationMigrationDefinitionV1() }
         };
 
         public IEnumerable<T> Migrate(IEnumerable<object> recordsToMigrate, int migrateToVersion)
