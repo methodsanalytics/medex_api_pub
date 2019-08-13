@@ -12,21 +12,21 @@ namespace MedicalExaminer.Migration.MigrationDefinitions.Examinations
 
         public Dictionary<string, Func<Dictionary<string, object>, object>> Transforms => new Dictionary<string, Func<Dictionary<string, object>, object>>()
         {
-            {"AnyImplants", MigrateAnyImplants },
-            {"AnyPersonalEffects", MigrateAnyPersonalEffects },
-            {"Version", AddVersionNumber }
+            {"any_implants", MigrateAnyImplants },
+            {"personal_effects_collected", MigrateAnyPersonalEffects },
+            {"version", AddVersionNumber }
         };
 
         private object AddVersionNumber(Dictionary<string, object> arg)
         {
-            return 0;            
+            return 1;            
         }
 
         private object MigrateAnyPersonalEffects(Dictionary<string, object> arg)
         {
-            if (arg.ContainsKey("AnyPersonalEffects"))
+            if (arg.ContainsKey("personal_effects_collected"))
             {
-                return ConvertAnyPersonalEffects((bool?)arg["AnyPersonalEffects"]);
+                return ConvertAnyPersonalEffects((bool?)arg["personal_effects_collected"]);
             }
             throw new Exception();
         }
@@ -46,9 +46,9 @@ namespace MedicalExaminer.Migration.MigrationDefinitions.Examinations
 
         private object MigrateAnyImplants(Dictionary<string, object> arg)
         {
-            if (arg.ContainsKey("AnyImplants"))
+            if (arg.ContainsKey("any_implants"))
             {
-                return ConvertAnyImplants((bool?)arg["AnyImplants"]);
+                return ConvertAnyImplants((bool?)arg["any_implants"]);
             }
             throw new Exception();
         }

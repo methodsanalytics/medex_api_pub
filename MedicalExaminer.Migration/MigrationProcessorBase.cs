@@ -1,4 +1,5 @@
 ﻿using MedicalExaminer.Migration.MigrationDefinitions;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -49,6 +50,10 @@ namespace MedicalExaminer.Migration
             foreach (PropertyInfo propertyInfo in objectToGetDictionary.GetType().GetProperties())
             {
                 result.Add(propertyInfo.Name, propertyInfo.GetValue(objectToGetDictionary, null));
+            }
+            if (result.ContainsKey("Payload"))
+            {
+                return ((JObject)result["Payload"]).ToObject<Dictionary<string, object>>();
             }
             return result;
         }

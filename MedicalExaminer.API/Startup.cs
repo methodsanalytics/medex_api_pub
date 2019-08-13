@@ -41,6 +41,7 @@ using MedicalExaminer.Common.Services.Permissions;
 using MedicalExaminer.Common.Services.User;
 using MedicalExaminer.Common.Settings;
 using MedicalExaminer.Migration;
+using MedicalExaminer.Migration.MigrationQueries;
 using MedicalExaminer.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -437,6 +438,9 @@ example:
                 .AddScoped<IAsyncQueryHandler<UsersRetrievalByRoleLocationQuery, IEnumerable<MeUser>>,
                     UsersRetrievalByRoleLocationQueryService>();
 
+            services.AddScoped<MigrationProcessor<Examination>, MigrationProcessor<Examination>>();
+            services.AddScoped<IAsyncQueryHandler<ExaminationMigrationQuery, bool>, MigrationService>();
+
             // Location Services
             services.AddScoped<IAsyncQueryHandler<LocationRetrievalByIdQuery, Location>, LocationIdService>();
             services
@@ -565,12 +569,12 @@ example:
             services.AddScoped<IPermissionService, PermissionService>();
         }
 
-        private void MigrateData(IServiceProvider serviceProvider, IMigrationSettings examinationMigrationSettings)
+        private async void MigrateData(IServiceProvider serviceProvider, IMigrationSettings examinationMigrationSettings)
         {
-            var databaseAccess = serviceProvider.GetService<IDatabaseAccess>();
-            var examinationsCollectionConnectionSettings = serviceProvider.GetService<IExaminationConnectionSettings>();
-            var examinationsMigrationService = new MigrationProcessor<Examination>(databaseAccess, examinationsCollectionConnectionSettings, examinationMigrationSettings);
-            examinationsMigrationService.Migrate(null);
+            var migrationService = serviceProvider.GetService<IAsyncQueryHandler<ExaminationMigrationQuery, bool>>();
+
+            var result = await migrationService.Handle(new ExaminationMigrationQuery(examinationMigrationSettings));
+
         }
 
         private void UpdateLocations(IServiceProvider serviceProvider, LocationMigrationSettings locationMigrationSettings)

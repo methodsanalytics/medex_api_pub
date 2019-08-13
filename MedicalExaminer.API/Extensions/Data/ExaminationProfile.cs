@@ -410,7 +410,8 @@ namespace MedicalExaminer.API.Extensions.Data
                 .ForMember(examination => examination.ScrutinyConfirmed, opt => opt.Ignore())
                 .ForMember(examination => examination.OutstandingCaseItemsCompleted, opt => opt.Ignore())
                 .ForMember(examination => examination.CaseOutcome, opt => opt.Ignore())
-                .ForMember(examination => examination.CreatedBy, opt => opt.Ignore());
+                .ForMember(examination => examination.CreatedBy, opt => opt.Ignore())
+                .ForMember(examination => examination.Version, opt => opt.Ignore());
             CreateMap<Examination, PatientCardItem>()
                 .ForMember(patientCard => patientCard.AppointmentDate,
                     examination => examination.MapFrom(new AppointmentDateResolver(new AppointmentFinder())))

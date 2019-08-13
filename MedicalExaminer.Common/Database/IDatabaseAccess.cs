@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using MedicalExaminer.Common.ConnectionSettings;
+using MedicalExaminer.Models;
 
 namespace MedicalExaminer.Common.Database
 {
@@ -11,6 +12,10 @@ namespace MedicalExaminer.Common.Database
     /// </summary>
     public interface IDatabaseAccess
     {
+        Task<IEnumerable<object>> GetItemsAsyncX(
+            IConnectionSettings connectionSettings,
+            Expression<Func<IVersion, bool>> predicate);
+
         Task<T> CreateItemAsync<T>(
             IConnectionSettings connectionSettings,
             T item,

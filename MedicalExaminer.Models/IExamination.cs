@@ -48,7 +48,7 @@ namespace MedicalExaminer.Models
 
         string FuneralDirectors { get; set; }
 
-        bool AnyPersonalEffects { get; set; }
+        PersonalEffects AnyPersonalEffects { get; set; }
 
         string PersonalEffectDetails { get; set; }
 
@@ -74,7 +74,7 @@ namespace MedicalExaminer.Models
 
         CoronerStatus CoronerStatus { get; set; }
 
-        bool? AnyImplants { get; set; }
+        AnyImplants? AnyImplants { get; set; }
 
         string ImplantDetails { get; set; }
 
