@@ -2117,5 +2117,25 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
 
             additionalDetailsEntered.Should().BeNull();
         }
+
+        [Fact]
+        public void CalculateCaseItemsCompleteStatus_When_Refer_To_Coroner_And_CoronerReferralSent_Is_False_Entered_Returns_False()
+        {
+            var examination = new Examination
+            {
+                CaseOutcome = new CaseOutcome
+                {
+                    CaseOutcomeSummary = CaseOutcomeSummary.ReferToCoroner,
+                    MccdIssued = true,
+                    CremationFormStatus = CremationFormStatus.Yes,
+                    GpNotifiedStatus = GPNotified.GPNotified,
+                    CoronerReferralSent = false
+                }
+            };
+
+            var additionalDetailsEntered = examination.CalculateCaseItemsCompleteStatus();
+
+            additionalDetailsEntered.Should().BeFalse();
+        }
     }
 }

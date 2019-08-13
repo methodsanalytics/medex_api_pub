@@ -121,14 +121,14 @@ namespace MedicalExaminer.API.Controllers
             {
                 CountOfTotalCases = dashboardOverview.TotalCases,
                 CountOfUrgentCases = dashboardOverview.CountOfUrgentCases,
-                CountOfCasesAdmissionNotesHaveBeenAdded = dashboardOverview.CountOfAdmissionNotesHaveBeenAdded,
+                CountOfHaveUnknownBasicDetails = dashboardOverview.CountOfHaveUnknownBasicDetails,
                 CountOfCasesUnassigned = dashboardOverview.CountOfUnassigned,
+                CountOfCasesReadyForMEScrutiny = dashboardOverview.CountOfReadyForMEScrutiny,
                 CountOfCasesHaveBeenScrutinisedByME = dashboardOverview.CountOfHaveBeenScrutinisedByME,
-                CountOfCasesHaveFinalCaseOutstandingOutcomes = dashboardOverview.CountOfHaveFinalCaseOutstandingOutcomes,
-                CountOfCasesPendingAdmissionNotes = dashboardOverview.CountOfPendingAdmissionNotes,
+                CountOfPendingAdditionalDetails = dashboardOverview.CountOfPendingAdditionalDetails,
                 CountOfCasesPendingDiscussionWithQAP = dashboardOverview.CountOfPendingDiscussionWithQAP,
                 CountOfCasesPendingDiscussionWithRepresentative = dashboardOverview.CountOfPendingDiscussionWithRepresentative,
-                CountOfCasesReadyForMEScrutiny = dashboardOverview.CountOfReadyForMEScrutiny,
+                CountOfCasesHaveFinalCaseOutstandingOutcomes = dashboardOverview.CountOfHaveFinalCaseOutstandingOutcomes,
                 Examinations = examinations.Select(e => Mapper.Map<PatientCardItem>(e)).ToList()
             };
 

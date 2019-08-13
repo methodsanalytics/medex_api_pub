@@ -147,6 +147,7 @@ namespace MedicalExaminer.Models
             examination.AdmissionNotesHaveBeenAdded = !examination.PendingAdmissionNotes;
             examination.ReadyForMEScrutiny = CalculateReadyForScrutiny(examination);
             examination.HaveBeenScrutinisedByME = examination.ScrutinyConfirmed;
+            examination.PendingAdditionalDetails = !examination.CalculateAdditionalDetailsEnteredStatus();
             examination.PendingDiscussionWithQAP = CalculatePendingQAPDiscussion(examination);
             examination.PendingDiscussionWithRepresentative = CalculatePendingDiscussionWithRepresentative(examination);
             examination.PendingScrutinyNotes = CalculateScrutinyNotesPending(examination);
@@ -181,7 +182,6 @@ namespace MedicalExaminer.Models
                    && examination.CaseBreakdown.BereavedDiscussion?.Latest != null;
         }
 
-        //todo: Need to look at the logic again
         public static bool? CalculateCaseItemsCompleteStatus(this Examination examination)
         {
             if (examination.CaseOutcome.CremationFormStatus == CremationFormStatus.Unknown)
