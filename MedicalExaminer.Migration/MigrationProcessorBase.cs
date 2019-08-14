@@ -35,7 +35,6 @@ namespace MedicalExaminer.Migration
                 }
             }
 
-
             foreach (var toBeRemoved in migrationRule.PropertiesToRemove)
             {
                 migratedAsDictionary.Remove(toBeRemoved);

@@ -161,14 +161,13 @@ namespace MedicalExaminer.API.Controllers
                 var locationPaths =
                     await _locationsParentsService.Handle(new LocationsParentsQuery(usersPermissionLocationsIds));
 
-
-                var locations =
+                var locations = await
                     _locationsRetrievalService.Handle(new LocationsRetrievalByQuery(
                         null,
                         null,
                         false,
                         false,
-                        usersPermissionLocationsIds)).Result;
+                        usersPermissionLocationsIds));
 
                 // The locations the user making the request has direct access to.
                 var permissedLocations = (await LocationsWithPermission(Permission.GetUserPermissions)).ToList();
@@ -178,8 +177,6 @@ namespace MedicalExaminer.API.Controllers
                     .Permissions?.Where(p => p.LocationId != null)
                     .Where(p => locationPaths[p.LocationId]
                         .Any(l => permissedLocations.Contains(l.LocationId))) ?? new List<MEUserPermission>();
-
-                var uniqueLocations = await permissions?.GetUniqueLocationNames(_locationsRetrievalService);
 
                 var mappedPermissions = new List<PermissionItem>();
 
