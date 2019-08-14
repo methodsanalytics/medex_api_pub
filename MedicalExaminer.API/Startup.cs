@@ -574,7 +574,6 @@ example:
             var migrationService = serviceProvider.GetService<IAsyncQueryHandler<ExaminationMigrationQuery, bool>>();
 
             var result = await migrationService.Handle(new ExaminationMigrationQuery(examinationMigrationSettings));
-
         }
 
         private void UpdateLocations(IServiceProvider serviceProvider, LocationMigrationSettings locationMigrationSettings)
