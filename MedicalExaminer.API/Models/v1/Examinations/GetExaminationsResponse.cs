@@ -21,7 +21,7 @@ namespace MedicalExaminer.API.Models.v1.Examinations
         /// <summary>
         /// Count Of Have Unknown Basic Details
         /// </summary>
-        public int CountOfHaveUnknownBasicDetails { get; set; }
+        public int CountOfCasesHaveUnknownBasicDetails { get; set; }
 
         /// <summary>
         /// Count of Cases Ready for Medical Examiner Scrutiny.
@@ -41,7 +41,7 @@ namespace MedicalExaminer.API.Models.v1.Examinations
         /// <summary>
         /// Count Of Pending Additional Details
         /// </summary>
-        public int CountOfPendingAdditionalDetails { get; set; }
+        public int CountOfCasesPendingAdditionalDetails { get; set; }
 
         /// <summary>
         /// Count of Cases pending Discussion with QAP.

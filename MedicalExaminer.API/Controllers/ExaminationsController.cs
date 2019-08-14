@@ -121,11 +121,11 @@ namespace MedicalExaminer.API.Controllers
             {
                 CountOfTotalCases = dashboardOverview.TotalCases,
                 CountOfUrgentCases = dashboardOverview.CountOfUrgentCases,
-                CountOfHaveUnknownBasicDetails = dashboardOverview.CountOfHaveUnknownBasicDetails,
+                CountOfCasesHaveUnknownBasicDetails = dashboardOverview.CountOfHaveUnknownBasicDetails,
                 CountOfCasesUnassigned = dashboardOverview.CountOfUnassigned,
                 CountOfCasesReadyForMEScrutiny = dashboardOverview.CountOfReadyForMEScrutiny,
                 CountOfCasesHaveBeenScrutinisedByME = dashboardOverview.CountOfHaveBeenScrutinisedByME,
-                CountOfPendingAdditionalDetails = dashboardOverview.CountOfPendingAdditionalDetails,
+                CountOfCasesPendingAdditionalDetails = dashboardOverview.CountOfPendingAdditionalDetails,
                 CountOfCasesPendingDiscussionWithQAP = dashboardOverview.CountOfPendingDiscussionWithQAP,
                 CountOfCasesPendingDiscussionWithRepresentative = dashboardOverview.CountOfPendingDiscussionWithRepresentative,
                 CountOfCasesHaveFinalCaseOutstandingOutcomes = dashboardOverview.CountOfHaveFinalCaseOutstandingOutcomes,

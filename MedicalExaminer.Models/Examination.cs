@@ -363,7 +363,7 @@ namespace MedicalExaminer.Models
         /// Pending Additional Details
         /// </summary>
         [JsonProperty(PropertyName = "pending_additional_details")]
-        public bool PendingAdditionalDetails { get; set; }
+        public bool PendingAdditionalDetails { get; set; } = true;
 
         /// <summary>
         /// has the qap discussion occured
