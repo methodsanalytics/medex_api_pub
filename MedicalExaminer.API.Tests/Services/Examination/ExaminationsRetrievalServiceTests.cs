@@ -273,6 +273,7 @@ namespace MedicalExaminer.API.Tests.Services.Examination
                 Unassigned = true,
                 CaseCompleted = false,
                 NationalLocationId = "expectedLocation",
+                PendingAdditionalDetails = false,
             };
 
             var examination2 = new MedicalExaminer.Models.Examination()
@@ -281,12 +282,14 @@ namespace MedicalExaminer.API.Tests.Services.Examination
                 ReadyForMEScrutiny = true,
                 CaseCompleted = false,
                 RegionLocationId = "expectedLocation",
+                PendingAdditionalDetails = false,
             };
 
             var examination4 = new MedicalExaminer.Models.Examination()
             {
                 ExaminationId = "examination4",
                 CaseCompleted = true,
+                PendingAdditionalDetails = false,
             };
 
             var examination5 = new MedicalExaminer.Models.Examination()
@@ -295,6 +298,7 @@ namespace MedicalExaminer.API.Tests.Services.Examination
                 CaseCompleted = false,
                 UrgencyScore = 3,
                 TrustLocationId = "expectedLocation",
+                PendingAdditionalDetails = false,
             };
 
             var examination6 = new MedicalExaminer.Models.Examination()
@@ -309,35 +313,40 @@ namespace MedicalExaminer.API.Tests.Services.Examination
             {
                 ExaminationId = "examination7",
                 CaseCompleted = false,
-                PendingDiscussionWithQAP = true
+                PendingDiscussionWithQAP = true,
+                PendingAdditionalDetails = false,
             };
 
             var examination8 = new MedicalExaminer.Models.Examination()
             {
                 ExaminationId = "examination8",
                 CaseCompleted = false,
-                PendingDiscussionWithRepresentative = true
+                PendingDiscussionWithRepresentative = true,
+                PendingAdditionalDetails = false,
             };
 
             var examination9 = new MedicalExaminer.Models.Examination()
             {
                 ExaminationId = "examination9",
                 CaseCompleted = false,
-                HaveFinalCaseOutcomesOutstanding = true
+                HaveFinalCaseOutcomesOutstanding = true,
+                PendingAdditionalDetails = false,
             };
 
             var examination10 = new MedicalExaminer.Models.Examination()
             {
                 ExaminationId = "examination10",
                 CaseCompleted = false,
-                HaveBeenScrutinisedByME = true
+                HaveBeenScrutinisedByME = true,
+                PendingAdditionalDetails = false,
             };
 
             var examination11 = new MedicalExaminer.Models.Examination()
             {
                 ExaminationId = "examination11",
                 CaseCompleted = false,
-                HaveUnknownBasicDetails = true
+                HaveUnknownBasicDetails = true,
+                PendingAdditionalDetails = false,
             };
 
             return SetLocationCache(new[] { examination1, examination2, examination4, examination5,
