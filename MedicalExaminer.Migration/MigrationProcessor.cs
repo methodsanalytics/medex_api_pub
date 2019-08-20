@@ -10,7 +10,8 @@ namespace MedicalExaminer.Migration
     {
         private Dictionary<int, IMigrationDefinition> _migrations = new Dictionary<int, IMigrationDefinition>()
         {
-            {1, new ExaminationMigrationDefinitionV1() }
+            {1, new ExaminationMigrationDefinitionV1() },
+            {2, new ExaminationMigrationDefinitionV2() }
         };
 
         public IEnumerable<T> Migrate(IEnumerable<object> recordsToMigrate, int migrateToVersion)
@@ -18,8 +19,6 @@ namespace MedicalExaminer.Migration
             var results = new List<T>();
             try
             {
-                
-
                 foreach (var record in recordsToMigrate)
                 {
                     bool updated = false;
@@ -38,7 +37,7 @@ namespace MedicalExaminer.Migration
 
                     while (version < migrateToVersion)
                     {
-                        version = version + 1;
+                        version += 1;
                         migrationDefinition = _migrations[(int)version];
                         migratedAsDictionary = MigrateToVersion(recordAsDictionary, migrationDefinition);
                         updated = true;
