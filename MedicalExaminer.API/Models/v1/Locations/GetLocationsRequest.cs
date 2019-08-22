@@ -14,6 +14,11 @@ namespace MedicalExaminer.API.Models.v1.Locations
         public bool AccessOnly { get; set; }
 
         /// <summary>
+        /// Response is for lookup so populate only IDs and Name.
+        /// </summary>
+        public bool ForLookup { get; set; } = false;
+
+        /// <summary>
         /// Name.
         /// </summary>
         public string Name { get; set; }
