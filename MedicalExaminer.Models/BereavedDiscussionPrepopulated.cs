@@ -1,10 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using MedicalExaminer.Models.Enums;
 
 namespace MedicalExaminer.Models
 {
     public class BereavedDiscussionPrepopulated
     {
+        /// <summary>
+        ///     Details of any representatives
+        /// </summary>
+        public IEnumerable<Representative> Representatives { get; set; }
+
         /// <summary>
         /// name of medical examiner
         /// </summary>
@@ -29,12 +35,12 @@ namespace MedicalExaminer.Models
         /// enum in [HappenedNoRevision, HappenedWithRevisions, CouldNotHappen, NoRecord]
         /// </summary>
         public QAPDiscussionStatus QAPDiscussionStatus { get; set; }
-        
+
         /// <summary>
         /// date of latest qap discussion event
         /// </summary>
         public DateTime? DateOfLatestQAPDiscussion { get; set; }
-        
+
         /// <summary>
         /// name of person who added last qap discussion event
         /// </summary>
@@ -61,7 +67,7 @@ namespace MedicalExaminer.Models
         public string CauseOfDeath1c { get; set; }
 
         /// <summary>
-        /// cause of death 2 
+        /// cause of death 2
         /// </summary>
         public string CauseOfDeath2 { get; set; }
     }

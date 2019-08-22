@@ -6,6 +6,11 @@ namespace MedicalExaminer.Models
     public class QapDiscussionPrepopulated
     {
         /// <summary>
+        /// Clinical Professional: QAP details from Medical Team
+        /// </summary>
+        public ClinicalProfessional Qap { get; set; }
+
+        /// <summary>
         /// Possible cause of death established during scrutiny by Medical Examiner 1a
         /// </summary>
         public string CauseOfDeath1a { get; set; }
