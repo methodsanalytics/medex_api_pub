@@ -200,31 +200,43 @@ namespace MedicalExaminer.Common.Database
             Expression<Func<T, bool>> predicate)
             where T : class
         {
-            var client = GetClient(connectionSettings);
-
-            var query = client.CreateDocumentQuery<T>(
-                    UriFactory.CreateDocumentCollectionUri(
-                        connectionSettings.DatabaseId,
-                        connectionSettings.Collection),
-                    new FeedOptions { MaxItemCount = -1 })
-                .Where(predicate)
-                .AsDocumentQuery();
-
-            var results = new List<T>();
-            while (query.HasMoreResults)
+            try
             {
-                var response = await query.ExecuteNextAsync<T>();
+                var client = GetClient(connectionSettings);
 
-                _requestChargeService.RequestCharges.Add(new RequestChargeService.RequestCharge()
+                var query = client.CreateDocumentQuery<T>(
+                        UriFactory.CreateDocumentCollectionUri(
+                            connectionSettings.DatabaseId,
+                            connectionSettings.Collection),
+                        new FeedOptions
+                        {
+                            MaxItemCount = -1,
+                            DisableRUPerMinuteUsage = false
+                        })
+                    .Where(predicate)
+                    .AsDocumentQuery();
+
+                var results = new List<T>();
+                while (query.HasMoreResults)
                 {
-                    Request = $"GetItemAsync<{typeof(T).Name}>(query={query})",
-                    Charge = response.RequestCharge
-                });
+                    var response = await query.ExecuteNextAsync<T>();
+                    
+                    _requestChargeService.RequestCharges.Add(new RequestChargeService.RequestCharge()
+                    {
+                        Request = $"GetItemAsync<{typeof(T).Name}>(query={query})",
+                        Charge = response.RequestCharge
+                    });
 
-                results.AddRange(response);
+                    results.AddRange(response);
+                }
+
+                return results;
             }
-
-            return results;
+            catch (DocumentClientException dce)
+            {
+                var t = dce;
+                throw new Exception();
+            }
         }
 
         public async Task<IEnumerable<T>> GetItemsAsync<T, TKey>(
@@ -233,35 +245,43 @@ namespace MedicalExaminer.Common.Database
             Expression<Func<T, TKey>> orderBy)
             where T : class
         {
-            var client = GetClient(connectionSettings);
-            FeedOptions feedOptions = new FeedOptions
+            try
             {
-                MaxItemCount = -1,
-            };
-
-            var query = client.CreateDocumentQuery<T>(
-                    UriFactory.CreateDocumentCollectionUri(connectionSettings.DatabaseId,
-                        connectionSettings.Collection),
-                    feedOptions)
-                .Where(predicate)
-                .OrderBy(orderBy)
-                .AsDocumentQuery();
-
-            var results = new List<T>();
-            while (query.HasMoreResults)
-            {
-                var response = await query.ExecuteNextAsync<T>();
-
-                _requestChargeService.RequestCharges.Add(new RequestChargeService.RequestCharge()
+                var client = GetClient(connectionSettings);
+                FeedOptions feedOptions = new FeedOptions
                 {
-                    Request = $"GetItemAsync<{typeof(T).Name}>(query={query})",
-                    Charge = response.RequestCharge
-                });
+                    MaxItemCount = -1,
+                };
 
-                results.AddRange(response);
+                var query = client.CreateDocumentQuery<T>(
+                        UriFactory.CreateDocumentCollectionUri(connectionSettings.DatabaseId,
+                            connectionSettings.Collection),
+                        feedOptions)
+                    .Where(predicate)
+                    .OrderBy(orderBy)
+                    .AsDocumentQuery();
+
+                var results = new List<T>();
+                while (query.HasMoreResults)
+                {
+                    var response = await query.ExecuteNextAsync<T>();
+
+                    _requestChargeService.RequestCharges.Add(new RequestChargeService.RequestCharge()
+                    {
+                        Request = $"GetItemAsync<{typeof(T).Name}>(query={query})",
+                        Charge = response.RequestCharge
+                    });
+
+                    results.AddRange(response);
+                }
+
+                return results;
             }
-
-            return results;
+            catch (DocumentClientException dce)
+            {
+                var t = dce;
+                throw new Exception();
+            }
         }
 
         public async Task<int> GetCountAsync<T>(IConnectionSettings connectionSettings, Expression<Func<T, bool>> predicate)
