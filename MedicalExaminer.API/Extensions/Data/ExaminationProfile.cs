@@ -156,7 +156,7 @@ namespace MedicalExaminer.API.Extensions.Data
             CreateMap<Examination, BereavedDiscussionPrepopulated>()
                 .ForMember(dest => dest.CauseOfDeath1a, opt => opt.MapFrom((source, dest, destMember, context) =>
                 {
-                    var shouldUseQap = UsePreScrutiny(source.CaseBreakdown);
+                    var shouldUseQap = UseQap(source.CaseBreakdown);
                     if (shouldUseQap == null)
                     {
                         return null;
@@ -169,7 +169,7 @@ namespace MedicalExaminer.API.Extensions.Data
                 }))
                 .ForMember(dest => dest.CauseOfDeath1b, opt => opt.MapFrom((source, dest, destMember, context) =>
                 {
-                    var shouldUseQap = UsePreScrutiny(source.CaseBreakdown);
+                    var shouldUseQap = UseQap(source.CaseBreakdown);
                     if (shouldUseQap == null)
                     {
                         return null;
@@ -182,7 +182,7 @@ namespace MedicalExaminer.API.Extensions.Data
                 }))
                 .ForMember(dest => dest.CauseOfDeath1c, opt => opt.MapFrom((source, dest, destMember, context) =>
                 {
-                    var shouldUseQap = UsePreScrutiny(source.CaseBreakdown);
+                    var shouldUseQap = UseQap(source.CaseBreakdown);
                     if (shouldUseQap == null)
                     {
                         return null;
@@ -195,7 +195,7 @@ namespace MedicalExaminer.API.Extensions.Data
                 }))
                 .ForMember(dest => dest.CauseOfDeath2, opt => opt.MapFrom((source, dest, destMember, context) =>
                 {
-                    var shouldUseQap = UsePreScrutiny(source.CaseBreakdown);
+                    var shouldUseQap = UseQap(source.CaseBreakdown);
                     if (shouldUseQap == null)
                     {
                         return null;
@@ -484,7 +484,7 @@ namespace MedicalExaminer.API.Extensions.Data
                 .ForMember(deathEvent => deathEvent.UserFullName, opt => opt.Ignore());
         }
 
-        private bool? UsePreScrutiny(CaseBreakDown caseBreakdown)
+        private bool? UseQap(CaseBreakDown caseBreakdown)
         {
             if (caseBreakdown.PreScrutiny.Latest == null && caseBreakdown.QapDiscussion.Latest == null)
             {
