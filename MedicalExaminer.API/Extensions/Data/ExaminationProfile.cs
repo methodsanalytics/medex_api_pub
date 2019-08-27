@@ -90,17 +90,17 @@ namespace MedicalExaminer.API.Extensions.Data
                         }
                     }
                     else
-                    { 
-                    if (src.CaseBreakdown.QapDiscussion.Latest.QapDiscussionOutcome == QapDiscussionOutcome.MccdCauseOfDeathProvidedByQAP ||
-                    src.CaseBreakdown.QapDiscussion.Latest.QapDiscussionOutcome == QapDiscussionOutcome.MccdCauseOfDeathAgreedByQAPandME)
                     {
-                        return src.CaseBreakdown.QapDiscussion.Latest.CauseOfDeath1c;
-                    }
-                    if (src.CaseBreakdown.QapDiscussion.Latest.QapDiscussionOutcome == QapDiscussionOutcome.MccdCauseOfDeathProvidedByME)
-                    {
-                        return src.CaseBreakdown.PreScrutiny.Latest.CauseOfDeath1c;
-                    }
-                    return "Referred to Coroner";
+                        if (src.CaseBreakdown.QapDiscussion.Latest.QapDiscussionOutcome == QapDiscussionOutcome.MccdCauseOfDeathProvidedByQAP ||
+                        src.CaseBreakdown.QapDiscussion.Latest.QapDiscussionOutcome == QapDiscussionOutcome.MccdCauseOfDeathAgreedByQAPandME)
+                        {
+                            return src.CaseBreakdown.QapDiscussion.Latest.CauseOfDeath1c;
+                        }
+                        if (src.CaseBreakdown.QapDiscussion.Latest.QapDiscussionOutcome == QapDiscussionOutcome.MccdCauseOfDeathProvidedByME)
+                        {
+                            return src.CaseBreakdown.PreScrutiny.Latest.CauseOfDeath1c;
+                        }
+                        return "Referred to Coroner";
                 }
                 }))
                 .ForMember(dest => dest.CauseOfDeath2, opt => opt.MapFrom((src, dest, destMember, context) => {
@@ -156,55 +156,55 @@ namespace MedicalExaminer.API.Extensions.Data
             CreateMap<Examination, BereavedDiscussionPrepopulated>()
                 .ForMember(dest => dest.CauseOfDeath1a, opt => opt.MapFrom((source, dest, destMember, context) =>
                 {
-                    var shouldUseRor = UsePreScrutiny(source.CaseBreakdown);
-                    if (shouldUseRor == null)
+                    var shouldUseQap = UsePreScrutiny(source.CaseBreakdown);
+                    if (shouldUseQap == null)
                     {
                         return null;
                     }
-                    if (shouldUseRor == true)
+                    if (shouldUseQap == true)
                     {
-                        return source.CaseBreakdown.PreScrutiny.Latest.CauseOfDeath1a;
+                        return source.CaseBreakdown.QapDiscussion.Latest.CauseOfDeath1a;
                     }
-                    return source.CaseBreakdown.QapDiscussion.Latest.CauseOfDeath1a;
+                    return source.CaseBreakdown.PreScrutiny.Latest.CauseOfDeath1a;
                 }))
                 .ForMember(dest => dest.CauseOfDeath1b, opt => opt.MapFrom((source, dest, destMember, context) =>
                 {
-                    var shouldUseRor = UsePreScrutiny(source.CaseBreakdown);
-                    if (shouldUseRor == null)
+                    var shouldUseQap = UsePreScrutiny(source.CaseBreakdown);
+                    if (shouldUseQap == null)
                     {
                         return null;
                     }
-                    if (shouldUseRor == true)
+                    if (shouldUseQap == true)
                     {
-                        return source.CaseBreakdown.PreScrutiny.Latest.CauseOfDeath1b;
+                        return source.CaseBreakdown.QapDiscussion.Latest.CauseOfDeath1b;
                     }
-                    return source.CaseBreakdown.QapDiscussion.Latest.CauseOfDeath1b;
+                    return source.CaseBreakdown.PreScrutiny.Latest.CauseOfDeath1b;
                 }))
                 .ForMember(dest => dest.CauseOfDeath1c, opt => opt.MapFrom((source, dest, destMember, context) =>
                 {
-                    var shouldUseRor = UsePreScrutiny(source.CaseBreakdown);
-                    if (shouldUseRor == null)
+                    var shouldUseQap = UsePreScrutiny(source.CaseBreakdown);
+                    if (shouldUseQap == null)
                     {
                         return null;
                     }
-                    if (shouldUseRor == true)
+                    if (shouldUseQap == true)
                     {
-                        return source.CaseBreakdown.PreScrutiny.Latest.CauseOfDeath1c;
+                        return source.CaseBreakdown.QapDiscussion.Latest.CauseOfDeath1c;
                     }
-                    return source.CaseBreakdown.QapDiscussion.Latest.CauseOfDeath1c;
+                    return source.CaseBreakdown.PreScrutiny.Latest.CauseOfDeath1c;
                 }))
                 .ForMember(dest => dest.CauseOfDeath2, opt => opt.MapFrom((source, dest, destMember, context) =>
                 {
-                    var shouldUseRor = UsePreScrutiny(source.CaseBreakdown);
-                    if (shouldUseRor == null)
+                    var shouldUseQap = UsePreScrutiny(source.CaseBreakdown);
+                    if (shouldUseQap == null)
                     {
                         return null;
                     }
-                    if (shouldUseRor == true)
+                    if (shouldUseQap == true)
                     {
-                        return source.CaseBreakdown.PreScrutiny.Latest.CauseOfDeath2;
+                        return source.CaseBreakdown.QapDiscussion.Latest.CauseOfDeath2;
                     }
-                    return source.CaseBreakdown.QapDiscussion.Latest.CauseOfDeath2;
+                    return source.CaseBreakdown.PreScrutiny.Latest.CauseOfDeath2;
                 }))
                 .ForMember(dest => dest.DateOfLatestPreScrutiny, opt => opt.MapFrom(source => source.CaseBreakdown.PreScrutiny.Latest.Created))
                 .ForMember(dest => dest.DateOfLatestQAPDiscussion, opt => opt.MapFrom(source => source.CaseBreakdown.QapDiscussion.Latest.DateOfConversation))
