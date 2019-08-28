@@ -455,8 +455,8 @@ namespace MedicalExaminer.API.Extensions.Data
                     {
                         switch (source.CaseOutcome.CremationFormStatus)
                         {
-                            case CremationFormStatus.No:
                             case CremationFormStatus.Yes:
+                            case CremationFormStatus.No:
                                 return true;
                             case CremationFormStatus.Unknown:
                                 return (bool?)null;
@@ -493,18 +493,18 @@ namespace MedicalExaminer.API.Extensions.Data
 
             if (caseBreakdown.QapDiscussion.Latest != null && caseBreakdown.PreScrutiny.Latest == null)
             {
-                return null;
+                return true;
             }
 
             if (caseBreakdown.QapDiscussion.Latest == null && caseBreakdown.PreScrutiny.Latest != null)
             {
-                return true;
+                return false;
             }
 
-            return caseBreakdown.QapDiscussion.Latest.CauseOfDeath1a != caseBreakdown.PreScrutiny.Latest.CauseOfDeath1a
-                && caseBreakdown.QapDiscussion.Latest.CauseOfDeath1b != caseBreakdown.PreScrutiny.Latest.CauseOfDeath1b
-                && caseBreakdown.QapDiscussion.Latest.CauseOfDeath1c != caseBreakdown.PreScrutiny.Latest.CauseOfDeath1c
-                && caseBreakdown.QapDiscussion.Latest.CauseOfDeath2 != caseBreakdown.PreScrutiny.Latest.CauseOfDeath2;
+            return caseBreakdown.QapDiscussion.Latest?.CauseOfDeath1a != caseBreakdown.PreScrutiny.Latest?.CauseOfDeath1a
+                || caseBreakdown.QapDiscussion.Latest?.CauseOfDeath1b != caseBreakdown.PreScrutiny.Latest?.CauseOfDeath1b
+                || caseBreakdown.QapDiscussion.Latest?.CauseOfDeath1c != caseBreakdown.PreScrutiny.Latest?.CauseOfDeath1c
+                || caseBreakdown.QapDiscussion.Latest?.CauseOfDeath2 != caseBreakdown.PreScrutiny.Latest?.CauseOfDeath2;
         }
 
         private EventContainerItem<T, U> EventContainerMapping<T, U>(
