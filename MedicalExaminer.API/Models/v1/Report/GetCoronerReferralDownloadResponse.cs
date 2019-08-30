@@ -1,5 +1,6 @@
 ﻿using System;
 using MedicalExaminer.API.Models.v1.CaseBreakdown;
+using MedicalExaminer.API.Models.v1.Examinations;
 using MedicalExaminer.API.Models.v1.MedicalTeams;
 using MedicalExaminer.Models.Enums;
 
@@ -10,6 +11,7 @@ namespace MedicalExaminer.API.Models.v1.Report
     /// </summary>
     public class GetCoronerReferralDownloadResponse
     {
+        public PatientCardItem Header { get; set; }
         /// <summary>
         /// The patients given name
         /// </summary>
