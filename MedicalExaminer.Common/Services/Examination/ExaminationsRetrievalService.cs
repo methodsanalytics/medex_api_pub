@@ -47,6 +47,11 @@ namespace MedicalExaminer.Common.Services.Examination
             }
 
             var predicate = _examinationQueryBuilder.GetPredicate(param);
+            if (!param.FilterOpenCases)
+            {
+                return _store.Query().WithPagination(param.FilterPageNumber, param.FilterPageSize).Where(predicate).OrderBy(x => x.CreatedAt).ToListAsync().Result;
+            }
+
             switch (param.FilterOrderBy)
             {
                 case ExaminationsOrderBy.Urgency:
