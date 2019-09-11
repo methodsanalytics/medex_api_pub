@@ -256,30 +256,36 @@ namespace MedicalExaminer.Models
                 return false;
             }
 
-            if (examination.Unassigned)
-            {
-                return false;
-            }
-
             if (examination.PendingScrutinyNotes)
-            {
-                return false;
-            }
-
-            if (examination.PendingAdmissionNotes)
             {
                 return false;
             }
 
             if (examination.PendingDiscussionWithQAP)
             {
-                if (examination.PendingDiscussionWithRepresentative)
+                return false;
+            }
+            else
+            {
+                if (!examination.RorAndQapConditionsMetForScrutinyComplete())
                 {
-                    return false;
+                    if (examination.PendingDiscussionWithRepresentative)
+                    {
+                        return false;
+                    }
                 }
             }
 
             return true;
+        }
+
+        public static bool RorAndQapConditionsMetForScrutinyComplete(this Examination examination)
+        {
+           return (examination.CaseBreakdown.PreScrutiny.Latest?.OutcomeOfPreScrutiny != OverallOutcomeOfPreScrutiny.ReferToCoronerInvestigation
+                || examination.CaseBreakdown.PreScrutiny.Latest?.OutcomeOfPreScrutiny != OverallOutcomeOfPreScrutiny.ReferToCoronerFor100a)
+                && ((examination.CaseBreakdown.QapDiscussion.Latest != null && examination.CaseBreakdown.QapDiscussion.Latest.DiscussionUnableHappen)
+                || (examination.CaseBreakdown.QapDiscussion.Latest?.QapDiscussionOutcome != QapDiscussionOutcome.ReferToCoronerFor100a
+                || examination.CaseBreakdown.QapDiscussion.Latest?.QapDiscussionOutcome != QapDiscussionOutcome.ReferToCoronerInvestigation));
         }
 
         public static bool CalculateRequiresCoronerReferral(this Examination examination)

@@ -1271,7 +1271,7 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
         }
 
         [Fact]
-        private void CalculateScrutinyCanBeConfirmed_NoAdmissionNotes_Returns_False()
+        private void CalculateScrutinyCanBeConfirmed_NoAdmissionNotes_Returns_True()
         {
             var examination = new Examination
             {
@@ -1377,7 +1377,7 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
 
             examination = examination.UpdateCaseStatus();
 
-            Assert.False(examination.CalculateCanCompleteScrutiny());
+            Assert.True(examination.CalculateCanCompleteScrutiny());
         }
 
         [Fact]
@@ -1486,7 +1486,7 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
         }
 
         [Fact]
-        private void CalculateScrutinyCanBeConfirmed_NoMEOSummary_Returns_False()
+        private void CalculateScrutinyCanBeConfirmed_NoMEOSummary_Returns_True()
         {
             var examination = new Examination
             {
@@ -1586,7 +1586,7 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
 
             examination = examination.UpdateCaseStatus();
 
-            Assert.False(examination.CalculateCanCompleteScrutiny());
+            Assert.True(examination.CalculateCanCompleteScrutiny());
         }
 
         [Fact]
@@ -1826,6 +1826,384 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
             var actualCaseOutcomeSummary = examination.CalculateScrutinyOutcome();
 
             actualCaseOutcomeSummary.Should().Be(caseOutcomeSummary);
+        }
+
+        [Fact]
+        public void QapConditionsMetForScrutinyComplete_When_ROR_ReferToCoronerInvestigation_And_QAP_Unable_To_Happen_Entered_True()
+        {
+            // Arrange
+            var examination = new Examination
+            {
+                CaseBreakdown = new CaseBreakDown
+                {
+                    PreScrutiny = new PreScrutinyEventContainer
+                    {
+                        Latest = new PreScrutinyEvent
+                        {
+                            UserFullName = "UserFullName",
+                            UsersRole = "UsersRole",
+                            Created = new DateTime(2019, 09, 11),
+                            EventId = "EventId",
+                            UserId = "UserId",
+                            MedicalExaminerThoughts = "MedicalExaminerThoughts",
+                            IsFinal = true,
+                            CircumstancesOfDeath = OverallCircumstancesOfDeath.Expected,
+                            CauseOfDeath1a = "CauseOfDeath1a",
+                            CauseOfDeath1b = "CauseOfDeath1b",
+                            CauseOfDeath1c = "CauseOfDeath1c",
+                            CauseOfDeath2 = "CauseOfDeath2",
+                            OutcomeOfPreScrutiny = OverallOutcomeOfPreScrutiny.ReferToCoronerInvestigation,
+                            ClinicalGovernanceReview = ClinicalGovernanceReview.No,
+                            ClinicalGovernanceReviewText = "text"
+                        }
+                    },
+                    QapDiscussion = new QapDiscussionEventContainer
+                    {
+                        Latest = new QapDiscussionEvent
+                        {
+                            UserFullName = "UserFullName",
+                            UsersRole = "UserFullName",
+                            Created = new DateTime(2019, 09, 11),
+                            EventId = "EventId",
+                            UserId = "UserId",
+                            IsFinal = true,
+                            ParticipantRole = null,
+                            ParticipantOrganisation = null,
+                            ParticipantPhoneNumber = null,
+                            DateOfConversation = null,
+                            TimeOfConversation = null,
+                            DiscussionUnableHappen = true,
+                            DiscussionDetails = null,
+                            QapDiscussionOutcome = QapDiscussionOutcome.DiscussionUnableToHappen,
+                            ParticipantName = null,
+                            CauseOfDeath1a = null,
+                            CauseOfDeath1b = null,
+                            CauseOfDeath1c = null,
+                            CauseOfDeath2 = null
+                        }
+                    }
+                }
+            };
+
+            // Act
+            var qapConditionsMetForScrutinyComplete = examination.RorAndQapConditionsMetForScrutinyComplete();
+
+            qapConditionsMetForScrutinyComplete.Should().BeTrue();
+        }
+
+        [Fact]
+        public void QapConditionsMetForScrutinyComplete_When_ROR_ReferToCoronerInvestigation_And_QAP_ReferToCoronerInvestigation_Entered_True()
+        {
+            // Arrange
+            var examination = new Examination
+            {
+                CaseBreakdown = new CaseBreakDown
+                {
+                    PreScrutiny = new PreScrutinyEventContainer
+                    {
+                        Latest = new PreScrutinyEvent
+                        {
+                            UserFullName = "UserFullName",
+                            UsersRole = "UsersRole",
+                            Created = new DateTime(2019, 09, 11),
+                            EventId = "EventId",
+                            UserId = "UserId",
+                            MedicalExaminerThoughts = "MedicalExaminerThoughts",
+                            IsFinal = true,
+                            CircumstancesOfDeath = OverallCircumstancesOfDeath.Expected,
+                            CauseOfDeath1a = "CauseOfDeath1a",
+                            CauseOfDeath1b = "CauseOfDeath1b",
+                            CauseOfDeath1c = "CauseOfDeath1c",
+                            CauseOfDeath2 = "CauseOfDeath2",
+                            OutcomeOfPreScrutiny = OverallOutcomeOfPreScrutiny.ReferToCoronerInvestigation,
+                            ClinicalGovernanceReview = ClinicalGovernanceReview.No,
+                            ClinicalGovernanceReviewText = "text"
+                        }
+                    },
+                    QapDiscussion = new QapDiscussionEventContainer
+                    {
+                        Latest = new QapDiscussionEvent
+                        {
+                            UserFullName = "UserFullName",
+                            UsersRole = "UserFullName",
+                            Created = new DateTime(2019, 09, 11),
+                            EventId = "EventId",
+                            UserId = "UserId",
+                            IsFinal = true,
+                            ParticipantRole = "ParticipantRole",
+                            ParticipantOrganisation = "ParticipantOrganisation",
+                            ParticipantPhoneNumber = "ParticipantPhoneNumber",
+                            DateOfConversation = new DateTime(2019, 09, 11),
+                            TimeOfConversation = new TimeSpan(12, 00, 00),
+                            DiscussionUnableHappen = false,
+                            DiscussionDetails = "DiscussionDetails",
+                            QapDiscussionOutcome = QapDiscussionOutcome.ReferToCoronerInvestigation,
+                            ParticipantName = "ParticipantName",
+                            CauseOfDeath1a = "CauseOfDeath1a",
+                            CauseOfDeath1b = "CauseOfDeath1b",
+                            CauseOfDeath1c = "CauseOfDeath1c",
+                            CauseOfDeath2 = "CauseOfDeath2"
+                        }
+                    }
+                }
+            };
+
+            // Act
+            var qapConditionsMetForScrutinyComplete = examination.RorAndQapConditionsMetForScrutinyComplete();
+
+            qapConditionsMetForScrutinyComplete.Should().BeTrue();
+        }
+
+        [Fact]
+        public void QapConditionsMetForScrutinyComplete_When_ROR_ReferToCoronerInvestigation_And_QAP_ReferToCoroner100a_Entered_True()
+        {
+            // Arrange
+            var examination = new Examination
+            {
+                CaseBreakdown = new CaseBreakDown
+                {
+                    PreScrutiny = new PreScrutinyEventContainer
+                    {
+                        Latest = new PreScrutinyEvent
+                        {
+                            UserFullName = "UserFullName",
+                            UsersRole = "UsersRole",
+                            Created = new DateTime(2019, 09, 11),
+                            EventId = "EventId",
+                            UserId = "UserId",
+                            MedicalExaminerThoughts = "MedicalExaminerThoughts",
+                            IsFinal = true,
+                            CircumstancesOfDeath = OverallCircumstancesOfDeath.Expected,
+                            CauseOfDeath1a = "CauseOfDeath1a",
+                            CauseOfDeath1b = "CauseOfDeath1b",
+                            CauseOfDeath1c = "CauseOfDeath1c",
+                            CauseOfDeath2 = "CauseOfDeath2",
+                            OutcomeOfPreScrutiny = OverallOutcomeOfPreScrutiny.ReferToCoronerInvestigation,
+                            ClinicalGovernanceReview = ClinicalGovernanceReview.No,
+                            ClinicalGovernanceReviewText = "text"
+                        }
+                    },
+                    QapDiscussion = new QapDiscussionEventContainer
+                    {
+                        Latest = new QapDiscussionEvent
+                        {
+                            UserFullName = "UserFullName",
+                            UsersRole = "UserFullName",
+                            Created = new DateTime(2019, 09, 11),
+                            EventId = "EventId",
+                            UserId = "UserId",
+                            IsFinal = true,
+                            ParticipantRole = "ParticipantRole",
+                            ParticipantOrganisation = "ParticipantOrganisation",
+                            ParticipantPhoneNumber = "ParticipantPhoneNumber",
+                            DateOfConversation = new DateTime(2019, 09, 11),
+                            TimeOfConversation = new TimeSpan(12, 00, 00),
+                            DiscussionUnableHappen = false,
+                            DiscussionDetails = "DiscussionDetails",
+                            QapDiscussionOutcome = QapDiscussionOutcome.ReferToCoronerFor100a,
+                            ParticipantName = "ParticipantName",
+                            CauseOfDeath1a = "CauseOfDeath1a",
+                            CauseOfDeath1b = "CauseOfDeath1b",
+                            CauseOfDeath1c = "CauseOfDeath1c",
+                            CauseOfDeath2 = "CauseOfDeath2"
+                        }
+                    }
+                }
+            };
+
+            // Act
+            var qapConditionsMetForScrutinyComplete = examination.RorAndQapConditionsMetForScrutinyComplete();
+
+            qapConditionsMetForScrutinyComplete.Should().BeTrue();
+        }
+
+        [Fact]
+        public void QapConditionsMetForScrutinyComplete_When_ROR_ReferToCoroner100a_And_QAP_Unable_To_Happen_Entered_True()
+        {
+            // Arrange
+            var examination = new Examination
+            {
+                CaseBreakdown = new CaseBreakDown
+                {
+                    PreScrutiny = new PreScrutinyEventContainer
+                    {
+                        Latest = new PreScrutinyEvent
+                        {
+                            UserFullName = "UserFullName",
+                            UsersRole = "UsersRole",
+                            Created = new DateTime(2019, 09, 11),
+                            EventId = "EventId",
+                            UserId = "UserId",
+                            MedicalExaminerThoughts = "MedicalExaminerThoughts",
+                            IsFinal = true,
+                            CircumstancesOfDeath = OverallCircumstancesOfDeath.Expected,
+                            CauseOfDeath1a = "CauseOfDeath1a",
+                            CauseOfDeath1b = "CauseOfDeath1b",
+                            CauseOfDeath1c = "CauseOfDeath1c",
+                            CauseOfDeath2 = "CauseOfDeath2",
+                            OutcomeOfPreScrutiny = OverallOutcomeOfPreScrutiny.ReferToCoronerFor100a,
+                            ClinicalGovernanceReview = ClinicalGovernanceReview.No,
+                            ClinicalGovernanceReviewText = "text"
+                        }
+                    },
+                    QapDiscussion = new QapDiscussionEventContainer
+                    {
+                        Latest = new QapDiscussionEvent
+                        {
+                            UserFullName = "UserFullName",
+                            UsersRole = "UserFullName",
+                            Created = new DateTime(2019, 09, 11),
+                            EventId = "EventId",
+                            UserId = "UserId",
+                            IsFinal = true,
+                            ParticipantRole = null,
+                            ParticipantOrganisation = null,
+                            ParticipantPhoneNumber = null,
+                            DateOfConversation = null,
+                            TimeOfConversation = null,
+                            DiscussionUnableHappen = true,
+                            DiscussionDetails = null,
+                            QapDiscussionOutcome = QapDiscussionOutcome.DiscussionUnableToHappen,
+                            ParticipantName = null,
+                            CauseOfDeath1a = null,
+                            CauseOfDeath1b = null,
+                            CauseOfDeath1c = null,
+                            CauseOfDeath2 = null
+                        }
+                    }
+                }
+            };
+
+            // Act
+            var qapConditionsMetForScrutinyComplete = examination.RorAndQapConditionsMetForScrutinyComplete();
+
+            qapConditionsMetForScrutinyComplete.Should().BeTrue();
+        }
+
+        [Fact]
+        public void QapConditionsMetForScrutinyComplete_When_ROR_ReferToCoroner100a_And_QAP_ReferToCoronerInvestigation_Entered_True()
+        {
+            // Arrange
+            var examination = new Examination
+            {
+                CaseBreakdown = new CaseBreakDown
+                {
+                    PreScrutiny = new PreScrutinyEventContainer
+                    {
+                        Latest = new PreScrutinyEvent
+                        {
+                            UserFullName = "UserFullName",
+                            UsersRole = "UsersRole",
+                            Created = new DateTime(2019, 09, 11),
+                            EventId = "EventId",
+                            UserId = "UserId",
+                            MedicalExaminerThoughts = "MedicalExaminerThoughts",
+                            IsFinal = true,
+                            CircumstancesOfDeath = OverallCircumstancesOfDeath.Expected,
+                            CauseOfDeath1a = "CauseOfDeath1a",
+                            CauseOfDeath1b = "CauseOfDeath1b",
+                            CauseOfDeath1c = "CauseOfDeath1c",
+                            CauseOfDeath2 = "CauseOfDeath2",
+                            OutcomeOfPreScrutiny = OverallOutcomeOfPreScrutiny.ReferToCoronerFor100a,
+                            ClinicalGovernanceReview = ClinicalGovernanceReview.No,
+                            ClinicalGovernanceReviewText = "text"
+                        }
+                    },
+                    QapDiscussion = new QapDiscussionEventContainer
+                    {
+                        Latest = new QapDiscussionEvent
+                        {
+                            UserFullName = "UserFullName",
+                            UsersRole = "UserFullName",
+                            Created = new DateTime(2019, 09, 11),
+                            EventId = "EventId",
+                            UserId = "UserId",
+                            IsFinal = true,
+                            ParticipantRole = "ParticipantRole",
+                            ParticipantOrganisation = "ParticipantOrganisation",
+                            ParticipantPhoneNumber = "ParticipantPhoneNumber",
+                            DateOfConversation = new DateTime(2019, 09, 11),
+                            TimeOfConversation = new TimeSpan(12, 00, 00),
+                            DiscussionUnableHappen = false,
+                            DiscussionDetails = "DiscussionDetails",
+                            QapDiscussionOutcome = QapDiscussionOutcome.ReferToCoronerInvestigation,
+                            ParticipantName = "ParticipantName",
+                            CauseOfDeath1a = "CauseOfDeath1a",
+                            CauseOfDeath1b = "CauseOfDeath1b",
+                            CauseOfDeath1c = "CauseOfDeath1c",
+                            CauseOfDeath2 = "CauseOfDeath2"
+                        }
+                    }
+                }
+            };
+
+            // Act
+            var qapConditionsMetForScrutinyComplete = examination.RorAndQapConditionsMetForScrutinyComplete();
+
+            qapConditionsMetForScrutinyComplete.Should().BeTrue();
+        }
+
+        [Fact]
+        public void QapConditionsMetForScrutinyComplete_When_ROR_ReferToCoroner100a_And_QAP_ReferToCoroner100a_Entered_True()
+        {
+            // Arrange
+            var examination = new Examination
+            {
+                CaseBreakdown = new CaseBreakDown
+                {
+                    PreScrutiny = new PreScrutinyEventContainer
+                    {
+                        Latest = new PreScrutinyEvent
+                        {
+                            UserFullName = "UserFullName",
+                            UsersRole = "UsersRole",
+                            Created = new DateTime(2019, 09, 11),
+                            EventId = "EventId",
+                            UserId = "UserId",
+                            MedicalExaminerThoughts = "MedicalExaminerThoughts",
+                            IsFinal = true,
+                            CircumstancesOfDeath = OverallCircumstancesOfDeath.Expected,
+                            CauseOfDeath1a = "CauseOfDeath1a",
+                            CauseOfDeath1b = "CauseOfDeath1b",
+                            CauseOfDeath1c = "CauseOfDeath1c",
+                            CauseOfDeath2 = "CauseOfDeath2",
+                            OutcomeOfPreScrutiny = OverallOutcomeOfPreScrutiny.ReferToCoronerFor100a,
+                            ClinicalGovernanceReview = ClinicalGovernanceReview.No,
+                            ClinicalGovernanceReviewText = "text"
+                        }
+                    },
+                    QapDiscussion = new QapDiscussionEventContainer
+                    {
+                        Latest = new QapDiscussionEvent
+                        {
+                            UserFullName = "UserFullName",
+                            UsersRole = "UserFullName",
+                            Created = new DateTime(2019, 09, 11),
+                            EventId = "EventId",
+                            UserId = "UserId",
+                            IsFinal = true,
+                            ParticipantRole = "ParticipantRole",
+                            ParticipantOrganisation = "ParticipantOrganisation",
+                            ParticipantPhoneNumber = "ParticipantPhoneNumber",
+                            DateOfConversation = new DateTime(2019, 09, 11),
+                            TimeOfConversation = new TimeSpan(12, 00, 00),
+                            DiscussionUnableHappen = false,
+                            DiscussionDetails = "DiscussionDetails",
+                            QapDiscussionOutcome = QapDiscussionOutcome.ReferToCoronerFor100a,
+                            ParticipantName = "ParticipantName",
+                            CauseOfDeath1a = "CauseOfDeath1a",
+                            CauseOfDeath1b = "CauseOfDeath1b",
+                            CauseOfDeath1c = "CauseOfDeath1c",
+                            CauseOfDeath2 = "CauseOfDeath2"
+                        }
+                    }
+                }
+            };
+
+            // Act
+            var qapConditionsMetForScrutinyComplete = examination.RorAndQapConditionsMetForScrutinyComplete();
+
+            qapConditionsMetForScrutinyComplete.Should().BeTrue();
         }
 
         [Fact]
