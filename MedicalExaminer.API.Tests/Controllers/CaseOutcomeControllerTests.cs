@@ -360,14 +360,10 @@ namespace MedicalExaminer.API.Tests.Controllers
             // Arrange
             var logger = new Mock<IMELogger>();
             var mapper = new Mock<IMapper>();
-            var caseOutcome = new CaseOutcome
-            {
-                CaseOutcomeSummary = CaseOutcomeSummary.ReferToCoroner
-            };
             var examination = new Examination
             {
                 ExaminationId = Guid.NewGuid().ToString(),
-                CaseOutcome = caseOutcome
+                CaseOutcomeSummary = CaseOutcomeSummary.ReferToCoroner
             };
 
             var mockMeUser = new Mock<MeUser>();
@@ -482,19 +478,15 @@ namespace MedicalExaminer.API.Tests.Controllers
             // Arrange
             var logger = new Mock<IMELogger>();
             var mapper = new Mock<IMapper>();
-            var caseOutcome = new CaseOutcome
-            {
-                CaseOutcomeSummary = CaseOutcomeSummary.IssueMCCD,
-                MccdIssued = true,
-                CremationFormStatus = CremationFormStatus.Yes,
-                GpNotifiedStatus = GPNotified.GPNotified
-            };
 
             var examination = new Examination
             {
                 ExaminationId = Guid.NewGuid().ToString(),
                 OutstandingCaseItemsCompleted = true,
-                CaseOutcome = caseOutcome
+                CaseOutcomeSummary = CaseOutcomeSummary.IssueMCCD,
+                MccdIssued = true,
+                CremationFormStatus = CremationFormStatus.Yes,
+                GpNotifiedStatus = GPNotified.GPNotified
             };
 
             var mockMeUser = new Mock<MeUser>();

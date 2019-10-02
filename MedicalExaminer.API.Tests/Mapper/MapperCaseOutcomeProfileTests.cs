@@ -23,15 +23,9 @@ namespace MedicalExaminer.API.Tests.Mapper
         public void Examination_To_PutConfirmationOfScrutinyResponse()
         {
             var scrutinyConfirmedDate = new DateTime(2019, 5, 3);
-
-            var caseOutcome = new CaseOutcome
-            {
-                ScrutinyConfirmedOn = scrutinyConfirmedDate
-            };
-
             var examination = new Examination
             {
-                CaseOutcome = caseOutcome,
+                ScrutinyConfirmedOn = scrutinyConfirmedDate,
                 ConfirmationOfScrutinyCompletedAt = scrutinyConfirmedDate
             };
 

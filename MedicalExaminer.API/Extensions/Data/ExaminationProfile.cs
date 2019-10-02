@@ -25,7 +25,14 @@ namespace MedicalExaminer.API.Extensions.Data
         public ExaminationProfile()
         {
             CreateMap<Examination, GetCoronerReferralDownloadResponse>()
-                .ForMember(dest => dest.AbleToIssueMCCD, opt => opt.MapFrom(src => src.CaseOutcome.CaseOutcomeSummary == CaseOutcomeSummary.ReferToCoroner ? false : true))
+                .ForMember(dest => dest.AbleToIssueMCCD, opt => opt.MapFrom((src, dest, destMember, context) =>
+                {
+                    if (src.CaseOutcomeSummary == null || src.CaseOutcomeSummary == CaseOutcomeSummary.ReferToCoroner)
+                    {
+                        return false;
+                    }
+                    return true;
+                }))
                 .ForMember(dest => dest.CauseOfDeath1a, opt => opt.MapFrom((src, dest, destMember, context) =>
                 {
                     if (src.CaseBreakdown.QapDiscussion.Latest == null)
@@ -289,18 +296,6 @@ namespace MedicalExaminer.API.Extensions.Data
                 }))
                 .ForMember(cbi => cbi.PatientDeathEvent, opt => opt.MapFrom(src => src.CaseBreakdown.DeathEvent))
                 .ForMember(cbi => cbi.CaseClosed, opt => opt.MapFrom(src => src.CaseBreakdown.CaseClosedEvent));
-            CreateMap<Examination, CaseOutcome>()
-                .ForMember(caseOutcome => caseOutcome.CaseMedicalExaminerFullName, opt => opt.MapFrom(examination => examination.CaseOutcome.CaseMedicalExaminerFullName))
-                .ForMember(caseOutcome => caseOutcome.CaseCompleted, opt => opt.MapFrom(examination => examination.CaseCompleted))
-                .ForMember(caseOutcome => caseOutcome.CaseOutcomeSummary, opt => opt.MapFrom(examination => examination.CaseOutcome.CaseOutcomeSummary))
-                .ForMember(caseOutcome => caseOutcome.OutcomeOfPrescrutiny, opt => opt.MapFrom(examination => examination.CaseOutcome.OutcomeOfPrescrutiny))
-                .ForMember(caseOutcome => caseOutcome.OutcomeOfRepresentativeDiscussion, opt => opt.MapFrom(examination => examination.CaseOutcome.OutcomeOfRepresentativeDiscussion))
-                .ForMember(caseOutcome => caseOutcome.OutcomeQapDiscussion, opt => opt.MapFrom(examination => examination.CaseOutcome.OutcomeQapDiscussion))
-                .ForMember(caseOutcome => caseOutcome.ScrutinyConfirmedOn, opt => opt.MapFrom(examination => examination.CaseOutcome.ScrutinyConfirmedOn))
-                .ForMember(caseOutcome => caseOutcome.CoronerReferralSent, opt => opt.MapFrom(examination => examination.CoronerReferralSent))
-                .ForMember(caseOutcome => caseOutcome.MccdIssued, opt => opt.MapFrom(examination => examination.CaseOutcome.MccdIssued))
-                .ForMember(caseOutcome => caseOutcome.CremationFormStatus, opt => opt.MapFrom(examination => examination.CaseOutcome.CremationFormStatus))
-                .ForMember(caseOutcome => caseOutcome.GpNotifiedStatus, opt => opt.MapFrom(examination => examination.CaseOutcome.GpNotifiedStatus));
             CreateMap<Examination, GetCaseOutcomeResponse>()
                 .ForMember(response => response.Header, opt => opt.MapFrom(examination => examination))
                 .ForMember(response => response.CaseMedicalExaminerFullName, opt => opt.MapFrom(new MedicalExaminerFullNameResolver()))
@@ -308,14 +303,14 @@ namespace MedicalExaminer.API.Extensions.Data
                 .ForMember(response => response.Errors, opt => opt.Ignore())
                 .ForMember(response => response.Lookups, opt => opt.Ignore())
                 .ForMember(response => response.CaseCompleted, opt => opt.MapFrom(examination => examination.CaseCompleted))
-                .ForMember(response => response.CaseOutcomeSummary, opt => opt.MapFrom(examination => examination.CaseOutcome.CaseOutcomeSummary))
+                .ForMember(response => response.CaseOutcomeSummary, opt => opt.MapFrom(examination => examination.CaseOutcomeSummary))
                 .ForMember(response => response.OutcomeOfPrescrutiny, opt => opt.MapFrom(new PreScrutinyOutcomeResolver()))
                 .ForMember(response => response.OutcomeOfRepresentativeDiscussion, opt => opt.MapFrom(new RepresentativeDiscussionOutcomeResolver()))
                 .ForMember(response => response.OutcomeQapDiscussion, opt => opt.MapFrom(new QAPDiscussionOutcomeResolver()))
-                .ForMember(response => response.ScrutinyConfirmedOn, opt => opt.MapFrom(examination => examination.CaseOutcome.ScrutinyConfirmedOn))
-                .ForMember(response => response.MccdIssued, opt => opt.MapFrom(examination => examination.CaseOutcome.MccdIssued))
-                .ForMember(response => response.CremationFormStatus, opt => opt.MapFrom(examination => examination.CaseOutcome.CremationFormStatus))
-                .ForMember(response => response.GpNotifiedStatus, opt => opt.MapFrom(examination => examination.CaseOutcome.GpNotifiedStatus));
+                .ForMember(response => response.ScrutinyConfirmedOn, opt => opt.MapFrom(examination => examination.ScrutinyConfirmedOn))
+                .ForMember(response => response.MccdIssued, opt => opt.MapFrom(examination => examination.MccdIssued))
+                .ForMember(response => response.CremationFormStatus, opt => opt.MapFrom(examination => examination.CremationFormStatus))
+                .ForMember(response => response.GpNotifiedStatus, opt => opt.MapFrom(examination => examination.GpNotifiedStatus));
             CreateMap<Examination, ExaminationItem>()
                 .ForMember(response => response.UrgencyScore, opt => opt.MapFrom(examination => examination.IsUrgent() ? 1 : 0));
             CreateMap<Examination, GetPatientDetailsResponse>()
@@ -407,15 +402,22 @@ namespace MedicalExaminer.API.Extensions.Data
                 .ForMember(examination => examination.CoronerReferralSent, opt => opt.Ignore())
                 .ForMember(examination => examination.ScrutinyConfirmed, opt => opt.Ignore())
                 .ForMember(examination => examination.OutstandingCaseItemsCompleted, opt => opt.Ignore())
-                .ForMember(examination => examination.CaseOutcome, opt => opt.Ignore())
-                .ForMember(examination => examination.CreatedBy, opt => opt.Ignore());
+                .ForMember(examination => examination.CreatedBy, opt => opt.Ignore())
+                .ForMember(examination => examination.CaseOutcomeSummary, opt => opt.Ignore())
+                .ForMember(examination => examination.OutcomeOfRepresentativeDiscussion, opt => opt.Ignore())
+                .ForMember(examination => examination.OutcomeOfPrescrutiny, opt => opt.Ignore())
+                .ForMember(examination => examination.OutcomeQapDiscussion, opt => opt.Ignore())
+                .ForMember(examination => examination.ScrutinyConfirmedOn, opt => opt.Ignore())
+                .ForMember(examination => examination.MccdIssued, opt => opt.Ignore())
+                .ForMember(examination => examination.CremationFormStatus, opt => opt.Ignore())
+                .ForMember(examination => examination.GpNotifiedStatus, opt => opt.Ignore());
             CreateMap<Examination, PatientCardItem>()
                 .ForMember(response => response.UrgencyScore, opt => opt.MapFrom(examination => examination.IsUrgent() ? 1 : 0))
                 .ForMember(patientCard => patientCard.AppointmentDate, examination => examination.MapFrom(new AppointmentDateResolver(new AppointmentFinder())))
                 .ForMember(patientCard => patientCard.AppointmentTime, examination => examination.MapFrom(new AppointmentTimeResolver(new AppointmentFinder())))
                 .ForMember(patientCard => patientCard.CaseCreatedDate, opt => opt.MapFrom(examination => examination.CreatedAt))
                 .ForMember(patientCard => patientCard.LastAdmission, opt => opt.MapFrom(new AdmissionDateResolver()))
-                .ForMember(patientCard => patientCard.CaseOutcome, opt => opt.MapFrom(examination => examination.CaseOutcome.CaseOutcomeSummary))
+                .ForMember(patientCard => patientCard.CaseOutcome, opt => opt.MapFrom(examination => examination.CaseOutcomeSummary))
                 .ForMember(patientCard => patientCard.NameEntered, opt => opt.MapFrom(
                     (source, dest, destMember, context) =>
                     {
@@ -511,9 +513,9 @@ namespace MedicalExaminer.API.Extensions.Data
                 .ForMember(patientCard => patientCard.MccdIssued, opt => opt.MapFrom(
                     (source, dest, destMember, context) =>
                     {
-                        if (source.CaseOutcome.CaseOutcomeSummary != CaseOutcomeSummary.ReferToCoroner)
+                        if (source.CaseOutcomeSummary != CaseOutcomeSummary.ReferToCoroner)
                         {
-                            if (source.CaseOutcome.MccdIssued != null)
+                            if (source.MccdIssued != null)
                             {
                                 return StatusBarResult.Complete;
                             }
@@ -526,9 +528,9 @@ namespace MedicalExaminer.API.Extensions.Data
                 .ForMember(patientCard => patientCard.CremationFormInfoEntered, opt => opt.MapFrom(
                     (source, dest, destMember, context) =>
                     {
-                        if (source.CaseOutcome.CaseOutcomeSummary != CaseOutcomeSummary.ReferToCoroner)
+                        if (source.CaseOutcomeSummary != CaseOutcomeSummary.ReferToCoroner)
                         {
-                            switch (source.CaseOutcome.CremationFormStatus)
+                            switch (source.CremationFormStatus)
                             {
                                 case CremationFormStatus.Yes:
                                 case CremationFormStatus.No:
@@ -547,9 +549,9 @@ namespace MedicalExaminer.API.Extensions.Data
                 .ForMember(patientCard => patientCard.GpNotified, opt => opt.MapFrom(
                     (source, dest, destMember, context) =>
                     {
-                        if (source.CaseOutcome.CaseOutcomeSummary != CaseOutcomeSummary.ReferToCoroner)
+                        if (source.CaseOutcomeSummary != CaseOutcomeSummary.ReferToCoroner)
                         {
-                            if (source.CaseOutcome.GpNotifiedStatus != null)
+                            if (source.GpNotifiedStatus != null)
                             {
                                 return StatusBarResult.Complete;
                             }
@@ -562,10 +564,10 @@ namespace MedicalExaminer.API.Extensions.Data
                 .ForMember(patientCard => patientCard.SentToCoroner, opt => opt.MapFrom(
                     (source, dest, destMember, context) =>
                     {
-                        if (source.CaseOutcome.CaseOutcomeSummary == CaseOutcomeSummary.ReferToCoroner
-                            || source.CaseOutcome.CaseOutcomeSummary == CaseOutcomeSummary.IssueMCCDWith100a)
+                        if (source.CaseOutcomeSummary == CaseOutcomeSummary.ReferToCoroner
+                            || source.CaseOutcomeSummary == CaseOutcomeSummary.IssueMCCDWith100a)
                         {
-                            if (source.CaseOutcome.CoronerReferralSent)
+                            if (source.CoronerReferralSent)
                             {
                                 return StatusBarResult.Complete;
                             }
@@ -601,6 +603,14 @@ namespace MedicalExaminer.API.Extensions.Data
             if (caseBreakdown.PreScrutiny.Latest == null && caseBreakdown.QapDiscussion.Latest == null)
             {
                 return null;
+            }
+
+            if (caseBreakdown.QapDiscussion.Latest.QapDiscussionOutcome ==
+                QapDiscussionOutcome.ReferToCoronerInvestigation
+                || caseBreakdown.QapDiscussion.Latest.QapDiscussionOutcome ==
+                QapDiscussionOutcome.ReferToCoronerFor100a)
+            {
+                return false;
             }
 
             if (caseBreakdown.QapDiscussion.Latest != null)

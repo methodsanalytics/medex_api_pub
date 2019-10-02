@@ -127,10 +127,13 @@ namespace MedicalExaminer.API.Tests.Mapper
             },
             NursingTeamInformation = "Nursing Team Information",
             MedicalExaminerUserId = "Medical Examiner User Id",
-            MedicalExaminerFullName = "Medical Examiner Full Name",
+            MedicalExaminerFullName = MedicalExaminerFullName,
             MedicalExaminerOfficerUserId = "Medical Examiner Officer UserId",
-            MedicalExaminerOfficerFullName = "Medical Examiner Officer FullName"
+            MedicalExaminerOfficerFullName = MedicalExaminerOfficerFullName
         };
+
+        private const string MedicalExaminerFullName = "Medical Examiner Full Name";
+        private const string MedicalExaminerOfficerFullName = "Medical Examiner Officer FullName";
 
         private readonly IEnumerable<Representative> Representatives = new List<Representative>
         {
@@ -758,35 +761,15 @@ namespace MedicalExaminer.API.Tests.Mapper
             var response = _mapper.Map<GetCaseOutcomeResponse>(examination);
 
             response.CaseCompleted.Should().Be(Completed);
-            response.CaseMedicalExaminerFullName.Should().Be(caseOutcome.CaseMedicalExaminerFullName);
-            response.CaseOutcomeSummary.Should().Be(caseOutcome.CaseOutcomeSummary);
-            response.CremationFormStatus.Should().Be(caseOutcome.CremationFormStatus);
-            response.GpNotifiedStatus.Should().Be(caseOutcome.GpNotifiedStatus);
-            response.MccdIssued.Should().Be(caseOutcome.MccdIssued);
+            response.CaseMedicalExaminerFullName.Should().Be(MedicalExaminerFullName);
+            response.CaseOutcomeSummary.Should().Be(examination.CaseOutcomeSummary);
+            response.CremationFormStatus.Should().Be(examination.CremationFormStatus);
+            response.GpNotifiedStatus.Should().Be(examination.GpNotifiedStatus);
+            response.MccdIssued.Should().Be(examination.MccdIssued);
             response.OutcomeOfPrescrutiny.Should().Be(examination.CaseBreakdown.PreScrutiny.Latest.OutcomeOfPreScrutiny);
             response.OutcomeOfRepresentativeDiscussion.Should().Be(examination.CaseBreakdown.BereavedDiscussion.Latest.BereavedDiscussionOutcome);
             response.OutcomeQapDiscussion.Should().Be(examination.CaseBreakdown.QapDiscussion.Latest.QapDiscussionOutcome);
-            response.ScrutinyConfirmedOn.Should().Be(caseOutcome.ScrutinyConfirmedOn);
-        }
-
-        [Fact]
-        public void Examination_To_CaseOutcome()
-        {
-            var examination = GenerateExamination();
-
-            var result = _mapper.Map<CaseOutcome>(examination);
-
-            result.ScrutinyConfirmedOn.Should().Be(caseOutcome.ScrutinyConfirmedOn);
-            result.CaseMedicalExaminerFullName.Should().Be(caseOutcome.CaseMedicalExaminerFullName);
-            result.CaseOutcomeSummary.Should().Be(caseOutcome.CaseOutcomeSummary);
-            result.CremationFormStatus.Should().Be(caseOutcome.CremationFormStatus);
-            result.GpNotifiedStatus.Should().Be(caseOutcome.GpNotifiedStatus);
-            result.MccdIssued.Should().Be(caseOutcome.MccdIssued);
-            result.OutcomeOfPrescrutiny.Should().Be(caseOutcome.OutcomeOfPrescrutiny);
-            result.OutcomeOfRepresentativeDiscussion.Should().Be(caseOutcome.OutcomeOfRepresentativeDiscussion);
-            result.OutcomeQapDiscussion.Should().Be(caseOutcome.OutcomeQapDiscussion);
-            result.CaseCompleted.Should().Be(Completed);
-
+            response.ScrutinyConfirmedOn.Should().Be(examination.ScrutinyConfirmedOn);
         }
 
         [Fact]
@@ -892,11 +875,11 @@ namespace MedicalExaminer.API.Tests.Mapper
             examination.MedicalTeam.MedicalExaminerUserId = "MedicalExaminerUserId";
             examination.ScrutinyConfirmed = true;
 
-            examination.CaseOutcome.CaseOutcomeSummary = CaseOutcomeSummary.ReferToCoroner;
-            examination.CaseOutcome.MccdIssued = true;
-            examination.CaseOutcome.CremationFormStatus = CremationFormStatus.Yes;
-            examination.CaseOutcome.GpNotifiedStatus = GPNotified.GPNotified;
-            examination.CaseOutcome.CoronerReferralSent = true;
+            examination.CaseOutcomeSummary = CaseOutcomeSummary.ReferToCoroner;
+            examination.MccdIssued = true;
+            examination.CremationFormStatus = CremationFormStatus.Yes;
+            examination.GpNotifiedStatus = GPNotified.GPNotified;
+            examination.CoronerReferralSent = true;
             examination.CaseCompleted = true;
 
             // Action
@@ -970,11 +953,11 @@ namespace MedicalExaminer.API.Tests.Mapper
             examination.MedicalTeam.MedicalExaminerUserId = "MedicalExaminerUserId";
             examination.ScrutinyConfirmed = true;
 
-            examination.CaseOutcome.CaseOutcomeSummary = CaseOutcomeSummary.IssueMCCDWith100a;
-            examination.CaseOutcome.MccdIssued = true;
-            examination.CaseOutcome.CremationFormStatus = CremationFormStatus.Yes;
-            examination.CaseOutcome.GpNotifiedStatus = GPNotified.GPNotified;
-            examination.CaseOutcome.CoronerReferralSent = true;
+            examination.CaseOutcomeSummary = CaseOutcomeSummary.IssueMCCDWith100a;
+            examination.MccdIssued = true;
+            examination.CremationFormStatus = CremationFormStatus.Yes;
+            examination.GpNotifiedStatus = GPNotified.GPNotified;
+            examination.CoronerReferralSent = true;
             examination.CaseCompleted = true;
 
             // Action
@@ -1047,11 +1030,11 @@ namespace MedicalExaminer.API.Tests.Mapper
             examination.Representatives = new[] { representative };
             examination.MedicalTeam.MedicalExaminerUserId = "MedicalExaminerUserId";
 
-            examination.CaseOutcome.CaseOutcomeSummary = CaseOutcomeSummary.IssueMCCD;
-            examination.CaseOutcome.MccdIssued = true;
-            examination.CaseOutcome.CremationFormStatus = CremationFormStatus.Yes;
-            examination.CaseOutcome.GpNotifiedStatus = GPNotified.GPNotified;
-            examination.CaseOutcome.CoronerReferralSent = false;
+            examination.CaseOutcomeSummary = CaseOutcomeSummary.IssueMCCD;
+            examination.MccdIssued = true;
+            examination.CremationFormStatus = CremationFormStatus.Yes;
+            examination.GpNotifiedStatus = GPNotified.GPNotified;
+            examination.CoronerReferralSent = false;
             examination.CaseCompleted = true;
 
             // Action
@@ -1102,10 +1085,10 @@ namespace MedicalExaminer.API.Tests.Mapper
             examination.Representatives = new[] { representative };
             examination.MedicalTeam.MedicalExaminerUserId = "MedicalExaminerUserId";
 
-            examination.CaseOutcome.MccdIssued = true;
-            examination.CaseOutcome.CremationFormStatus = CremationFormStatus.Yes;
-            examination.CaseOutcome.GpNotifiedStatus = GPNotified.GPNotified;
-            examination.CaseOutcome.CoronerReferralSent = true;
+            examination.MccdIssued = true;
+            examination.CremationFormStatus = CremationFormStatus.Yes;
+            examination.GpNotifiedStatus = GPNotified.GPNotified;
+            examination.CoronerReferralSent = true;
 
             // Action
             var result = _mapper.Map<PatientCardItem>(examination);
@@ -1147,10 +1130,10 @@ namespace MedicalExaminer.API.Tests.Mapper
             examination.Representatives = null;
             examination.MedicalTeam.MedicalExaminerUserId = null;
 
-            examination.CaseOutcome.MccdIssued = true;
-            examination.CaseOutcome.CremationFormStatus = CremationFormStatus.Yes;
-            examination.CaseOutcome.GpNotifiedStatus = GPNotified.GPNotified;
-            examination.CaseOutcome.CoronerReferralSent = true;
+            examination.MccdIssued = true;
+            examination.CremationFormStatus = CremationFormStatus.Yes;
+            examination.GpNotifiedStatus = GPNotified.GPNotified;
+            examination.CoronerReferralSent = true;
 
             // Action
             var result = _mapper.Map<PatientCardItem>(examination);
@@ -1205,10 +1188,10 @@ namespace MedicalExaminer.API.Tests.Mapper
             examination.CaseBreakdown.QapDiscussion.Latest = null;
             examination.CaseBreakdown.BereavedDiscussion.Latest = null;
 
-            examination.CaseOutcome.MccdIssued = true;
-            examination.CaseOutcome.CremationFormStatus = CremationFormStatus.Yes;
-            examination.CaseOutcome.GpNotifiedStatus = GPNotified.GPNotified;
-            examination.CaseOutcome.CoronerReferralSent = true;
+            examination.MccdIssued = true;
+            examination.CremationFormStatus = CremationFormStatus.Yes;
+            examination.GpNotifiedStatus = GPNotified.GPNotified;
+            examination.CoronerReferralSent = true;
 
             // Action
             var result = _mapper.Map<PatientCardItem>(examination);
@@ -1301,10 +1284,10 @@ namespace MedicalExaminer.API.Tests.Mapper
                 BereavedDiscussionOutcome = BereavedDiscussionOutcome.CauseOfDeathAccepted
             };
 
-            examination.CaseOutcome.MccdIssued = true;
-            examination.CaseOutcome.CremationFormStatus = CremationFormStatus.Yes;
-            examination.CaseOutcome.GpNotifiedStatus = GPNotified.GPNotified;
-            examination.CaseOutcome.CoronerReferralSent = true;
+            examination.MccdIssued = true;
+            examination.CremationFormStatus = CremationFormStatus.Yes;
+            examination.GpNotifiedStatus = GPNotified.GPNotified;
+            examination.CoronerReferralSent = true;
 
             // Action
             var result = _mapper.Map<PatientCardItem>(examination);
@@ -1352,11 +1335,11 @@ namespace MedicalExaminer.API.Tests.Mapper
             examination.Representatives = new[] { representative };
             examination.MedicalTeam.MedicalExaminerUserId = "MedicalExaminerUserId";
 
-            examination.CaseOutcome.CaseOutcomeSummary = CaseOutcomeSummary.ReferToCoroner;
-            examination.CaseOutcome.MccdIssued = null;
-            examination.CaseOutcome.CremationFormStatus = null;
-            examination.CaseOutcome.GpNotifiedStatus = null;
-            examination.CaseOutcome.CoronerReferralSent = false;
+            examination.CaseOutcomeSummary = CaseOutcomeSummary.ReferToCoroner;
+            examination.MccdIssued = null;
+            examination.CremationFormStatus = null;
+            examination.GpNotifiedStatus = null;
+            examination.CoronerReferralSent = false;
             examination.CaseCompleted = false;
 
             // Action
@@ -1407,10 +1390,10 @@ namespace MedicalExaminer.API.Tests.Mapper
             examination.Representatives = new[] { representative };
             examination.MedicalTeam.MedicalExaminerUserId = "MedicalExaminerUserId";
 
-            examination.CaseOutcome.MccdIssued = null;
-            examination.CaseOutcome.CremationFormStatus = CremationFormStatus.Unknown;
-            examination.CaseOutcome.GpNotifiedStatus = null;
-            examination.CaseOutcome.CoronerReferralSent = false;
+            examination.MccdIssued = null;
+            examination.CremationFormStatus = CremationFormStatus.Unknown;
+            examination.GpNotifiedStatus = null;
+            examination.CoronerReferralSent = false;
 
             // Action
             var result = _mapper.Map<PatientCardItem>(examination);
@@ -1456,8 +1439,8 @@ namespace MedicalExaminer.API.Tests.Mapper
             examination.Representatives = new[] { representative };
             examination.MedicalTeam.MedicalExaminerUserId = "MedicalExaminerUserId";
 
-            examination.CaseOutcome.CaseOutcomeSummary = CaseOutcomeSummary.ReferToCoroner;
-            examination.CaseOutcome.CoronerReferralSent = false;
+            examination.CaseOutcomeSummary = CaseOutcomeSummary.ReferToCoroner;
+            examination.CoronerReferralSent = false;
 
             // Action
             var result = _mapper.Map<PatientCardItem>(examination);
@@ -1506,10 +1489,10 @@ namespace MedicalExaminer.API.Tests.Mapper
             examination.Representatives = new[] { representative };
             examination.MedicalTeam.MedicalExaminerUserId = "MedicalExaminerUserId";
 
-            examination.CaseOutcome.CaseOutcomeSummary = CaseOutcomeSummary.IssueMCCD;
-            examination.CaseOutcome.MccdIssued = null;
-            examination.CaseOutcome.CremationFormStatus = null;
-            examination.CaseOutcome.GpNotifiedStatus = null;
+            examination.CaseOutcomeSummary = CaseOutcomeSummary.IssueMCCD;
+            examination.MccdIssued = null;
+            examination.CremationFormStatus = null;
+            examination.GpNotifiedStatus = null;
 
             // Action
             var result = _mapper.Map<PatientCardItem>(examination);
@@ -1769,7 +1752,6 @@ namespace MedicalExaminer.API.Tests.Mapper
                 CreatedAt = CaseCreated,
                 ExaminationId = ExaminationId,
                 CaseBreakdown = casebreakdown,
-                CaseOutcome = caseOutcome,
                 AnyImplants = AnyImplants,
                 AnyPersonalEffects = AnyPersonalEffects,
                 ChildPriority = ChildPriority,
@@ -1817,6 +1799,14 @@ namespace MedicalExaminer.API.Tests.Mapper
                 ReadyForMEScrutiny = true,
                 Unassigned = true,
                 MedicalTeam = medicalTeam,
+                ScrutinyConfirmedOn = new DateTime(2019, 5, 1),
+                OutcomeQapDiscussion = QapDiscussionOutcome.MccdCauseOfDeathProvidedByME,
+                CaseOutcomeSummary = CaseOutcomeSummary.IssueMCCD,
+                OutcomeOfPrescrutiny = OverallOutcomeOfPreScrutiny.IssueAnMccd,
+                OutcomeOfRepresentativeDiscussion = BereavedDiscussionOutcome.ConcernsAddressedWithoutCoroner,
+                MccdIssued = true,
+                GpNotifiedStatus = GPNotified.GPUnabledToBeNotified,
+                CremationFormStatus = CremationFormStatus.Yes
             };
 
             return examination;
@@ -2474,7 +2464,6 @@ namespace MedicalExaminer.API.Tests.Mapper
             MedicalHistoryEvent medicalHistoryEvent = null;
             AdmissionEvent admissionEvent = null;
             BereavedDiscussionEvent bereavedDiscussion = null;
-            CaseOutcome caseOutcome = null;
             Representative[] representatives = null;
             TimeSpan? timeOfDeath = null;
             DateTime? dateOfBirth = null;
@@ -2541,21 +2530,6 @@ namespace MedicalExaminer.API.Tests.Mapper
                     UserFullName = "userFullName",
                     UserId = "userId",
                     UsersRole = "userRole"
-                };
-
-                caseOutcome = new CaseOutcome()
-                {
-                    CaseCompleted = true,
-                    CaseMedicalExaminerFullName = "caseMedicalExaminerFullName",
-                    CaseOutcomeSummary = CaseOutcomeSummary.IssueMCCD,
-                    CoronerReferralSent = true,
-                    CremationFormStatus = CremationFormStatus.Yes,
-                    GpNotifiedStatus = GPNotified.GPNotified,
-                    MccdIssued = true,
-                    OutcomeOfPrescrutiny = OverallOutcomeOfPreScrutiny.IssueAnMccd,
-                    OutcomeOfRepresentativeDiscussion = BereavedDiscussionOutcome.CauseOfDeathAccepted,
-                    OutcomeQapDiscussion = QapDiscussionOutcome.MccdCauseOfDeathAgreedByQAPandME,
-                    ScrutinyConfirmedOn = new DateTime()
                 };
 
                 representatives = new Representative[]
@@ -2646,7 +2620,6 @@ namespace MedicalExaminer.API.Tests.Mapper
                     }
                 },
                 CaseCompleted = generalDetails ? true : false,
-                CaseOutcome = caseOutcome,
                 ChildPriority = generalDetails ? true : false,
                 ConfirmationOfScrutinyCompletedAt = null,
                 ConfirmationOfScrutinyCompletedBy = generalDetails ? "Dan Ooka" : null,
@@ -2679,6 +2652,14 @@ namespace MedicalExaminer.API.Tests.Mapper
                 LastOccupation = generalDetails ? "lastOccupation" : null,
                 MedicalExaminerOfficeResponsible = generalDetails ? "medicalExaminerOfficeId" : null,
                 MedicalExaminerOfficeResponsibleName = generalDetails ? "medicalExaminerOfficeName" : null,
+                CaseOutcomeSummary = generalDetails ? CaseOutcomeSummary.IssueMCCD : (CaseOutcomeSummary?)null,
+                CremationFormStatus = CremationFormStatus.Yes,
+                GpNotifiedStatus = GPNotified.GPNotified,
+                MccdIssued = true,
+                OutcomeOfPrescrutiny = OverallOutcomeOfPreScrutiny.IssueAnMccd,
+                OutcomeOfRepresentativeDiscussion = BereavedDiscussionOutcome.CauseOfDeathAccepted,
+                OutcomeQapDiscussion = QapDiscussionOutcome.MccdCauseOfDeathAgreedByQAPandME,
+                ScrutinyConfirmedOn = new DateTime(),
                 MedicalTeam = new MedicalTeam()
                 {
                     ConsultantResponsible = consultant,

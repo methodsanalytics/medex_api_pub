@@ -51,9 +51,9 @@ namespace MedicalExaminer.Common.Services.CaseOutcome
             examinationToUpdate.LastModifiedBy = param.User.UserId;
             examinationToUpdate.ModifiedAt = DateTime.Now;
 
-            examinationToUpdate.CaseOutcome.MccdIssued = param.CaseOutcome.MccdIssued;
-            examinationToUpdate.CaseOutcome.CremationFormStatus = param.CaseOutcome.CremationFormStatus;
-            examinationToUpdate.CaseOutcome.GpNotifiedStatus = param.CaseOutcome.GpNotifiedStatus;
+            examinationToUpdate.MccdIssued = param.CaseOutcome.MccdIssued;
+            examinationToUpdate.CremationFormStatus = param.CaseOutcome.CremationFormStatus;
+            examinationToUpdate.GpNotifiedStatus = param.CaseOutcome.GpNotifiedStatus;
 
             examinationToUpdate.OutstandingCaseItemsCompleted = examinationToUpdate.CalculateOutstandingCaseOutcomesCompleted();
             examinationToUpdate = examinationToUpdate.UpdateCaseUrgencySort(_urgencySettings.DaysToPreCalculateUrgencySort);
