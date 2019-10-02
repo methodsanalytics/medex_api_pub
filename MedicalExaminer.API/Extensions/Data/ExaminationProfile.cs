@@ -605,16 +605,21 @@ namespace MedicalExaminer.API.Extensions.Data
                 return null;
             }
 
-            if (caseBreakdown.QapDiscussion.Latest.QapDiscussionOutcome ==
-                QapDiscussionOutcome.ReferToCoronerInvestigation
-                || caseBreakdown.QapDiscussion.Latest.QapDiscussionOutcome ==
-                QapDiscussionOutcome.ReferToCoronerFor100a)
+            if (caseBreakdown.QapDiscussion.Latest == null && caseBreakdown.PreScrutiny.Latest != null)
             {
                 return false;
             }
 
             if (caseBreakdown.QapDiscussion.Latest != null)
             {
+                if (caseBreakdown.QapDiscussion.Latest.QapDiscussionOutcome ==
+                    QapDiscussionOutcome.ReferToCoronerInvestigation
+                    || caseBreakdown.QapDiscussion.Latest.QapDiscussionOutcome ==
+                    QapDiscussionOutcome.ReferToCoronerFor100a)
+                {
+                    return false;
+                }
+
                 if (caseBreakdown.PreScrutiny.Latest == null)
                 {
                     return true;
@@ -626,10 +631,7 @@ namespace MedicalExaminer.API.Extensions.Data
                 }
             }
 
-            if (caseBreakdown.QapDiscussion.Latest == null && caseBreakdown.PreScrutiny.Latest != null)
-            {
-                return false;
-            }
+            
 
             return caseBreakdown.QapDiscussion.Latest?.CauseOfDeath1a != caseBreakdown.PreScrutiny.Latest?.CauseOfDeath1a
                    || caseBreakdown.QapDiscussion.Latest?.CauseOfDeath1b != caseBreakdown.PreScrutiny.Latest?.CauseOfDeath1b
