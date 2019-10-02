@@ -371,12 +371,6 @@ namespace MedicalExaminer.Models
 
         public static CaseOutcomeSummary? CalculateScrutinyOutcome(this Examination examination)
         {
-            if (!examination.Unassigned && examination.CaseBreakdown.AdmissionNotes?.Latest?.ImmediateCoronerReferral.Value == true
-                && examination.CaseBreakdown.PreScrutiny?.Latest?.OutcomeOfPreScrutiny == OverallOutcomeOfPreScrutiny.ReferToCoronerInvestigation)
-            {
-                return CaseOutcomeSummary.ReferToCoroner;
-            }
-
             if (!examination.CalculateCanCompleteScrutiny())
             {
                 return null;

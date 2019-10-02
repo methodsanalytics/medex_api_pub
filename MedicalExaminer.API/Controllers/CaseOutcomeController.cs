@@ -184,8 +184,8 @@ namespace MedicalExaminer.API.Controllers
                 return new BadRequestObjectResult("Scrutiny has not yet been confirmed.");
             }
 
-            var caseOutcome = Mapper.Map<CaseOutcome>(putOutstandingCaseItemsRequest);
-            await _saveOutstandingCaseItemsService.Handle(new SaveOutstandingCaseItemsQuery(examinationId, caseOutcome, user));
+            examination = Mapper.Map<Examination>(putOutstandingCaseItemsRequest);
+            await _saveOutstandingCaseItemsService.Handle(new SaveOutstandingCaseItemsQuery(examinationId, examination, user));
             return Ok();
         }
 

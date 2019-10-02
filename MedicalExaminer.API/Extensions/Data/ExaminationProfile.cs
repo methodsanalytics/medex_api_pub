@@ -596,7 +596,7 @@ namespace MedicalExaminer.API.Extensions.Data
                 .ForMember(deathEvent => deathEvent.EventId, opt => opt.Ignore())
                 .ForMember(deathEvent => deathEvent.UsersRole, opt => opt.Ignore())
                 .ForMember(deathEvent => deathEvent.UserFullName, opt => opt.Ignore());
-        }
+            }
 
         private bool? UseQap(CaseBreakDown caseBreakdown)
         {
@@ -630,8 +630,6 @@ namespace MedicalExaminer.API.Extensions.Data
                     return false;
                 }
             }
-
-            
 
             return caseBreakdown.QapDiscussion.Latest?.CauseOfDeath1a != caseBreakdown.PreScrutiny.Latest?.CauseOfDeath1a
                    || caseBreakdown.QapDiscussion.Latest?.CauseOfDeath1b != caseBreakdown.PreScrutiny.Latest?.CauseOfDeath1b

@@ -147,20 +147,6 @@ namespace MedicalExaminer.API.Tests.Mapper
             }
         };
 
-        private readonly CaseOutcome caseOutcome = new CaseOutcome
-        {
-            ScrutinyConfirmedOn = new DateTime(2019, 5, 1),
-            CaseCompleted = false,
-            CaseMedicalExaminerFullName = "Medical Examiner Full Name",
-            OutcomeQapDiscussion = QapDiscussionOutcome.MccdCauseOfDeathProvidedByME,
-            CaseOutcomeSummary = CaseOutcomeSummary.IssueMCCD,
-            OutcomeOfPrescrutiny = OverallOutcomeOfPreScrutiny.IssueAnMccd,
-            OutcomeOfRepresentativeDiscussion = BereavedDiscussionOutcome.ConcernsAddressedWithoutCoroner,
-            MccdIssued = true,
-            GpNotifiedStatus = GPNotified.GPUnabledToBeNotified,
-            CremationFormStatus = CremationFormStatus.Yes
-        };
-
         /// <summary>
         ///     Mapper.
         /// </summary>
@@ -189,7 +175,6 @@ namespace MedicalExaminer.API.Tests.Mapper
         private string ParticipantName = "participantName";
         private string ParticipantOrganisation = "participantOrganisation";
 
-
         /// <summary>
         ///     Initializes a new instance of the <see cref="MapperExaminationProfileTests" /> class.
         /// </summary>
@@ -207,7 +192,6 @@ namespace MedicalExaminer.API.Tests.Mapper
         [Fact]
         public void Examination_To_PutMedicalTeamResponse()
         {
-
             var examination = GenerateExamination();
             var response = _mapper.Map<PutMedicalTeamResponse>(examination);
             Assert.True(IsEqual(medicalTeam.ConsultantResponsible, response.ConsultantResponsible));
