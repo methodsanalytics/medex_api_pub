@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AutoMapper;
-using MedicalExaminer.API.Filters;
 using MedicalExaminer.API.Models.v1.CaseOutcome;
 using MedicalExaminer.API.Services;
 using MedicalExaminer.Common.Authorization;
@@ -19,17 +18,17 @@ namespace MedicalExaminer.API.Controllers
     /// <summary>
     /// Case Outcome Controller.
     /// </summary>
-    /// <seealso cref="MedicalExaminer.API.Controllers.AuthorizedBaseController" />
+    /// <seealso cref="AuthorizedBaseController" />
     [ApiVersion("1.0")]
     [Route("/v{api-version:apiVersion}/examinations/{examinationId}")]
     [ApiController]
     public class CaseOutcomeController : AuthorizedBaseController
     {
-        private IAsyncQueryHandler<CoronerReferralQuery, string> _coronerReferralService;
-        private IAsyncQueryHandler<CloseCaseQuery, string> _closeCaseService;
-        private IAsyncQueryHandler<ExaminationRetrievalQuery, Examination> _examinationRetrievalService;
-        private IAsyncQueryHandler<SaveOutstandingCaseItemsQuery, string> _saveOutstandingCaseItemsService;
-        private IAsyncQueryHandler<ConfirmationOfScrutinyQuery, Examination> _confirmationOfScrutinyService;
+        private readonly IAsyncQueryHandler<CoronerReferralQuery, string> _coronerReferralService;
+        private readonly IAsyncQueryHandler<CloseCaseQuery, string> _closeCaseService;
+        private readonly IAsyncQueryHandler<ExaminationRetrievalQuery, Examination> _examinationRetrievalService;
+        private readonly IAsyncQueryHandler<SaveOutstandingCaseItemsQuery, string> _saveOutstandingCaseItemsService;
+        private readonly IAsyncQueryHandler<ConfirmationOfScrutinyQuery, Examination> _confirmationOfScrutinyService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CaseOutcomeController"/> class.
@@ -41,7 +40,7 @@ namespace MedicalExaminer.API.Controllers
         /// <param name="examinationRetrievalService">The examination retrieval service.</param>
         /// <param name="saveOutstandingCaseItemsService">The save outstanding case items service.</param>
         /// <param name="confirmationOfScrutinyService">The confirmation of scrutiny service.</param>
-        /// <param name="usersRetrievalByEmailService">The users retrieval by email service.</param>
+        /// <param name="usersRetrievalByOktaIdService">The users retrieval by email service.</param>
         /// <param name="authorizationService">The authorization service.</param>
         /// <param name="permissionService">The permission service.</param>
         public CaseOutcomeController(
@@ -192,8 +191,8 @@ namespace MedicalExaminer.API.Controllers
         /// <summary>
         /// Closing a case
         /// </summary>
-        /// <param name="examinationId"></param>
-        /// <returns></returns>
+        /// <param name="examinationId"> Examination Id </param>
+        /// <returns>None</returns>
         [HttpPut]
         [Route("close_case")]
         public async Task<ActionResult> PutCloseCase(string examinationId)
@@ -243,6 +242,7 @@ namespace MedicalExaminer.API.Controllers
         /// <summary>
         /// Get Case Outcome details
         /// </summary>
+        /// <param name="examinationId"> Examination Id </param>
         /// <returns>Case Outcome Details</returns>
         [HttpGet]
         public async Task<ActionResult<GetCaseOutcomeResponse>> GetCaseOutcome(string examinationId)
