@@ -347,6 +347,7 @@ namespace MedicalExaminer.API.Extensions.Data
                 .ForMember(response => response.Errors, opt => opt.Ignore())
                 .ForMember(response => response.Lookups, opt => opt.Ignore());
             CreateMap<PostExaminationRequest, Examination>()
+                .ForMember(examination => examination.Version, opt => opt.Ignore())
                 .ForMember(examination => examination.ExaminationId, opt => opt.Ignore())
                 .ForMember(examination => examination.HouseNameNumber, opt => opt.Ignore())
                 .ForMember(examination => examination.Street, opt => opt.Ignore())
@@ -410,7 +411,9 @@ namespace MedicalExaminer.API.Extensions.Data
                 .ForMember(examination => examination.ScrutinyConfirmedOn, opt => opt.Ignore())
                 .ForMember(examination => examination.MccdIssued, opt => opt.Ignore())
                 .ForMember(examination => examination.CremationFormStatus, opt => opt.Ignore())
-                .ForMember(examination => examination.GpNotifiedStatus, opt => opt.Ignore());
+                .ForMember(examination => examination.GpNotifiedStatus, opt => opt.Ignore())
+                .ForMember(examination => examination.CreatedBy, opt => opt.Ignore())
+                .ForMember(examination => examination.Version, opt => opt.Ignore());
             CreateMap<Examination, PatientCardItem>()
                 .ForMember(response => response.UrgencyScore, opt => opt.MapFrom(examination => examination.IsUrgent() ? 1 : 0))
                 .ForMember(patientCard => patientCard.AppointmentDate, examination => examination.MapFrom(new AppointmentDateResolver(new AppointmentFinder())))

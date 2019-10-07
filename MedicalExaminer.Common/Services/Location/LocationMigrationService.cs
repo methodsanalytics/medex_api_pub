@@ -1,13 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
 using MedicalExaminer.Common.ConnectionSettings;
 using MedicalExaminer.Common.Database;
 using MedicalExaminer.Common.MirationProcessors;
 using MedicalExaminer.Common.MirationProcessors.Location;
 using MedicalExaminer.Common.Queries;
-using MedicalExaminer.Common.Queries.Location;
 using Microsoft.Azure.Documents.SystemFunctions;
 
 namespace MedicalExaminer.Common.Services.Location
@@ -22,10 +19,10 @@ namespace MedicalExaminer.Common.Services.Location
             _processors.Add(1, new LocationMigrationProcessorV1());
         }
 
-        public override Task<bool> Handle(IMigrationQuery param)
+        public async override Task<bool> Handle(IMigrationQuery param)
         {
-            var locations = DatabaseAccess.GetItemsAsync<Models.Location>(ConnectionSettings, x => x.Version < param.VersionNumber
-            || !x.Version.IsDefined()).Result;
+            var locations = await DatabaseAccess.GetItemsAsync<Models.Location>(ConnectionSettings, x => x.Version < param.VersionNumber
+            || !x.Version.IsDefined());
 
             foreach (var location in locations)
             {
@@ -34,7 +31,7 @@ namespace MedicalExaminer.Common.Services.Location
                 DatabaseAccess.UpdateItemAsync(ConnectionSettings, migratedLocation);
             }
 
-            return Task.FromResult(true);
+            return true;
         }
     }
 }

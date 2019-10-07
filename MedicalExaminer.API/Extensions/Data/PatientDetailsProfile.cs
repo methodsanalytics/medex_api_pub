@@ -56,8 +56,8 @@ namespace MedicalExaminer.API.Extensions.Data
                 .ForMember(examination => examination.ScrutinyConfirmedOn, opt => opt.Ignore())
                 .ForMember(examination => examination.MccdIssued, opt => opt.Ignore())
                 .ForMember(examination => examination.CremationFormStatus, opt => opt.Ignore())
-                .ForMember(examination => examination.GpNotifiedStatus, opt => opt.Ignore());
-
+                .ForMember(examination => examination.GpNotifiedStatus, opt => opt.Ignore())
+                .ForMember(examination => examination.Version, opt => opt.Ignore());
         }
     }
 }

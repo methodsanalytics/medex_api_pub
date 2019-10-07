@@ -170,12 +170,12 @@ namespace MedicalExaminer.API.Models.v1.PatientDetails
         /// <summary>
         ///     Does the patient have any implants that may impact on cremation.
         /// </summary>
-        public bool? AnyImplants { get; set; }
+        public AnyImplants? AnyImplants { get; set; }
 
         /// <summary>
         ///     Free text for the implant details.
         /// </summary>
-        [RequiredIfAttributesMatch(nameof(AnyImplants), true, ErrorMessage = nameof(SystemValidationErrors.Required))]
+        [RequiredIfAttributesMatch(nameof(AnyImplants), MedicalExaminer.Models.Enums.AnyImplants.Yes, ErrorMessage = nameof(SystemValidationErrors.Required))]
         public string ImplantDetails { get; set; }
 
         /// <summary>
@@ -186,7 +186,7 @@ namespace MedicalExaminer.API.Models.v1.PatientDetails
         /// <summary>
         ///     Does the patient have any personal effects.
         /// </summary>
-        public bool AnyPersonalEffects { get; set; }
+        public PersonalEffects AnyPersonalEffects { get; set; }
 
         /// <summary>
         ///     Free text details of any personal effects.

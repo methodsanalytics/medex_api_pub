@@ -7,7 +7,7 @@ using DataType = System.ComponentModel.DataAnnotations.DataType;
 
 namespace MedicalExaminer.Models
 {
-    public class Examination : Record,  IExamination, ILocationPath
+    public class Examination : Record,  IExamination, ILocationPath, IVersion
     {
         /// <summary>
         /// Pre calculated Sort orders for the next N-days.
@@ -178,7 +178,7 @@ namespace MedicalExaminer.Models
         // Personal affects
         [Required]
         [JsonProperty(PropertyName = "personal_effects_collected")]
-        public bool AnyPersonalEffects { get; set; }
+        public PersonalEffects AnyPersonalEffects { get; set; }
 
         /// <summary>
         /// If there have been personal effects collected from the patient, provide some details.
@@ -286,7 +286,7 @@ namespace MedicalExaminer.Models
         /// Does the patient have any implants that may effect mode of disposal?.
         /// </summary>
         [JsonProperty(PropertyName = "any_implants")]
-        public bool? AnyImplants { get; set; }
+        public AnyImplants? AnyImplants { get; set; }
 
         /// <summary>
         /// Implant details if has implants.
@@ -516,11 +516,11 @@ namespace MedicalExaminer.Models
         [JsonProperty(PropertyName = "gp_notified_status")]
         public GPNotified? GpNotifiedStatus { get; set; }
 
-        ///// <summary>
-        ///// Case Outcome Items
-        ///// </summary>
-        //[Required]
-        //[JsonProperty(PropertyName = "case_outcome")]
-        //public CaseOutcome CaseOutcome { get; set; } = new CaseOutcome();
+        /// <summary>
+        /// Document Version
+        /// </summary>
+        [Required]
+        [JsonProperty(PropertyName = "version")]
+        public int Version { get; set; } = 0;
     }
 }

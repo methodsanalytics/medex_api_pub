@@ -28,8 +28,8 @@ namespace MedicalExaminer.API.Tests.Mapper
         private const string ExaminationId = "expectedExaminationId";
         private const string AltLink = "altLink";
         private const bool CaseCompleted = true;
-        private const bool AnyImplants = true;
-        private const bool AnyPersonalEffects = true;
+        private AnyImplants AnyImplants = AnyImplants.Yes;
+        private const PersonalEffects AnyPersonalEffects = PersonalEffects.Yes;
         private const bool ChildPriority = true;
         private const bool Completed = true;
         private const bool CoronerPriority = true;
@@ -2554,8 +2554,8 @@ namespace MedicalExaminer.API.Tests.Mapper
             return new Examination()
             {
                 AdmissionNotesHaveBeenAdded = generalDetails ? true : false,
-                AnyImplants = generalDetails ? true : false,
-                AnyPersonalEffects = generalDetails ? true : false,
+                AnyImplants = generalDetails ? AnyImplants.Yes : AnyImplants.Unknown,
+                AnyPersonalEffects = generalDetails ? PersonalEffects.Yes : PersonalEffects.Unknown,
                 CaseBreakdown = new CaseBreakDown()
                 {
                     AdmissionNotes = new AdmissionNotesEventContainer()

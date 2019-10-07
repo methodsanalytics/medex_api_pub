@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <CodeAnalysisRuleSet>..\Analyzers\Analyzers.ruleset</CodeAnalysisRuleSet>
     <Version>0.15.0</Version>
+    <LangVersion>latest</LangVersion>
     <!--<TreatWarningsAsErrors>true</TreatWarningsAsErrors>-->
   </PropertyGroup>
 
@@ -70,6 +71,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MedicalExaminer.Common\MedicalExaminer.Common.csproj" />
+    <ProjectReference Include="..\MedicalExaminer.Migration\MedicalExaminer.Migration.csproj" />
     <ProjectReference Include="..\MedicalExaminer.Models\MedicalExaminer.Models.csproj" />
   </ItemGroup>
 

@@ -2,9 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using AutoMapper;
 using Cosmonaut;
 using Cosmonaut.Extensions.Microsoft.DependencyInjection;
@@ -42,6 +40,8 @@ using MedicalExaminer.Common.Services.PatientDetails;
 using MedicalExaminer.Common.Services.Permissions;
 using MedicalExaminer.Common.Services.User;
 using MedicalExaminer.Common.Settings;
+using MedicalExaminer.Migration;
+using MedicalExaminer.Migration.MigrationQueries;
 using MedicalExaminer.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -68,6 +68,7 @@ namespace MedicalExaminer.API
     {
         private const string ApiTitle = "Medical Examiner API";
         private const string ApiDescription = "The API for the Medical Examiner Service.";
+        private int ExaminationDocumentVersion;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Startup"/> class.
@@ -95,9 +96,8 @@ namespace MedicalExaminer.API
 
             var locationMigrationSettings =
                 services.ConfigureSettings<LocationMigrationSettings>(Configuration, "LocationMigrationSettings");
-
-
-            if(locationMigrationSettings == null)
+                        
+            if (locationMigrationSettings == null)
             {
                 throw new ArgumentNullException(@"there is no location migration settings
 example:
@@ -106,6 +106,22 @@ example:
   }
             ");
             }
+
+            var examinationMigrationSettings =
+                services.ConfigureSettings<ExaminationMigrationSettings>(Configuration, "LocationMigrationSettings");
+
+
+            if (examinationMigrationSettings == null)
+            {
+                throw new ArgumentNullException(@"there is no examination migration settings
+example:
+  ExaminationMigrationSettings: {
+  Version: 1
+  }
+            ");
+            }
+
+            ExaminationDocumentVersion = examinationMigrationSettings.Version;
 
             services.ConfigureSettings<AuthorizationSettings>(Configuration, "Authorization");
 
@@ -244,12 +260,7 @@ example:
 
             IServiceProvider serviceProvider = services.BuildServiceProvider();
 
-            // temporary fudges until the real migration framework is implemented.
-        // TODO: https://methods.atlassian.net/browse/MES-989
-        //    UpdateDiscussionOutcomes(serviceProvider);
-        //    UpdateInvalidOrNullUserPermissionIds(serviceProvider);
-        //    UpdateLocations(serviceProvider, locationMigrationSettings);
-        //    UpdateExaminationUrgencySort(serviceProvider, urgencySettings);
+            MigrateExaminationData(serviceProvider, new ExaminationMigrationSettings { Version = ExaminationDocumentVersion });
         }
 
         /// <summary>
@@ -367,6 +378,8 @@ example:
                 cosmosDbSettings.PrimaryKey,
                 cosmosDbSettings.DatabaseId));
 
+            services.AddSingleton<ExaminationVersionSettings>(s => new ExaminationVersionSettings(ExaminationDocumentVersion));
+
             // Examination services
             services.AddScoped(s => new ExaminationsQueryExpressionBuilder());
             services
@@ -426,6 +439,9 @@ example:
             services
                 .AddScoped<IAsyncQueryHandler<UsersRetrievalByRoleLocationQuery, IEnumerable<MeUser>>,
                     UsersRetrievalByRoleLocationQueryService>();
+
+            services.AddScoped<MigrationProcessor<Examination>, MigrationProcessor<Examination>>();
+            services.AddScoped<IAsyncQueryHandler<ExaminationMigrationQuery, bool>, MigrationService>();
 
             // Location Services
             services.AddScoped<IAsyncQueryHandler<LocationRetrievalByIdQuery, Location>, LocationIdService>();
@@ -558,36 +574,11 @@ example:
             services.AddScoped<IPermissionService, PermissionService>();
         }
 
-        private void UpdateLocations(IServiceProvider serviceProvider, LocationMigrationSettings locationMigrationSettings)
+        private async void MigrateExaminationData(IServiceProvider serviceProvider, IMigrationSettings examinationMigrationSettings)
         {
-            LocationMigrationService instance = serviceProvider.GetService<LocationMigrationService>();
-            instance.Handle(_locationMigrationQueryLookup[locationMigrationSettings.Version]).Wait();
-        }
+            var migrationService = serviceProvider.GetService<IAsyncQueryHandler<ExaminationMigrationQuery, bool>>();
 
-        private void UpdateDiscussionOutcomes(IServiceProvider serviceProvider)
-        {
-            IAsyncQueryHandler<NullQuery, bool> instance = serviceProvider.GetService<IAsyncQueryHandler<NullQuery, bool>>();
-
-            instance.Handle(new NullQuery()).Wait();
-        }
-
-        private void UpdateInvalidOrNullUserPermissionIds(IServiceProvider serviceProvider)
-        {
-            IAsyncQueryHandler<InvalidUserPermissionQuery, bool> instance = serviceProvider.GetService<IAsyncQueryHandler<InvalidUserPermissionQuery, bool>>();
-
-            instance.Handle(new InvalidUserPermissionQuery()).Wait();
-        }
-
-        private Dictionary<int, IMigrationQuery> _locationMigrationQueryLookup = new Dictionary<int, IMigrationQuery>
-        {
-            {1, new LocationMigrationQueryV1() }
-        };
-
-        private void UpdateExaminationUrgencySort(IServiceProvider serviceProvider, UrgencySettings urgencySettings)
-        {
-            IAsyncQueryHandler<UpdateExaminationUrgencySortQuery, bool> instance = serviceProvider.GetService<IAsyncQueryHandler<UpdateExaminationUrgencySortQuery, bool>>();
-
-            instance.Handle(new UpdateExaminationUrgencySortQuery()).Wait();
+            var result = await migrationService.Handle(new ExaminationMigrationQuery(examinationMigrationSettings));
         }
     }
 }

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
 using System.Threading.Tasks;
 using MedicalExaminer.Common.ConnectionSettings;
 using MedicalExaminer.Common.Reporting;
+using MedicalExaminer.Models;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.Documents.Linq;
@@ -226,6 +226,37 @@ namespace MedicalExaminer.Common.Database
                 });
 
                 resultPartCount++;
+                results.AddRange(response);
+            }
+
+            return results;
+        }
+
+        public async Task<IEnumerable<object>> GetItemsForMigration(
+            IConnectionSettings connectionSettings,
+            Expression<Func<IVersion, bool>> predicate)
+        {
+            var client = GetClient(connectionSettings);
+
+            var query = client.CreateDocumentQuery<IVersion>(
+                    UriFactory.CreateDocumentCollectionUri(
+                        connectionSettings.DatabaseId,
+                        connectionSettings.Collection),
+                    new FeedOptions { MaxItemCount = -1 })
+                .Where(predicate)
+                .AsDocumentQuery();
+
+            var results = new List<object>();
+            while (query.HasMoreResults)
+            {
+                var response = await query.ExecuteNextAsync<object>();
+
+                _requestChargeService.RequestCharges.Add(new RequestChargeService.RequestCharge()
+                {
+                    Request = $"GetItemAsync<{typeof(object).Name}>(query={query})",
+                    Charge = response.RequestCharge
+                });
+
                 results.AddRange(response);
             }
 
