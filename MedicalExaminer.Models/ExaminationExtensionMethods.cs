@@ -157,7 +157,7 @@ namespace MedicalExaminer.Models
             examination.PendingDiscussionWithRepresentative = CalculatePendingDiscussionWithRepresentative(examination);
             examination.PendingScrutinyNotes = CalculateScrutinyNotesPending(examination);
             examination.HaveFinalCaseOutcomesOutstanding = !CalculateOutstandingCaseOutcomesCompleted(examination);
-            examination.CaseOutcome.CaseOutcomeSummary = CalculateScrutinyOutcome(examination);
+            examination.CaseOutcomeSummary = CalculateScrutinyOutcome(examination);
 
             return examination;
         }
@@ -232,9 +232,9 @@ namespace MedicalExaminer.Models
 
         public static StatusBarResult CalculateCaseItemsCompleteStatus(this Examination examination)
         {
-            if (examination.CaseOutcome.CaseOutcomeSummary == CaseOutcomeSummary.ReferToCoroner)
+            if (examination.CaseOutcomeSummary == CaseOutcomeSummary.ReferToCoroner)
             {
-                if (examination.CaseOutcome.CoronerReferralSent
+                if (examination.CoronerReferralSent
                     && examination.CaseCompleted)
                 {
                     return StatusBarResult.Complete;
@@ -242,17 +242,17 @@ namespace MedicalExaminer.Models
 
                 return StatusBarResult.Incomplete;
             }
-            else if (examination.CaseOutcome.CaseOutcomeSummary == CaseOutcomeSummary.IssueMCCDWith100a)
+            else if (examination.CaseOutcomeSummary == CaseOutcomeSummary.IssueMCCDWith100a)
             {
-                if (examination.CaseOutcome.CremationFormStatus == CremationFormStatus.Unknown)
+                if (examination.CremationFormStatus == CremationFormStatus.Unknown)
                 {
                     return StatusBarResult.Unknown;
                 }
 
-                if (examination.CaseOutcome.CremationFormStatus != null
-                    && examination.CaseOutcome.MccdIssued != null
-                    && examination.CaseOutcome.GpNotifiedStatus != null
-                    && examination.CaseOutcome.CoronerReferralSent
+                if (examination.CremationFormStatus != null
+                    && examination.MccdIssued != null
+                    && examination.GpNotifiedStatus != null
+                    && examination.CoronerReferralSent
                     && examination.CaseCompleted)
                 {
                     return StatusBarResult.Complete;
@@ -262,14 +262,14 @@ namespace MedicalExaminer.Models
             }
             else
             {
-                if (examination.CaseOutcome.CremationFormStatus == CremationFormStatus.Unknown)
+                if (examination.CremationFormStatus == CremationFormStatus.Unknown)
                 {
                     return StatusBarResult.Unknown;
                 }
 
-                if (examination.CaseOutcome.CremationFormStatus != null
-                    && examination.CaseOutcome.MccdIssued != null
-                    && examination.CaseOutcome.GpNotifiedStatus != null
+                if (examination.CremationFormStatus != null
+                    && examination.MccdIssued != null
+                    && examination.GpNotifiedStatus != null
                     && examination.CaseCompleted)
                 {
                     return StatusBarResult.Complete;
@@ -281,21 +281,21 @@ namespace MedicalExaminer.Models
 
         public static bool CalculateOutstandingCaseOutcomesCompleted(this Examination examination)
         {
-            if (examination.CaseOutcome.MccdIssued != null && examination.CaseOutcome.MccdIssued.Value)
+            if (examination.MccdIssued != null && examination.MccdIssued.Value)
             {
-                if (examination.CaseOutcome.CremationFormStatus == CremationFormStatus.No ||
-                    examination.CaseOutcome.CremationFormStatus == CremationFormStatus.Unknown)
+                if (examination.CremationFormStatus == CremationFormStatus.No ||
+                    examination.CremationFormStatus == CremationFormStatus.Unknown)
                 {
                     return true;
                 }
-                else if (examination.CaseOutcome.GpNotifiedStatus == GPNotified.GPNotified ||
-                        examination.CaseOutcome.GpNotifiedStatus == GPNotified.NA)
+                else if (examination.GpNotifiedStatus == GPNotified.GPNotified ||
+                        examination.GpNotifiedStatus == GPNotified.NA)
                 {
                     return true;
                 }
             }
 
-            if (examination.CaseOutcome.CaseOutcomeSummary == CaseOutcomeSummary.ReferToCoroner)
+            if (examination.CaseOutcomeSummary == CaseOutcomeSummary.ReferToCoroner)
             {
                 return true;
             }
@@ -338,8 +338,8 @@ namespace MedicalExaminer.Models
 
         public static bool CalculateRequiresCoronerReferral(this Examination examination)
         {
-            return examination.CaseOutcome.CaseOutcomeSummary == CaseOutcomeSummary.ReferToCoroner ||
-                examination.CaseOutcome.CaseOutcomeSummary == CaseOutcomeSummary.IssueMCCDWith100a;
+            return examination.CaseOutcomeSummary == CaseOutcomeSummary.ReferToCoroner ||
+                examination.CaseOutcomeSummary == CaseOutcomeSummary.IssueMCCDWith100a;
         }
 
         public static bool CalculatePendingDiscussionWithRepresentative(Examination examination)

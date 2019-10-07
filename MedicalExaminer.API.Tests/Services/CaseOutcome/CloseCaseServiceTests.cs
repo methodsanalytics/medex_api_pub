@@ -37,9 +37,11 @@ namespace MedicalExaminer.API.Tests.Services.CaseOutcome
         {
             // Arrange
             var examinationId = Guid.NewGuid().ToString();
-            var caseOutcome = new MedicalExaminer.Models.CaseOutcome
+            var examination = new MedicalExaminer.Models.Examination
             {
-                CaseMedicalExaminerFullName = "ME Full Name",
+                ExaminationId = examinationId,
+                ScrutinyConfirmed = false,
+                OutstandingCaseItemsCompleted = true,
                 ScrutinyConfirmedOn = new DateTime(2019, 6, 20),
                 OutcomeQapDiscussion = QapDiscussionOutcome.MccdCauseOfDeathProvidedByQAP,
                 OutcomeOfPrescrutiny = OverallOutcomeOfPreScrutiny.IssueAnMccd,
@@ -50,13 +52,6 @@ namespace MedicalExaminer.API.Tests.Services.CaseOutcome
                 CremationFormStatus = CremationFormStatus.Yes,
                 GpNotifiedStatus = GPNotified.GPNotified,
                 CoronerReferralSent = false
-            };
-            var examination = new MedicalExaminer.Models.Examination
-            {
-                ExaminationId = examinationId,
-                ScrutinyConfirmed = false,
-                OutstandingCaseItemsCompleted = true,
-                CaseOutcome = caseOutcome
             };
             var connectionSettings = new Mock<IExaminationConnectionSettings>();
             var query = new CloseCaseQuery(examinationId, new MeUser());

@@ -47,11 +47,11 @@ namespace MedicalExaminer.Common.Services.CaseOutcome
             examinationToUpdate.LastModifiedBy = param.User.UserId;
             examinationToUpdate.ModifiedAt = DateTime.Now;
             examinationToUpdate.CaseCompleted = true;
-            examinationToUpdate.CaseOutcome.CaseCompleted = true;
+            examinationToUpdate.CaseCompleted = true;
 
             examinationToUpdate.CaseBreakdown.CaseClosedEvent = new CaseClosedEvent()
             {
-                CaseOutcome = examinationToUpdate.CaseOutcome.CaseOutcomeSummary.Value,
+                CaseOutcome = examinationToUpdate.CaseOutcomeSummary.Value,
                 Created = DateTime.Now,
                 DateCaseClosed = DateTime.Now,
                 EventId = Guid.NewGuid().ToString(),

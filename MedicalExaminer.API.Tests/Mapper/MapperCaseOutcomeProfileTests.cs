@@ -23,15 +23,9 @@ namespace MedicalExaminer.API.Tests.Mapper
         public void Examination_To_PutConfirmationOfScrutinyResponse()
         {
             var scrutinyConfirmedDate = new DateTime(2019, 5, 3);
-
-            var caseOutcome = new CaseOutcome
-            {
-                ScrutinyConfirmedOn = scrutinyConfirmedDate
-            };
-
             var examination = new Examination
             {
-                CaseOutcome = caseOutcome,
+                ScrutinyConfirmedOn = scrutinyConfirmedDate,
                 ConfirmationOfScrutinyCompletedAt = scrutinyConfirmedDate
             };
 
@@ -50,7 +44,7 @@ namespace MedicalExaminer.API.Tests.Mapper
                 GpNotifiedStatus = GPNotified.GPNotified
             };
 
-            var outstandingCaseItems = _mapper.Map<CaseOutcome>(putOutstandingCaseItemsRequest);
+            var outstandingCaseItems = _mapper.Map<Examination>(putOutstandingCaseItemsRequest);
 
             outstandingCaseItems.MccdIssued.Should().Be(true);
             outstandingCaseItems.CremationFormStatus.Should().Be(CremationFormStatus.Yes);

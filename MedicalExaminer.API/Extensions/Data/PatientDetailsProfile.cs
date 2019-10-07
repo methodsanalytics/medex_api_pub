@@ -49,7 +49,15 @@ namespace MedicalExaminer.API.Extensions.Data
                 .ForMember(examination => examination.CoronerReferralSent, opt => opt.Ignore())
                 .ForMember(examination => examination.ScrutinyConfirmed, opt => opt.Ignore())
                 .ForMember(examination => examination.OutstandingCaseItemsCompleted, opt => opt.Ignore())
-                .ForMember(examination => examination.CaseOutcome, opt => opt.Ignore());
+                .ForMember(examination => examination.CaseOutcomeSummary, opt => opt.Ignore())
+                .ForMember(examination => examination.OutcomeOfRepresentativeDiscussion, opt => opt.Ignore())
+                .ForMember(examination => examination.OutcomeOfPrescrutiny, opt => opt.Ignore())
+                .ForMember(examination => examination.OutcomeQapDiscussion, opt => opt.Ignore())
+                .ForMember(examination => examination.ScrutinyConfirmedOn, opt => opt.Ignore())
+                .ForMember(examination => examination.MccdIssued, opt => opt.Ignore())
+                .ForMember(examination => examination.CremationFormStatus, opt => opt.Ignore())
+                .ForMember(examination => examination.GpNotifiedStatus, opt => opt.Ignore());
+
         }
     }
 }

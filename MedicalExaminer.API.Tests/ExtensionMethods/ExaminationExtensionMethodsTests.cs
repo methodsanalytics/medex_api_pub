@@ -1589,14 +1589,9 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
         [Fact]
         private void CalculateOutstandingCaseOutcomesCompleted_With_ReferToCoroner_Returns_True()
         {
-            var caseOutcome = new CaseOutcome
-            {
-                CaseOutcomeSummary = CaseOutcomeSummary.ReferToCoroner
-            };
-
             var examination = new Examination
             {
-                CaseOutcome = caseOutcome
+                CaseOutcomeSummary = CaseOutcomeSummary.ReferToCoroner
             };
 
             Assert.True(examination.CalculateOutstandingCaseOutcomesCompleted());
@@ -1605,14 +1600,9 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
         [Fact]
         private void CalculateOutstandingCaseOutcomesCompleted_With_IssueMCCD_Returns_False()
         {
-            var caseOutcome = new CaseOutcome
-            {
-                CaseOutcomeSummary = CaseOutcomeSummary.IssueMCCD
-            };
-
             var examination = new Examination
             {
-                CaseOutcome = caseOutcome
+                CaseOutcomeSummary = CaseOutcomeSummary.IssueMCCD
             };
 
             Assert.False(examination.CalculateOutstandingCaseOutcomesCompleted());
@@ -1621,16 +1611,11 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
         [Fact]
         private void CalculateOutstandingCaseOutcomesCompleted_With_No_CremationFormStatus_Returns_True()
         {
-            var caseOutcome = new CaseOutcome
+            var examination = new Examination
             {
                 CaseOutcomeSummary = CaseOutcomeSummary.IssueMCCD,
                 MccdIssued = true,
                 CremationFormStatus = CremationFormStatus.No
-            };
-
-            var examination = new Examination
-            {
-                CaseOutcome = caseOutcome
             };
 
             Assert.True(examination.CalculateOutstandingCaseOutcomesCompleted());
@@ -1639,16 +1624,11 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
         [Fact]
         private void CalculateOutstandingCaseOutcomesCompleted_With_Unknown_CremationFormStatus_Returns_True()
         {
-            var caseOutcome = new CaseOutcome
+            var examination = new Examination
             {
                 CaseOutcomeSummary = CaseOutcomeSummary.IssueMCCD,
                 MccdIssued = true,
                 CremationFormStatus = CremationFormStatus.Unknown
-            };
-
-            var examination = new Examination
-            {
-                CaseOutcome = caseOutcome
             };
 
             Assert.True(examination.CalculateOutstandingCaseOutcomesCompleted());
@@ -1657,17 +1637,12 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
         [Fact]
         private void CalculateOutstandingCaseOutcomesCompleted_With_CremationFormStatus_But_GP_Not_Notified_Returns_False()
         {
-            var caseOutcome = new CaseOutcome
+            var examination = new Examination
             {
                 CaseOutcomeSummary = CaseOutcomeSummary.IssueMCCD,
                 MccdIssued = true,
                 CremationFormStatus = CremationFormStatus.Yes,
                 GpNotifiedStatus = GPNotified.GPUnabledToBeNotified
-            };
-
-            var examination = new Examination
-            {
-                CaseOutcome = caseOutcome
             };
 
             Assert.False(examination.CalculateOutstandingCaseOutcomesCompleted());
@@ -1676,17 +1651,12 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
         [Fact]
         private void CalculateOutstandingCaseOutcomesCompleted_With_CremationFormStatus_But_GP_Notified_NA_Returns_True()
         {
-            var caseOutcome = new CaseOutcome
+            var examination = new Examination
             {
                 CaseOutcomeSummary = CaseOutcomeSummary.IssueMCCD,
                 MccdIssued = true,
                 CremationFormStatus = CremationFormStatus.Yes,
                 GpNotifiedStatus = GPNotified.NA
-            };
-
-            var examination = new Examination
-            {
-                CaseOutcome = caseOutcome
             };
 
             Assert.True(examination.CalculateOutstandingCaseOutcomesCompleted());
@@ -2255,14 +2225,11 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
             // Arrange
             var examination = new Examination
             {
-                CaseOutcome = new CaseOutcome
-                {
-                    CaseOutcomeSummary = CaseOutcomeSummary.IssueMCCD,
-                    MccdIssued = null,
-                    CremationFormStatus = null,
-                    GpNotifiedStatus = null,
-                    CoronerReferralSent = false,
-                },
+                CaseOutcomeSummary = CaseOutcomeSummary.IssueMCCD,
+                MccdIssued = null,
+                CremationFormStatus = null,
+                GpNotifiedStatus = null,
+                CoronerReferralSent = false,
                 CaseCompleted = false
             };
 
@@ -2279,13 +2246,10 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
             // Arrange
             var examination = new Examination
             {
-                CaseOutcome = new CaseOutcome
-                {
-                    CaseOutcomeSummary = CaseOutcomeSummary.IssueMCCD,
-                    MccdIssued = true,
-                    CremationFormStatus = CremationFormStatus.Yes,
-                    GpNotifiedStatus = GPNotified.GPNotified,
-                },
+                CaseOutcomeSummary = CaseOutcomeSummary.IssueMCCD,
+                MccdIssued = true,
+                CremationFormStatus = CremationFormStatus.Yes,
+                GpNotifiedStatus = GPNotified.GPNotified,
                 CaseCompleted = true
             };
 
@@ -2302,14 +2266,11 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
             // Arrange
             var examination = new Examination
             {
-                CaseOutcome = new CaseOutcome
-                {
-                    CaseOutcomeSummary = CaseOutcomeSummary.IssueMCCD,
-                    MccdIssued = true,
-                    CremationFormStatus = CremationFormStatus.Yes,
-                    GpNotifiedStatus = GPNotified.GPNotified,
-                    CoronerReferralSent = false,
-                },
+                CaseOutcomeSummary = CaseOutcomeSummary.IssueMCCD,
+                MccdIssued = true,
+                CremationFormStatus = CremationFormStatus.Yes,
+                GpNotifiedStatus = GPNotified.GPNotified,
+                CoronerReferralSent = false,
                 CaseCompleted = false
             };
 
@@ -2326,14 +2287,11 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
             // Arrange
             var examination = new Examination
             {
-                CaseOutcome = new CaseOutcome
-                {
-                    CaseOutcomeSummary = CaseOutcomeSummary.IssueMCCD,
-                    MccdIssued = true,
-                    CremationFormStatus = CremationFormStatus.Unknown,
-                    GpNotifiedStatus = GPNotified.GPNotified,
-                    CoronerReferralSent = true,
-                },
+                CaseOutcomeSummary = CaseOutcomeSummary.IssueMCCD,
+                MccdIssued = true,
+                CremationFormStatus = CremationFormStatus.Unknown,
+                GpNotifiedStatus = GPNotified.GPNotified,
+                CoronerReferralSent = true,
                 CaseCompleted = false
             };
 
@@ -2350,14 +2308,11 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
             // Arrange
             var examination = new Examination
             {
-                CaseOutcome = new CaseOutcome
-                {
-                    CaseOutcomeSummary = CaseOutcomeSummary.ReferToCoroner,
-                    MccdIssued = true,
-                    CremationFormStatus = CremationFormStatus.Yes,
-                    GpNotifiedStatus = GPNotified.GPNotified,
-                    CoronerReferralSent = false,
-                },
+                CaseOutcomeSummary = CaseOutcomeSummary.ReferToCoroner,
+                MccdIssued = true,
+                CremationFormStatus = CremationFormStatus.Yes,
+                GpNotifiedStatus = GPNotified.GPNotified,
+                CoronerReferralSent = false,
                 CaseCompleted = false
             };
 
@@ -2374,14 +2329,11 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
             // Arrange
             var examination = new Examination
             {
-                CaseOutcome = new CaseOutcome
-                {
-                    CaseOutcomeSummary = CaseOutcomeSummary.ReferToCoroner,
-                    MccdIssued = true,
-                    CremationFormStatus = CremationFormStatus.Yes,
-                    GpNotifiedStatus = GPNotified.GPNotified,
-                    CoronerReferralSent = true,
-                },
+                CaseOutcomeSummary = CaseOutcomeSummary.ReferToCoroner,
+                MccdIssued = true,
+                CremationFormStatus = CremationFormStatus.Yes,
+                GpNotifiedStatus = GPNotified.GPNotified,
+                CoronerReferralSent = true,
                 CaseCompleted = true
             };
 
@@ -2398,14 +2350,11 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
             // Arrange
             var examination = new Examination
             {
-                CaseOutcome = new CaseOutcome
-                {
-                    CaseOutcomeSummary = CaseOutcomeSummary.ReferToCoroner,
-                    MccdIssued = true,
-                    CremationFormStatus = CremationFormStatus.Yes,
-                    GpNotifiedStatus = GPNotified.GPNotified,
-                    CoronerReferralSent = true,
-                },
+                CaseOutcomeSummary = CaseOutcomeSummary.ReferToCoroner,
+                MccdIssued = true,
+                CremationFormStatus = CremationFormStatus.Yes,
+                GpNotifiedStatus = GPNotified.GPNotified,
+                CoronerReferralSent = true,
                 CaseCompleted = false
             };
 
@@ -2422,14 +2371,11 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
             // Arrange
             var examination = new Examination
             {
-                CaseOutcome = new CaseOutcome
-                {
-                    CaseOutcomeSummary = CaseOutcomeSummary.IssueMCCDWith100a,
-                    MccdIssued = false,
-                    CremationFormStatus = null,
-                    GpNotifiedStatus = null,
-                    CoronerReferralSent = false,
-                },
+                CaseOutcomeSummary = CaseOutcomeSummary.IssueMCCDWith100a,
+                MccdIssued = false,
+                CremationFormStatus = null,
+                GpNotifiedStatus = null,
+                CoronerReferralSent = false,
                 CaseCompleted = false
             };
 
@@ -2446,14 +2392,11 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
             // Arrange
             var examination = new Examination
             {
-                CaseOutcome = new CaseOutcome
-                {
-                    CaseOutcomeSummary = CaseOutcomeSummary.IssueMCCDWith100a,
-                    MccdIssued = true,
-                    CremationFormStatus = CremationFormStatus.Yes,
-                    GpNotifiedStatus = GPNotified.GPNotified,
-                    CoronerReferralSent = true,
-                },
+                CaseOutcomeSummary = CaseOutcomeSummary.IssueMCCDWith100a,
+                MccdIssued = true,
+                CremationFormStatus = CremationFormStatus.Yes,
+                GpNotifiedStatus = GPNotified.GPNotified,
+                CoronerReferralSent = true,
                 CaseCompleted = false
             };
 
@@ -2470,14 +2413,11 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
             // Arrange
             var examination = new Examination
             {
-                CaseOutcome = new CaseOutcome
-                {
-                    CaseOutcomeSummary = CaseOutcomeSummary.IssueMCCDWith100a,
-                    MccdIssued = true,
-                    CremationFormStatus = CremationFormStatus.Yes,
-                    GpNotifiedStatus = GPNotified.GPNotified,
-                    CoronerReferralSent = false,
-                },
+                CaseOutcomeSummary = CaseOutcomeSummary.IssueMCCDWith100a,
+                MccdIssued = true,
+                CremationFormStatus = CremationFormStatus.Yes,
+                GpNotifiedStatus = GPNotified.GPNotified,
+                CoronerReferralSent = false,
                 CaseCompleted = true
             };
 
@@ -2494,14 +2434,11 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
             // Arrange
             var examination = new Examination
             {
-                CaseOutcome = new CaseOutcome
-                {
-                    CaseOutcomeSummary = CaseOutcomeSummary.IssueMCCDWith100a,
-                    MccdIssued = true,
-                    CremationFormStatus = CremationFormStatus.Unknown,
-                    GpNotifiedStatus = GPNotified.GPNotified,
-                    CoronerReferralSent = true,
-                },
+                CaseOutcomeSummary = CaseOutcomeSummary.IssueMCCDWith100a,
+                MccdIssued = true,
+                CremationFormStatus = CremationFormStatus.Unknown,
+                GpNotifiedStatus = GPNotified.GPNotified,
+                CoronerReferralSent = true,
                 CaseCompleted = true
             };
 
@@ -2518,14 +2455,11 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
             // Arrange
             var examination = new Examination
             {
-                CaseOutcome = new CaseOutcome
-                {
-                    CaseOutcomeSummary = CaseOutcomeSummary.IssueMCCDWith100a,
-                    MccdIssued = true,
-                    CremationFormStatus = CremationFormStatus.Yes,
-                    GpNotifiedStatus = GPNotified.GPNotified,
-                    CoronerReferralSent = true,
-                },
+                CaseOutcomeSummary = CaseOutcomeSummary.IssueMCCDWith100a,
+                MccdIssued = true,
+                CremationFormStatus = CremationFormStatus.Yes,
+                GpNotifiedStatus = GPNotified.GPNotified,
+                CoronerReferralSent = true,
                 CaseCompleted = true
             };
 
