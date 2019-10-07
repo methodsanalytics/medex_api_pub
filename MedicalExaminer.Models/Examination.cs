@@ -10,10 +10,11 @@ namespace MedicalExaminer.Models
     public class Examination : Record,  IExamination, ILocationPath, IVersion
     {
         /// <summary>
-        /// the urgency score assinged to the case
+        /// Pre calculated Sort orders for the next N-days.
         /// </summary>
-        [JsonProperty(PropertyName = "urgency_score")]
-        public int UrgencyScore { get; set; }
+        /// <remarks>Configured by property in UrgencySettings</remarks>
+        [JsonProperty(PropertyName = "urgency_sort")]
+        public Dictionary<string, int> UrgencySort { get; set; }
 
         /// <summary>
         /// Patients first hospital number.
@@ -360,6 +361,12 @@ namespace MedicalExaminer.Models
         public bool PendingAdmissionNotes { get; set; } = true;
 
         /// <summary>
+        /// Pending Additional Details
+        /// </summary>
+        [JsonProperty(PropertyName = "pending_additional_details")]
+        public bool PendingAdditionalDetails { get; set; } = true;
+
+        /// <summary>
         /// has the qap discussion occured
         /// </summary>
         [JsonProperty(PropertyName = "pending_discussion_with_qap")]
@@ -451,10 +458,10 @@ namespace MedicalExaminer.Models
         public CaseOutcome CaseOutcome { get; set; } = new CaseOutcome();
 
         /// <summary>
-        /// Version
+        /// Document Version
         /// </summary>
         [Required]
         [JsonProperty(PropertyName = "version")]
-        public int Version { get; set; }
+        public int Version { get; set; } = 0;
     }
 }

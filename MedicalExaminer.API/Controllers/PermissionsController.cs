@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -55,8 +56,8 @@ namespace MedicalExaminer.API.Controllers
 
         private readonly IAsyncQueryHandler<LocationRetrievalByIdQuery, Location> _locationRetrievalService;
 
+        private readonly IAsyncQueryHandler<LocationsRetrievalByIdQuery, IEnumerable<Location>> _locationsRetrievalByIdService;
 
-        private readonly IAsyncQueryHandler<LocationsRetrievalByQuery, IEnumerable<Location>> _locationsRetrievalService;
         /// <summary>
         ///     Initializes a new instance of the <see cref="PermissionsController" /> class.
         /// </summary>
@@ -69,6 +70,8 @@ namespace MedicalExaminer.API.Controllers
         /// <param name="userUpdateService">User update service.</param>
         /// <param name="locationParentsService">Location Parents Service.</param>
         /// <param name="locationsParentsService">Locations Parents Service.</param>
+        /// <param name="locationRetrievalService">Location Retrieval Service.</param>
+        /// <param name="locationsRetrievalByIdService">Locations Retrieval By Id Service.</param>
         public PermissionsController(
             IMELogger logger,
             IMapper mapper,
@@ -80,7 +83,7 @@ namespace MedicalExaminer.API.Controllers
             IAsyncQueryHandler<LocationParentsQuery, IEnumerable<Location>> locationParentsService,
             IAsyncQueryHandler<LocationsParentsQuery, IDictionary<string, IEnumerable<Location>>> locationsParentsService,
             IAsyncQueryHandler<LocationRetrievalByIdQuery, Location> locationRetrievalService,
-            IAsyncQueryHandler<LocationsRetrievalByQuery, IEnumerable<Location>> locationsRetrievalService)
+            IAsyncQueryHandler<LocationsRetrievalByIdQuery, IEnumerable<Location>> locationsRetrievalByIdService)
             : base(logger, mapper, usersRetrievalByOktaIdService, authorizationService, permissionService)
         {
             _userRetrievalByIdService = userRetrievalByIdService;
@@ -88,7 +91,7 @@ namespace MedicalExaminer.API.Controllers
             _locationParentsService = locationParentsService;
             _locationsParentsService = locationsParentsService;
             _locationRetrievalService = locationRetrievalService;
-            _locationsRetrievalService = locationsRetrievalService;
+            _locationsRetrievalByIdService = locationsRetrievalByIdService;
         }
 
         /// <summary>
@@ -97,7 +100,7 @@ namespace MedicalExaminer.API.Controllers
         /// <param name="meUserId">The User Identifier.</param>
         /// <returns>A GetPermissionsResponse.</returns>
         [HttpGet]
-        [AuthorizePermission(Common.Authorization.Permission.GetUserPermissions)]
+        [AuthorizePermission(Permission.GetUserPermissions)]
         public async Task<ActionResult<GetPermissionsResponse>> GetPermissions(string meUserId)
         {
             try
@@ -108,20 +111,16 @@ namespace MedicalExaminer.API.Controllers
                     return NotFound(new GetPermissionsResponse());
                 }
 
-                var usersPermissionLocationsIds = user.Permissions == null ? new List<string>() : user.Permissions.Select(x => x.LocationId).ToList();
+                var usersPermissionLocationsIds = user.Permissions == null
+                    ? new List<string>()
+                    : user.Permissions
+                        .Where(p => p.LocationId != null)
+                        .Select(p => p.LocationId)
+                        .ToList();
 
                 // Get all the location paths for all those locations.
                 var locationPaths =
                     await _locationsParentsService.Handle(new LocationsParentsQuery(usersPermissionLocationsIds));
-
-
-                var locations = await
-                    _locationsRetrievalService.Handle(new LocationsRetrievalByQuery(
-                        null,
-                        null,
-                        false,
-                        false,
-                        usersPermissionLocationsIds));
 
                 // The locations the user making the request has direct access to.
                 var permissedLocations = (await LocationsWithPermission(Permission.GetUserPermissions)).ToList();
@@ -130,20 +129,31 @@ namespace MedicalExaminer.API.Controllers
                 var permissions = user
                     .Permissions?.Where(p => p.LocationId != null)
                     .Where(p => locationPaths[p.LocationId]
-                        .Any(l => permissedLocations.Contains(l.LocationId))) ?? new List<MEUserPermission>();
+                        .Any(l => permissedLocations.Contains(l.LocationId)))
+                    .ToList() ?? new List<MEUserPermission>();
 
-                var mappedPermissions = new List<PermissionItem>();
+                // To avoid getting names for locations we cant see; get a list of just the ones we're going to return.
+                var locationIdsToGetNamesFor = permissions
+                    .Select(p => p.LocationId)
+                    .ToList();
 
-                foreach (var meUserPermission in permissions)
-                {
-                    var pl = new PermissionLocation(meUserPermission, locations, meUserId);
-                    var temp = Mapper.Map<PermissionItem>(pl);
-                    mappedPermissions.Add(temp);
-                }
+                // Get the lookup location model for the ones we want names for.
+                var locations = (await
+                    _locationsRetrievalByIdService.Handle(new LocationsRetrievalByIdQuery(
+                        true,
+                        locationIdsToGetNamesFor))).ToList();
+
+                // Now create the permission list incorporating the location name.
+                var permissionItems = permissions
+                    .Select(permission => Mapper.Map<PermissionItem>(new PermissionLocation(
+                        permission,
+                        locations.SingleOrDefault(l => l.LocationId == permission.LocationId),
+                        meUserId)))
+                    .ToList();
 
                 return Ok(new GetPermissionsResponse
                 {
-                    Permissions = mappedPermissions
+                    Permissions = permissionItems
                 });
             }
             catch (DocumentClientException)
@@ -163,7 +173,7 @@ namespace MedicalExaminer.API.Controllers
         /// <param name="permissionId">The Permission Id.</param>
         /// <returns>A GetPermissionResponse.</returns>
         [HttpGet("{permissionId}")]
-        [AuthorizePermission(Common.Authorization.Permission.GetUserPermission)]
+        [AuthorizePermission(Permission.GetUserPermission)]
         public async Task<ActionResult<GetPermissionResponse>> GetPermission(string meUserId, string permissionId)
         {
             if (!ModelState.IsValid)
@@ -197,9 +207,9 @@ namespace MedicalExaminer.API.Controllers
                     return Forbid();
                 }
 
-                var locations = permission.GetLocationName(_locationRetrievalService).Result;
+                var location = await permission.GetLocationName(_locationsRetrievalByIdService);
 
-                var permissionLocations = new PermissionLocation(permission, locations, meUserId);
+                var permissionLocations = new PermissionLocation(permission, location, meUserId);
 
                 var result = Mapper.Map<GetPermissionResponse>(permissionLocations);
                 return Ok(result);
@@ -221,15 +231,22 @@ namespace MedicalExaminer.API.Controllers
         /// <param name="postPermission">The PostPermissionRequest.</param>
         /// <returns>A PostPermissionResponse.</returns>
         [HttpPost]
-        [AuthorizePermission(Common.Authorization.Permission.CreateUserPermission)]
+        [AuthorizePermission(Permission.CreateUserPermission)]
         public async Task<ActionResult<PostPermissionResponse>> CreatePermission(
-            string meUserId,
+            [Required] string meUserId,
             [FromBody]
             PostPermissionRequest postPermission)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(new PostPermissionResponse());
+            }
+
+            var currentUser = await CurrentUser();
+
+            if (currentUser.UserId.Equals(meUserId))
+            {
+                return Forbid();
             }
 
             try
@@ -246,8 +263,6 @@ namespace MedicalExaminer.API.Controllers
                 {
                     return Forbid();
                 }
-
-                var currentUser = await CurrentUser();
 
                 var user = await _userRetrievalByIdService.Handle(new UserRetrievalByIdQuery(meUserId));
 
@@ -282,9 +297,9 @@ namespace MedicalExaminer.API.Controllers
 
                 var location = _locationRetrievalService.Handle(new LocationRetrievalByIdQuery(permission.LocationId)).Result;
 
-                var temp = new PermissionLocation(permission, location, meUserId);
+                var permissionLocation = new PermissionLocation(permission, location, meUserId);
 
-                var result = Mapper.Map<PostPermissionResponse>(temp);
+                var result = Mapper.Map<PostPermissionResponse>(permissionLocation);
                 return Ok(result);
             }
             catch (DocumentClientException)
@@ -307,8 +322,8 @@ namespace MedicalExaminer.API.Controllers
         [HttpPut("{permissionId}")]
         [AuthorizePermission(Permission.UpdateUserPermission)]
         public async Task<ActionResult<PutPermissionResponse>> UpdatePermission(
-            string meUserId,
-            string permissionId,
+            [Required] string meUserId,
+            [Required] string permissionId,
             [FromBody]
             PutPermissionRequest putPermission)
         {
@@ -320,6 +335,11 @@ namespace MedicalExaminer.API.Controllers
                 }
 
                 var currentUser = await CurrentUser();
+
+                if (currentUser.UserId.Equals(meUserId))
+                {
+                    return Forbid();
+                }
 
                 var locationDocument = (await
                         _locationParentsService.Handle(
@@ -379,7 +399,6 @@ namespace MedicalExaminer.API.Controllers
             }
         }
 
-
         /// <summary>
         /// Deletes a Permission.
         /// </summary>
@@ -387,16 +406,23 @@ namespace MedicalExaminer.API.Controllers
         /// <param name="permissionId"> permission Id </param>
         /// <returns>A Response.</returns>
         [HttpDelete("{permissionId}")]
-        [AuthorizePermission(Common.Authorization.Permission.DeleteUserPermission)]
+        [AuthorizePermission(Permission.DeleteUserPermission)]
         public async Task<ActionResult> DeletePermission(
-            string meUserId,
-            string permissionId)
+            [Required] string meUserId,
+            [Required] string permissionId)
         {
             try
             {
                 if (!ModelState.IsValid)
                 {
                     return BadRequest();
+                }
+
+                var currentUser = await CurrentUser();
+
+                if (currentUser.UserId.Equals(meUserId))
+                {
+                    return Forbid();
                 }
 
                 var user = await _userRetrievalByIdService.Handle(new UserRetrievalByIdQuery(meUserId));
@@ -433,7 +459,6 @@ namespace MedicalExaminer.API.Controllers
                 };
 
                 user.Permissions = temp;
-                var currentUser = await CurrentUser();
                 await _userUpdateService.Handle(new UserUpdateQuery(userUpdate, currentUser));
                 return Ok();
             }

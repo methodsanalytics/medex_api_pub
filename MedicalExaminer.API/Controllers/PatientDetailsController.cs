@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using MedicalExaminer.API.Authorization.ExaminationContext;
 using MedicalExaminer.API.Filters;
 using MedicalExaminer.API.Models.v1.Examinations;
 using MedicalExaminer.API.Models.v1.PatientDetails;
@@ -102,7 +103,7 @@ namespace MedicalExaminer.API.Controllers
         /// <returns>PutPatientDetailsResponse</returns>
         [HttpPut]
         public async Task<ActionResult<PutPatientDetailsResponse>> UpdatePatientDetails(string examinationId,
-            [FromBody] [ModelBinder(Name = "examinationId")]PutPatientDetailsRequest putPatientDetailsRequest)
+            [FromBody] [ExaminationValidationModelBinderContext("examinationId")] PutPatientDetailsRequest putPatientDetailsRequest)
         {
             if (!ModelState.IsValid)
             {
@@ -117,6 +118,7 @@ namespace MedicalExaminer.API.Controllers
                 return NotFound(new PutPatientDetailsResponse());
             }
 
+            // Do they have update permission on the examination being updated
             if (!CanAsync(Permission.UpdateExamination, examination))
             {
                 return Forbid();
@@ -131,6 +133,7 @@ namespace MedicalExaminer.API.Controllers
 
             locationPath.UpdateLocationPath(locations);
 
+            // Do they have permission at this location to update the examination. I.e. they're changing the Medical Examiner Office.
             if (!CanAsync(Permission.UpdateExamination, locationPath))
             {
                 return Forbid();

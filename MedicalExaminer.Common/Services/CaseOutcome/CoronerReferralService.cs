@@ -4,7 +4,9 @@ using MedicalExaminer.Common.ConnectionSettings;
 using MedicalExaminer.Common.Database;
 using MedicalExaminer.Common.Queries.CaseOutcome;
 using MedicalExaminer.Common.Queries.Examination;
+using MedicalExaminer.Common.Settings;
 using MedicalExaminer.Models;
+using Microsoft.Extensions.Options;
 
 namespace MedicalExaminer.Common.Services.CaseOutcome
 {
@@ -12,13 +14,16 @@ namespace MedicalExaminer.Common.Services.CaseOutcome
     {
         private readonly IConnectionSettings _connectionSettings;
         private readonly IDatabaseAccess _databaseAccess;
+        private readonly UrgencySettings _urgencySettings;
 
         public CoronerReferralService(
             IDatabaseAccess databaseAccess,
-            IExaminationConnectionSettings connectionSettings)
+            IExaminationConnectionSettings connectionSettings,
+            IOptions<UrgencySettings> urgencySettings)
         {
             _connectionSettings = connectionSettings;
             _databaseAccess = databaseAccess;
+            _urgencySettings = urgencySettings.Value;
         }
 
         public async Task<string> Handle(CoronerReferralQuery param)
@@ -42,8 +47,9 @@ namespace MedicalExaminer.Common.Services.CaseOutcome
             examinationToUpdate.LastModifiedBy = param.User.UserId;
             examinationToUpdate.ModifiedAt = DateTime.Now;
             examinationToUpdate.CoronerReferralSent = true;
+            examinationToUpdate.CaseOutcome.CoronerReferralSent = true;
 
-            examinationToUpdate = examinationToUpdate.UpdateCaseUrgencyScore();
+            examinationToUpdate = examinationToUpdate.UpdateCaseUrgencySort(_urgencySettings.DaysToPreCalculateUrgencySort);
             examinationToUpdate = examinationToUpdate.UpdateCaseStatus();
 
             var result = await _databaseAccess.UpdateItemAsync(_connectionSettings, examinationToUpdate);

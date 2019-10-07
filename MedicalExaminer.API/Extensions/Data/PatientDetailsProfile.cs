@@ -15,13 +15,12 @@ namespace MedicalExaminer.API.Extensions.Data
         /// </summary>
         public PatientDetailsProfile()
         {
-            CreateMap<PutPatientDetailsRequest, PatientDetails>()
-                .ForMember(patientDetails => patientDetails.Id, opt => opt.Ignore())
-                .ForMember(patientDetails => patientDetails.CaseCompleted, opt => opt.Ignore());
+            CreateMap<PutPatientDetailsRequest, PatientDetails>();
             CreateMap<PatientDetails, Examination>()
                 .ForMember(examination => examination.ExaminationId, opt => opt.Ignore())
+                .ForMember(examination => examination.CaseCompleted, opt => opt.Ignore())
                 .ForMember(examination => examination.MedicalExaminerOfficeResponsibleName, opt => opt.Ignore())
-                .ForMember(examination => examination.UrgencyScore, opt => opt.Ignore())
+                .ForMember(examination => examination.UrgencySort, opt => opt.Ignore())
                 .ForMember(examination => examination.LastAdmission, opt => opt.Ignore())
                 .ForMember(examination => examination.MedicalTeam, opt => opt.Ignore())
                 .ForMember(examination => examination.CaseBreakdown, opt => opt.Ignore())
@@ -30,6 +29,7 @@ namespace MedicalExaminer.API.Extensions.Data
                 .ForMember(examination => examination.ReadyForMEScrutiny, opt => opt.Ignore())
                 .ForMember(examination => examination.Unassigned, opt => opt.Ignore())
                 .ForMember(examination => examination.HaveBeenScrutinisedByME, opt => opt.Ignore())
+                .ForMember(examination => examination.PendingAdditionalDetails, opt => opt.Ignore())
                 .ForMember(examination => examination.PendingAdmissionNotes, opt => opt.Ignore())
                 .ForMember(examination => examination.PendingDiscussionWithQAP, opt => opt.Ignore())
                 .ForMember(examination => examination.PendingDiscussionWithRepresentative, opt => opt.Ignore())
