@@ -98,10 +98,7 @@ namespace MedicalExaminer.API
 
             var locationMigrationSettings =
                 services.ConfigureSettings<LocationMigrationSettings>(Configuration, "LocationMigrationSettings");
-
-            var examinationMigrationSettings =
-                services.ConfigureSettings<ExaminationMigrationSettings>(Configuration, "ExaminationMigrationSettings");
-
+                        
             if (locationMigrationSettings == null)
             {
                 throw new ArgumentNullException(@"there is no location migration settings
