@@ -2,9 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using AutoMapper;
 using Cosmonaut;
 using Cosmonaut.Extensions.Microsoft.DependencyInjection;
@@ -262,12 +260,7 @@ example:
 
             IServiceProvider serviceProvider = services.BuildServiceProvider();
 
-            // temporary fudges until the real migration framework is implemented.
-        // TODO: https://methods.atlassian.net/browse/MES-989
-        //    UpdateDiscussionOutcomes(serviceProvider);
-        //    UpdateInvalidOrNullUserPermissionIds(serviceProvider);
-        //    UpdateLocations(serviceProvider, locationMigrationSettings);
-        //    UpdateExaminationUrgencySort(serviceProvider, urgencySettings);
+            MigrateExaminationData(serviceProvider, new ExaminationMigrationSettings { Version = ExaminationDocumentVersion });
         }
 
         /// <summary>
@@ -581,43 +574,11 @@ example:
             services.AddScoped<IPermissionService, PermissionService>();
         }
 
-        private async void MigrateData(IServiceProvider serviceProvider, IMigrationSettings examinationMigrationSettings)
+        private async void MigrateExaminationData(IServiceProvider serviceProvider, IMigrationSettings examinationMigrationSettings)
         {
             var migrationService = serviceProvider.GetService<IAsyncQueryHandler<ExaminationMigrationQuery, bool>>();
 
             var result = await migrationService.Handle(new ExaminationMigrationQuery(examinationMigrationSettings));
-        }
-
-        private void UpdateLocations(IServiceProvider serviceProvider, LocationMigrationSettings locationMigrationSettings)
-        {
-            LocationMigrationService instance = serviceProvider.GetService<LocationMigrationService>();
-            instance.Handle(_locationMigrationQueryLookup[locationMigrationSettings.Version]).Wait();
-        }
-
-        private void UpdateDiscussionOutcomes(IServiceProvider serviceProvider)
-        {
-            IAsyncQueryHandler<NullQuery, bool> instance = serviceProvider.GetService<IAsyncQueryHandler<NullQuery, bool>>();
-
-            instance.Handle(new NullQuery()).Wait();
-        }
-
-        private void UpdateInvalidOrNullUserPermissionIds(IServiceProvider serviceProvider)
-        {
-            IAsyncQueryHandler<InvalidUserPermissionQuery, bool> instance = serviceProvider.GetService<IAsyncQueryHandler<InvalidUserPermissionQuery, bool>>();
-
-            instance.Handle(new InvalidUserPermissionQuery()).Wait();
-        }
-
-        private Dictionary<int, IMigrationQuery> _locationMigrationQueryLookup = new Dictionary<int, IMigrationQuery>
-        {
-            {1, new LocationMigrationQueryV1() }
-        };
-
-        private void UpdateExaminationUrgencySort(IServiceProvider serviceProvider, UrgencySettings urgencySettings)
-        {
-            IAsyncQueryHandler<UpdateExaminationUrgencySortQuery, bool> instance = serviceProvider.GetService<IAsyncQueryHandler<UpdateExaminationUrgencySortQuery, bool>>();
-
-            instance.Handle(new UpdateExaminationUrgencySortQuery()).Wait();
         }
     }
 }
