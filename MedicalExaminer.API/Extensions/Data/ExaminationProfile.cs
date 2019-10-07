@@ -352,6 +352,7 @@ namespace MedicalExaminer.API.Extensions.Data
                 .ForMember(response => response.Errors, opt => opt.Ignore())
                 .ForMember(response => response.Lookups, opt => opt.Ignore());
             CreateMap<PostExaminationRequest, Examination>()
+                .ForMember(examination => examination.Version, opt => opt.Ignore())
                 .ForMember(examination => examination.ExaminationId, opt => opt.Ignore())
                 .ForMember(examination => examination.HouseNameNumber, opt => opt.Ignore())
                 .ForMember(examination => examination.Street, opt => opt.Ignore())

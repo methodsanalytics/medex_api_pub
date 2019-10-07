@@ -68,6 +68,7 @@ namespace MedicalExaminer.API
     {
         private const string ApiTitle = "Medical Examiner API";
         private const string ApiDescription = "The API for the Medical Examiner Service.";
+        private int ExaminationDocumentVersion;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Startup"/> class.
@@ -106,6 +107,22 @@ example:
   }
             ");
             }
+
+            var examinationMigrationSettings =
+                services.ConfigureSettings<ExaminationMigrationSettings>(Configuration, "LocationMigrationSettings");
+
+
+            if (examinationMigrationSettings == null)
+            {
+                throw new ArgumentNullException(@"there is no examination migration settings
+example:
+  ExaminationMigrationSettings: {
+  Version: 1
+  }
+            ");
+            }
+
+            ExaminationDocumentVersion = examinationMigrationSettings.Version;
 
             services.ConfigureSettings<AuthorizationSettings>(Configuration, "Authorization");
 
@@ -366,6 +383,8 @@ example:
                 new Uri(cosmosDbSettings.URL),
                 cosmosDbSettings.PrimaryKey,
                 cosmosDbSettings.DatabaseId));
+
+            services.AddSingleton<ExaminationVersionSettings>(s => new ExaminationVersionSettings(ExaminationDocumentVersion));
 
             // Examination services
             services.AddScoped(s => new ExaminationsQueryExpressionBuilder());
