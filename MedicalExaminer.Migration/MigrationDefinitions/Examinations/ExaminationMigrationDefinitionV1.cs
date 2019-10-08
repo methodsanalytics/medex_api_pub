@@ -10,6 +10,10 @@ namespace MedicalExaminer.Migration.MigrationDefinitions.Examinations
 
         public List<string> PropertiesToRemove => new List<string>();
 
+        //public string PropertyToGet { get; }
+
+        public string PropertyToGet => "case_outcome";
+
         public Dictionary<string, Func<Dictionary<string, object>, object>> Transforms => new Dictionary<string, Func<Dictionary<string, object>, object>>()
         {
             {"any_implants", MigrateAnyImplants },

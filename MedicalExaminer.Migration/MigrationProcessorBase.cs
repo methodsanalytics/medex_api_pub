@@ -2,13 +2,26 @@
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Reflection;
+using Newtonsoft.Json;
 
 namespace MedicalExaminer.Migration
 {
     public abstract class MigrationProcessorBase
     {
+
         protected Dictionary<string, object> MigrateToVersion(Dictionary<string, object> migratedAsDictionary, IMigrationDefinition migrationRule)
         {
+            Dictionary<string, object> obtainedDictionary = new Dictionary<string, object>();
+
+            if (migrationRule.PropertyToGet != null)
+            {
+                if (migratedAsDictionary.ContainsKey(migrationRule.PropertyToGet))
+                {
+                    var content = migratedAsDictionary[migrationRule.PropertyToGet];
+                    obtainedDictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(content.ToString());
+                }
+            }
+
             foreach (var transform in migrationRule.Transforms)
             {
                 if (migratedAsDictionary.ContainsKey(transform.Key))
