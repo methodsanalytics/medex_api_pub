@@ -78,5 +78,30 @@ namespace MedicalExaminer.API.Controllers
 
             return new OkObjectResult(Mapper.Map<GetCoronerReferralDownloadResponse>(examination));
         }
+
+        [HttpGet]
+        [Route("{examinationId}/clinical_governance_download")]
+        public async Task<ActionResult<GetCoronerReferralDownloadResponse>> GetClinicalGovernanceDownload(string examinationId)
+        {
+            if (string.IsNullOrEmpty(examinationId))
+            {
+                return new BadRequestObjectResult(nameof(examinationId));
+            }
+
+            var currentUser = await CurrentUser();
+            var examination = await _examinationRetrievalService.Handle(new ExaminationRetrievalQuery(examinationId, currentUser));
+
+            if (examination == null)
+            {
+                return new NotFoundResult();
+            }
+
+            if (!CanAsync(Permission.GetCoronerReferralDownload, examination))
+            {
+                return Forbid();
+            }
+
+            return new OkObjectResult(Mapper.Map<GetCoronerReferralDownloadResponse>(examination));
+        }
     }
 }
