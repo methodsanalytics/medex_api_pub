@@ -81,7 +81,7 @@ namespace MedicalExaminer.API.Controllers
 
         [HttpGet]
         [Route("{examinationId}/clinical_governance_download")]
-        public async Task<ActionResult<GetCoronerReferralDownloadResponse>> GetClinicalGovernanceDownload(string examinationId)
+        public async Task<ActionResult<GetClinicalGovernanceDownloadResponse>> GetClinicalGovernanceDownload(string examinationId)
         {
             if (string.IsNullOrEmpty(examinationId))
             {
@@ -101,7 +101,7 @@ namespace MedicalExaminer.API.Controllers
                 return Forbid();
             }
 
-            return new OkObjectResult(Mapper.Map<GetCoronerReferralDownloadResponse>(examination));
+            return new OkObjectResult(Mapper.Map<GetClinicalGovernanceDownloadResponse>(examination));
         }
     }
 }
