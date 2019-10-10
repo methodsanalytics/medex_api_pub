@@ -26,86 +26,10 @@ namespace MedicalExaminer.API.Extensions.Data
         {
             CreateMap<Examination, GetCoronerReferralDownloadResponse>()
                 .ForMember(dest => dest.AbleToIssueMCCD, opt => opt.MapFrom(src => src.CaseOutcome.CaseOutcomeSummary == CaseOutcomeSummary.ReferToCoroner ? false : true))
-                .ForMember(dest => dest.CauseOfDeath1a, opt => opt.MapFrom((src, dest, destMember, context) =>
-                {
-                    if (src.CaseBreakdown.QapDiscussion.Latest == null)
-                    {
-                        if (src.CaseBreakdown.PreScrutiny.Latest == null)
-                        {
-                            return null;
-                        }
-                        return src.CaseBreakdown.PreScrutiny.Latest.CauseOfDeath1a;
-                    }
-                    else
-                    {
-                        if (src.CaseBreakdown.QapDiscussion.Latest.QapDiscussionOutcome == QapDiscussionOutcome.MccdCauseOfDeathProvidedByME ||
-                            src.CaseBreakdown.QapDiscussion.Latest.QapDiscussionOutcome == QapDiscussionOutcome.DiscussionUnableToHappen)
-                        {
-                            return src.CaseBreakdown.PreScrutiny.Latest.CauseOfDeath1a;
-                        }
-                        return src.CaseBreakdown.QapDiscussion.Latest.CauseOfDeath1a;
-                    }
-                }))
-                .ForMember(dest => dest.CauseOfDeath1b, opt => opt.MapFrom((src, dest, destMember, context) =>
-                {
-                    if (src.CaseBreakdown.QapDiscussion.Latest == null)
-                    {
-                        if (src.CaseBreakdown.PreScrutiny.Latest == null)
-                        {
-                            return null;
-                        }
-                        return src.CaseBreakdown.PreScrutiny.Latest.CauseOfDeath1b;
-                    }
-                    else
-                    {
-                        if (src.CaseBreakdown.QapDiscussion.Latest.QapDiscussionOutcome == QapDiscussionOutcome.MccdCauseOfDeathProvidedByME ||
-                            src.CaseBreakdown.QapDiscussion.Latest.QapDiscussionOutcome == QapDiscussionOutcome.DiscussionUnableToHappen)
-                        {
-                            return src.CaseBreakdown.PreScrutiny.Latest.CauseOfDeath1b;
-                        }
-                        return src.CaseBreakdown.QapDiscussion.Latest.CauseOfDeath1b;
-                    }
-                }))
-                .ForMember(dest => dest.CauseOfDeath1c, opt => opt.MapFrom((src, dest, destMember, context) =>
-                {
-                    if (src.CaseBreakdown.QapDiscussion.Latest == null)
-                    {
-                        if (src.CaseBreakdown.PreScrutiny.Latest == null)
-                        {
-                            return null;
-                        }
-                        return src.CaseBreakdown.PreScrutiny.Latest.CauseOfDeath1c;
-                    }
-                    else
-                    {
-                        if (src.CaseBreakdown.QapDiscussion.Latest.QapDiscussionOutcome == QapDiscussionOutcome.MccdCauseOfDeathProvidedByME ||
-                            src.CaseBreakdown.QapDiscussion.Latest.QapDiscussionOutcome == QapDiscussionOutcome.DiscussionUnableToHappen)
-                        {
-                            return src.CaseBreakdown.PreScrutiny.Latest.CauseOfDeath1c;
-                        }
-                        return src.CaseBreakdown.QapDiscussion.Latest.CauseOfDeath1c;
-                    }
-                }))
-                .ForMember(dest => dest.CauseOfDeath2, opt => opt.MapFrom((src, dest, destMember, context) =>
-                {
-                    if (src.CaseBreakdown.QapDiscussion.Latest == null)
-                    {
-                        if (src.CaseBreakdown.PreScrutiny.Latest == null)
-                        {
-                            return null;
-                        }
-                        return src.CaseBreakdown.PreScrutiny.Latest.CauseOfDeath2;
-                    }
-                    else
-                    {
-                        if (src.CaseBreakdown.QapDiscussion.Latest.QapDiscussionOutcome == QapDiscussionOutcome.MccdCauseOfDeathProvidedByME ||
-                            src.CaseBreakdown.QapDiscussion.Latest.QapDiscussionOutcome == QapDiscussionOutcome.DiscussionUnableToHappen)
-                        {
-                            return src.CaseBreakdown.PreScrutiny.Latest.CauseOfDeath2;
-                        }
-                        return src.CaseBreakdown.QapDiscussion.Latest.CauseOfDeath2;
-                    }
-                }))
+                .ForMember(dest => dest.CauseOfDeath1a, opt => opt.MapFrom((src, dest, destMember, context) => GetCauseOfDeath1a(src, dest, destMember, context)))
+                .ForMember(dest => dest.CauseOfDeath1b, opt => opt.MapFrom((src, dest, destMember, context) => GetCauseOfDeath1b(src, dest, destMember, context)))
+                .ForMember(dest => dest.CauseOfDeath1c, opt => opt.MapFrom((src, dest, destMember, context) => GetCauseOfDeath1c(src, dest, destMember, context)))
+                .ForMember(dest => dest.CauseOfDeath2, opt => opt.MapFrom((src, dest, destMember, context) => GetCauseOfDeath2(src, dest, destMember, context)))
                 .ForMember(dest => dest.PlaceOfDeath, opt => opt.MapFrom(src => src.PlaceDeathOccured))
                 .ForMember(dest => dest.LatestBereavedDiscussion, opt => opt.MapFrom(src => src.CaseBreakdown.BereavedDiscussion.Latest))
                 .ForMember(dest => dest.Qap, opt => opt.MapFrom(src => new ClinicalProfessional()
@@ -123,86 +47,10 @@ namespace MedicalExaminer.API.Extensions.Data
 
             CreateMap<Examination, GetClinicalGovernanceDownloadResponse>()
                 .ForMember(dest => dest.AbleToIssueMCCD, opt => opt.MapFrom(src => src.CaseOutcome.CaseOutcomeSummary == CaseOutcomeSummary.ReferToCoroner ? false : true))
-                .ForMember(dest => dest.CauseOfDeath1a, opt => opt.MapFrom((src, dest, destMember, context) =>
-                {
-                    if (src.CaseBreakdown.QapDiscussion.Latest == null)
-                    {
-                        if (src.CaseBreakdown.PreScrutiny.Latest == null)
-                        {
-                            return null;
-                        }
-                        return src.CaseBreakdown.PreScrutiny.Latest.CauseOfDeath1a;
-                    }
-                    else
-                    {
-                        if (src.CaseBreakdown.QapDiscussion.Latest.QapDiscussionOutcome == QapDiscussionOutcome.MccdCauseOfDeathProvidedByME ||
-                            src.CaseBreakdown.QapDiscussion.Latest.QapDiscussionOutcome == QapDiscussionOutcome.DiscussionUnableToHappen)
-                        {
-                            return src.CaseBreakdown.PreScrutiny.Latest.CauseOfDeath1a;
-                        }
-                        return src.CaseBreakdown.QapDiscussion.Latest.CauseOfDeath1a;
-                    }
-                }))
-                .ForMember(dest => dest.CauseOfDeath1b, opt => opt.MapFrom((src, dest, destMember, context) =>
-                {
-                    if (src.CaseBreakdown.QapDiscussion.Latest == null)
-                    {
-                        if (src.CaseBreakdown.PreScrutiny.Latest == null)
-                        {
-                            return null;
-                        }
-                        return src.CaseBreakdown.PreScrutiny.Latest.CauseOfDeath1b;
-                    }
-                    else
-                    {
-                        if (src.CaseBreakdown.QapDiscussion.Latest.QapDiscussionOutcome == QapDiscussionOutcome.MccdCauseOfDeathProvidedByME ||
-                            src.CaseBreakdown.QapDiscussion.Latest.QapDiscussionOutcome == QapDiscussionOutcome.DiscussionUnableToHappen)
-                        {
-                            return src.CaseBreakdown.PreScrutiny.Latest.CauseOfDeath1b;
-                        }
-                        return src.CaseBreakdown.QapDiscussion.Latest.CauseOfDeath1b;
-                    }
-                }))
-                .ForMember(dest => dest.CauseOfDeath1c, opt => opt.MapFrom((src, dest, destMember, context) =>
-                {
-                    if (src.CaseBreakdown.QapDiscussion.Latest == null)
-                    {
-                        if (src.CaseBreakdown.PreScrutiny.Latest == null)
-                        {
-                            return null;
-                        }
-                        return src.CaseBreakdown.PreScrutiny.Latest.CauseOfDeath1c;
-                    }
-                    else
-                    {
-                        if (src.CaseBreakdown.QapDiscussion.Latest.QapDiscussionOutcome == QapDiscussionOutcome.MccdCauseOfDeathProvidedByME ||
-                            src.CaseBreakdown.QapDiscussion.Latest.QapDiscussionOutcome == QapDiscussionOutcome.DiscussionUnableToHappen)
-                        {
-                            return src.CaseBreakdown.PreScrutiny.Latest.CauseOfDeath1c;
-                        }
-                        return src.CaseBreakdown.QapDiscussion.Latest.CauseOfDeath1c;
-                    }
-                }))
-                .ForMember(dest => dest.CauseOfDeath2, opt => opt.MapFrom((src, dest, destMember, context) =>
-                {
-                    if (src.CaseBreakdown.QapDiscussion.Latest == null)
-                    {
-                        if (src.CaseBreakdown.PreScrutiny.Latest == null)
-                        {
-                            return null;
-                        }
-                        return src.CaseBreakdown.PreScrutiny.Latest.CauseOfDeath2;
-                    }
-                    else
-                    {
-                        if (src.CaseBreakdown.QapDiscussion.Latest.QapDiscussionOutcome == QapDiscussionOutcome.MccdCauseOfDeathProvidedByME ||
-                            src.CaseBreakdown.QapDiscussion.Latest.QapDiscussionOutcome == QapDiscussionOutcome.DiscussionUnableToHappen)
-                        {
-                            return src.CaseBreakdown.PreScrutiny.Latest.CauseOfDeath2;
-                        }
-                        return src.CaseBreakdown.QapDiscussion.Latest.CauseOfDeath2;
-                    }
-                }))
+                .ForMember(dest => dest.CauseOfDeath1a, opt => opt.MapFrom((src, dest, destMember, context) => GetCauseOfDeath1a(src, dest, destMember, context)))
+                .ForMember(dest => dest.CauseOfDeath1b, opt => opt.MapFrom((src, dest, destMember, context) => GetCauseOfDeath1b(src, dest, destMember, context)))
+                .ForMember(dest => dest.CauseOfDeath1c, opt => opt.MapFrom((src, dest, destMember, context) => GetCauseOfDeath1c(src, dest, destMember, context)))
+                .ForMember(dest => dest.CauseOfDeath2, opt => opt.MapFrom((src, dest, destMember, context) => GetCauseOfDeath2(src, dest, destMember, context)))
                 .ForMember(dest => dest.PlaceOfDeath, opt => opt.MapFrom(src => src.PlaceDeathOccured))
                 .ForMember(dest => dest.LatestBereavedDiscussion, opt => opt.MapFrom(src => src.CaseBreakdown.BereavedDiscussion.Latest))
                 .ForMember(dest => dest.Qap, opt => opt.MapFrom(src => new ClinicalProfessional()
@@ -682,6 +530,90 @@ namespace MedicalExaminer.API.Extensions.Data
                 .ForMember(deathEvent => deathEvent.EventId, opt => opt.Ignore())
                 .ForMember(deathEvent => deathEvent.UsersRole, opt => opt.Ignore())
                 .ForMember(deathEvent => deathEvent.UserFullName, opt => opt.Ignore());
+        }
+
+        private static string GetCauseOfDeath1b(Examination src, IDownloadResponse dest, string destMember, ResolutionContext context)
+        {            
+                if (src.CaseBreakdown.QapDiscussion.Latest == null)
+                {
+                    if (src.CaseBreakdown.PreScrutiny.Latest == null)
+                    {
+                        return null;
+                    }
+                    return src.CaseBreakdown.PreScrutiny.Latest.CauseOfDeath1b;
+                }
+                else
+                {
+                    if (src.CaseBreakdown.QapDiscussion.Latest.QapDiscussionOutcome == QapDiscussionOutcome.MccdCauseOfDeathProvidedByME ||
+                        src.CaseBreakdown.QapDiscussion.Latest.QapDiscussionOutcome == QapDiscussionOutcome.DiscussionUnableToHappen)
+                    {
+                        return src.CaseBreakdown.PreScrutiny.Latest.CauseOfDeath1b;
+                    }
+                    return src.CaseBreakdown.QapDiscussion.Latest.CauseOfDeath1b;
+                }
+        }
+
+        private static string GetCauseOfDeath1a(Examination src, IDownloadResponse dest, string destMember, ResolutionContext context)
+        {
+                if (src.CaseBreakdown.QapDiscussion.Latest == null)
+                {
+                    if (src.CaseBreakdown.PreScrutiny.Latest == null)
+                    {
+                        return null;
+                    }
+                    return src.CaseBreakdown.PreScrutiny.Latest.CauseOfDeath1a;
+                }
+                else
+                {
+                    if (src.CaseBreakdown.QapDiscussion.Latest.QapDiscussionOutcome == QapDiscussionOutcome.MccdCauseOfDeathProvidedByME ||
+                        src.CaseBreakdown.QapDiscussion.Latest.QapDiscussionOutcome == QapDiscussionOutcome.DiscussionUnableToHappen)
+                    {
+                        return src.CaseBreakdown.PreScrutiny.Latest.CauseOfDeath1a;
+                    }
+                    return src.CaseBreakdown.QapDiscussion.Latest.CauseOfDeath1a;
+                }
+        }
+
+        private static string GetCauseOfDeath1c(Examination src, IDownloadResponse dest, string destMember, ResolutionContext context)
+        {
+            if (src.CaseBreakdown.QapDiscussion.Latest == null)
+                {
+                    if (src.CaseBreakdown.PreScrutiny.Latest == null)
+                    {
+                        return null;
+                    }
+                    return src.CaseBreakdown.PreScrutiny.Latest.CauseOfDeath1c;
+                }
+                else
+                {
+                    if (src.CaseBreakdown.QapDiscussion.Latest.QapDiscussionOutcome == QapDiscussionOutcome.MccdCauseOfDeathProvidedByME ||
+                        src.CaseBreakdown.QapDiscussion.Latest.QapDiscussionOutcome == QapDiscussionOutcome.DiscussionUnableToHappen)
+                    {
+                        return src.CaseBreakdown.PreScrutiny.Latest.CauseOfDeath1c;
+                    }
+                    return src.CaseBreakdown.QapDiscussion.Latest.CauseOfDeath1c;
+                }
+        }
+
+        private static string GetCauseOfDeath2(Examination src, IDownloadResponse dest, string destMember, ResolutionContext context)
+        {            
+                if (src.CaseBreakdown.QapDiscussion.Latest == null)
+                {
+                    if (src.CaseBreakdown.PreScrutiny.Latest == null)
+                    {
+                        return null;
+                    }
+                    return src.CaseBreakdown.PreScrutiny.Latest.CauseOfDeath2;
+                }
+                else
+                {
+                    if (src.CaseBreakdown.QapDiscussion.Latest.QapDiscussionOutcome == QapDiscussionOutcome.MccdCauseOfDeathProvidedByME ||
+                        src.CaseBreakdown.QapDiscussion.Latest.QapDiscussionOutcome == QapDiscussionOutcome.DiscussionUnableToHappen)
+                    {
+                        return src.CaseBreakdown.PreScrutiny.Latest.CauseOfDeath2;
+                    }
+                    return src.CaseBreakdown.QapDiscussion.Latest.CauseOfDeath2;
+                }
         }
 
         private static string GetMedicalHistory(Examination src, IDownloadResponse dest, string destMember, ResolutionContext context)
