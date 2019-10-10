@@ -5,7 +5,7 @@ using MedicalExaminer.Models.Enums;
 
 namespace MedicalExaminer.API.Models.v1.Report
 {
-    public class GetClinicalGovernanceDownloadResponse
+    public class GetClinicalGovernanceDownloadResponse : IDownloadResponse
     {
         /// <summary>
         /// The patients given name

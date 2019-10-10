@@ -8,7 +8,7 @@ namespace MedicalExaminer.API.Models.v1.Report
     /// <summary>
     /// the GetCoronerReferralDownloadResponse
     /// </summary>
-    public class GetCoronerReferralDownloadResponse
+    public class GetCoronerReferralDownloadResponse : IDownloadResponse
     {
         /// <summary>
         /// The patients given name

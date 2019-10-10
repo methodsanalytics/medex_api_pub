@@ -119,16 +119,7 @@ namespace MedicalExaminer.API.Extensions.Data
                 .ForMember(dest => dest.Consultant, opt => opt.MapFrom(src => src.MedicalTeam.ConsultantResponsible))
                 .ForMember(dest => dest.GP, opt => opt.MapFrom(src => src.MedicalTeam.GeneralPractitioner))
                 .ForMember(dest => dest.LatestAdmissionDetails, opt => opt.MapFrom(src => src.CaseBreakdown.AdmissionNotes.Latest))
-                .ForMember(dest => dest.DetailsAboutMedicalHistory, opt => opt.MapFrom((src, dest, destMember, context) => {
-                    var temp = src.CaseBreakdown.MedicalHistory.History.
-                    Select(hstry => hstry?.Text).Aggregate("", (current, next) => current + next + Environment.NewLine);
-                    if (temp != null)
-                    {
-                        temp = temp.TrimEnd(Environment.NewLine.ToCharArray());
-                    }
-
-                    return temp;
-                }));
+                .ForMember(dest => dest.DetailsAboutMedicalHistory, opt => opt.MapFrom((src, dest, destMember, context) => GetMedicalHistory(src, dest, destMember, context)));
 
             CreateMap<Examination, GetClinicalGovernanceDownloadResponse>()
                 .ForMember(dest => dest.AbleToIssueMCCD, opt => opt.MapFrom(src => src.CaseOutcome.CaseOutcomeSummary == CaseOutcomeSummary.ReferToCoroner ? false : true))
@@ -225,17 +216,7 @@ namespace MedicalExaminer.API.Extensions.Data
                 .ForMember(dest => dest.Consultant, opt => opt.MapFrom(src => src.MedicalTeam.ConsultantResponsible))
                 .ForMember(dest => dest.GP, opt => opt.MapFrom(src => src.MedicalTeam.GeneralPractitioner))
                 .ForMember(dest => dest.LatestAdmissionDetails, opt => opt.MapFrom(src => src.CaseBreakdown.AdmissionNotes.Latest))
-                .ForMember(dest => dest.DetailsAboutMedicalHistory, opt => opt.MapFrom((src, dest, destMember, context) => {
-                    var temp = src.CaseBreakdown.MedicalHistory.History.
-                    Select(hstry => hstry?.Text).Aggregate("", (current, next) => current + next + Environment.NewLine);
-                    if (temp != null)
-                    {
-                        temp = temp.TrimEnd(Environment.NewLine.ToCharArray());
-                    }
-
-                    return temp;
-                }));
-
+                .ForMember(dest => dest.DetailsAboutMedicalHistory, opt => opt.MapFrom((src, dest, destMember, context) => GetMedicalHistory(src, dest, destMember, context)));
 
             CreateMap<Examination, BereavedDiscussionPrepopulated>()
                 .ForMember(dest => dest.Representatives, opt => opt.MapFrom(source => source.Representatives))
@@ -343,7 +324,7 @@ namespace MedicalExaminer.API.Extensions.Data
                 .ForMember(prepopulated => prepopulated.CauseOfDeath1b, cbd => cbd.MapFrom(source => source.CaseBreakdown.PreScrutiny.Latest.CauseOfDeath1b))
                 .ForMember(prepopulated => prepopulated.CauseOfDeath1c, cbd => cbd.MapFrom(source => source.CaseBreakdown.PreScrutiny.Latest.CauseOfDeath1c))
                 .ForMember(prepopulated => prepopulated.CauseOfDeath2, cbd => cbd.MapFrom(source => source.CaseBreakdown.PreScrutiny.Latest.CauseOfDeath2))
-                .ForMember(prepopulated => prepopulated.MedicalExaminer, cbd => cbd.MapFrom(source => source.MedicalTeam.MedicalExaminerFullName)) 
+                .ForMember(prepopulated => prepopulated.MedicalExaminer, cbd => cbd.MapFrom(source => source.MedicalTeam.MedicalExaminerFullName))
                 .ForMember(prepopulated => prepopulated.DateOfLatestPreScrutiny, cbd => cbd.MapFrom(source => source.CaseBreakdown.PreScrutiny.Latest.Created))
                 .ForMember(prepopulated => prepopulated.PreScrutinyStatus, cbd => cbd.MapFrom(source =>
                         source.CaseBreakdown.PreScrutiny.Latest == null
@@ -570,7 +551,7 @@ namespace MedicalExaminer.API.Extensions.Data
                 .ForMember(patientCard => patientCard.LatestAdmissionDetailsEntered, opt => opt.MapFrom(
                     (source, dest, destMember, context) => source.CaseBreakdown.AdmissionNotes.Latest != null ? StatusBarResult.Complete : StatusBarResult.Incomplete))
                 .ForMember(patientCard => patientCard.DoctorInChargeEntered, opt => opt.MapFrom(
-                    (source, dest, destMember, context) =>source.MedicalTeam.ConsultantResponsible?.Name != null ? StatusBarResult.Complete : StatusBarResult.Incomplete))
+                    (source, dest, destMember, context) => source.MedicalTeam.ConsultantResponsible?.Name != null ? StatusBarResult.Complete : StatusBarResult.Incomplete))
                 .ForMember(patientCard => patientCard.QapEntered, opt => opt.MapFrom(
                     (source, dest, destMember, context) => source.MedicalTeam.Qap?.Name != null ? StatusBarResult.Complete : StatusBarResult.Incomplete))
                 .ForMember(patientCard => patientCard.BereavedInfoEntered, opt => opt.MapFrom(
@@ -701,6 +682,18 @@ namespace MedicalExaminer.API.Extensions.Data
                 .ForMember(deathEvent => deathEvent.EventId, opt => opt.Ignore())
                 .ForMember(deathEvent => deathEvent.UsersRole, opt => opt.Ignore())
                 .ForMember(deathEvent => deathEvent.UserFullName, opt => opt.Ignore());
+        }
+
+        private static string GetMedicalHistory(Examination src, IDownloadResponse dest, string destMember, ResolutionContext context)
+        {
+                var temp = src.CaseBreakdown.MedicalHistory.History.
+                Select(hstry => hstry?.Text).Aggregate("", (current, next) => current + next + Environment.NewLine);
+                if (temp != null)
+                {
+                    temp = temp.TrimEnd(Environment.NewLine.ToCharArray());
+                }
+
+                return temp;
         }
 
         private bool? UseQap(CaseBreakDown caseBreakdown)
