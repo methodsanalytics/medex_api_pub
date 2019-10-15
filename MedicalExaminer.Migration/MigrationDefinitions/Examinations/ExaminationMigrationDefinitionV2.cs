@@ -10,11 +10,8 @@ namespace MedicalExaminer.Migration.MigrationDefinitions.Examinations
         {
             "case_outcome"
         };
-
-        public List<string> PropertiesToGet => new List<string>
-        {
-            "case_outcome"
-        };
+        
+        public string PropertyToGet => "case_outcome";
 
         public Dictionary<string, Func<Dictionary<string, object>, object>> Transforms => new Dictionary<string, Func<Dictionary<string, object>, object>>
         {
