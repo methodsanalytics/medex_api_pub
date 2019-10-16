@@ -1,4 +1,5 @@
-﻿using MedicalExaminer.Migration.MigrationDefinitions;
+﻿using System;
+using MedicalExaminer.Migration.MigrationDefinitions;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Reflection;
@@ -8,17 +9,27 @@ namespace MedicalExaminer.Migration
 {
     public abstract class MigrationProcessorBase
     {
-
         protected Dictionary<string, object> MigrateToVersion(Dictionary<string, object> migratedAsDictionary, IMigrationDefinition migrationRule)
         {
-            Dictionary<string, object> obtainedDictionary = new Dictionary<string, object>();
-
             if (migrationRule.PropertyToGet != null)
             {
                 if (migratedAsDictionary.ContainsKey(migrationRule.PropertyToGet))
                 {
                     var content = migratedAsDictionary[migrationRule.PropertyToGet];
-                    obtainedDictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(content.ToString());
+                    //migrationRule.obtainedProperty = JsonConvert.DeserializeObject<Dictionary<string, object>>(content.ToString());
+                    migrationRule.obtainedProperty = GetDictionary(content);
+
+                    foreach (var property in migrationRule.obtainedProperty)
+                    {
+                        if (migratedAsDictionary.ContainsKey(property.Key))
+                        {
+                            migratedAsDictionary[property.Key] = property.Value;
+                        }
+                        else
+                        {
+                            migratedAsDictionary.Add(property.Key, property.Value);
+                        }
+                    }
                 }
             }
 
@@ -63,6 +74,7 @@ namespace MedicalExaminer.Migration
             {
                 result.Add(propertyInfo.Name, propertyInfo.GetValue(objectToGetDictionary, null));
             }
+
             if (result.ContainsKey("Payload"))
             {
                 return ((JObject)result["Payload"]).ToObject<Dictionary<string, object>>();

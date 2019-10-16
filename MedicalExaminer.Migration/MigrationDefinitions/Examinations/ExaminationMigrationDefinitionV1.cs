@@ -9,10 +9,9 @@ namespace MedicalExaminer.Migration.MigrationDefinitions.Examinations
         public Dictionary<string, string> PropertiesToRename => new Dictionary<string, string>();
 
         public List<string> PropertiesToRemove => new List<string>();
+        public string PropertyToGet { get; }
 
-        //public string PropertyToGet { get; }
-
-        public string PropertyToGet => "case_outcome";
+        public Dictionary<string, object> obtainedProperty { get; set; }
 
         public Dictionary<string, Func<Dictionary<string, object>, object>> Transforms => new Dictionary<string, Func<Dictionary<string, object>, object>>()
         {

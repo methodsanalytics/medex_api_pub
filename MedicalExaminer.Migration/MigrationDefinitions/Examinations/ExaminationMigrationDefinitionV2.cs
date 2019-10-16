@@ -6,6 +6,7 @@ namespace MedicalExaminer.Migration.MigrationDefinitions.Examinations
     public class ExaminationMigrationDefinitionV2 : IMigrationDefinition
     {
         public Dictionary<string, string> PropertiesToRename => new Dictionary<string, string>();
+
         public List<string> PropertiesToRemove => new List<string>
         {
             "case_outcome"
@@ -13,6 +14,8 @@ namespace MedicalExaminer.Migration.MigrationDefinitions.Examinations
         
         public string PropertyToGet => "case_outcome";
 
+        public Dictionary<string, object> obtainedProperty { get; set; }
+        
         public Dictionary<string, Func<Dictionary<string, object>, object>> Transforms => new Dictionary<string, Func<Dictionary<string, object>, object>>
         {
             {"version", AddVersionNumber},
@@ -22,10 +25,5 @@ namespace MedicalExaminer.Migration.MigrationDefinitions.Examinations
         {
             return 2;
         }
-
-        //private object GetCaseOutcome(string arg)
-        //{
-            
-        //}
     }
 }
