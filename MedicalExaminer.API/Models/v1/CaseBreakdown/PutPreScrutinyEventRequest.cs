@@ -68,5 +68,50 @@ namespace MedicalExaminer.API.Models.v1.CaseBreakdown
         /// </summary>
         [RequiredIfAttributesMatch(nameof(IsFinalAndClinicalGovernanceReview), true)]
         public string ClinicalGovernanceReviewText { get; set; }
+
+        /// <summary>
+        /// is the case a mortality review case
+        /// </summary>
+        public bool IsMortalityCaseRecordReview { get; set; }
+
+        /// <summary>
+        /// were there concerns raised by staff or relatives
+        /// </summary>
+        public bool DeathWhereRelativeStaffRaisedConcerns { get; set; }
+
+        /// <summary>
+        /// patient had learning difficulties or mental illness
+        /// </summary>
+        public bool DeathWithLearningDifficultiesOrMentalIllness { get; set; }
+
+        /// <summary>
+        /// death in a specialty, diagnosis or treatment group where alarms have been raised
+        /// </summary>
+        public bool DeathInSpecialtyWithAlarmRaised { get; set; }
+
+        /// <summary>
+        /// the patient was not expected to die.
+        /// </summary>
+        public bool DeathWherePatientNotExpectedToDie { get; set; }
+
+        /// <summary>
+        /// is there learning that can come from this death
+        /// </summary>
+        public bool DeathWhereThereIsLearning { get; set; }
+
+        /// <summary>
+        /// maternity or neonatal death
+        /// </summary>
+        public bool DeathInMaternityOrNeonatal { get; set; }
+
+        /// <summary>
+        /// was this a serious incident
+        /// </summary>
+        public bool SeriousIncident { get; set; }
+
+        /// <summary>
+        /// for discussion in m+m meeting.
+        /// </summary>
+        public bool MandMMeeting { get; set; }
     }
 }
