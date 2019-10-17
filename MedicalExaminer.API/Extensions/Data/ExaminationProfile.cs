@@ -64,7 +64,17 @@ namespace MedicalExaminer.API.Extensions.Data
                 .ForMember(dest => dest.Consultant, opt => opt.MapFrom(src => src.MedicalTeam.ConsultantResponsible))
                 .ForMember(dest => dest.GP, opt => opt.MapFrom(src => src.MedicalTeam.GeneralPractitioner))
                 .ForMember(dest => dest.LatestAdmissionDetails, opt => opt.MapFrom(src => src.CaseBreakdown.AdmissionNotes.Latest))
-                .ForMember(dest => dest.DetailsAboutMedicalHistory, opt => opt.MapFrom((src, dest, destMember, context) => GetMedicalHistory(src, dest, destMember, context)));
+                .ForMember(dest => dest.DetailsAboutMedicalHistory, opt => opt.MapFrom((src, dest, destMember, context) => GetMedicalHistory(src, dest, destMember, context)))
+                .ForMember(dest => dest.ClinicalGovernanceReviewText, opt => opt.MapFrom(src => src.CaseBreakdown.PreScrutiny.Latest.ClinicalGovernanceReviewText))
+                .ForMember(dest => dest.IsMortalityCaseRecordReview, opt => opt.MapFrom(src => src.CaseBreakdown.PreScrutiny.Latest.IsMortalityCaseRecordReview))
+                .ForMember(dest => dest.DeathWhereRelativeStaffRaisedConcerns, opt => opt.MapFrom(src => src.CaseBreakdown.PreScrutiny.Latest.DeathWhereRelativeStaffRaisedConcerns))
+                .ForMember(dest => dest.DeathWithLearningDifficultiesOrMentalIllness, opt => opt.MapFrom(src => src.CaseBreakdown.PreScrutiny.Latest.DeathWithLearningDifficultiesOrMentalIllness))
+                .ForMember(dest => dest.DeathInSpecialtyWithAlarmRaised, opt => opt.MapFrom(src => src.CaseBreakdown.PreScrutiny.Latest.DeathInSpecialtyWithAlarmRaised))
+                .ForMember(dest => dest.DeathWherePatientNotExpectedToDie, opt => opt.MapFrom(src => src.CaseBreakdown.PreScrutiny.Latest.DeathWherePatientNotExpectedToDie))
+                .ForMember(dest => dest.DeathWhereThereIsLearning, opt => opt.MapFrom(src => src.CaseBreakdown.PreScrutiny.Latest.DeathWhereThereIsLearning))
+                .ForMember(dest => dest.DeathInMaternityOrNeonatal, opt => opt.MapFrom(src => src.CaseBreakdown.PreScrutiny.Latest.DeathInMaternityOrNeonatal))
+                .ForMember(dest => dest.SeriousIncident, opt => opt.MapFrom(src => src.CaseBreakdown.PreScrutiny.Latest.SeriousIncident))
+                .ForMember(dest => dest.MandMMeeting, opt => opt.MapFrom(src => src.CaseBreakdown.PreScrutiny.Latest.MandMMeeting));
 
             CreateMap<Examination, BereavedDiscussionPrepopulated>()
                 .ForMember(dest => dest.Representatives, opt => opt.MapFrom(source => source.Representatives))
