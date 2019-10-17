@@ -106,5 +106,59 @@ namespace MedicalExaminer.Models
         /// </summary>
         [JsonProperty(PropertyName = "clinical_governance_review_text")]
         public string ClinicalGovernanceReviewText { get; set; }
+
+        /// <summary>
+        /// is the case a mortality review case
+        /// </summary>
+        [JsonProperty(PropertyName = "is_mortality_case_record_review")]
+        public bool IsMortalityCaseRecordReview { get; set; }
+
+        /// <summary>
+        /// were there concerns raised by staff or relatives
+        /// </summary>
+        [JsonProperty(PropertyName = "death_where_relative_staff_raised_concerns")]
+        public bool DeathWhereRelativeStaffRaisedConcerns { get; set; }
+
+        /// <summary>
+        /// patient had learning difficulties or mental illness
+        /// </summary>
+        [JsonProperty(PropertyName = "death_with_learning_difficulties_or_mental_illness")]
+        public bool DeathWithLearningDifficultiesOrMentalIllness { get; set; }
+
+        /// <summary>
+        /// death in a specialty, diagnosis or treatment group where alarms have been raised
+        /// </summary>
+        [JsonProperty(PropertyName = "death_in_specialty_with_alarm_raised")]
+        public bool DeathInSpecialtyWithAlarmRaised { get; set; }
+
+        /// <summary>
+        /// the patient was not expected to die.
+        /// </summary>
+        [JsonProperty(PropertyName = "death_where_patient_not_expected_to_die")]
+        public bool DeathWherePatientNotExpectedToDie { get; set; }
+
+        /// <summary>
+        /// is there learning that can come from this death
+        /// </summary>
+        [JsonProperty(PropertyName = "death_where_there_is_learning")]
+        public bool DeathWhereThereIsLearning { get; set; }
+
+        /// <summary>
+        /// maternity or neonatal death
+        /// </summary>
+        [JsonProperty(PropertyName = "death_in_maternity_or_neonatal")]
+        public bool DeathInMaternityOrNeonatal { get; set; }
+
+        /// <summary>
+        /// was this a serious incident
+        /// </summary>
+        [JsonProperty(PropertyName = "serious_incident")]
+        public bool SeriousIncident { get; set; }
+
+        /// <summary>
+        /// for discussion in m+m meeting.
+        /// </summary>
+        [JsonProperty(PropertyName = "m_and_m_meeting")]
+        public bool MandMMeeting { get; set; }
     }
 }
