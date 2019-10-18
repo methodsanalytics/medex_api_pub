@@ -7,10 +7,8 @@ namespace MedicalExaminer.Migration.MigrationDefinitions.Examinations
     public class ExaminationMigrationDefinitionV1 : IMigrationDefinition
     {
         public Dictionary<string, string> PropertiesToRename => new Dictionary<string, string>();
-
         public List<string> PropertiesToRemove => new List<string>();
-        public string PropertyToGet { get; }
-
+        public string PropertyToGet => string.Empty;
         public Dictionary<string, object> obtainedProperty { get; set; }
 
         public Dictionary<string, Func<Dictionary<string, object>, object>> Transforms => new Dictionary<string, Func<Dictionary<string, object>, object>>()

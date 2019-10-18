@@ -21,25 +21,25 @@ namespace MedicalExaminer.Migration
             {
                 foreach (var record in recordsToMigrate)
                 {
-                    bool updated = false;
-                    long version = 1;
+                    var updated = false;
+                    var version = 1;
                     IMigrationDefinition migrationDefinition = null;
                     var recordAsDictionary = GetDictionary(record);
                     var migratedAsDictionary = new Dictionary<string, object>();
 
                     if (!recordAsDictionary.ContainsKey("version"))
                     {
-                        migrationDefinition = _migrations[(int)version];
+                        migrationDefinition = _migrations[version];
                         migratedAsDictionary = MigrateToVersion(recordAsDictionary, migrationDefinition);
                         updated = true;
                     }
 
-                    version = (long)recordAsDictionary["version"];
+                    version = (int) recordAsDictionary["version"];
 
                     while (version < migrateToVersion)
                     {
                         version = version + 1;
-                        migrationDefinition = _migrations[(int)version];
+                        migrationDefinition = _migrations[version];
                         migratedAsDictionary = MigrateToVersion(recordAsDictionary, migrationDefinition);
                         updated = true;
                     }

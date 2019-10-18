@@ -1,9 +1,7 @@
-﻿using System;
-using MedicalExaminer.Migration.MigrationDefinitions;
+﻿using MedicalExaminer.Migration.MigrationDefinitions;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Reflection;
-using Newtonsoft.Json;
 
 namespace MedicalExaminer.Migration
 {
@@ -11,7 +9,7 @@ namespace MedicalExaminer.Migration
     {
         protected Dictionary<string, object> MigrateToVersion(Dictionary<string, object> migratedAsDictionary, IMigrationDefinition migrationRule)
         {
-            if (migrationRule.PropertyToGet != null)
+            if (!string.IsNullOrEmpty(migrationRule.PropertyToGet))
             {
                 if (migratedAsDictionary.ContainsKey(migrationRule.PropertyToGet))
                 {
