@@ -88,13 +88,11 @@ namespace MedicalExaminer.Common.Database
             var auditClient = _documentClientFactory.CreateClient(auditConnectionSettings);
 
             var auditEntry = new AuditEntry<T>(item);
-            var response = auditClient.CreateDocumentAsync(
+            auditClient.CreateDocumentAsync(
                 UriFactory.CreateDocumentCollectionUri(
                     auditConnectionSettings.DatabaseId,
                     auditConnectionSettings.Collection),
                     auditEntry).Result;
-
-
         }
 
         /// <inheritdoc/>
