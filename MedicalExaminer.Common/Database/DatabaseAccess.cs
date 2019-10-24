@@ -52,6 +52,10 @@ namespace MedicalExaminer.Common.Database
             client.CreateDocumentCollectionIfNotExistsAsync(
                 databaseUri,
                 new DocumentCollection {Id = connectionSettings.Collection}).Wait();
+
+            client.CreateDocumentCollectionIfNotExistsAsync(
+                databaseUri,
+                new DocumentCollection { Id = connectionSettings.Collection.AuditCollection() }).Wait();
         }
 
         private IDocumentClient GetClient(IClientSettings connectionSettings)
@@ -84,11 +88,13 @@ namespace MedicalExaminer.Common.Database
             var auditClient = _documentClientFactory.CreateClient(auditConnectionSettings);
 
             var auditEntry = new AuditEntry<T>(item);
-            auditClient.CreateDocumentAsync(
+            var response = auditClient.CreateDocumentAsync(
                 UriFactory.CreateDocumentCollectionUri(
                     auditConnectionSettings.DatabaseId,
                     auditConnectionSettings.Collection),
-                    auditEntry);
+                    auditEntry).Result;
+
+
         }
 
         /// <inheritdoc/>
