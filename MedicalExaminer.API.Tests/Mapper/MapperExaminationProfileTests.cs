@@ -3445,7 +3445,11 @@ namespace MedicalExaminer.API.Tests.Mapper
                 RegionLocationId = null,
                 SiteLocationId = null,
                 TrustLocationId = null,
-                WaiveFee = null
+                WaiveFee = null,
+                CaseOutcome = new CaseOutcome
+                {
+                    CremationFormStatus = CremationFormStatus.Unknown
+                }
             };
 
             var examinationFinanceLocations = new ExaminationLocationItem()
@@ -3466,7 +3470,8 @@ namespace MedicalExaminer.API.Tests.Mapper
                 RegionName = null,
                 SiteName = null,
                 TrustName = null,
-                WaiverFee = null
+                WaiverFee = null,
+                CremationFormStatus = CremationFormStatus.Unknown
             };
 
             // Act
@@ -3493,7 +3498,11 @@ namespace MedicalExaminer.API.Tests.Mapper
                 RegionLocationId = "RegionLocationId",
                 SiteLocationId = "SiteLocationId",
                 TrustLocationId = "TrustLocationId",
-                WaiveFee = true
+                WaiveFee = true,
+                CaseOutcome = new CaseOutcome
+                {
+                    CremationFormStatus = CremationFormStatus.Yes
+                }
             };
 
             var examinationFinanceLocations = new ExaminationLocationItem()
@@ -3531,7 +3540,8 @@ namespace MedicalExaminer.API.Tests.Mapper
                 RegionName = "RegionName",
                 SiteName = "SiteName",
                 TrustName = null,
-                WaiverFee = true
+                WaiverFee = true,
+                CremationFormStatus = CremationFormStatus.Yes
             };
 
             // Act
@@ -3558,7 +3568,11 @@ namespace MedicalExaminer.API.Tests.Mapper
                 RegionLocationId = "RegionLocationId",
                 SiteLocationId = "SiteLocationId",
                 TrustLocationId = "TrustLocationId",
-                WaiveFee = true
+                WaiveFee = true,
+                CaseOutcome = new CaseOutcome
+                {
+                    CremationFormStatus = CremationFormStatus.Yes
+                }
             };
 
             var examinationFinanceLocations = new ExaminationLocationItem()
@@ -3601,7 +3615,8 @@ namespace MedicalExaminer.API.Tests.Mapper
                 RegionName = "RegionName",
                 SiteName = "SiteName",
                 TrustName = "TrustName",
-                WaiverFee = true
+                WaiverFee = true,
+                CremationFormStatus = CremationFormStatus.Yes
             };
 
             // Act
@@ -3683,6 +3698,7 @@ namespace MedicalExaminer.API.Tests.Mapper
             actual.SiteName.Should().Be(expected.SiteName);
             actual.TrustName.Should().Be(expected.TrustName);
             actual.WaiverFee.Should().Be(expected.WaiverFee);
+            actual.CremationFormStatus.Should().Be(expected.CremationFormStatus);
         }
 
         private void AssertAllSourcePropertiesMappedForMap(TypeMap map)

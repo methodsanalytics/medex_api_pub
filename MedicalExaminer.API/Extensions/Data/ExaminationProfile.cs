@@ -424,6 +424,7 @@ namespace MedicalExaminer.API.Extensions.Data
                 .ForMember(finance => finance.HasNhsNumber, opt => opt.MapFrom(eli => !string.IsNullOrEmpty(eli.Examination.NhsNumber)))
                 .ForMember(finance => finance.MedicalExaminerId, opt => opt.MapFrom(eli => eli.Examination.MedicalTeam.MedicalExaminerUserId))
                 .ForMember(finance => finance.ModeOfDisposal, opt => opt.MapFrom(eli => eli.Examination.ModeOfDisposal))
+                .ForMember(finance => finance.CremationFormStatus, opt => opt.MapFrom(eli => eli.Examination.CaseOutcome.CremationFormStatus))
                 .ForMember(finance => finance.NationalName, opt => opt.MapFrom((source, dest, destMember, context) =>
                 {
                     return source.Locations.SingleOrDefault(x => x.LocationId == source.Examination.NationalLocationId)?.Name;
