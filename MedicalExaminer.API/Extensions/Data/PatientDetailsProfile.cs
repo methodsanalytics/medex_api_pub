@@ -51,6 +51,9 @@ namespace MedicalExaminer.API.Extensions.Data
                 .ForMember(examination => examination.ScrutinyConfirmed, opt => opt.Ignore())
                 .ForMember(examination => examination.OutstandingCaseItemsCompleted, opt => opt.Ignore())
                 .ForMember(examination => examination.CaseOutcome, opt => opt.Ignore())
+                .ForMember(examination => examination.WaiveFee, opt => opt.Ignore())
+                .ForMember(examination => examination.DateCaseClosed, opt => opt.Ignore());
+
                 //.ForMember(examination => examination.WaiveFee, opt => opt.MapFrom((src, dest, destMember, context) =>
                 //{
                 //    if (dest.ModeOfDisposal == ModeOfDisposal.Cremation)
@@ -63,7 +66,6 @@ namespace MedicalExaminer.API.Extensions.Data
                 //    }
                 //    return (bool?)null;
                 //}))
-                .ForMember(examination => examination.DateCaseClosed, opt => opt.Ignore());
         }
     }
 }

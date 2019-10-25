@@ -279,9 +279,9 @@ namespace MedicalExaminer.API.Controllers
                 return Forbid();
             }
 
-            if (examination.ModeOfDisposal != ModeOfDisposal.Cremation)
+            if (examination.CaseOutcome.CremationFormStatus != CremationFormStatus.Yes)
             {
-                return new BadRequestObjectResult("The fee cannot be waived as there is no fee.");
+                return new BadRequestObjectResult("The Cremation Form is not completed.");
             }
 
             var result = await _saveWaiveFeeService.Handle(new SaveWaiveFeeQuery(examinationId, user, putCremationFeeWaiver.WaiveFee));
