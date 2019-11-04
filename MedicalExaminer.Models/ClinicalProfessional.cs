@@ -23,6 +23,5 @@ namespace MedicalExaminer.Models
 
         [JsonProperty(PropertyName = "gmc_number")]
         public string GMCNumber { get; set; }
-
     }
 }

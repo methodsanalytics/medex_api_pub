@@ -15,6 +15,12 @@ namespace MedicalExaminer.Common.Services.Examination
     {
         private readonly ExaminationsQueryExpressionBuilder _examinationQueryBuilder;
 
+        /// <summary>
+        /// Constructor for Finance Service
+        /// </summary>
+        /// <param name="databaseAccess"></param>
+        /// <param name="connectionSettings"></param>
+        /// <param name="examinationQueryBuilder"></param>
         public FinanceService(
             IDatabaseAccess databaseAccess,
             IExaminationConnectionSettings connectionSettings,
@@ -24,6 +30,12 @@ namespace MedicalExaminer.Common.Services.Examination
             _examinationQueryBuilder = examinationQueryBuilder;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
         public override Task<IEnumerable<Models.Examination>> Handle(FinanceQuery param)
         {
             if (param == null)

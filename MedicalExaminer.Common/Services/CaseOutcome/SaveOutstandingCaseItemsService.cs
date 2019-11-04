@@ -9,12 +9,21 @@ using Microsoft.Extensions.Options;
 
 namespace MedicalExaminer.Common.Services.CaseOutcome
 {
+    /// <summary>
+    /// Save Outstanding Case Items Service
+    /// </summary>
     public class SaveOutstandingCaseItemsService : IAsyncQueryHandler<SaveOutstandingCaseItemsQuery, string>
     {
         private readonly IConnectionSettings _connectionSettings;
         private readonly IDatabaseAccess _databaseAccess;
         private readonly UrgencySettings _urgencySettings;
 
+        /// <summary>
+        /// Constructor for Save Outstanding Case Items Service
+        /// </summary>
+        /// <param name="databaseAccess">Instance of IConnectionSettings</param>
+        /// <param name="connectionSettings">Instance of IDatabaseAccess</param>
+        /// <param name="urgencySettings">Instance of UrgencySettings</param>
         public SaveOutstandingCaseItemsService(
             IDatabaseAccess databaseAccess,
             IExaminationConnectionSettings connectionSettings,
@@ -25,6 +34,12 @@ namespace MedicalExaminer.Common.Services.CaseOutcome
             _urgencySettings = urgencySettings.Value;
         }
 
+        /// <summary>
+        /// Handle - Save Outstanding Case Items
+        /// </summary>
+        /// <param name="param">Save Outstanding Case Items Query</param>
+        /// <returns>Examination Id</returns>
+        /// <exception cref="ArgumentNullException">Argument Null Exception</exception>
         public async Task<string> Handle(SaveOutstandingCaseItemsQuery param)
         {
             if (string.IsNullOrEmpty(param.CaseOutcome.ToString()))

@@ -17,17 +17,17 @@ namespace MedicalExaminer.Models
         public string MedicalExaminer { get; set; }
 
         /// <summary>
-        /// enum in [PrescrutinyHappened, PrescrutinyNotHappened]
+        /// enum in [Pre-scrutinyHappened, Pre-scrutinyNotHappened]
         /// </summary>
         public PreScrutinyStatus PreScrutinyStatus { get; set; }
 
         /// <summary>
-        /// date of latest prescrutiny event
+        /// date of latest pre-scrutiny event
         /// </summary>
         public DateTime? DateOfLatestPreScrutiny { get; set; }
 
         /// <summary>
-        /// name of person who added last prescrutiny event
+        /// name of person who added last pre-scrutiny event
         /// </summary>
         public string UserForLatestPrescrutiny { get; set; }
 
@@ -35,12 +35,12 @@ namespace MedicalExaminer.Models
         /// enum in [HappenedNoRevision, HappenedWithRevisions, CouldNotHappen, NoRecord]
         /// </summary>
         public QAPDiscussionStatus QAPDiscussionStatus { get; set; }
-        
+
         /// <summary>
         /// date of latest qap discussion event
         /// </summary>
         public DateTime? DateOfLatestQAPDiscussion { get; set; }
-        
+
         /// <summary>
         /// name of person who added last qap discussion event
         /// </summary>

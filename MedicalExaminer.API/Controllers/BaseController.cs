@@ -52,6 +52,12 @@ namespace MedicalExaminer.API.Controllers
             return new BadRequestObjectResult(response);
         }
 
+        /// <summary>
+        /// Bad Request Enums
+        /// </summary>
+        /// <param name="response">Response</param>
+        /// <typeparam name="TResponse">response</typeparam>
+        /// <returns>Bad Request Object Result</returns>
         protected BadRequestObjectResult BadRequestEnums<TResponse>(TResponse response)
             where TResponse : ResponseBaseEnumErrors
         {
