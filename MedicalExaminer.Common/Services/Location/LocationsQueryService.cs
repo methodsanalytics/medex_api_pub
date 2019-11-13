@@ -50,12 +50,20 @@ namespace MedicalExaminer.Common.Services.Location
 
             IEnumerable<Models.Location> result;
 
-            if (param.ForLookup)
+            if (param.ForIdsOnly)
+            {
+                result = await GetItemsAsync<Models.Location>(predicate, location => new
+                {
+                    id = location.LocationId,
+                });
+            }
+            else if (param.ForLookup)
             {
                 result = await GetItemsAsync<Models.Location>(predicate, location => new
                 {
                     name = location.Name,
-                    id = location.LocationId
+                    id = location.LocationId,
+                    is_me_office = location.IsMeOffice,
                 });
             }
             else

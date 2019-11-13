@@ -51,9 +51,15 @@ namespace MedicalExaminer.Common.Services.Location
             {
                 var ids = locationIds.ToList();
 
-                var items = (await DatabaseAccess.GetItemsAsync(
+                var items = (await DatabaseAccess.GetItemsAsync<Models.Location>(
                     ConnectionSettings,
-                    (Models.Location location) => ids.Contains(location.LocationId))).ToList();
+                    (Models.Location location) => ids.Contains(location.LocationId),
+                        (Models.Location location) => new
+                        {
+                            id = location.LocationId,
+                            parentId = location.ParentId,
+                            name = location.Name,
+                        })).ToList();
 
                 if (!items.Any())
                 {

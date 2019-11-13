@@ -9,6 +9,8 @@ namespace MedicalExaminer.Common.Reporting
             public string Request { get; set; }
 
             public double Charge { get; set; }
+
+            public double Duration { get; set; }
         }
 
         public IList<RequestCharge> RequestCharges { get; } = new List<RequestCharge>();

@@ -137,10 +137,16 @@ namespace MedicalExaminer.API.Controllers
                 CountOfFilteredCases = dashboardOverview.CountOfFilteredCases,
             };
 
-            var locations = (await _locationRetrievalByQueryHandler.Handle(
-                    new LocationsRetrievalByQuery(null, null, false, false, permissedLocations))).ToList();
+            var onlyMeOffices = (await _locationRetrievalByQueryHandler.Handle(
+                new LocationsRetrievalByQuery(null, null, true, true, true, permissedLocations))).ToList();
 
-            var onlyMeOffices = locations.Where(l => l.IsMeOffice).ToList();
+            var locations_for_user_lookup = (await _locationRetrievalByQueryHandler.Handle(
+                new LocationsRetrievalByQuery(null, null, true, true, false, permissedLocations))).ToList();
+
+            var watch = new Stopwatch();
+            watch.Start();
+
+            // Will query database again and get full location model
             var allLocations = (await _locationsRetrievalByQueryHandler.Handle(new LocationsParentsQuery(onlyMeOffices.Select(x => x.LocationId)))).ToList();
 
             var flatternedLocations = allLocations.SelectMany(x => x.Value);
@@ -152,7 +158,11 @@ namespace MedicalExaminer.API.Controllers
                                 .ThenBy(x => x.SiteLocationId).ToList();
             response.AddLookup(LocationFilterLookupKey, Mapper.Map<IEnumerable<Location>, IEnumerable<LocationLookup>>(orderedDistinctLocations));
 
-            response.AddLookup(UserFilterLookupKey, await GetUserLookupForLocations(locations));
+            response.AddLookup(UserFilterLookupKey, await GetUserLookupForLocations(locations_for_user_lookup));
+
+            watch.Stop();
+
+            var lookupTime = watch.ElapsedMilliseconds;
 
             return Ok(response);
         }

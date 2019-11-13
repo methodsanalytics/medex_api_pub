@@ -61,6 +61,8 @@ namespace MedicalExaminer.Common.Database
 
         public async Task<T> CreateItemAsync<T>(IConnectionSettings connectionSettings, T item, bool disableAutomaticIdGeneration = false)
         {
+            var watch = new Stopwatch();
+            watch.Start();
             var client = GetClient(connectionSettings);
             var resourceResponse = await client.CreateDocumentAsync(
                 UriFactory.CreateDocumentCollectionUri(
@@ -69,10 +71,13 @@ namespace MedicalExaminer.Common.Database
                     item);
             AddAuditEntry(connectionSettings, item);
 
+            watch.Stop();
+
             _requestChargeService.RequestCharges.Add( new RequestChargeService.RequestCharge()
             {
                 Request = $"CreateItemAsync<{typeof(T).Name}>()",
-                Charge = resourceResponse.RequestCharge
+                Charge = resourceResponse.RequestCharge,
+                Duration = watch.ElapsedMilliseconds
             });
 
             return (T)(dynamic)resourceResponse.Resource;
@@ -96,6 +101,9 @@ namespace MedicalExaminer.Common.Database
         {
             try
             {
+                var watch = new Stopwatch();
+                watch.Start();
+
                 var client = GetClient(connectionSettings);
                 var documentUri = UriFactory.CreateDocumentUri(
                     connectionSettings.DatabaseId,
@@ -104,10 +112,13 @@ namespace MedicalExaminer.Common.Database
 
                 var response = await client.ReadDocumentAsync(documentUri);
 
+                watch.Stop();
+
                 _requestChargeService.RequestCharges.Add(new RequestChargeService.RequestCharge()
                 {
                     Request = $"GetItemByIdAsync<{typeof(T).Name}>(id={id})",
-                    Charge = response.RequestCharge
+                    Charge = response.RequestCharge,
+                    Duration = watch.ElapsedMilliseconds
                 });
 
                 return (T)(dynamic)response.Resource;
@@ -129,6 +140,9 @@ namespace MedicalExaminer.Common.Database
         {
             try
             {
+                var watch = new Stopwatch();
+                watch.Start();
+
                 var client = GetClient(connectionSettings);
                 var feedOptions = new FeedOptions { MaxItemCount = 1, EnableCrossPartitionQuery = true };
                 var documentCollectionUri =
@@ -145,13 +159,20 @@ namespace MedicalExaminer.Common.Database
                 {
                     var response = await query.ExecuteNextAsync<T>();
 
+                    watch.Stop();
+
                     _requestChargeService.RequestCharges.Add(new RequestChargeService.RequestCharge()
                     {
                         Request = $"GetItemAsync<{typeof(T).Name}>(query={query})",
-                        Charge = response.RequestCharge
+                        Charge = response.RequestCharge,
+                        Duration = watch.ElapsedMilliseconds
                     });
 
                     results.AddRange(response);
+
+                    // Reset watch for next loop.
+                    watch = new Stopwatch();
+                    watch.Start();
                 }
 
                 return results.FirstOrDefault();
@@ -173,6 +194,9 @@ namespace MedicalExaminer.Common.Database
             Expression<Func<T, dynamic>> select)
             where T : class
         {
+            var watch = new Stopwatch();
+            watch.Start();
+
             var client = GetClient(connectionSettings);
 
             var query = client.CreateDocumentQuery<T>(
@@ -185,14 +209,35 @@ namespace MedicalExaminer.Common.Database
                 .AsDocumentQuery();
 
             var results = new List<T>();
+            var resultPartCount = 0;
             while (query.HasMoreResults)
             {
                 var response = await query.ExecuteNextAsync<T>();
 
+                watch.Stop();
+
                 // Unable to get RequestCharge during testing since we've casted the return type
                 // to match our select. Appears to work fine on the real cosmos; something missing on the CosmosMocker.
-
+#if true
+                try
+                {
+                    _requestChargeService.RequestCharges.Add(new RequestChargeService.RequestCharge()
+                    {
+                        Request = $"GetItemsAsync(selected)<{typeof(T).Name}>({resultPartCount},query={query})",
+                        Charge = response.RequestCharge,
+                        Duration = watch.ElapsedMilliseconds
+                    });
+                }
+                catch
+                {
+                    // Failing likely in test?
+                }
+#endif
+                resultPartCount++;
                 results.AddRange(response);
+
+                watch = new Stopwatch();
+                watch.Start();
             }
 
             return results;
@@ -203,6 +248,9 @@ namespace MedicalExaminer.Common.Database
             Expression<Func<T, bool>> predicate)
             where T : class
         {
+            var watch = new Stopwatch();
+            watch.Start();
+
             var client = GetClient(connectionSettings);
 
             var query = client.CreateDocumentQuery<T>(
@@ -219,14 +267,20 @@ namespace MedicalExaminer.Common.Database
             {
                 var response = await query.ExecuteNextAsync<T>();
 
+                watch.Stop();
+
                 _requestChargeService.RequestCharges.Add(new RequestChargeService.RequestCharge()
                 {
                     Request = $"GetItemsAsync<{typeof(T).Name}>({resultPartCount},query={query})",
-                    Charge = response.RequestCharge
+                    Charge = response.RequestCharge,
+                    Duration = watch.ElapsedMilliseconds
                 });
 
                 resultPartCount++;
                 results.AddRange(response);
+
+                watch = new Stopwatch();
+                watch.Start();
             }
 
             return results;
@@ -238,6 +292,9 @@ namespace MedicalExaminer.Common.Database
             Expression<Func<T, TKey>> orderBy)
             where T : class
         {
+            var watch = new Stopwatch();
+            watch.Start();
+
             var client = GetClient(connectionSettings);
             FeedOptions feedOptions = new FeedOptions
             {
@@ -257,13 +314,19 @@ namespace MedicalExaminer.Common.Database
             {
                 var response = await query.ExecuteNextAsync<T>();
 
+                watch.Stop();
+
                 _requestChargeService.RequestCharges.Add(new RequestChargeService.RequestCharge()
                 {
                     Request = $"GetItemAsync<{typeof(T).Name}>(query={query})",
-                    Charge = response.RequestCharge
+                    Charge = response.RequestCharge,
+                    Duration = watch.ElapsedMilliseconds
                 });
 
                 results.AddRange(response);
+
+                watch = new Stopwatch();
+                watch.Start();
             }
 
             return results;
@@ -271,6 +334,9 @@ namespace MedicalExaminer.Common.Database
 
         public async Task<int> GetCountAsync<T>(IConnectionSettings connectionSettings, Expression<Func<T, bool>> predicate)
         {
+            var watch = new Stopwatch();
+            watch.Start();
+
             var client = GetClient(connectionSettings);
             var feedOptions = new FeedOptions { MaxItemCount = -1, EnableCrossPartitionQuery = true };
             var documentCollectionUri = UriFactory.CreateDocumentCollectionUri(connectionSettings.DatabaseId, connectionSettings.Collection);
@@ -284,13 +350,19 @@ namespace MedicalExaminer.Common.Database
             {
                 var response = await query.ExecuteNextAsync<T>();
 
+                watch.Stop();
+
                 _requestChargeService.RequestCharges.Add(new RequestChargeService.RequestCharge()
                 {
                     Request = $"GetCountAsync<{typeof(T).Name}>(query={query})",
-                    Charge = response.RequestCharge
+                    Charge = response.RequestCharge,
+                    Duration = watch.ElapsedMilliseconds
                 });
 
                 results.AddRange(response);
+
+                watch = new Stopwatch();
+                watch.Start();
             }
 
             return results.Count();
@@ -298,6 +370,9 @@ namespace MedicalExaminer.Common.Database
 
         public async Task<T> UpdateItemAsync<T>(IConnectionSettings connectionSettings, T item)
         {
+            var watch = new Stopwatch();
+            watch.Start();
+
             var client = GetClient(connectionSettings);
 
             try
@@ -306,10 +381,13 @@ namespace MedicalExaminer.Common.Database
                     UriFactory.CreateDocumentCollectionUri(connectionSettings.DatabaseId, connectionSettings.Collection),
                     item);
 
+                watch.Stop();
+
                 _requestChargeService.RequestCharges.Add(new RequestChargeService.RequestCharge()
                 {
                     Request = $"UpdateItemAsync<{typeof(T).Name}>()",
-                    Charge = updateItemAsync.RequestCharge
+                    Charge = updateItemAsync.RequestCharge,
+                    Duration = watch.ElapsedMilliseconds
                 });
 
                 AddAuditEntry(connectionSettings, item);
