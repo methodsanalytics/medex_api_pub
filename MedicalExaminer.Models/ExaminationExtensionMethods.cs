@@ -91,24 +91,6 @@ namespace MedicalExaminer.Models
             return examination;
         }
 
-        public static int GetCaseUrgencySort(this Examination examination)
-        {
-            return examination.GetCaseUrgencySort(DateTime.Now);
-        }
-
-        public static int GetCaseUrgencySort(this Examination examination, DateTime forDateTime)
-        {
-            if (examination.UrgencySort == null)
-            {
-                return 0;
-            }
-
-            var key = forDateTime.UrgencyKey();
-            return examination.UrgencySort.ContainsKey(key)
-                ? examination.UrgencySort[key]
-                : 0;
-        }
-
         public static bool IsUrgent(this Examination examination)
         {
             var score = CalculateCaseUrgencyScore(examination, DateTime.Now);
@@ -325,11 +307,6 @@ namespace MedicalExaminer.Models
         public static bool CalculateCanCompleteScrutiny(this Examination examination)
         {
             if (!examination.ReadyForMEScrutiny)
-            {
-                return false;
-            }
-
-            if (examination.Unassigned)
             {
                 return false;
             }

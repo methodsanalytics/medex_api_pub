@@ -441,30 +441,12 @@ namespace MedicalExaminer.API.Extensions.Data
                 .ForMember(finance => finance.HasNhsNumber, opt => opt.MapFrom(eli => !string.IsNullOrEmpty(eli.Examination.NhsNumber)))
                 .ForMember(finance => finance.MedicalExaminerId, opt => opt.MapFrom(eli => eli.Examination.MedicalTeam.MedicalExaminerUserId))
                 .ForMember(finance => finance.CremationFormCompleted, opt => opt.MapFrom(eli => eli.Examination.CaseOutcome.CremationFormStatus))
-                .ForMember(finance => finance.MeGmcNumber, opt => opt.MapFrom((source, dest, destMember, context) =>
-                {
-                    return source.Users.SingleOrDefault(u => u.UserId == source.Examination.MedicalTeam.MedicalExaminerUserId)?.GmcNumber;
-                }))
-                .ForMember(finance => finance.MeoGmcNumber, opt => opt.MapFrom((source, dest, destMember, context) =>
-                {
-                    return source.Users.SingleOrDefault(u => u.UserId == source.Examination.MedicalTeam.MedicalExaminerOfficerUserId)?.GmcNumber;
-                }))
-                .ForMember(finance => finance.NationalName, opt => opt.MapFrom((source, dest, destMember, context) =>
-                {
-                    return source.Locations.SingleOrDefault(x => x.LocationId == source.Examination.NationalLocationId)?.Name;
-                }))
-                .ForMember(finance => finance.RegionName, opt => opt.MapFrom((source, dest, destMember, context) =>
-                {
-                    return source.Locations.SingleOrDefault(x => x.LocationId == source.Examination.RegionLocationId)?.Name;
-                }))
-                .ForMember(finance => finance.SiteName, opt => opt.MapFrom((source, dest, destMember, context) =>
-                {
-                    return source.Locations.SingleOrDefault(x => x.LocationId == source.Examination.SiteLocationId)?.Name;
-                }))
-                .ForMember(finance => finance.TrustName, opt => opt.MapFrom((source, dest, destMember, context) =>
-                {
-                    return source.Locations.SingleOrDefault(x => x.LocationId == source.Examination.TrustLocationId)?.Name;
-                }))
+                .ForMember(finance => finance.MeGmcNumber, opt => opt.MapFrom((source, dest, destMember, context) => source.Users.SingleOrDefault(u => u.UserId == source.Examination.MedicalTeam.MedicalExaminerUserId)?.GmcNumber))
+                .ForMember(finance => finance.MeoGmcNumber, opt => opt.MapFrom((source, dest, destMember, context) => source.Users.SingleOrDefault(u => u.UserId == source.Examination.MedicalTeam.MedicalExaminerOfficerUserId)?.GmcNumber))
+                .ForMember(finance => finance.NationalName, opt => opt.MapFrom((source, dest, destMember, context) => source.Locations.SingleOrDefault(x => x.LocationId == source.Examination.NationalLocationId)?.Name))
+                .ForMember(finance => finance.RegionName, opt => opt.MapFrom((source, dest, destMember, context) => source.Locations.SingleOrDefault(x => x.LocationId == source.Examination.RegionLocationId)?.Name))
+                .ForMember(finance => finance.SiteName, opt => opt.MapFrom((source, dest, destMember, context) => source.Locations.SingleOrDefault(x => x.LocationId == source.Examination.SiteLocationId)?.Name))
+                .ForMember(finance => finance.TrustName, opt => opt.MapFrom((source, dest, destMember, context) => source.Locations.SingleOrDefault(x => x.LocationId == source.Examination.TrustLocationId)?.Name))
                 .ForMember(finance => finance.WaiverFee, opt => opt.MapFrom(eli => eli.Examination.CaseOutcome.WaiveFee))
                 .ForMember(finance => finance.CaseClosed, opt => opt.MapFrom(eli => eli.Examination.DateCaseClosed));
             CreateMap<Examination, PatientCardItem>()
@@ -594,10 +576,8 @@ namespace MedicalExaminer.API.Extensions.Data
                                     return StatusBarResult.Complete;
                                 case CremationFormStatus.Unknown:
                                     return StatusBarResult.Unknown;
-                                case null:
-                                    return StatusBarResult.Incomplete;
                                 default:
-                                    throw new ArgumentOutOfRangeException();
+                                    return StatusBarResult.Incomplete;
                             }
                         }
 

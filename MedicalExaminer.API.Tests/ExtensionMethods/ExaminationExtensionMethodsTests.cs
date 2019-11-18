@@ -13,6 +13,198 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
         private readonly DateTime NONEDATE = Convert.ToDateTime("0001 - 01 - 01T00: 00:00");
 
         [Fact]
+        public void CreateFinalPreScrutinyEventForUserReturnsFinal()
+        {
+            // Arrange
+            var examination = new Examination();
+
+            var newEvent = new PreScrutinyEvent
+            {
+                UserFullName = "UserFullName",
+                GmcNumber = "GmcNumber",
+                UsersRole = "UsersRole",
+                Created = DateTime.Now,
+                EventId = null,
+                UserId = "UserId",
+                MedicalExaminerThoughts = "MedicalExaminerThoughts",
+                IsFinal = true,
+                CircumstancesOfDeath = OverallCircumstancesOfDeath.Expected,
+                CauseOfDeath1a = "CauseOfDeath1a",
+                CauseOfDeath1b = "CauseOfDeath1b",
+                CauseOfDeath1c = "CauseOfDeath1c",
+                CauseOfDeath2 = "CauseOfDeath2",
+                OutcomeOfPreScrutiny = OverallOutcomeOfPreScrutiny.IssueAnMccd,
+                ClinicalGovernanceReview = ClinicalGovernanceReview.No,
+                ClinicalGovernanceReviewText = null
+            };
+
+            // Act
+            examination.AddEvent(newEvent);
+
+            // Assert
+            Assert.NotNull(examination.CaseBreakdown.PreScrutiny.Latest);
+            Assert.Equal(newEvent, examination.CaseBreakdown.PreScrutiny.Latest);
+        }
+
+        [Fact]
+        public void CreateFinalAddmissionEventForUserReturnsFinal()
+        {
+            // Arrange
+            var examination = new Examination();
+
+            var newEvent = new AdmissionEvent()
+            {
+                UserFullName = "UserFullName",
+                GmcNumber = "GmcNumber",
+                UsersRole = "UsersRole",
+                Created = DateTime.Now,
+                EventId = null,
+                UserId = "UserId",
+                IsFinal = true,
+                AdmittedDate = DateTime.Now,
+                AdmittedDateUnknown = false,
+                AdmittedTime = new TimeSpan(11, 00, 00),
+                AdmittedTimeUnknown = false,
+                ImmediateCoronerReferral = false,
+                Notes = "Notes",
+                RouteOfAdmission = RouteOfAdmission.AccidentAndEmergency
+            };
+
+            // Act
+            examination.AddEvent(newEvent);
+
+            // Assert
+            Assert.NotNull(examination.CaseBreakdown.AdmissionNotes.Latest);
+            Assert.Equal(newEvent, examination.CaseBreakdown.AdmissionNotes.Latest);
+        }
+
+        [Fact]
+        public void CreateFinalQapEventForUserReturnsFinal()
+        {
+            // Arrange
+            var examination = new Examination();
+
+            var newEvent = new QapDiscussionEvent
+            {
+                UserFullName = "UserFullName",
+                GmcNumber = "GmcNumber",
+                UsersRole = "UsersRole",
+                Created = DateTime.Now,
+                EventId = null,
+                UserId = "UserId",
+                IsFinal = true,
+                QapDiscussionOutcome = QapDiscussionOutcome.MccdCauseOfDeathProvidedByME,
+                CauseOfDeath1a = "CauseOfDeath1a",
+                CauseOfDeath1b = "CauseOfDeath1b",
+                CauseOfDeath1c = "CauseOfDeath1c",
+                CauseOfDeath2 = "CauseOfDeath2",
+                DateOfConversation = DateTime.Now,
+                DiscussionDetails = "DiscussionDetails",
+                DiscussionUnableHappen = false,
+                ParticipantName = "ParticipantName",
+                ParticipantOrganisation = "ParticipantOrganisation",
+                ParticipantPhoneNumber = "ParticipantPhoneNumber",
+                ParticipantRole = "ParticipantRole",
+                TimeOfConversation = new TimeSpan(10, 00, 00)
+            };
+
+            // Act
+            examination.AddEvent(newEvent);
+
+            // Assert
+            Assert.NotNull(examination.CaseBreakdown.QapDiscussion.Latest);
+            Assert.Equal(newEvent, examination.CaseBreakdown.QapDiscussion.Latest);
+        }
+
+        [Fact]
+        public void CreateFinalBereavedDiscussionEventForUserReturnsFinal()
+        {
+            // Arrange
+            var examination = new Examination();
+
+            var newEvent = new BereavedDiscussionEvent()
+            {
+                UserFullName = "UserFullName",
+                GmcNumber = "GmcNumber",
+                UsersRole = "UsersRole",
+                Created = DateTime.Now,
+                EventId = null,
+                UserId = "UserId",
+                IsFinal = true,
+                BereavedDiscussionOutcome = BereavedDiscussionOutcome.CauseOfDeathAccepted,
+                DateOfConversation = DateTime.Now,
+                DiscussionDetails = "DiscussionDetails",
+                DiscussionUnableHappen = false,
+                ParticipantPhoneNumber = "ParticipantPhoneNumber",
+                TimeOfConversation = new TimeSpan(10, 00, 00),
+                DiscussionUnableHappenDetails = null,
+                InformedAtDeath = InformedAtDeath.No,
+                ParticipantFullName = "ParticipantFullName",
+                ParticipantRelationship = "ParticipantRelationship",
+                PresentAtDeath = PresentAtDeath.No
+            };
+
+            // Act
+            examination.AddEvent(newEvent);
+
+            // Assert
+            Assert.NotNull(examination.CaseBreakdown.BereavedDiscussion.Latest);
+            Assert.Equal(newEvent, examination.CaseBreakdown.BereavedDiscussion.Latest);
+        }
+
+        [Fact]
+        public void CreateFinalMeoSummaryEventForUserReturnsFinal()
+        {
+            // Arrange
+            var examination = new Examination();
+
+            var newEvent = new MeoSummaryEvent
+            {
+                UserFullName = "UserFullName",
+                GmcNumber = "GmcNumber",
+                UsersRole = "UsersRole",
+                Created = DateTime.Now,
+                EventId = null,
+                UserId = "UserId",
+                IsFinal = true,
+                SummaryDetails = "SummaryDetails"
+            };
+
+            // Act
+            examination.AddEvent(newEvent);
+
+            // Assert
+            Assert.NotNull(examination.CaseBreakdown.MeoSummary.Latest);
+            Assert.Equal(newEvent, examination.CaseBreakdown.MeoSummary.Latest);
+        }
+
+        [Fact]
+        public void CreateFinalMedicalHistoryEventForUserReturnsFinal()
+        {
+            // Arrange
+            var examination = new Examination();
+
+            var newEvent = new MedicalHistoryEvent()
+            {
+                UserFullName = "UserFullName",
+                GmcNumber = "GmcNumber",
+                UsersRole = "UsersRole",
+                Created = DateTime.Now,
+                EventId = null,
+                UserId = "UserId",
+                IsFinal = true,
+                Text = "Text"
+            };
+
+            // Act
+            examination.AddEvent(newEvent);
+
+            // Assert
+            Assert.NotNull(examination.CaseBreakdown.MedicalHistory.Latest);
+            Assert.Equal(newEvent, examination.CaseBreakdown.MedicalHistory.Latest);
+        }
+
+        [Fact]
         public void CreateDraftEventForUserReturnsDraft()
         {
             // Arrange
@@ -20,10 +212,6 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
 
             var caseBreakdown = new CaseBreakDown();
             caseBreakdown.OtherEvents = new OtherEventContainer();
-            var myUser = new MeUser
-            {
-                UserId = "userOne"
-            };
 
             var newDraft = new OtherEvent
             {
@@ -1732,6 +1920,65 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
                             ParticipantPhoneNumber = "ParticipantPhoneNumber",
                             ParticipantRelationship = "ParticipantRelationship",
                             PresentAtDeath = PresentAtDeath.No
+                        }
+                    }
+                }
+            };
+
+            examination = examination.UpdateCaseStatus();
+
+            Assert.False(examination.CalculateCanCompleteScrutiny());
+        }
+
+        [Fact]
+        private void CalculateScrutinyCanBeConfirmed_Pending_Discussion_With_QAP_And_Bereaved_Returns_False()
+        {
+            var examination = new Examination
+            {
+                MedicalTeam = new MedicalTeam
+                {
+                    MedicalExaminerOfficerUserId = null,
+                    MedicalExaminerUserId = null
+                },
+                CaseBreakdown = new CaseBreakDown
+                {
+                    PreScrutiny = new PreScrutinyEventContainer
+                    {
+                        Latest = new PreScrutinyEvent
+                        {
+                            CauseOfDeath1a = "CauseOfDeath1a",
+                            CauseOfDeath1b = "CauseOfDeath1b",
+                            CauseOfDeath1c = "CauseOfDeath1c",
+                            CauseOfDeath2 = "CauseOfDeath2",
+                            CircumstancesOfDeath = OverallCircumstancesOfDeath.Expected,
+                            ClinicalGovernanceReview = ClinicalGovernanceReview.No,
+                            ClinicalGovernanceReviewText = "ClinicalGovernanceReviewText",
+                            Created = DateTime.Now,
+                            EventId = "1",
+                            IsFinal = true,
+                            MedicalExaminerThoughts = "MedicalExaminerThoughts",
+                            OutcomeOfPreScrutiny = OverallOutcomeOfPreScrutiny.IssueAnMccd,
+                            UserFullName = "UserFullName",
+                            GmcNumber = "GmcNumber",
+                            UserId = "userId",
+                            UsersRole = "UsersRole"
+                        }
+                    },
+                    AdmissionNotes = new AdmissionNotesEventContainer
+                    {
+                        Latest = new AdmissionEvent
+                        {
+                            AdmittedDate = DateTime.Now,
+                            AdmittedTime = new TimeSpan(12, 12, 12),
+                            Created = DateTime.Now,
+                            EventId = "2",
+                            ImmediateCoronerReferral = false,
+                            IsFinal = true,
+                            Notes = "Notes",
+                            UserId = "userId",
+                            UsersRole = "usersRole",
+                            UserFullName = "usersFullName",
+                            GmcNumber = "GmcNumber",
                         }
                     }
                 }
