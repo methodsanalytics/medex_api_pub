@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AutoMapper;
-using MedicalExaminer.API.Filters;
 using MedicalExaminer.API.Models.v1.CaseBreakdown;
 using MedicalExaminer.API.Models.v1.Examinations;
 using MedicalExaminer.API.Services;
@@ -34,6 +33,13 @@ namespace MedicalExaminer.API.Controllers
         /// <summary>
         /// Initialise a new instance of <see cref="CaseBreakdownController"/>.
         /// </summary>
+        /// <param name="logger">Logger.</param>
+        /// <param name="mapper">Mapper.</param>
+        /// <param name="usersRetrievalByOktaIdService">User Retrieval By Okta Id Service.</param>
+        /// <param name="authorizationService">Authorization Service.</param>
+        /// <param name="permissionService">Permission Service.</param>
+        /// <param name="eventCreationService">Event Creation Service</param>
+        /// <param name="examinationRetrievalService">Examination Retrieval Service</param>
         public CaseBreakdownController(
             IMELogger logger,
             IMapper mapper,
@@ -52,7 +58,7 @@ namespace MedicalExaminer.API.Controllers
         /// Returns a <see cref="GetCaseBreakdownResponse"/> object for the given examination.
         /// </summary>
         /// <param name="examinationId">The examination id.</param>
-        /// <returns></returns>
+        /// <returns>Get Case Breakdown Response</returns>
         [HttpGet]
         [Route("{examinationId}/casebreakdown")]
         public async Task<ActionResult<GetCaseBreakdownResponse>> GetCaseBreakdown(string examinationId)
@@ -248,8 +254,7 @@ namespace MedicalExaminer.API.Controllers
             var theEvent = Mapper.Map<TEvent>(caseBreakdownEvent);
             theEvent = SetEventUserStatuses(theEvent, user);
 
-            var examination =
-                await _examinationRetrievalService.Handle(new ExaminationRetrievalQuery(examinationId, user));
+            var examination = await _examinationRetrievalService.Handle(new ExaminationRetrievalQuery(examinationId, user));
 
             if (examination == null)
             {
