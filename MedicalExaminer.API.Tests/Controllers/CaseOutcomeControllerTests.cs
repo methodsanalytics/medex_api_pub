@@ -11,6 +11,7 @@ using MedicalExaminer.Common.Queries.User;
 using MedicalExaminer.Common.Services;
 using MedicalExaminer.Models;
 using MedicalExaminer.Models.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
@@ -20,7 +21,7 @@ namespace MedicalExaminer.API.Tests.Controllers
     public class CaseOutcomeControllerTests : AuthorizedControllerTestsBase<CaseOutcomeController>
     {
         [Fact]
-        public async void GetCaseOutcome_When_Called_With_Id_Not_Found_Returns_NotFound()
+        public async void PutConfirmationOfScrutiny_When_Called_With_Id_Not_Found_Returns_NotFound()
         {
             // Arrange
             var logger = new Mock<IMELogger>();
@@ -58,7 +59,236 @@ namespace MedicalExaminer.API.Tests.Controllers
         }
 
         [Fact]
-        public void PutConfirmationOfScrutiny_When_Called_With_Invalid_Case_Id_Returns_Not_Found()
+        public async void PutConfirmationOfScrutiny_When_Called_With_Null_Id_Returns_BadRequest()
+        {
+            // Arrange
+            var logger = new Mock<IMELogger>();
+            var mapper = new Mock<IMapper>();
+            var usersRetrievalByOktaIdService = new Mock<IAsyncQueryHandler<UserRetrievalByOktaIdQuery, MeUser>>();
+            var confirmationOfScrutinyService = new Mock<IAsyncQueryHandler<ConfirmationOfScrutinyQuery, Examination>>();
+            var closeCaseService = new Mock<IAsyncQueryHandler<CloseCaseQuery, string>>();
+            var coronerReferralService = new Mock<IAsyncQueryHandler<CoronerReferralQuery, string>>();
+            var examinationRetrievalService = new Mock<IAsyncQueryHandler<ExaminationRetrievalQuery, Examination>>();
+            var saveOutstandingCaseItems = new Mock<IAsyncQueryHandler<SaveOutstandingCaseItemsQuery, string>>();
+            var voidCaseService = new Mock<IAsyncQueryHandler<VoidCaseQuery, Examination>>();
+
+            var sut = new CaseOutcomeController(
+                logger.Object,
+                mapper.Object,
+                coronerReferralService.Object,
+                closeCaseService.Object,
+                examinationRetrievalService.Object,
+                saveOutstandingCaseItems.Object,
+                confirmationOfScrutinyService.Object,
+                usersRetrievalByOktaIdService.Object,
+                voidCaseService.Object,
+                AuthorizationServiceMock.Object,
+                PermissionServiceMock.Object);
+
+            sut.ControllerContext = GetControllerContext();
+
+            // Act
+            var response = await sut.PutConfirmationOfScrutiny(null);
+
+            // Assert
+            var taskResult = response.Should().BeOfType<ActionResult<PutConfirmationOfScrutinyResponse>>().Subject;
+            var badRequestResult = taskResult.Result.Should().BeAssignableTo<BadRequestObjectResult>().Subject;
+            badRequestResult.Value.Should().BeAssignableTo<PutConfirmationOfScrutinyResponse>();
+        }
+
+        [Fact]
+        public async void PutConfirmationOfScrutiny_When_Called_With_User_Without_Permission_Returns_Forbidden()
+        {
+            // Arrange
+            SetupAuthorize(AuthorizationResult.Failed());
+            var logger = new Mock<IMELogger>();
+            var mapper = new Mock<IMapper>();
+            var usersRetrievalByOktaIdService = new Mock<IAsyncQueryHandler<UserRetrievalByOktaIdQuery, MeUser>>();
+            var confirmationOfScrutinyService = new Mock<IAsyncQueryHandler<ConfirmationOfScrutinyQuery, Examination>>();
+            var closeCaseService = new Mock<IAsyncQueryHandler<CloseCaseQuery, string>>();
+            var coronerReferralService = new Mock<IAsyncQueryHandler<CoronerReferralQuery, string>>();
+            var examinationRetrievalService = new Mock<IAsyncQueryHandler<ExaminationRetrievalQuery, Examination>>();
+            var saveOutstandingCaseItems = new Mock<IAsyncQueryHandler<SaveOutstandingCaseItemsQuery, string>>();
+            var voidCaseService = new Mock<IAsyncQueryHandler<VoidCaseQuery, Examination>>();
+
+            var sut = new CaseOutcomeController(
+                logger.Object,
+                mapper.Object,
+                coronerReferralService.Object,
+                closeCaseService.Object,
+                examinationRetrievalService.Object,
+                saveOutstandingCaseItems.Object,
+                confirmationOfScrutinyService.Object,
+                usersRetrievalByOktaIdService.Object,
+                voidCaseService.Object,
+                AuthorizationServiceMock.Object,
+                PermissionServiceMock.Object);
+
+            sut.ControllerContext = GetControllerContext();
+
+            // Act
+            var response = await sut.PutConfirmationOfScrutiny("ExaminationId");
+
+            // Assert
+            response.Result.Should().BeAssignableTo<ForbidResult>();
+        }
+
+        [Fact]
+        public async void PutConfirmationOfScrutiny_When_Called_With_User_Who_Is_Not_The_ME_Assigned_Returns_BadRequest()
+        {
+            // Arrange
+            var examination = new Examination
+            {
+                ExaminationId = Guid.NewGuid().ToString(),
+                MedicalTeam = new MedicalTeam
+                {
+                    MedicalExaminerUserId = "MedicalExaminerUserId"
+                }
+            };
+            var logger = new Mock<IMELogger>();
+            var mapper = new Mock<IMapper>();
+            var mockMeUser = new Mock<MeUser>();
+            mockMeUser.Object.UserId = "UserId";
+            var usersRetrievalByOktaIdService = new Mock<IAsyncQueryHandler<UserRetrievalByOktaIdQuery, MeUser>>();
+            usersRetrievalByOktaIdService.Setup(service => service.Handle(It.IsAny<UserRetrievalByOktaIdQuery>())).Returns(Task.FromResult(mockMeUser.Object));
+            var confirmationOfScrutinyService = new Mock<IAsyncQueryHandler<ConfirmationOfScrutinyQuery, Examination>>();
+            var closeCaseService = new Mock<IAsyncQueryHandler<CloseCaseQuery, string>>();
+            var coronerReferralService = new Mock<IAsyncQueryHandler<CoronerReferralQuery, string>>();
+            var examinationRetrievalService = new Mock<IAsyncQueryHandler<ExaminationRetrievalQuery, Examination>>();
+            examinationRetrievalService.Setup(service => service.Handle(It.IsAny<ExaminationRetrievalQuery>())).Returns(Task.FromResult(examination));
+            var saveOutstandingCaseItems = new Mock<IAsyncQueryHandler<SaveOutstandingCaseItemsQuery, string>>();
+            var voidCaseService = new Mock<IAsyncQueryHandler<VoidCaseQuery, Examination>>();
+
+            var sut = new CaseOutcomeController(
+                logger.Object,
+                mapper.Object,
+                coronerReferralService.Object,
+                closeCaseService.Object,
+                examinationRetrievalService.Object,
+                saveOutstandingCaseItems.Object,
+                confirmationOfScrutinyService.Object,
+                usersRetrievalByOktaIdService.Object,
+                voidCaseService.Object,
+                AuthorizationServiceMock.Object,
+                PermissionServiceMock.Object);
+
+            sut.ControllerContext = GetControllerContext();
+
+            // Act
+            var response = await sut.PutConfirmationOfScrutiny(examination.ExaminationId);
+
+            // Assert
+            var taskResult = response.Should().BeOfType<ActionResult<PutConfirmationOfScrutinyResponse>>().Subject;
+            var badRequestResult = taskResult.Result.Should().BeAssignableTo<BadRequestObjectResult>().Subject;
+            badRequestResult.Value.Should().BeAssignableTo<PutConfirmationOfScrutinyResponse>();
+        }
+
+        [Fact]
+        public async void PutConfirmationOfScrutiny_Called_When_The_User_Not_Allowed_To_Confirm_Scrutiny_Returns_BadRequest()
+        {
+            // Arrange
+            var examination = new Examination
+            {
+                ExaminationId = Guid.NewGuid().ToString(),
+                MedicalTeam = new MedicalTeam
+                {
+                    MedicalExaminerUserId = "MedicalExaminerUserId"
+                }
+            };
+            var logger = new Mock<IMELogger>();
+            var mapper = new Mock<IMapper>();
+            var mockMeUser = new Mock<MeUser>();
+            mockMeUser.Object.UserId = "MedicalExaminerUserId";
+            var usersRetrievalByOktaIdService = new Mock<IAsyncQueryHandler<UserRetrievalByOktaIdQuery, MeUser>>();
+            usersRetrievalByOktaIdService.Setup(service => service.Handle(It.IsAny<UserRetrievalByOktaIdQuery>())).Returns(Task.FromResult(mockMeUser.Object));
+            var confirmationOfScrutinyService = new Mock<IAsyncQueryHandler<ConfirmationOfScrutinyQuery, Examination>>();
+            var closeCaseService = new Mock<IAsyncQueryHandler<CloseCaseQuery, string>>();
+            var coronerReferralService = new Mock<IAsyncQueryHandler<CoronerReferralQuery, string>>();
+            var examinationRetrievalService = new Mock<IAsyncQueryHandler<ExaminationRetrievalQuery, Examination>>();
+            examinationRetrievalService.Setup(service => service.Handle(It.IsAny<ExaminationRetrievalQuery>())).Returns(Task.FromResult(examination));
+            var saveOutstandingCaseItems = new Mock<IAsyncQueryHandler<SaveOutstandingCaseItemsQuery, string>>();
+            var voidCaseService = new Mock<IAsyncQueryHandler<VoidCaseQuery, Examination>>();
+
+            var sut = new CaseOutcomeController(
+                logger.Object,
+                mapper.Object,
+                coronerReferralService.Object,
+                closeCaseService.Object,
+                examinationRetrievalService.Object,
+                saveOutstandingCaseItems.Object,
+                confirmationOfScrutinyService.Object,
+                usersRetrievalByOktaIdService.Object,
+                voidCaseService.Object,
+                AuthorizationServiceMock.Object,
+                PermissionServiceMock.Object);
+
+            sut.ControllerContext = GetControllerContext();
+
+            // Act
+            var response = await sut.PutConfirmationOfScrutiny(examination.ExaminationId);
+
+            // Assert
+            var taskResult = response.Should().BeOfType<ActionResult<PutConfirmationOfScrutinyResponse>>().Subject;
+            var badRequestResult = taskResult.Result.Should().BeAssignableTo<BadRequestObjectResult>().Subject;
+            badRequestResult.Value.Should().BeAssignableTo<string>();
+        }
+
+        [Fact]
+        public async void PutConfirmationOfScrutiny_Called_With_Valid_Status_Of_The_Examination_Returns_OK()
+        {
+            // Arrange
+            var examination = new Examination
+            {
+                ExaminationId = Guid.NewGuid().ToString(),
+                ReadyForMEScrutiny = true,
+                PendingScrutinyNotes = false,
+                PendingAdmissionNotes = false,
+                PendingDiscussionWithQAP = false,
+                MedicalTeam = new MedicalTeam
+                {
+                    MedicalExaminerUserId = "MedicalExaminerUserId"
+                }
+            };
+            var logger = new Mock<IMELogger>();
+            var mapper = new Mock<IMapper>();
+            var mockMeUser = new Mock<MeUser>();
+            mockMeUser.Object.UserId = "MedicalExaminerUserId";
+            var usersRetrievalByOktaIdService = new Mock<IAsyncQueryHandler<UserRetrievalByOktaIdQuery, MeUser>>();
+            usersRetrievalByOktaIdService.Setup(service => service.Handle(It.IsAny<UserRetrievalByOktaIdQuery>())).Returns(Task.FromResult(mockMeUser.Object));
+            var confirmationOfScrutinyService = new Mock<IAsyncQueryHandler<ConfirmationOfScrutinyQuery, Examination>>();
+            var closeCaseService = new Mock<IAsyncQueryHandler<CloseCaseQuery, string>>();
+            var coronerReferralService = new Mock<IAsyncQueryHandler<CoronerReferralQuery, string>>();
+            var examinationRetrievalService = new Mock<IAsyncQueryHandler<ExaminationRetrievalQuery, Examination>>();
+            examinationRetrievalService.Setup(service => service.Handle(It.IsAny<ExaminationRetrievalQuery>())).Returns(Task.FromResult(examination));
+            var saveOutstandingCaseItems = new Mock<IAsyncQueryHandler<SaveOutstandingCaseItemsQuery, string>>();
+            var voidCaseService = new Mock<IAsyncQueryHandler<VoidCaseQuery, Examination>>();
+
+            var sut = new CaseOutcomeController(
+                logger.Object,
+                mapper.Object,
+                coronerReferralService.Object,
+                closeCaseService.Object,
+                examinationRetrievalService.Object,
+                saveOutstandingCaseItems.Object,
+                confirmationOfScrutinyService.Object,
+                usersRetrievalByOktaIdService.Object,
+                voidCaseService.Object,
+                AuthorizationServiceMock.Object,
+                PermissionServiceMock.Object);
+
+            sut.ControllerContext = GetControllerContext();
+
+            // Act
+            var response = await sut.PutConfirmationOfScrutiny(examination.ExaminationId);
+
+            // Assert
+            var taskResult = response.Should().BeOfType<ActionResult<PutConfirmationOfScrutinyResponse>>().Subject;
+            var badRequestResult = taskResult.Result.Should().BeAssignableTo<OkObjectResult>().Subject;
+            badRequestResult.Value.Should().BeAssignableTo<PutConfirmationOfScrutinyResponse>();
+        }
+
+        [Fact]
+        public void GetCaseOutcome_When_Called_With_Invalid_Case_Id_Returns_Not_Found()
         {
             // Arrange
             var logger = new Mock<IMELogger>();

@@ -92,7 +92,7 @@ namespace MedicalExaminer.API.Controllers
 
             if (user.UserId != examination.MedicalTeam.MedicalExaminerUserId)
             {
-                return BadRequest();
+                return BadRequest(new PutConfirmationOfScrutinyResponse());
             }
 
             if (!examination.CalculateCanCompleteScrutiny())
