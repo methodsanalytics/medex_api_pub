@@ -283,8 +283,8 @@ namespace MedicalExaminer.API.Tests.Controllers
 
             // Assert
             var taskResult = response.Should().BeOfType<ActionResult<PutConfirmationOfScrutinyResponse>>().Subject;
-            var badRequestResult = taskResult.Result.Should().BeAssignableTo<OkObjectResult>().Subject;
-            badRequestResult.Value.Should().BeAssignableTo<PutConfirmationOfScrutinyResponse>();
+            var okResult = taskResult.Result.Should().BeAssignableTo<OkObjectResult>().Subject;
+            okResult.Value.Should().BeAssignableTo<PutConfirmationOfScrutinyResponse>();
         }
 
         [Fact]
