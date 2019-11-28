@@ -5,9 +5,9 @@ using MedicalExaminer.API.Models.v1.CaseBreakdown;
 using MedicalExaminer.API.Models.v1.Examinations;
 using MedicalExaminer.API.Services;
 using MedicalExaminer.Common.Extensions.MeUser;
-using MedicalExaminer.Common.Loggers;
 using MedicalExaminer.Common.Queries.CaseBreakdown;
 using MedicalExaminer.Common.Queries.Examination;
+using MedicalExaminer.Common.Queries.MELogger;
 using MedicalExaminer.Common.Queries.User;
 using MedicalExaminer.Common.Services;
 using MedicalExaminer.Models;
@@ -41,7 +41,7 @@ namespace MedicalExaminer.API.Controllers
         /// <param name="eventCreationService">Event Creation Service</param>
         /// <param name="examinationRetrievalService">Examination Retrieval Service</param>
         public CaseBreakdownController(
-            IMELogger logger,
+            IAsyncQueryHandler<CreateMELoggerQuery, LogMessageActionDefault> logger,
             IMapper mapper,
             IAsyncQueryHandler<UserRetrievalByOktaIdQuery, MeUser> usersRetrievalByOktaIdService,
             IAuthorizationService authorizationService,

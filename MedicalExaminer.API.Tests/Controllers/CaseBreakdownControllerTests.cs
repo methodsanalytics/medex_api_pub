@@ -3,9 +3,9 @@ using AutoMapper;
 using FluentAssertions;
 using MedicalExaminer.API.Controllers;
 using MedicalExaminer.API.Models.v1.CaseBreakdown;
-using MedicalExaminer.Common.Loggers;
 using MedicalExaminer.Common.Queries.CaseBreakdown;
 using MedicalExaminer.Common.Queries.Examination;
+using MedicalExaminer.Common.Queries.MELogger;
 using MedicalExaminer.Common.Queries.User;
 using MedicalExaminer.Common.Services;
 using MedicalExaminer.Models;
@@ -22,7 +22,7 @@ namespace MedicalExaminer.API.Tests.Controllers
         public async void GetOtherEvent_When_Called_With_Null_Returns_Bad_Request()
         {
             // Arrange
-            var logger = new Mock<IMELogger>();
+            var logger = new Mock<IAsyncQueryHandler<CreateMELoggerQuery, LogMessageActionDefault>>();
             var mapper = new Mock<IMapper>();
             var usersRetrievalByOktaIdService = new Mock<IAsyncQueryHandler<UserRetrievalByOktaIdQuery, MeUser>>();
 
@@ -51,7 +51,7 @@ namespace MedicalExaminer.API.Tests.Controllers
         public async void GetOtherEvent_When_Called_With_Invalid_Examination_Id_Returns_Bad_Request()
         {
             // Arrange
-            var logger = new Mock<IMELogger>();
+            var logger = new Mock<IAsyncQueryHandler<CreateMELoggerQuery, LogMessageActionDefault>>();
             var mapper = new Mock<IMapper>();
             var usersRetrievalByOktaIdService = new Mock<IAsyncQueryHandler<UserRetrievalByOktaIdQuery, MeUser>>();
             var otherEventCreationService = new Mock<IAsyncQueryHandler<CreateEventQuery, EventCreationResult>>();
@@ -80,7 +80,7 @@ namespace MedicalExaminer.API.Tests.Controllers
         public async void GetOtherEvent_When_Called_With_Valid_Examination_Id_But_Examination_Not_Found_Returns_Not_Found_Response()
         {
             // Arrange
-            var logger = new Mock<IMELogger>();
+            var logger = new Mock<IAsyncQueryHandler<CreateMELoggerQuery, LogMessageActionDefault>>();
             var mapper = new Mock<IMapper>();
 
             var examinationId = "7E5D50CE-05BF-4A1F-AA6E-25418A723A7F";
@@ -122,7 +122,7 @@ namespace MedicalExaminer.API.Tests.Controllers
         public async void GetOtherEvent_When_Called_With_Valid_Examination_Id_Examination_Found_Returns_All_Other_Events()
         {
             // Arrange
-            var logger = new Mock<IMELogger>();
+            var logger = new Mock<IAsyncQueryHandler<CreateMELoggerQuery, LogMessageActionDefault>>();
             var examinationObj = new Mock<Examination>().Object;
             var examinationId = "7E5D50CE-05BF-4A1F-AA6E-25418A723A7F";
             var getOtherResponse = new Mock<GetCaseBreakdownResponse>().Object;
@@ -205,7 +205,7 @@ namespace MedicalExaminer.API.Tests.Controllers
         public async void Put_Final_MedicalHistory_Event_Null_Request_Object_Returns_Invalid_Request()
         {
             // Arrange
-            var logger = new Mock<IMELogger>();
+            var logger = new Mock<IAsyncQueryHandler<CreateMELoggerQuery, LogMessageActionDefault>>();
             var mapper = new Mock<IMapper>();
             var usersRetrievalByOktaIdService = new Mock<IAsyncQueryHandler<UserRetrievalByOktaIdQuery, MeUser>>();
             var medicalHistoryEventCreationService = new Mock<IAsyncQueryHandler<CreateEventQuery, EventCreationResult>>();
@@ -237,7 +237,7 @@ namespace MedicalExaminer.API.Tests.Controllers
         public async void Put_Final_MedicalHistory_Event_Invalid_Request_Object_Returns_Invalid_Request()
         {
             // Arrange
-            var logger = new Mock<IMELogger>();
+            var logger = new Mock<IAsyncQueryHandler<CreateMELoggerQuery, LogMessageActionDefault>>();
             var mapper = new Mock<IMapper>();
             var usersRetrievalByOktaIdService = new Mock<IAsyncQueryHandler<UserRetrievalByOktaIdQuery, MeUser>>();
             var medicalHistoryEventCreationService = new Mock<IAsyncQueryHandler<CreateEventQuery, EventCreationResult>>();
@@ -283,7 +283,7 @@ namespace MedicalExaminer.API.Tests.Controllers
         public async void Put_Final_MedicalHistory_Event_Valid_Request_Object_Cannot_Find_Examination()
         {
             // Arrange
-            var logger = new Mock<IMELogger>();
+            var logger = new Mock<IAsyncQueryHandler<CreateMELoggerQuery, LogMessageActionDefault>>();
             var mapper = new Mock<IMapper>();
             var usersRetrievalByOktaIdService = new Mock<IAsyncQueryHandler<UserRetrievalByOktaIdQuery, MeUser>>();
             var medicalHistoryEventCreationService = new Mock<IAsyncQueryHandler<CreateEventQuery, EventCreationResult>>();
@@ -331,7 +331,7 @@ namespace MedicalExaminer.API.Tests.Controllers
         public async void Put_Final_MedicalHistory_Event_Valid_Request_Object_Finds_Examination_Then_Ok_Result()
         {
             // Arrange
-            var logger = new Mock<IMELogger>();
+            var logger = new Mock<IAsyncQueryHandler<CreateMELoggerQuery, LogMessageActionDefault>>();
             var mapper = new Mock<IMapper>();
             var examination = new Mock<Examination>();
             var eventCreationService = new Mock<IAsyncQueryHandler<CreateEventQuery, EventCreationResult>>();
@@ -436,7 +436,7 @@ namespace MedicalExaminer.API.Tests.Controllers
         public async void Put_Final_Other_Event_Null_Request_Object_Returns_Invalid_Request()
         {
             // Arrange
-            var logger = new Mock<IMELogger>();
+            var logger = new Mock<IAsyncQueryHandler<CreateMELoggerQuery, LogMessageActionDefault>>();
             var mapper = new Mock<IMapper>();
 
             var otherEventCreationService = new Mock<IAsyncQueryHandler<CreateEventQuery, EventCreationResult>>();
@@ -470,7 +470,7 @@ namespace MedicalExaminer.API.Tests.Controllers
         public async void Put_Final_Other_Event_Invalid_Request_Object_Returns_Invalid_Request()
         {
             // Arrange
-            var logger = new Mock<IMELogger>();
+            var logger = new Mock<IAsyncQueryHandler<CreateMELoggerQuery, LogMessageActionDefault>>();
             var mapper = new Mock<IMapper>();
 
             var otherEventCreationService = new Mock<IAsyncQueryHandler<CreateEventQuery, EventCreationResult>>();
@@ -517,7 +517,7 @@ namespace MedicalExaminer.API.Tests.Controllers
         public async void Put_Final_Other_Event_Valid_Request_Object_Cannot_Find_Examination()
         {
             // Arrange
-            var logger = new Mock<IMELogger>();
+            var logger = new Mock<IAsyncQueryHandler<CreateMELoggerQuery, LogMessageActionDefault>>();
             var mapper = new Mock<IMapper>();
             var usersRetrievalByOktaIdService = new Mock<IAsyncQueryHandler<UserRetrievalByOktaIdQuery, MeUser>>();
             var otherEventCreationService = new Mock<IAsyncQueryHandler<CreateEventQuery, EventCreationResult>>();
@@ -569,7 +569,7 @@ namespace MedicalExaminer.API.Tests.Controllers
         public async void Put_Final_Other_Event_Valid_Request_Object_Finds_Examination_Then_Ok_Result()
         {
             // Arrange
-            var logger = new Mock<IMELogger>();
+            var logger = new Mock<IAsyncQueryHandler<CreateMELoggerQuery, LogMessageActionDefault>>();
             var mapper = new Mock<IMapper>();
             var examination = new Mock<Examination>();
             var eventCreationService = new Mock<IAsyncQueryHandler<CreateEventQuery, EventCreationResult>>();
@@ -624,7 +624,7 @@ namespace MedicalExaminer.API.Tests.Controllers
         public async void Put_Final_Admission_Event_Null_Request_Object_Returns_Invalid_Request()
         {
             // Arrange
-            var logger = new Mock<IMELogger>();
+            var logger = new Mock<IAsyncQueryHandler<CreateMELoggerQuery, LogMessageActionDefault>>();
             var mapper = new Mock<IMapper>();
             var usersRetrievalByOktaIdService = new Mock<IAsyncQueryHandler<UserRetrievalByOktaIdQuery, MeUser>>();
             var admissionEventCreationService = new Mock<IAsyncQueryHandler<CreateEventQuery, EventCreationResult>>();
@@ -655,7 +655,7 @@ namespace MedicalExaminer.API.Tests.Controllers
         public async void Put_Final_Admission_Event_Invalid_Request_Object_Returns_Invalid_Request()
         {
             // Arrange
-            var logger = new Mock<IMELogger>();
+            var logger = new Mock<IAsyncQueryHandler<CreateMELoggerQuery, LogMessageActionDefault>>();
             var mapper = new Mock<IMapper>();
             var usersRetrievalByOktaIdService = new Mock<IAsyncQueryHandler<UserRetrievalByOktaIdQuery, MeUser>>();
             var admissionEventCreationService = new Mock<IAsyncQueryHandler<CreateEventQuery, EventCreationResult>>();
@@ -697,7 +697,7 @@ namespace MedicalExaminer.API.Tests.Controllers
         public async void Put_Final_Admission_Event_Valid_Request_Object_Cannot_Find_Examination()
         {
             // Arrange
-            var logger = new Mock<IMELogger>();
+            var logger = new Mock<IAsyncQueryHandler<CreateMELoggerQuery, LogMessageActionDefault>>();
             var mapper = new Mock<IMapper>();
             var usersRetrievalByOktaIdService = new Mock<IAsyncQueryHandler<UserRetrievalByOktaIdQuery, MeUser>>();
             var admissionEventCreationService = new Mock<IAsyncQueryHandler<CreateEventQuery, EventCreationResult>>();
@@ -745,7 +745,7 @@ namespace MedicalExaminer.API.Tests.Controllers
         public async void Put_Final_Admission_Event_Valid_Request_Object_Finds_Examination_Then_Ok_Result()
         {
             // Arrange
-            var logger = new Mock<IMELogger>();
+            var logger = new Mock<IAsyncQueryHandler<CreateMELoggerQuery, LogMessageActionDefault>>();
             var mapper = new Mock<IMapper>();
             var examination = new Mock<Examination>();
             var eventCreationService = new Mock<IAsyncQueryHandler<CreateEventQuery, EventCreationResult>>();
@@ -799,7 +799,7 @@ namespace MedicalExaminer.API.Tests.Controllers
         public async void Put_Final_PreScrutiny_Event_Null_Request_Object_Returns_Invalid_Request()
         {
             // Arrange
-            var logger = new Mock<IMELogger>();
+            var logger = new Mock<IAsyncQueryHandler<CreateMELoggerQuery, LogMessageActionDefault>>();
             var mapper = new Mock<IMapper>();
             var examinationRetrievalQueryService = new Mock<IAsyncQueryHandler<ExaminationRetrievalQuery, Examination>>();
             var eventCreationService = new Mock<IAsyncQueryHandler<CreateEventQuery, EventCreationResult>>();
@@ -830,7 +830,7 @@ namespace MedicalExaminer.API.Tests.Controllers
         public async void Put_Final_PreScrutiny_Event_Invalid_Request_Object_Returns_Invalid_Request()
         {
             // Arrange
-            var logger = new Mock<IMELogger>();
+            var logger = new Mock<IAsyncQueryHandler<CreateMELoggerQuery, LogMessageActionDefault>>();
             var mapper = new Mock<IMapper>();
             var eventCreationService = new Mock<IAsyncQueryHandler<CreateEventQuery, EventCreationResult>>();
             var examinationRetrievalQueryService = new Mock<IAsyncQueryHandler<ExaminationRetrievalQuery, Examination>>();
@@ -875,7 +875,7 @@ namespace MedicalExaminer.API.Tests.Controllers
         public async void Put_Final_PreScrutiny_Event_Valid_Request_Object_Cannot_Find_Examination()
         {
             // Arrange
-            var logger = new Mock<IMELogger>();
+            var logger = new Mock<IAsyncQueryHandler<CreateMELoggerQuery, LogMessageActionDefault>>();
             var mapper = new Mock<IMapper>();
             var eventCreationService = new Mock<IAsyncQueryHandler<CreateEventQuery, EventCreationResult>>();
             var examinationRetrievalQueryService =
@@ -925,7 +925,7 @@ namespace MedicalExaminer.API.Tests.Controllers
         public async void Put_Final_PreScrutiny_Event_Valid_Request_Object_Finds_Examination_Then_Ok_Result()
         {
             // Arrange
-            var logger = new Mock<IMELogger>();
+            var logger = new Mock<IAsyncQueryHandler<CreateMELoggerQuery, LogMessageActionDefault>>();
             var mapper = new Mock<IMapper>();
             var examination = new Mock<Examination>();
             var eventCreationService = new Mock<IAsyncQueryHandler<CreateEventQuery, EventCreationResult>>();
@@ -980,7 +980,7 @@ namespace MedicalExaminer.API.Tests.Controllers
         public async void Put_Final_BereavedDiscussion_Event_Null_Request_Object_Returns_Invalid_Request()
         {
             // Arrange
-            var logger = new Mock<IMELogger>();
+            var logger = new Mock<IAsyncQueryHandler<CreateMELoggerQuery, LogMessageActionDefault>>();
             var mapper = new Mock<IMapper>();
             var usersRetrievalByOktaIdService = new Mock<IAsyncQueryHandler<UserRetrievalByOktaIdQuery, MeUser>>();
             var eventCreationService = new Mock<IAsyncQueryHandler<CreateEventQuery, EventCreationResult>>();
@@ -1011,7 +1011,7 @@ namespace MedicalExaminer.API.Tests.Controllers
         public async void Put_Final_BereavedDiscussion_Event_Invalid_Request_Object_Returns_Invalid_Request()
         {
             // Arrange
-            var logger = new Mock<IMELogger>();
+            var logger = new Mock<IAsyncQueryHandler<CreateMELoggerQuery, LogMessageActionDefault>>();
             var mapper = new Mock<IMapper>();
             var usersRetrievalByOktaIdService = new Mock<IAsyncQueryHandler<UserRetrievalByOktaIdQuery, MeUser>>();
             var eventCreationService = new Mock<IAsyncQueryHandler<CreateEventQuery, EventCreationResult>>();
@@ -1053,7 +1053,7 @@ namespace MedicalExaminer.API.Tests.Controllers
         public async void Put_Final_BereavedDiscussion_Event_Valid_Request_Object_Cannot_Find_Examination()
         {
             // Arrange
-            var logger = new Mock<IMELogger>();
+            var logger = new Mock<IAsyncQueryHandler<CreateMELoggerQuery, LogMessageActionDefault>>();
             var mapper = new Mock<IMapper>();
             var usersRetrievalByOktaIdService = new Mock<IAsyncQueryHandler<UserRetrievalByOktaIdQuery, MeUser>>();
             var eventCreationService = new Mock<IAsyncQueryHandler<CreateEventQuery, EventCreationResult>>();
@@ -1101,7 +1101,7 @@ namespace MedicalExaminer.API.Tests.Controllers
         public async void Put_Final_BereavedDiscussion_Event_Valid_Request_Object_Finds_Examination_Then_Ok_Result()
         {
             // Arrange
-            var logger = new Mock<IMELogger>();
+            var logger = new Mock<IAsyncQueryHandler<CreateMELoggerQuery, LogMessageActionDefault>>();
             var mapper = new Mock<IMapper>();
             var examination = new Mock<Examination>();
             var eventCreationService = new Mock<IAsyncQueryHandler<CreateEventQuery, EventCreationResult>>();
@@ -1155,7 +1155,7 @@ namespace MedicalExaminer.API.Tests.Controllers
         public async void Put_Final_QapDiscussion_Event_Null_Request_Object_Returns_Invalid_Request()
         {
             // Arrange
-            var logger = new Mock<IMELogger>();
+            var logger = new Mock<IAsyncQueryHandler<CreateMELoggerQuery, LogMessageActionDefault>>();
             var mapper = new Mock<IMapper>();
             var usersRetrievalByOktaIdService = new Mock<IAsyncQueryHandler<UserRetrievalByOktaIdQuery, MeUser>>();
             var qapDiscussionEventCreationService = new Mock<IAsyncQueryHandler<CreateEventQuery, EventCreationResult>>();
@@ -1186,7 +1186,7 @@ namespace MedicalExaminer.API.Tests.Controllers
         public async void Put_Final_QapDiscussion_Event_Invalid_Request_Object_Returns_Invalid_Request()
         {
             // Arrange
-            var logger = new Mock<IMELogger>();
+            var logger = new Mock<IAsyncQueryHandler<CreateMELoggerQuery, LogMessageActionDefault>>();
             var mapper = new Mock<IMapper>();
             var usersRetrievalByOktaIdService = new Mock<IAsyncQueryHandler<UserRetrievalByOktaIdQuery, MeUser>>();
             var qapDiscussionEventCreationService =
@@ -1229,7 +1229,7 @@ namespace MedicalExaminer.API.Tests.Controllers
         public async void Put_Final_QapDiscussion_Event_Valid_Request_Object_Cannot_Find_Examination()
         {
             // Arrange
-            var logger = new Mock<IMELogger>();
+            var logger = new Mock<IAsyncQueryHandler<CreateMELoggerQuery, LogMessageActionDefault>>();
             var mapper = new Mock<IMapper>();
             var usersRetrievalByOktaIdService = new Mock<IAsyncQueryHandler<UserRetrievalByOktaIdQuery, MeUser>>();
             var qapDiscussionEventCreationService =
@@ -1281,7 +1281,7 @@ namespace MedicalExaminer.API.Tests.Controllers
         public async void Put_Final_QapDiscussion_Event_Valid_Request_Object_Finds_Examination_Then_Ok_Result()
         {
             // Arrange
-            var logger = new Mock<IMELogger>();
+            var logger = new Mock<IAsyncQueryHandler<CreateMELoggerQuery, LogMessageActionDefault>>();
             var mapper = new Mock<IMapper>();
             var examination = new Mock<Examination>();
             var qapDiscussionEventCreationService =
@@ -1338,7 +1338,7 @@ namespace MedicalExaminer.API.Tests.Controllers
         public async void Put_Final_MeoSummary_Event_Null_Request_Object_Returns_Invalid_Request()
         {
             // Arrange
-            var logger = new Mock<IMELogger>();
+            var logger = new Mock<IAsyncQueryHandler<CreateMELoggerQuery, LogMessageActionDefault>>();
             var mapper = new Mock<IMapper>();
             var usersRetrievalByOktaIdService = new Mock<IAsyncQueryHandler<UserRetrievalByOktaIdQuery, MeUser>>();
             var meoSummaryEventCreationService = new Mock<IAsyncQueryHandler<CreateEventQuery, EventCreationResult>>();
@@ -1369,7 +1369,7 @@ namespace MedicalExaminer.API.Tests.Controllers
         public async void Put_Final_MeoSummary_Event_Invalid_Request_Object_Returns_Invalid_Request()
         {
             // Arrange
-            var logger = new Mock<IMELogger>();
+            var logger = new Mock<IAsyncQueryHandler<CreateMELoggerQuery, LogMessageActionDefault>>();
             var mapper = new Mock<IMapper>();
             var usersRetrievalByOktaIdService = new Mock<IAsyncQueryHandler<UserRetrievalByOktaIdQuery, MeUser>>();
             var meoSummaryEventCreationService = new Mock<IAsyncQueryHandler<CreateEventQuery, EventCreationResult>>();
@@ -1410,7 +1410,7 @@ namespace MedicalExaminer.API.Tests.Controllers
         public async void Put_Final_MeoSummary_Event_Valid_Request_Object_Cannot_Find_Examination()
         {
             // Arrange
-            var logger = new Mock<IMELogger>();
+            var logger = new Mock<IAsyncQueryHandler<CreateMELoggerQuery, LogMessageActionDefault>>();
             var mapper = new Mock<IMapper>();
             var usersRetrievalByOktaIdService = new Mock<IAsyncQueryHandler<UserRetrievalByOktaIdQuery, MeUser>>();
             var meoSummaryEventCreationService = new Mock<IAsyncQueryHandler<CreateEventQuery, EventCreationResult>>();
@@ -1460,7 +1460,7 @@ namespace MedicalExaminer.API.Tests.Controllers
         public async void Put_Final_MeoSummary_Event_Valid_Request_Object_Finds_Examination_Then_Ok_Result()
         {
             // Arrange
-            var logger = new Mock<IMELogger>();
+            var logger = new Mock<IAsyncQueryHandler<CreateMELoggerQuery, LogMessageActionDefault>>();
             var mapper = new Mock<IMapper>();
             var examination = new Mock<Examination>();
             var usersRetrievalByOktaIdService = new Mock<IAsyncQueryHandler<UserRetrievalByOktaIdQuery, MeUser>>();
