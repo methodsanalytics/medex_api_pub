@@ -203,6 +203,249 @@ namespace MedicalExaminer.API.Tests.ExtensionMethods
             Assert.NotNull(examination.CaseBreakdown.MedicalHistory.Latest);
             Assert.Equal(newEvent, examination.CaseBreakdown.MedicalHistory.Latest);
         }
+        [Fact]
+        public void QapOriginalCodEntered_When_Qap_Cod_Fields_Are_Null_Returns_False()
+        {
+            // Arrange
+            var examination = new Examination
+            {
+                ExaminationId = "ExaminationId",
+                MedicalTeam = new MedicalTeam
+                {
+                    Qap = new ClinicalProfessional
+                    {
+                        Name = "Name",
+                        Role = "Role",
+                        Organisation = "Organisation",
+                        Phone = "011411111111",
+                        Notes = "Note",
+                        GMCNumber = "1111111",
+                        CauseOfDeath1a = null,
+                        CauseOfDeath1b = null,
+                        CauseOfDeath1c = null,
+                        CauseOfDeath2 = null
+                    }
+                },
+                CaseBreakdown = new CaseBreakDown
+                {
+                    QapDiscussion = new QapDiscussionEventContainer
+                    {
+                        Latest = new QapDiscussionEvent
+                        {
+                            UserFullName = "UserFullName",
+                            GmcNumber = "GmcNumber",
+                            UsersRole = "UsersRole",
+                            Created = DateTime.Now,
+                            EventId = "EventId",
+                            UserId = "UserId",
+                            IsFinal = true,
+                            ParticipantRole = "ParticipantRole",
+                            ParticipantOrganisation = "ParticipantOrganisation",
+                            ParticipantPhoneNumber = "ParticipantPhoneNumber",
+                            DateOfConversation = DateTime.Now,
+                            TimeOfConversation = new TimeSpan(10, 00, 00),
+                            DiscussionUnableHappen = false,
+                            DiscussionDetails = null,
+                            QapDiscussionOutcome = QapDiscussionOutcome.MccdCauseOfDeathProvidedByME,
+                            ParticipantName = "ParticipantName",
+                            CauseOfDeath1a = null,
+                            CauseOfDeath1b = null,
+                            CauseOfDeath1c = null,
+                            CauseOfDeath2 = null
+                        }
+                    }
+                }
+            };
+
+            // Act
+            var result = examination.QapOriginalCodEntered();
+
+            // Assert
+            result.Should().BeFalse();
+        }
+
+        [Fact]
+        public void QapOriginalCodEntered_When_Qap_Cod_Fields_Are_Empty_Returns_False()
+        {
+            // Arrange
+            var examination = new Examination
+            {
+                ExaminationId = "ExaminationId",
+                MedicalTeam = new MedicalTeam
+                {
+                    Qap = new ClinicalProfessional
+                    {
+                        Name = "Name",
+                        Role = "Role",
+                        Organisation = "Organisation",
+                        Phone = "011411111111",
+                        Notes = "Note",
+                        GMCNumber = "1111111",
+                        CauseOfDeath1a = string.Empty,
+                        CauseOfDeath1b = string.Empty,
+                        CauseOfDeath1c = string.Empty,
+                        CauseOfDeath2 = string.Empty
+                    }
+                },
+                CaseBreakdown = new CaseBreakDown
+                {
+                    QapDiscussion = new QapDiscussionEventContainer
+                    {
+                        Latest = new QapDiscussionEvent
+                        {
+                            UserFullName = "UserFullName",
+                            GmcNumber = "GmcNumber",
+                            UsersRole = "UsersRole",
+                            Created = DateTime.Now,
+                            EventId = "EventId",
+                            UserId = "UserId",
+                            IsFinal = true,
+                            ParticipantRole = "ParticipantRole",
+                            ParticipantOrganisation = "ParticipantOrganisation",
+                            ParticipantPhoneNumber = "ParticipantPhoneNumber",
+                            DateOfConversation = DateTime.Now,
+                            TimeOfConversation = new TimeSpan(10, 00, 00),
+                            DiscussionUnableHappen = false,
+                            DiscussionDetails = null,
+                            QapDiscussionOutcome = QapDiscussionOutcome.MccdCauseOfDeathProvidedByME,
+                            ParticipantName = "ParticipantName",
+                            CauseOfDeath1a = string.Empty,
+                            CauseOfDeath1b = string.Empty,
+                            CauseOfDeath1c = string.Empty,
+                            CauseOfDeath2 = string.Empty
+                        }
+                    }
+                }
+            };
+
+            // Act
+            var result = examination.QapOriginalCodEntered();
+
+            // Assert
+            result.Should().BeFalse();
+        }
+
+        [Fact]
+        public void QapOriginalCodEntered_When_Qap_Discussion_Qap_Cod_Fields_Are_Not_Null_Returns_True()
+        {
+            // Arrange
+            var examination = new Examination
+            {
+                ExaminationId = "ExaminationId",
+                MedicalTeam = new MedicalTeam
+                {
+                    Qap = new ClinicalProfessional
+                    {
+                        Name = "Name",
+                        Role = "Role",
+                        Organisation = "Organisation",
+                        Phone = "011411111111",
+                        Notes = "Note",
+                        GMCNumber = "1111111",
+                        CauseOfDeath1a = string.Empty,
+                        CauseOfDeath1b = string.Empty,
+                        CauseOfDeath1c = string.Empty,
+                        CauseOfDeath2 = string.Empty
+                    }
+                },
+                CaseBreakdown = new CaseBreakDown
+                {
+                    QapDiscussion = new QapDiscussionEventContainer
+                    {
+                        Latest = new QapDiscussionEvent
+                        {
+                            UserFullName = "UserFullName",
+                            GmcNumber = "GmcNumber",
+                            UsersRole = "UsersRole",
+                            Created = DateTime.Now,
+                            EventId = "EventId",
+                            UserId = "UserId",
+                            IsFinal = true,
+                            ParticipantRole = "ParticipantRole",
+                            ParticipantOrganisation = "ParticipantOrganisation",
+                            ParticipantPhoneNumber = "ParticipantPhoneNumber",
+                            DateOfConversation = DateTime.Now,
+                            TimeOfConversation = new TimeSpan(10, 00, 00),
+                            DiscussionUnableHappen = false,
+                            DiscussionDetails = null,
+                            QapDiscussionOutcome = QapDiscussionOutcome.MccdCauseOfDeathProvidedByME,
+                            ParticipantName = "ParticipantName",
+                            CauseOfDeath1a = "CauseOfDeath1a",
+                            CauseOfDeath1b = "CauseOfDeath1b",
+                            CauseOfDeath1c = "CauseOfDeath1c",
+                            CauseOfDeath2 = "CauseOfDeath2"
+                        }
+                    }
+                }
+            };
+
+            // Act
+            var result = examination.QapOriginalCodEntered();
+
+            // Assert
+            result.Should().BeTrue();
+        }
+
+        [Fact]
+        public void QapOriginalCodEntered_When_Med_Team_Qap_Cod_Fields_Are_Not_Null_Returns_True()
+        {
+            // Arrange
+            var examination = new Examination
+            {
+                ExaminationId = "ExaminationId",
+                MedicalTeam = new MedicalTeam
+                {
+                    Qap = new ClinicalProfessional
+                    {
+                        Name = "Name",
+                        Role = "Role",
+                        Organisation = "Organisation",
+                        Phone = "011411111111",
+                        Notes = "Note",
+                        GMCNumber = "1111111",
+                        CauseOfDeath1a = "CauseOfDeath1a",
+                        CauseOfDeath1b = "CauseOfDeath1b",
+                        CauseOfDeath1c = "CauseOfDeath1c",
+                        CauseOfDeath2 = "CauseOfDeath2"
+                    }
+                },
+                CaseBreakdown = new CaseBreakDown
+                {
+                    QapDiscussion = new QapDiscussionEventContainer
+                    {
+                        Latest = new QapDiscussionEvent
+                        {
+                            UserFullName = "UserFullName",
+                            GmcNumber = "GmcNumber",
+                            UsersRole = "UsersRole",
+                            Created = DateTime.Now,
+                            EventId = "EventId",
+                            UserId = "UserId",
+                            IsFinal = true,
+                            ParticipantRole = "ParticipantRole",
+                            ParticipantOrganisation = "ParticipantOrganisation",
+                            ParticipantPhoneNumber = "ParticipantPhoneNumber",
+                            DateOfConversation = DateTime.Now,
+                            TimeOfConversation = new TimeSpan(10, 00, 00),
+                            DiscussionUnableHappen = false,
+                            DiscussionDetails = null,
+                            QapDiscussionOutcome = QapDiscussionOutcome.MccdCauseOfDeathProvidedByME,
+                            ParticipantName = "ParticipantName",
+                            CauseOfDeath1a = string.Empty,
+                            CauseOfDeath1b = string.Empty,
+                            CauseOfDeath1c = string.Empty,
+                            CauseOfDeath2 = string.Empty
+                        }
+                    }
+                }
+            };
+
+            // Act
+            var result = examination.QapOriginalCodEntered();
+
+            // Assert
+            result.Should().BeTrue();
+        }
 
         [Fact]
         public void CreateDraftEventForUserReturnsDraft()

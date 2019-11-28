@@ -205,15 +205,15 @@ namespace MedicalExaminer.Models
 
         public static bool QapOriginalCodEntered(this Examination examination)
         {
-            var qapCodEnteredMedTeam = examination.MedicalTeam?.Qap?.CauseOfDeath1a != null
-                                       || examination.MedicalTeam?.Qap?.CauseOfDeath1b != null
-                                       || examination.MedicalTeam?.Qap?.CauseOfDeath1c != null
-                                       || examination.MedicalTeam?.Qap?.CauseOfDeath2 != null;
+            var qapCodEnteredMedTeam = !string.IsNullOrEmpty(examination.MedicalTeam?.Qap?.CauseOfDeath1a)
+                                       || !string.IsNullOrEmpty(examination.MedicalTeam?.Qap?.CauseOfDeath1b)
+                                       || !string.IsNullOrEmpty(examination.MedicalTeam?.Qap?.CauseOfDeath1c)
+                                       || !string.IsNullOrEmpty(examination.MedicalTeam?.Qap?.CauseOfDeath2);
 
-            var qapCodEnteredQapDiscussion = examination.CaseBreakdown.QapDiscussion.Latest?.CauseOfDeath1a != null
-                                             || examination.CaseBreakdown.QapDiscussion.Latest?.CauseOfDeath1b != null
-                                             || examination.CaseBreakdown.QapDiscussion.Latest?.CauseOfDeath1c != null
-                                             || examination.CaseBreakdown.QapDiscussion.Latest?.CauseOfDeath2 != null;
+            var qapCodEnteredQapDiscussion = !string.IsNullOrEmpty(examination.CaseBreakdown.QapDiscussion.Latest?.CauseOfDeath1a)
+                                            || !string.IsNullOrEmpty(examination.CaseBreakdown.QapDiscussion.Latest?.CauseOfDeath1b)
+                                            || !string.IsNullOrEmpty(examination.CaseBreakdown.QapDiscussion.Latest?.CauseOfDeath1c)
+                                            || !string.IsNullOrEmpty(examination.CaseBreakdown.QapDiscussion.Latest?.CauseOfDeath2);
 
             return qapCodEnteredMedTeam || qapCodEnteredQapDiscussion;
         }
