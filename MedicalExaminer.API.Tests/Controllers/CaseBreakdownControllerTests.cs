@@ -166,7 +166,7 @@ namespace MedicalExaminer.API.Tests.Controllers
         {
             // Arrange
             SetupAuthorize(AuthorizationResult.Failed());
-            var logger = new Mock<IMELogger>();
+            var logger = new Mock<IAsyncQueryHandler<CreateMELoggerQuery, LogMessageActionDefault>>();
             var examinationObj = new Mock<Examination>().Object;
             var examinationId = "7E5D50CE-05BF-4A1F-AA6E-25418A723A7F";
             var getOtherResponse = new Mock<GetCaseBreakdownResponse>().Object;
@@ -386,7 +386,7 @@ namespace MedicalExaminer.API.Tests.Controllers
         {
             // Arrange
             SetupAuthorize(AuthorizationResult.Failed());
-            var logger = new Mock<IMELogger>();
+            var logger = new Mock<IAsyncQueryHandler<CreateMELoggerQuery, LogMessageActionDefault>>();
             var mapper = new Mock<IMapper>();
             var examination = new Mock<Examination>();
             var eventCreationService = new Mock<IAsyncQueryHandler<CreateEventQuery, EventCreationResult>>();

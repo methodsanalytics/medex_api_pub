@@ -62,7 +62,7 @@ namespace MedicalExaminer.API.Tests.Controllers
         public async void PutConfirmationOfScrutiny_When_Called_With_Null_Id_Returns_BadRequest()
         {
             // Arrange
-            var logger = new Mock<IMELogger>();
+            var logger = new Mock<IAsyncQueryHandler<CreateMELoggerQuery, LogMessageActionDefault>>();
             var mapper = new Mock<IMapper>();
             var usersRetrievalByOktaIdService = new Mock<IAsyncQueryHandler<UserRetrievalByOktaIdQuery, MeUser>>();
             var confirmationOfScrutinyService = new Mock<IAsyncQueryHandler<ConfirmationOfScrutinyQuery, Examination>>();
@@ -101,7 +101,7 @@ namespace MedicalExaminer.API.Tests.Controllers
         {
             // Arrange
             SetupAuthorize(AuthorizationResult.Failed());
-            var logger = new Mock<IMELogger>();
+            var logger = new Mock<IAsyncQueryHandler<CreateMELoggerQuery, LogMessageActionDefault>>();
             var mapper = new Mock<IMapper>();
             var usersRetrievalByOktaIdService = new Mock<IAsyncQueryHandler<UserRetrievalByOktaIdQuery, MeUser>>();
             var confirmationOfScrutinyService = new Mock<IAsyncQueryHandler<ConfirmationOfScrutinyQuery, Examination>>();
@@ -145,7 +145,7 @@ namespace MedicalExaminer.API.Tests.Controllers
                     MedicalExaminerUserId = "MedicalExaminerUserId"
                 }
             };
-            var logger = new Mock<IMELogger>();
+            var logger = new Mock<IAsyncQueryHandler<CreateMELoggerQuery, LogMessageActionDefault>>();
             var mapper = new Mock<IMapper>();
             var mockMeUser = new Mock<MeUser>();
             mockMeUser.Object.UserId = "UserId";
@@ -195,7 +195,7 @@ namespace MedicalExaminer.API.Tests.Controllers
                     MedicalExaminerUserId = "MedicalExaminerUserId"
                 }
             };
-            var logger = new Mock<IMELogger>();
+            var logger = new Mock<IAsyncQueryHandler<CreateMELoggerQuery, LogMessageActionDefault>>();
             var mapper = new Mock<IMapper>();
             var mockMeUser = new Mock<MeUser>();
             mockMeUser.Object.UserId = "MedicalExaminerUserId";
@@ -249,7 +249,7 @@ namespace MedicalExaminer.API.Tests.Controllers
                     MedicalExaminerUserId = "MedicalExaminerUserId"
                 }
             };
-            var logger = new Mock<IMELogger>();
+            var logger = new Mock<IAsyncQueryHandler<CreateMELoggerQuery, LogMessageActionDefault>>();
             var mapper = new Mock<IMapper>();
             var mockMeUser = new Mock<MeUser>();
             mockMeUser.Object.UserId = "MedicalExaminerUserId";
@@ -284,7 +284,6 @@ namespace MedicalExaminer.API.Tests.Controllers
             // Assert
             var taskResult = response.Should().BeOfType<ActionResult<PutConfirmationOfScrutinyResponse>>().Subject;
             var okResult = taskResult.Result.Should().BeAssignableTo<OkObjectResult>().Subject;
-            okResult.Value.Should().BeAssignableTo<PutConfirmationOfScrutinyResponse>();
         }
 
         [Fact]
